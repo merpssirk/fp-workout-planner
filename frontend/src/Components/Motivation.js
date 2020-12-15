@@ -1,9 +1,14 @@
 import React from "react";
+import styles from "../modules/motivation.module.css";
 
 export default function Motivation() {
   return (
     <>
-      <h1>test</h1>
+      <div>
+        <h2>Motivation</h2>
+        <img />
+      </div>
+      <img className={styles.mainImage} />
     </>
   );
 }
