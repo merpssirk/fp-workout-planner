@@ -11,8 +11,8 @@ function App() {
     <div>
       <Home />
       <Motivation />
-      <Testimonials />
       <Services />
+      <Testimonials />
       <Footer />
     </div>
   );

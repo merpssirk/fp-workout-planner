@@ -1,31 +1,55 @@
 import React from "react";
 import styles from "../modules/footer.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFacebook, faInstagram, faTwitter } from "@fortawesome/free-brands-svg-icons";
+import {
+  faFacebook,
+  faInstagram,
+  faTwitter,
+} from "@fortawesome/free-brands-svg-icons";
 
 export default function Footer() {
   return (
     <>
       <div className={styles.footerContainer}>
-        <div>
+        <div className={styles.information}>
           <ul>
-            <li>Contact</li>
-            <li>Impressum</li>
-            <li>Privacy</li>
-            <li>Credits</li>
+            <li>
+              <a href="https://contact.com">Contact</a>
+            </li>
+            <li>
+              <a href="https://impressum.com">Impressum</a>
+            </li>
+            <li>
+              <a href="https://privacy.com">Privacy</a>
+            </li>
+            <li>
+              <a href="https://credits.com">Credits</a>
+            </li>
           </ul>
         </div>
         <div className={styles.socialMedia}>
-          <p>Stay Connected Anytime, Anywhere</p>
-          <a href="https://www.facebook.com/" className={styles.facebook}>
-            <FontAwesomeIcon icon={faFacebook} size="2x" />
-          </a>
-          <a href="https://www.instagram.com/" className={styles.instagram}>
-            <FontAwesomeIcon icon={faInstagram} size="2x" />
-          </a>
-          <a href="https://www.twitter.com/" className={styles.twitter}>
-            <FontAwesomeIcon icon={faTwitter} size="2x" />
-          </a>
+          <p>
+            Stay
+            <br />
+            Connected
+            <br />
+            Anytime, Anywhere
+          </p>
+          <div className={styles.socialMediaBg}>
+            <a href="https://www.facebook.com/" className={styles.facebook}>
+              <FontAwesomeIcon icon={faFacebook} size="2x" />
+            </a>
+          </div>
+          <div className={styles.socialMediaBg}>
+            <a href="https://www.instagram.com/" className={styles.instagram}>
+              <FontAwesomeIcon icon={faInstagram} size="2x" />
+            </a>
+          </div>
+          <div className={styles.socialMediaBg}>
+            <a href="https://www.twitter.com/" className={styles.twitter}>
+              <FontAwesomeIcon icon={faTwitter} size="2x" />
+            </a>
+          </div>
         </div>
       </div>
     </>
