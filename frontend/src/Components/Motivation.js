@@ -4,10 +4,9 @@ import img from "../pics/motivation/arnie.png";
 
 export default function Motivation() {
   return (
-    <>
-      <div>
+    <div className={styles.motivation}>
+      <div className={styles.sectionName}>
         <h2>Motivation</h2>
-        <img alt=""/>
       </div>
 
       <img
@@ -17,6 +16,6 @@ export default function Motivation() {
       />
       <h1>THE HARDER THE WORK THE GREATER THE REWARD</h1>
       <span className={styles.quoteDot}></span>
-    </>
+    </div>
   );
 }
