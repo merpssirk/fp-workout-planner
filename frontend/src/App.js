@@ -1,5 +1,6 @@
 import Home from "./Components/Home";
 import Motivation from "./Components/Motivation";
+import Testimonials from "./Components/Testimonials";
 import { Router } from "react-router-dom";
 import "./App.css";
 import Services from "./Components/Services";
@@ -10,8 +11,9 @@ function App() {
     <div>
       <Home />
       <Motivation />
+      <Testimonials />
       <Services />
-      <Footer />
+      <Footer /
     </div>
   );
 }

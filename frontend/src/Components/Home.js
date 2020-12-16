@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "../modules/home.module.css";
+import imgLogo from "../pics/home/Logo.png";
 
 export default function Home() {
   return (
@@ -7,7 +8,7 @@ export default function Home() {
       <div className={styles.mainBackground}>
         <nav className={styles.navBar}>
           <ul>
-            <div className={styles.logo}>Logo</div>
+            <img src={imgLogo} />
             <li>Motivation</li>
             <li>Services</li>
             <li>Company</li>
