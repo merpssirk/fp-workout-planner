@@ -5,21 +5,24 @@ import imgLogo from "../pics/home/Logo.png";
 export default function Home() {
   return (
     <>
-      <div className={styles.mainBackground}>
+      <div className={styles.background}>
         <nav className={styles.navBar}>
           <ul>
             <img src={imgLogo} />
             <li>Motivation</li>
             <li>Services</li>
-            <li>Company</li>
+            <li>Testimonials</li>
           </ul>
         </nav>
-        <h1></h1>
-        <h3></h3>
+        <h1>My Fitness Mate</h1>
+        <h3>At Your Service!</h3>
         <div className={styles.registerTile}>
-          <p className={styles.registerText}></p>
+          <p className={styles.registerText}>
+            Want a change? Wheather it is training at home or in a studio, we
+            are here to help you reach your goals. <br />
+            <br /> Stop procrastinating, start now!
+          </p>
           <button>Register</button>
-          <span>It's free!</span>
         </div>
         <button className={styles.loginButton}>Login</button>
       </div>
