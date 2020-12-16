@@ -13,7 +13,7 @@ function App() {
       <Motivation />
       <Testimonials />
       <Services />
-      <Footer /
+      <Footer />
     </div>
   );
 }
