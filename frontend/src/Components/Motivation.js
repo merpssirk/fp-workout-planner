@@ -7,8 +7,9 @@ export default function Motivation() {
     <>
       <div>
         <h2>Motivation</h2>
-        <img />
+        <img alt=""/>
       </div>
+
       <img
         src={img}
         alt="Arnold Schwarzenegger posing"

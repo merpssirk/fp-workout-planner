@@ -1,0 +1,17 @@
+.servicesContainer {
+    background: #E5E5E5;
+    height: 50vh;
+    width: 100%;
+}
+
+.servicesContainer .offerContainer {
+    display: flex;
+    justify-content: space-around;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.servicesContainer .offerContainer .offerText {
+    
+    
+}
