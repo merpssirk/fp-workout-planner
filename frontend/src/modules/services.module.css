@@ -9,43 +9,47 @@ body {
 }
 
 .servicesContainer {
-    background: #E5E5E5;
-    height: auto;
-    width: 100%;
+  /* background: #e5e5e5; */
+  height: auto;
+  width: 100%;
 }
- 
+
 .servicesContainer .sectionName {
-position: absolute;
-left: 0;
-height: 60px;
-width: 270px;
-margin-top: 20px;
-color: #413737;
-font-size: 1.5rem;
-font-weight: bold;
-border-bottom: 5px solid #f91010;
-} 
+  position: absolute;
+  left: 0;
+  height: 60px;
+  width: 300px;
+  margin-top: 20px;
+  color: #413737;
+  text-align: right;
+  font-size: 1.5rem;
+  font-weight: bold;
+  border-bottom: 5px solid #f91010;
+}
 
 .servicesContainer .offerContainer {
-    display: flex;
-    justify-content: space-around;
-    width: 80%;
-    margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin: 0 auto;
 }
 
 .servicesContainer .offerContainer .offerText {
-    position: relative;
-    margin: 150px 0 100px 0;
-
+  position: relative;
+  margin: 150px 0 100px 0;
 }
 .servicesContainer .offerContainer .offerText h3 {
-    font-size: 25px;
-    text-align: center;
-    margin: 0 0 20px 90px;
-    color: rgba(65, 55, 55, 1);
+  font-size: 17px;
+  text-align: center;
+  margin: 0 0 20px 55px;
+  color: rgba(65, 55, 55, 1);
 }
 .servicesContainer .offerContainer .offerText .redLines {
-    position: absolute;
-    left: 275px;
-    
-} 
+  position: absolute;
+  height: 180px;
+  left: 180px;
+}
+
+.servicesContainer .servicePics {
+  height: 180px;
+}

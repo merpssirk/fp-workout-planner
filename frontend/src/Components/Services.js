@@ -5,7 +5,7 @@ import styles from "../modules/services.module.css";
 import service1 from "../pics/services/service1.png";
 import service2 from "../pics/services/service2.png";
 import service3 from "../pics/services/service3.png";
-import redlines from '../pics/services/redlines.png';
+import redlines from "../pics/services/redlines.png";
 
 export default function Services() {
   return (
@@ -21,7 +21,7 @@ export default function Services() {
               <br />
               Workouts
             </h3>
-            <img src={service1} alt="" />
+            <img src={service1} alt="" className={styles.servicePics} />
             <img src={redlines} className={styles.redLines} alt="" />
           </div>
           <div className={styles.offerText}>
@@ -30,7 +30,7 @@ export default function Services() {
               <br />
               Workouts
             </h3>
-            <img src={service2} alt="" />
+            <img src={service2} alt="" className={styles.servicePics} />
             <img src={redlines} className={styles.redLines} alt="" />
           </div>
           <div className={styles.offerText}>
@@ -39,8 +39,8 @@ export default function Services() {
               <br />
               the Results
             </h3>
-            <img src={service3} alt="" />
-            <img src={redlines} className={styles.redLines} alt=""/>
+            <img src={service3} alt="" className={styles.servicePics} />
+            <img src={redlines} className={styles.redLines} alt="" />
           </div>
         </div>
       </div>

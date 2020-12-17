@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "../modules/footer.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import imgTriangle from "../pics/footer/triangle.png";
 import {
   faFacebook,
   faInstagram,
@@ -20,7 +21,7 @@ export default function Footer() {
               <a href="https://impressum.com">Impressum</a>
             </li>
             <li>
-              <a href="https://privacy.com">Privacy</a>
+              <a href="https://privacy.com">Privacy Policy</a>
             </li>
             <li>
               <a href="https://credits.com">Credits</a>
@@ -35,22 +36,25 @@ export default function Footer() {
             <br />
             Anytime, Anywhere
           </p>
-          <div className={styles.socialMediaBg}>
-            <a href="https://www.facebook.com/" className={styles.facebook}>
-              <FontAwesomeIcon icon={faFacebook} size="2x" />
-            </a>
-          </div>
-          <div className={styles.socialMediaBg}>
-            <a href="https://www.instagram.com/" className={styles.instagram}>
-              <FontAwesomeIcon icon={faInstagram} size="2x" />
-            </a>
-          </div>
-          <div className={styles.socialMediaBg}>
-            <a href="https://www.twitter.com/" className={styles.twitter}>
-              <FontAwesomeIcon icon={faTwitter} size="2x" />
-            </a>
+          <div className={styles.socialMediaContainer}>
+            <div className={styles.socialMediaBg}>
+              <a href="https://www.facebook.com/" className={styles.facebook}>
+                <FontAwesomeIcon icon={faFacebook} size="2x" />
+              </a>
+            </div>
+            <div className={styles.socialMediaBg}>
+              <a href="https://www.instagram.com/" className={styles.instagram}>
+                <FontAwesomeIcon icon={faInstagram} size="2x" />
+              </a>
+            </div>
+            <div className={styles.socialMediaBg}>
+              <a href="https://www.twitter.com/" className={styles.twitter}>
+                <FontAwesomeIcon icon={faTwitter} size="2x" />
+              </a>
+            </div>
           </div>
         </div>
+        <img className={styles.triangle} src={imgTriangle} alt="" />
       </div>
     </>
   );
