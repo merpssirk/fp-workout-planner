@@ -15,8 +15,7 @@ export default function Motivation() {
         className={styles.mainImage}
       />
       <h1>
-        THE HARDER THE WORK THE GREATER THE REWARD
-        <span className={styles.quoteDot}></span>
+        THE HARDER THE WORK <br /> THE GREATER THE <br /> REWARD
       </h1>
     </div>
   );

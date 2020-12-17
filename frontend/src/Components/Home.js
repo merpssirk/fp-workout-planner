@@ -24,7 +24,9 @@ export default function Home() {
           </p>
           <button>Register</button>
         </div>
-        <button className={styles.loginButton}>Login</button>
+        <div className={styles.loginContainer}>
+          <button className={styles.loginButton}>Login</button>
+        </div>
       </div>
     </>
   );

@@ -15,20 +15,14 @@ export default function Testimonials() {
         <div className={styles.tile1}>
           <img src={tile1} className={styles.picOne} />
           <img src={img2} className={styles.picTwo} />
-          <p></p>
-          <span></span>
         </div>
         <div className={styles.tile2}>
           <img src={tile2} className={styles.picOne} />
           <img src={img2} className={styles.picTwo} />
-          <p></p>
-          <span></span>
         </div>
         <div className={styles.tile3}>
           <img src={tile3} className={styles.picOne} />
           <img src={img2} className={styles.picTwo} />
-          <p></p>
-          <span></span>
         </div>
       </div>
     </div>

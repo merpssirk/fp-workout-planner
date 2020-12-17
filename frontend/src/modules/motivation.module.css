@@ -7,11 +7,11 @@
 .sectionName {
   position: absolute;
   right: 0;
-  height: 60px;
-  width: 210px;
+  height: 75px;
+  width: 350px;
   margin-top: 20px;
   color: #413737;
-  font-size: 1.5rem;
+  font-size: 2.3rem;
   font-weight: bold;
   border-bottom: 5px solid #f91010;
 }
@@ -19,26 +19,22 @@
 .motivation .mainImage {
   position: absolute;
   bottom: 0;
-  height: 80%;
+  height: 70%;
 }
 
 .motivation h1 {
   position: absolute;
-  top: 45%;
-  right: 80px;
-  height: 150px;
-  width: 380px;
+  top: 40%;
+  right: 20%;
+  height: 30%;
+  width: 40%;
   font-family: "Poiret One", cursive;
-  font-size: 2.2rem;
+  font-size: 3.6vw;
   text-align: center;
   color: #413737;
 }
 
-.quoteDot {
-  position: absolute;
-  top: 107px;
-  right: 115px;
-  height: 10px;
-  width: 10px;
-  background: #413737;
+.motivation h1::after {
+  content: url(../pics/motivation/Rectangle\ 49.png);
+  margin-left: 5px;
 }
