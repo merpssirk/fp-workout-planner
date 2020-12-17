@@ -14,8 +14,10 @@ export default function Motivation() {
         alt="Arnold Schwarzenegger posing"
         className={styles.mainImage}
       />
-      <h1>THE HARDER THE WORK THE GREATER THE REWARD</h1>
-      <span className={styles.quoteDot}></span>
+      <h1>
+        THE HARDER THE WORK THE GREATER THE REWARD
+        <span className={styles.quoteDot}></span>
+      </h1>
     </div>
   );
 }

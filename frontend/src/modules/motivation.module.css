@@ -33,3 +33,12 @@
   text-align: center;
   color: #413737;
 }
+
+.quoteDot {
+  position: absolute;
+  top: 107px;
+  right: 115px;
+  height: 10px;
+  width: 10px;
+  background: #413737;
+}

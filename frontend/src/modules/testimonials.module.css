@@ -1,6 +1,6 @@
 .testimonials {
   position: relative;
-  height: 100vh;
+  height: 130vh;
   width: 100vw;
 }
 
@@ -48,11 +48,11 @@
 }
 
 .testimonials .tile2 {
-  top: 45%;
+  top: 40%;
   left: 330px;
 }
 
 .testimonials .tile3 {
-  top: 65%;
+  top: 55%;
   left: 580px;
 }
