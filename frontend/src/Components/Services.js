@@ -12,7 +12,7 @@ export default function Services() {
     <>
       <div className={styles.servicesContainer}>
         <div className={styles.sectionName}>
-          <h2>What We Offer</h2>
+          <h2>Services</h2>
         </div>
         <div className={styles.offerContainer}>
           <div className={styles.offerText}>

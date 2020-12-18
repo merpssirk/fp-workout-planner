@@ -10,7 +10,6 @@ import {
 
 export default function Footer() {
   return (
-    <>
       <div className={styles.footerContainer}>
         <div className={styles.information}>
           <ul>
@@ -56,6 +55,5 @@ export default function Footer() {
         </div>
         <img className={styles.triangle} src={imgTriangle} alt="" />
       </div>
-    </>
   );
 }
