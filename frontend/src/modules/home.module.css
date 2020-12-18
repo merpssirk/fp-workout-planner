@@ -84,6 +84,11 @@ h3 {
   text-align: center;
   border: none;
   border-radius: 5px;
+  cursor: pointer;
+}
+
+.registerTile button:focus {
+  outline: 0;
 }
 
 .registerTile button::after {
@@ -119,4 +124,128 @@ h3 {
   text-align: center;
   border: none;
   border-radius: 5px;
+  cursor: pointer;
 }
+
+.loginButton:focus {
+  outline: 0;
+}
+
+#overlay {
+  position: fixed;
+  opacity: 0;
+  transition: 300ms ease-in-out;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0, 0.8);
+  pointer-events: none;
+  z-index: 1;
+}
+
+#overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* Register / Login */
+
+.formContainer {
+  position: fixed;
+  width: 275px;
+  height: 475px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  transition: 300ms ease-in-out;
+  background: linear-gradient(
+    159.21deg,
+    #f91010 2.41%,
+    rgba(249, 16, 16, 0.33) 96.9%
+  );
+  border-radius: 8px;
+  padding-top: 56.78px;
+  z-index: 2;
+}
+
+.formContainer.active {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.formContainer2 {
+  position: fixed;
+  width: 275px;
+  height: 475px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  transition: 300ms ease-in-out;
+  background: linear-gradient(
+    159.21deg,
+    #f91010 2.41%,
+    rgba(249, 16, 16, 0.33) 96.9%
+  );
+  border-radius: 8px;
+  padding-top: 56.78px;
+  z-index: 2;
+}
+
+.formContainer2.active {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.formContainer .formGroup, .formContainer2 .formGroup {
+  position: relative;
+  text-align: center;
+}
+
+.formContainer .formGroup label, .formContainer2 .formGroup label {
+  display: block;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  margin-top: 20px;
+}
+
+.formContainer .formGroup input, .formContainer2 .formGroup input {
+  width: 173.49px;
+  height: 34.93px;
+  border-radius: 8px;
+  border: none;
+  margin: 10px 0 0 0;
+}
+
+.formContainer .registerBtn {
+  position: absolute;
+  width: 162.92px;
+  height: 46.98px;
+  left: 50%;
+  transform: translate(-50%);
+  top: 375px;
+  background: #000000;
+  border-radius: 8px;
+  border: none;
+  font-weight: normal;
+  font-size: 18px;
+  color: #ffffff;
+}
+.formContainer2 .loginBtn {
+  position: absolute;
+  width: 162.46px;
+  height: 46.85px;
+  left: 50%;
+  transform: translate(-50%);
+  top: 345.02px;
+  background: #000000;
+  border-radius: 8px;
+  border: none;
+  font-weight: normal;
+  font-size: 18px;
+  color: #ffffff;
+}
+
+.loginUserName {
+  margin-top: 80px;
+}
+
