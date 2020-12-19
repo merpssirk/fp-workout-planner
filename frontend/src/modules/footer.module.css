@@ -7,6 +7,7 @@
   background: rgba(45, 41, 41, 1);
   overflow: hidden;
 }
+
 .footerContainer .information {
   display: flex;
   flex-direction: column;
@@ -15,7 +16,6 @@
 
 .footerContainer .information ul li {
   list-style-type: none;
-  /* line-height: 70px; */
   margin-top: 40px;
   cursor: pointer;
 }

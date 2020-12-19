@@ -27,14 +27,7 @@
 .tile2,
 .tile3 {
   position: relative;
-  height: 400px;
-}
-
-.testimonials .picTwo {
-  position: absolute;
-  top: -40px;
-  left: 173px;
-  height: 80px;
+  height: 40%;
 }
 
 .testimonials .picOne {

@@ -55,7 +55,7 @@ h3 {
 
 .registerTile {
   position: absolute;
-  left: 0;
+  left: -500px;
   bottom: 12%;
   height: 35%;
   width: 25%;
@@ -68,15 +68,14 @@ h3 {
   animation-duration: 4s;
   animation-delay: 0.5s;
   animation-timing-function: ease-in-out;
-  /* backdrop-filter: blur(40px);
-  border: solid 2px transparent;
-  background-clip: padding-box; */
+  animation-fill-mode: forwards;
 }
 
 @keyframes registerShow {
   0% {left: -500px;}
   55% {left: 50px;}
-  70% {left: 50px;}
+  70% {left: 0px;}
+  100% {left: 0px;}
 }
 
 
