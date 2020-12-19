@@ -37,6 +37,9 @@ body {
 
 .servicesContainer .offerContainer .offerText {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 25%;
   margin: 150px 0 100px 0;
 }
 .servicesContainer .offerContainer .offerText h3 {
@@ -45,12 +48,7 @@ body {
   margin: 80px 0 20px 105px;
   color: rgba(65, 55, 55, 1);
 }
-.servicesContainer .offerContainer .offerText .redLines {
-  position: absolute;
-  height: 280px;
-  left: 280px;
-}
 
 .servicesContainer .servicePics {
-  height: 280px;
+  height: 55%;
 }

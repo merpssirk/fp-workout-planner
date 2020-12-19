@@ -22,7 +22,6 @@ export default function Services() {
               Workouts
             </h3>
             <img src={service1} alt="" className={styles.servicePics} />
-            <img src={redlines} className={styles.redLines} alt="" />
           </div>
           <div className={styles.offerText}>
             <h3>
@@ -31,7 +30,6 @@ export default function Services() {
               Workouts
             </h3>
             <img src={service2} alt="" className={styles.servicePics} />
-            <img src={redlines} className={styles.redLines} alt="" />
           </div>
           <div className={styles.offerText}>
             <h3>
@@ -40,7 +38,6 @@ export default function Services() {
               the Results
             </h3>
             <img src={service3} alt="" className={styles.servicePics} />
-            <img src={redlines} className={styles.redLines} alt="" />
           </div>
         </div>
       </div>
