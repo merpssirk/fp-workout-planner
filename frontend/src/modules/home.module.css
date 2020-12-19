@@ -61,10 +61,24 @@ h3 {
   width: 25%;
   margin: 0 0 5% 0;
   padding: 30px;
-  background: whitesmoke;
+  background: rgba(245,245,245,0.9);
   color: black;
   font-size: 0.6rem;
+  animation-name: registerShow;
+  animation-duration: 4s;
+  animation-delay: 0.5s;
+  animation-timing-function: ease-in-out;
+  /* backdrop-filter: blur(40px);
+  border: solid 2px transparent;
+  background-clip: padding-box; */
 }
+
+@keyframes registerShow {
+  0% {left: -500px;}
+  55% {left: 50px;}
+  70% {left: 50px;}
+}
+
 
 .registerText {
   width: 100%;
@@ -139,7 +153,7 @@ h3 {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0,0,0, 0.8);
+  background-color: rgba(0,0,0, 0.85);
   pointer-events: none;
   z-index: 1;
 }
