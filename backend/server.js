@@ -3,7 +3,8 @@ const mongoose = require( 'mongoose' );
 const dotenv = require( 'dotenv' ).config();
 
 const app = express();
-
+app.use( express.json() );
+// ROUTES
 const UserRoutes = require( './UserRoutes/UserRoutes' );
 app.use( '/user', UserRoutes );
 
