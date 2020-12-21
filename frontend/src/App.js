@@ -5,8 +5,6 @@ import { Router } from "react-router-dom";
 import "./App.css";
 import Services from "./Components/Services";
 import Footer from "./Components/Footer";
-import Register from "./Components/Register";
-import Login from "./Components/Login";
 
 function App() {
   return (
