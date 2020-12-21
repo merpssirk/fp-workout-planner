@@ -36,9 +36,23 @@ body {
   color: whitesmoke;
 }
 
-ul img {
+.navBar li {
+  color: whitesmoke;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.navBar li:hover {
+  color: #f91010;
+}
+
+ul a {
   height: 70%;
   margin: 0 3%;
+}
+
+ul img {
+  height: 100%;
 }
 
 .navBar ul {
@@ -126,22 +140,19 @@ h3 {
 }
 
 .loginContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: absolute;
-  bottom: 0;
+  bottom: -15px;
   left: 0;
-  height: 12%;
+  height: 13.5%;
   width: 25%;
 }
 
 .loginButton {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
   height: 35%;
   width: 30%;
-  margin: 11.5% auto;
   background: black;
   color: whitesmoke;
   font-size: 0.8rem;
