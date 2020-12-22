@@ -10,7 +10,7 @@ import {
 
 export default function Footer() {
   return (
-      <div className={styles.footerContainer}>
+      <div className={styles.footerContainer} id="contact">
         <div className={styles.information}>
           <ul>
             <li>

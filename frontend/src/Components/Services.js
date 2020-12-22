@@ -10,7 +10,7 @@ import redlines from "../pics/services/redlines.png";
 export default function Services() {
   return (
     <>
-      <div className={styles.servicesContainer}>
+      <div className={styles.servicesContainer} id="services">
         <div className={styles.sectionName}>
           <h2>Services</h2>
         </div>

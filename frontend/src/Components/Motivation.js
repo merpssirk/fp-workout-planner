@@ -4,7 +4,7 @@ import img from "../pics/motivation/arnie.png";
 
 export default function Motivation() {
   return (
-    <div className={styles.motivation}>
+    <div className={styles.motivation} id="motivation">
       <div className={styles.sectionName}>
         <h2>Motivation</h2>
       </div>
