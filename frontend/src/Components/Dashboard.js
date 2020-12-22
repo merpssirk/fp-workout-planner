@@ -1,6 +1,20 @@
 import React from 'react';
-import imgLogo from '../pics/home/Logo.png';
+import imgLogo from '../pics/dashboard/Logo-black.png';
 import styles from '../modules/dashboard.module.css';
+import avatar from '../pics/dashboard/Avatar-male.png';
+import weather from '../pics/dashboard/weather.png';
+import dumbbell from '../pics/dashboard/dumbbell.png';
+import weightlifter from '../pics/dashboard/weightlifter.png';
+import flame from '../pics/dashboard/flame.png';
+import scale from '../pics/dashboard/scale.png';
+import lineTop from '../pics/dashboard/line-top.png';
+import workoutDia from '../pics/dashboard/workout-diagram.png';
+import weightDia from '../pics/dashboard/weight-diagram.png';
+import calories from '../pics/dashboard/calories.png';
+import carbs from '../pics/dashboard/carbs.png';
+import protein from '../pics/dashboard/protein.png';
+import fat from '../pics/dashboard/fat.png';
+
 
 export default function Dashboard() {
     return (
@@ -12,47 +26,61 @@ export default function Dashboard() {
                     <li><a href="services">Daily Activties</a></li>
                     <li><a href="testimonials">Workout Overview</a></li>
                 </ul>
-            </nav>
-            <section className={styles.profileWrapper}>
+            <div className={styles.profileWrapper}>
                 <span>Name</span>
-                {/* <img src={avatar} /> */}
-            </section>
+                <a href="#"><img src={avatar} /></a>
+            </div>
+            </nav>
             <div className={styles.dateWeatherWrapper}>
-                <div className={styles.date}></div>
-                <div className={styles.weatherIcon}></div>
-                <div className={styles.town}></div>
+                <div className={styles.date}>Monday, December 14, 2020</div>
+                <div className={styles.weatherTownWrapper}>
+                    <div className={styles.weatherIcon}><img src={weather} /></div>
+                    <div className={styles.town}>Hamburg, 7°</div>
+                </div>
             </div>
             <main className={styles.panel}>
                 <div className={styles.tilesWrapper}>
                     <div className={styles.workoutsWrapper}>
-                        <div className={styles.tilesIcon}></div>
-                        <div className={styles.tilesCounter}></div>
+                        <div className={styles.tilesIcon}><img src={dumbbell} /></div>
+                        <span className={styles.tilesCounter}>Workouts done<br/>10</span>
                     </div>
                     <div className={styles.exercisesWrapper}>
-                        <div className={styles.tilesIcon}></div>
-                        <div className={styles.tilesCounter}></div>
+                        <div className={styles.tilesIcon}><img src={weightlifter} /></div>
+                        <san className={styles.tilesCounter}>Exercises created<br/>12</san>
                     </div>
                     <div className={styles.streakWrapper}>
-                        <div className={styles.tilesIcon}></div>
-                        <div className={styles.tilesCounter}></div>
+                        <div className={styles.tilesIcon}><img src={flame} /></div>
+                        <span className={styles.tilesCounter}>Streak (days)<br/>10</span>
                     </div>
                     <div className={styles.weightWrapper}>
-                        <div className={styles.tilesIcon}></div>
-                        <div className={styles.tilesCounter}></div>
+                        <div className={styles.tilesIcon}><img src={scale} /></div>
+                        <span className={styles.tilesCounter}>Weight difference<br/>-2</span>
                     </div>
                 </div>
                 <div className={styles.mainInfoWrapper}>
                     <div className={styles.workoutOverview}>
-                        <h2>Workout Overview</h2>
-                        <div className={styles.workoutDiagram}></div>
+                        <h4>Workout Overview</h4>
+                        <img src={lineTop}/>
+                        <div className={styles.workoutDiagram}><img src={workoutDia} /></div>
                     </div>
                     <div className={styles.nutrition}>
-                        <h2>Nutrition</h2>
-                        <div className={styles.nutritionIcons}></div>
+                        <h4>Nutrition</h4>
+                        <img src={lineTop}/>
+                        <div className={styles.nutritionIcons}>
+                            <img src={calories} />
+                            <span className={styles.caloriesFigures}>3000</span>
+                            <img src={carbs} />
+                            <span className={styles.carbsFigures}>350</span>
+                            <img src={protein} />
+                            <span className={styles.proteinFigures}>200</span>
+                            <img src={fat} />
+                            <span className={styles.fatFigures}>120</span>
+                        </div>
                     </div>
-                    <div className={styles.weightNutrition}>
-                        <h2>Weight</h2>
-                        <div className={styles.weightDiagramm}></div>
+                    <div className={styles.weightDifference}>
+                        <h4>Weight</h4>
+                        <img src={lineTop}/>
+                        <div className={styles.weightDiagram}><img src={weightDia} /></div>
                     </div>
                 </div>
             </main>
