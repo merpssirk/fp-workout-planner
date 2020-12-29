@@ -30,7 +30,7 @@ export default function Home() {
       <div className={styles.background}>
         <nav className={styles.navBar}>
           <ul>
-            <a href="home"><img src={imgLogo} /></a>
+            <a href="#"><img src={imgLogo} /></a>
             <li onClick={(e)=>{handleScroll(e)}}>Motivation</li>
             <li onClick={(e)=>{handleScroll(e)}}>Services</li>
             <li onClick={(e)=>{handleScroll(e)}}>Testimonials</li>
