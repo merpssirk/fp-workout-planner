@@ -4,10 +4,10 @@ const UserSchema = new mongoose.Schema({
   username: { type: String, required: true },
   email: { type: String, required: true },
   password: {type: String, required: true},
-  gender: { type: String, required: true, enum: ["Female", "Male", "Other"] },
-  age: { type: Number, required: true },
-  height: { type: String, required: true },
-  weight: { type: String, required: true },
+  gender: { type: String, enum: ["Female", "Male", "Other"] },
+  age: { type: Number, },
+  height: { type: String, },
+  weight: { type: String,  },
   disability: {
     type: String,
     default: "None",
@@ -15,12 +15,10 @@ const UserSchema = new mongoose.Schema({
   },
   workoutGoal: {
     type: String,
-    required: true,
     enum: ["Lose Weight", "Stay Fit", "Gain Muscles"],
   },
   activityLevel: {
     type: String,
-    required: true,
     enum: ["Sedentary", "Moderately", "Active"],
   },
 });

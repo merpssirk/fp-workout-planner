@@ -12,6 +12,8 @@
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.0",
+    "cors": "^2.8.5",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.11.7"
   },
   "devDependencies": {
