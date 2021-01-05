@@ -1,43 +1,43 @@
-import {React, useRef, useState} from "react";
-import {BrowserRouter, Link, Switch, Route} from "react-router-dom";
+import { React, useRef, useState } from "react";
+import { BrowserRouter, Link, Switch, Route } from "react-router-dom";
 import styles from "../modules/home.module.css";
 import imgLogo from "../pics/home/Logo.png";
 import classNames from "classnames";
 import Dashboard from "./Dashboard";
 
 export default function Home() {
-  const formCheck = useRef("")
-  const [overlayClass, setOverlayClass] = useState("false")
+  const formCheck = useRef("");
+  const [overlayClass, setOverlayClass] = useState("false");
 
   const handleOverlay = (event) => {
-    setOverlayClass(!overlayClass)
-    formCheck.current = event.target.textContent
-  }
+    setOverlayClass(!overlayClass);
+    formCheck.current = event.target.textContent;
+  };
 
   const handleRemoveOverlay = (event) => {
-    event.preventDefault()
-    setOverlayClass(!overlayClass)
-  }
+    event.preventDefault();
+    setOverlayClass(!overlayClass);
+  };
 
   const handleScroll = (event) => {
-    const section = event.target.textContent.toLowerCase()
-    document.getElementById(section).scrollIntoView({ behavior: "smooth" })
-  }
+    const section = event.target.textContent.toLowerCase();
+    document.getElementById(section).scrollIntoView({ behavior: "smooth" });
+  };
 
-  console.log(overlayClass)
+  console.log(overlayClass);
 
   // --------REGISTER PAGE CONNECTING TO THE BACKEND-----
   const handleSubmitRegister = async (event) => {
-    event.preventDefault()
-    console.log("code is working")
-    const formData = new FormData(event.target)
+    event.preventDefault();
+    console.log("code is working");
+    const formData = new FormData(event.target);
 
     const data = {
       username: formData.get("username"),
       email: formData.get("email"),
       password: formData.get("password"),
-    }
-    console.log(data)
+    };
+    console.log(data);
     try {
       const response = await fetch("/user/register", {
         method: "POST",
@@ -46,21 +46,21 @@ export default function Home() {
           Accept: "application/json",
         },
         body: JSON.stringify(data),
-      })
-      const json = await response.json()
-      console.log(json)
+      });
+      const json = await response.json();
+      console.log(json);
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
-  }
+  };
   // ---------LOGIN PAGE CONNECTING TO THE BACKEND--------
   const handleSubmitLogin = async (event) => {
-    event.preventDefault()
-    const formData = new FormData(event.target)
+    event.preventDefault();
+    const formData = new FormData(event.target);
     const data = {
       email: formData.get("email"),
       password: formData.get("password"),
-    }
+    };
 
     try {
       const response = await fetch("/user/login", {
@@ -70,13 +70,13 @@ export default function Home() {
           "content-type": "application/json",
           Accept: "application/json",
         },
-      })
-      const json = await response.json()
-      console.log(json)
+      });
+      const json = await response.json();
+      console.log(json);
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
-  }
+  };
 
   return (
     <div className={styles.background}>
@@ -87,28 +87,28 @@ export default function Home() {
           </a>
           <li
             onClick={(e) => {
-              handleScroll(e)
+              handleScroll(e);
             }}
           >
             Motivation
           </li>
           <li
             onClick={(e) => {
-              handleScroll(e)
+              handleScroll(e);
             }}
           >
             Services
           </li>
           <li
             onClick={(e) => {
-              handleScroll(e)
+              handleScroll(e);
             }}
           >
             Testimonials
           </li>
           <li
             onClick={(e) => {
-              handleScroll(e)
+              handleScroll(e);
             }}
           >
             Contact
@@ -127,7 +127,7 @@ export default function Home() {
         </p>
         <button
           onClick={(e) => {
-            handleOverlay(e)
+            handleOverlay(e);
           }}
         >
           Register
@@ -137,7 +137,7 @@ export default function Home() {
         <button
           className={styles.loginButton}
           onClick={(e) => {
-            handleOverlay(e)
+            handleOverlay(e);
           }}
         >
           Login
@@ -152,15 +152,15 @@ export default function Home() {
       >
         <form onSubmit={handleSubmitRegister} action="/dashboard">
           <div className={styles.formGroup}>
-            <label htmlFor="name">Username</label>
+            <label htmlFor="username">Username</label>
             <input type="text" name="username" />
           </div>
           <div className={styles.formGroup}>
-            <label htmlFor="name">Email</label>
+            <label htmlFor="email">Email</label>
             <input type="email" name="email" />
           </div>
           <div className={styles.formGroup}>
-            <label htmlFor="name">Password</label>
+            <label htmlFor="password">Password</label>
             <input type="password" name="password" />
           </div>
           <input
@@ -184,12 +184,12 @@ export default function Home() {
           className={styles.loginUserName}
         >
           <div className={styles.formGroup}>
-            <label htmlFor="name">Username or Email</label>
-            <input type="text" name="username" />
+            <label htmlFor="email">Email</label>
+            <input type="email" name="email" />
           </div>
 
           <div className={styles.formGroup}>
-            <label htmlFor="name">Password</label>
+            <label htmlFor="password">Password</label>
             <input type="password" name="password" />
           </div>
           <input
@@ -206,5 +206,5 @@ export default function Home() {
         onClick={handleRemoveOverlay}
       ></div>
     </div>
-  )
+  );
 }
