@@ -6,6 +6,7 @@ import "./App.css";
 import Services from "./Components/Services";
 import Footer from "./Components/Footer";
 import Dashboard from "./Components/Dashboard";
+import Userpage from "./Components/Userpage";
 
 function App() {
   return (
@@ -16,7 +17,8 @@ function App() {
         <Route path="/" exact component={Testimonials} />
         <Route path="/" exact component={Footer} />
         <Switch>
-          <Route path="/dashboard" exact component={Dashboard} />
+        <Route path="/dashboard" exact component={Dashboard} />
+        <Route path="/userpage" component={Userpage} />
         </Switch>
     </BrowserRouter>
   );

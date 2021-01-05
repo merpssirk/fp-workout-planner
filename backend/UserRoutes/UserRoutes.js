@@ -48,6 +48,7 @@ router.post("/register", async (request, response) => {
 
 router.post("/login", async (request, response) => {
   try {
+    console.log(request.body);
     const { email, password } = request.body;
     //validation
     if (!email || !password)

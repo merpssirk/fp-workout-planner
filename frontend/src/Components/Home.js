@@ -184,8 +184,8 @@ export default function Home() {
           className={styles.loginUserName}
         >
           <div className={styles.formGroup}>
-            <label htmlFor="name">Username or Email</label>
-            <input type="text" name="username" />
+            <label htmlFor="name">Email</label>
+            <input type="email" name="email" />
           </div>
 
           <div className={styles.formGroup}>
