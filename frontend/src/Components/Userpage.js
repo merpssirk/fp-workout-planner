@@ -92,8 +92,7 @@ export default function Userpage() {
               <div className={styles.formGroup}>
                 <select>
                   <option value="">
-                    Please choose which bodypart you cannot train due to
-                    disabilities
+                    Choose One
                   </option>
                   <option value="arms">Arms</option>
                   <option value="legs">Legs</option>

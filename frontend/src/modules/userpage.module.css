@@ -27,7 +27,9 @@ body {
   background: rgba(249, 16, 16, 0.8);
   color: whitesmoke;
 }
-
+.navBar li {
+  font-size: max(15px, 1.8vw);
+}
 .navBar li a {
   color: whitesmoke;
   text-decoration: none;
@@ -56,7 +58,6 @@ ul img {
 
 ul li a {
   margin: 0 40px 0 20px;
-  font-size: 80%;
 }
 
 .profileWrapper {
@@ -81,123 +82,77 @@ ul li a {
 
 .container {
   display: flex;
-  justify-content: space-around;
-  width: 70%;
-  height: 70%;
-  padding-top: 50px;
-  margin: 0 auto;
-}
-.container form {
-  margin-top: 70px;
+  justify-content: space-between;
+  width: 70vw;
+  height: 70vh;
+  margin: 50px auto;
 }
 
 .container form .formGroup {
-  position: relative;
-  margin: 25px 0 0 50px;
-  width: 90%;
-  height: 70px;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 10vh;
 }
-
-/* LEFT COLUMN CODING STARTED */
-.container .leftColumn {
-  width: 49%;
-  height: 100%;
-  background: #b8c1ce;
-  filter: drop-shadow(-7px 5px 4px rgba(0, 0, 0, 0.4));
-  border-radius: 10px;
-}
-
-.container .leftColumn form .formGroup label {
-  position: absolute;
-  font-size: 20px;
+.container form .formGroup label {
+  font-size: max(14px, 1.2vw);
   font-style: normal;
   font-weight: 400;
-  bottom: 20px;
   color: #000000;
+  /* resize: vertical; */
 }
-
-.container .leftColumn form .formGroup input {
-  position: absolute;
+.container form .formGroup input {
   border-radius: 5px;
-  right: 40px;
-  bottom: 10px;
-  width: 280px;
-  height: 50px;
+  width: 13vw;
+  height: 40px;
   background: #ffffff;
   border: none;
-  font-size: 20px;
-  padding-left: 10px;
+  font-size: max(16px, 1.2vw);
   color: #000000;
 }
-
-.container .leftColumn form .formGroup select {
-  position: absolute;
-  right: 40px;
-  bottom: 10px;
-  width: 280px;
-  height: 50px;
+.container form .formGroup select {
+  width: 13vw;
+  height: 40px;
   background: #ffffff;
   border: none;
-  font-size: 20px;
+  font-size: max(14px, 1.1vw);
   cursor: pointer;
   border-radius: 5px;
   padding: 0 0 0 10px;
   color: #000000;
 }
+/* LEFT COLUMN CODING STARTED */
+.container .leftColumn {
+  width: 50vw;
+  height: 70vh;
+  background: #b8c1ce;
+  filter: drop-shadow(-7px 5px 4px rgba(0, 0, 0, 0.4));
+  border-radius: 10px;
+  margin-right: 1%;
+  padding: 5% 4% 0 3%;
+}
+
 .container img {
   position: absolute;
-  top: 40px;
-  left: 250px;
-  height: 600px;
+  top: 5%;
+  left: 35%;
+  height: 62vh;
 }
 /* LEFT COLUMN CODING ENDED */
 
 /* RIGHT COLUMN CODING STARTED*/
 .container .rightColumn {
-  width: 49%;
-  height: 100%;
+  width: 50vw;
+  height: 70vh;
   background: #b8c1ce;
   filter: drop-shadow(7px 5px 4px rgba(0, 0, 0, 0.4));
   border-radius: 10px;
-}
-.container .rightColumn form .formGroup label {
-  position: absolute;
-  right: 30px;
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 400;
-  bottom: 20px;
-  color: #000000;
-}
-.container .rightColumn form .formGroup input {
-  position: absolute;
-  border-radius: 5px;
-  left: 0;
-  bottom: 10px;
-  width: 280px;
-  height: 50px;
-  background: #ffffff;
-  border: none;
-  font-size: 20px;
-  padding-left: 10px;
-  color: #000000;
+  padding: 5% 4% 0 3%;
+  /* overflow: auto; */
 }
 
-.container .rightColumn form .formGroup select {
-  position: absolute;
-  left: 0;
-  bottom: 10px;
-  width: 280px;
-  height: 50px;
-  background: #ffffff;
-  border: none;
-  font-size: 20px;
-  cursor: pointer;
-  border-radius: 5px;
-  padding: 0 0 0 10px;
-}
 .container .rightColumn .rightColumnWhiteLine {
-  left: 400px;
+  left: 52%;
 }
 
 /* RIGHT COLUMN CODING ENDED */
@@ -213,7 +168,7 @@ ul li a {
   height: 60px;
   border-radius: 25px;
   border: none;
-  font-size: 25px;
+  font-size: max(16px, 1.3vw);
   color: #ffffff;
   background-color: #474747;
   font-weight: 400;
@@ -226,51 +181,46 @@ ul li a {
   }
   .container {
     display: inline-block;
-    padding-top: 0px;
-    margin: 0 0 0 150px;
+    width: 75vw;
+    height: auto;
+    margin: 0 0 0 15%;
   }
-  .container form {
-    margin-top: 0;
-  }
+
   .container form .formGroup {
-    margin: 0 0 0 50px;
-    height: 60px;
+    height: 7vh;
   }
   .container .leftColumn {
-    width: 100%;
-    padding: 15px;
-    margin: 15px;
+    width: 75vw;
+    height: 47vh;
+    margin-bottom: 2%;
+    padding: 5% 7% 0 7%;
   }
   .container .rightColumn {
-    width: 100%;
-    padding: 15px;
-    margin: 15px;
+    width: 75vw;
+    height: 47vh;
+    padding: 5% 7% 0 7%;
   }
-  .container .leftColumn form .formGroup label {
-    font-size: 16px;
+  
+  .container form .formGroup input {
+    width: 28vw;
+    height: 35px;
   }
-  .container .leftColumn form .formGroup input {
-    font-size: 16px;
-    height: 40px;
+  .container form .formGroup select {
+    width: 28vw;
+    height: 35px;
   }
-  .container .leftColumn form .formGroup select {
-    font-size: 16px;
-    height: 40px;
-  }
-  .container .rightColumn form .formGroup label {
-    font-size: 16px;
-  }
-  .container .rightColumn form .formGroup input {
-    font-size: 16px;
-    height: 40px;
-  }
-  .container .rightColumn form .formGroup select {
-    font-size: 16px;
-    height: 40px;
-  }
+
   .container img {
-    height: 350px;
-    width: 3px;
-    top: 15px;
+    top: 7%;
+    height: 40vh;
+  }
+  .saveBtn {
+    width: 8vw;
+    height: 50px;
+    margin: 40px auto;
+  }
+  .saveBtn button {
+    width: 15vw;
+    height: 50px;
   }
 }
