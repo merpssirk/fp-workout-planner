@@ -1,0 +1,276 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+  color: whitesmoke;
+}
+
+.background {
+  height: 100vh;
+  width: 100vw;
+  background-image: url(../pics/dashboard/dashboard-background.png);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  animation: backImageAnimation 20s linear infinite;
+}
+
+/* NAVBAR CODING STARTED */
+.navBar {
+  display: flex;
+  height: 10vh;
+  width: 100vw;
+  margin-bottom: 20px;
+  background: rgba(249, 16, 16, 0.8);
+  color: whitesmoke;
+}
+
+.navBar li a {
+  color: whitesmoke;
+  text-decoration: none;
+}
+
+.navBar li a:hover {
+  color: black;
+}
+
+ul a {
+  height: 70%;
+  margin: 0 3%;
+}
+
+ul img {
+  height: 100%;
+}
+
+.navBar ul {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  list-style-type: none;
+}
+
+ul li a {
+  margin: 0 40px 0 20px;
+  font-size: 80%;
+}
+
+.profileWrapper {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  margin: 0 20px;
+}
+
+.profileWrapper a {
+  height: 70%;
+  margin-left: 20px;
+}
+
+.profileWrapper img {
+  height: 100%;
+}
+
+/* NAVBAR CODING ENDED */
+
+/*LEFT AND RIGHT COLUMN CODING STARTED */
+
+.container {
+  display: flex;
+  justify-content: space-around;
+  width: 70%;
+  height: 70%;
+  padding-top: 50px;
+  margin: 0 auto;
+}
+.container form {
+  margin-top: 70px;
+}
+
+.container form .formGroup {
+  position: relative;
+  margin: 25px 0 0 50px;
+  width: 90%;
+  height: 70px;
+}
+
+/* LEFT COLUMN CODING STARTED */
+.container .leftColumn {
+  width: 49%;
+  height: 100%;
+  background: #b8c1ce;
+  filter: drop-shadow(-7px 5px 4px rgba(0, 0, 0, 0.4));
+  border-radius: 10px;
+}
+
+.container .leftColumn form .formGroup label {
+  position: absolute;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  bottom: 20px;
+  color: #000000;
+}
+
+.container .leftColumn form .formGroup input {
+  position: absolute;
+  border-radius: 5px;
+  right: 40px;
+  bottom: 10px;
+  width: 280px;
+  height: 50px;
+  background: #ffffff;
+  border: none;
+  font-size: 20px;
+  padding-left: 10px;
+  color: #000000;
+}
+
+.container .leftColumn form .formGroup select {
+  position: absolute;
+  right: 40px;
+  bottom: 10px;
+  width: 280px;
+  height: 50px;
+  background: #ffffff;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  padding: 0 0 0 10px;
+  color: #000000;
+}
+.container img {
+  position: absolute;
+  top: 40px;
+  left: 250px;
+  height: 600px;
+}
+/* LEFT COLUMN CODING ENDED */
+
+/* RIGHT COLUMN CODING STARTED*/
+.container .rightColumn {
+  width: 49%;
+  height: 100%;
+  background: #b8c1ce;
+  filter: drop-shadow(7px 5px 4px rgba(0, 0, 0, 0.4));
+  border-radius: 10px;
+}
+.container .rightColumn form .formGroup label {
+  position: absolute;
+  right: 30px;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  bottom: 20px;
+  color: #000000;
+}
+.container .rightColumn form .formGroup input {
+  position: absolute;
+  border-radius: 5px;
+  left: 0;
+  bottom: 10px;
+  width: 280px;
+  height: 50px;
+  background: #ffffff;
+  border: none;
+  font-size: 20px;
+  padding-left: 10px;
+  color: #000000;
+}
+
+.container .rightColumn form .formGroup select {
+  position: absolute;
+  left: 0;
+  bottom: 10px;
+  width: 280px;
+  height: 50px;
+  background: #ffffff;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  padding: 0 0 0 10px;
+}
+.container .rightColumn .rightColumnWhiteLine {
+  left: 400px;
+}
+
+/* RIGHT COLUMN CODING ENDED */
+
+/* BUTTON CODING STARTED */
+.saveBtn {
+  width: 200px;
+  height: 60px;
+  margin: 50px auto;
+}
+.saveBtn button {
+  width: 200px;
+  height: 60px;
+  border-radius: 25px;
+  border: none;
+  font-size: 25px;
+  color: #ffffff;
+  background-color: #474747;
+  font-weight: 400;
+}
+/* BUTTON CODING ENDED */
+
+@media only screen and (max-width: 1024px) {
+  .background {
+    height: auto;
+  }
+  .container {
+    display: inline-block;
+    padding-top: 0px;
+    margin: 0 0 0 150px;
+  }
+  .container form {
+    margin-top: 0;
+  }
+  .container form .formGroup {
+    margin: 0 0 0 50px;
+    height: 60px;
+  }
+  .container .leftColumn {
+    width: 100%;
+    padding: 15px;
+    margin: 15px;
+  }
+  .container .rightColumn {
+    width: 100%;
+    padding: 15px;
+    margin: 15px;
+  }
+  .container .leftColumn form .formGroup label {
+    font-size: 16px;
+  }
+  .container .leftColumn form .formGroup input {
+    font-size: 16px;
+    height: 40px;
+  }
+  .container .leftColumn form .formGroup select {
+    font-size: 16px;
+    height: 40px;
+  }
+  .container .rightColumn form .formGroup label {
+    font-size: 16px;
+  }
+  .container .rightColumn form .formGroup input {
+    font-size: 16px;
+    height: 40px;
+  }
+  .container .rightColumn form .formGroup select {
+    font-size: 16px;
+    height: 40px;
+  }
+  .container img {
+    height: 350px;
+    width: 3px;
+    top: 15px;
+  }
+}
