@@ -27,6 +27,10 @@ body {
   color: whitesmoke;
 }
 
+.navBar li {
+  font-size: max(15px, 1.8vw);
+}
+
 .navBar li a {
   color: whitesmoke;
   text-decoration: none;
@@ -55,7 +59,6 @@ ul img {
 
 ul li a {
   margin: 0 40px 0 20px;
-  font-size: 80%;
 }
 
 .profileWrapper {
@@ -242,6 +245,67 @@ ul li a {
 }
 
 /* FINISH REGISTRATION */
+
+.inputFields {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  margin-top: 5%;
+}
+
+.inputFields .fieldsLeft {
+  display: flex;
+  flex-direction: column;
+  width: 25%;
+  margin-right: 5%;
+}
+
+.inputFields .fieldsRight {
+  display: flex;
+  flex-direction: column;
+  width: 25%;
+}
+
+.inputFields label {
+  margin: 5% 0;
+  font-size: max(12px, 0.8vw);
+  text-align: center;
+}
+
+.inputFields input::placeholder {
+  opacity: 1;
+}
+
+.inputFields select {
+  height: 30px;
+}
+
+.bottomSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-top: 3%;
+  font-size: max(12px, 1vw);
+}
+
+.bottomSection label {
+  margin-right: 15px;
+}
+
+.bottomSection button {
+  height: 3.5vh;
+  width: 15%;
+  margin-top: 3%;
+  background-color: #f91010;
+  color: whitesmoke;
+  border: none;
+  border-radius: 10px;
+}
+
+/* OVERLAY */
+
 #overlay {
   position: fixed;
   opacity: 0;
@@ -250,7 +314,7 @@ ul li a {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.85);
+  background-color: rgba(0, 0, 0, 0.95);
   pointer-events: none;
   z-index: 1;
 }
@@ -259,8 +323,6 @@ ul li a {
   opacity: 1;
   pointer-events: all;
 }
-
-/* Register / Login */
 
 .formContainer {
   position: fixed;
@@ -285,5 +347,5 @@ ul li a {
 .formContainer h4 {
   margin-top: 10%;
   text-align: center;
-  font-size: 1.2rem;
+  font-size: max(12px, 1vw);
 }
