@@ -7,6 +7,7 @@ import Services from "./Components/Services";
 import Footer from "./Components/Footer";
 import Dashboard from "./Components/Dashboard";
 import Userpage from "./Components/Userpage";
+import DailyActivities from "./Components/DailyActivities";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Switch>
         <Route path="/dashboard" exact component={Dashboard} />
         <Route path="/userpage" component={Userpage} />
+        <Route path="/dailyactivities" component={DailyActivities} />
         </Switch>
     </BrowserRouter>
   );

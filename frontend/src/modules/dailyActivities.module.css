@@ -1,0 +1,159 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+  color: whitesmoke;
+}
+
+.background {
+  height: 100vh;
+  width: 100vw;
+  background-image: url(../pics/dashboard/dashboard-background.png);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  animation: backImageAnimation 20s linear infinite;
+}
+
+/* NAVBAR CODING STARTED */
+.navBar {
+  display: flex;
+  height: 10vh;
+  width: 100vw;
+  margin-bottom: 20px;
+  background: rgba(249, 16, 16, 0.8);
+  color: whitesmoke;
+}
+.navBar li {
+  font-size: max(15px, 1.8vw);
+}
+.navBar li a {
+  color: whitesmoke;
+  text-decoration: none;
+}
+
+.navBar li a:hover {
+  color: black;
+}
+
+ul a {
+  height: 70%;
+  margin: 0 3%;
+}
+
+ul img {
+  height: 100%;
+}
+
+.navBar ul {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  list-style-type: none;
+}
+
+ul li a {
+  margin: 0 40px 0 20px;
+}
+
+.profileWrapper {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  margin: 0 20px;
+}
+
+.profileWrapper a {
+  height: 70%;
+  margin-left: 20px;
+}
+
+.profileWrapper img {
+  height: 100%;
+}
+
+/* NAVBAR CODING ENDED */
+
+.background h3 {
+  text-align: center;
+  font-size: max(20px, 1.5vw);
+  color: #000000;
+  font-weight: normal;
+  font-style: normal;
+  margin-top: 3%;
+}
+.checkBox {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  width: 12vw;
+  margin: -3% 0 0 85%;
+  /* outline: 2px solid red; */
+}
+
+.checkBox .redXCircleDiv {
+  width: 90px;
+  height: 90px;
+  background-color: #bcc4d0;
+  border-radius: 10px;
+  padding: 12px;
+}
+.checkBox .greenCircleDiv {
+  padding: 15px;
+}
+.mainContainer {
+  width: 100vw;
+  height: 68vh;
+  padding: 0 12% 0 12%;
+}
+.mainContainer .exerciseTextDiv {
+  /* outline: 2px solid red; */
+  display: flex;
+  justify-content: space-evenly;
+  
+}
+.mainContainer .exerciseTextDiv h3 {
+    
+    
+}
+.mainContainer .exerciseImageDiv {
+  /*  outline: 3px solid blue; */
+   display: flex;
+   justify-content: space-evenly;
+   padding-top: 20px;
+}
+
+.mainContainer .exerciseImageDiv .exerciseImg {
+    width: 12vw;
+    height: 149px;
+    background: #B8C1CE;
+    border-radius: 0px 15px;
+}
+.mainContainer .buttons {
+
+}
+
+
+/* 
+@media screen and (min-width: 1100px) {
+  .background .checkBox {
+    outline: 1px solid green;
+    width: 10vw;
+  }
+  .background .checkBox .redXCircleDiv {
+    outline: 1px solid red;
+    width: 5vw;
+    height: 6vh;
+    padding: 0;
+  }
+  .background .checkBox .redXCircleDiv img{
+    width: 4vw;
+    height: 4vh;
+    
+}
+}
+ */
