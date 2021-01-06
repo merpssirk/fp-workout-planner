@@ -17,17 +17,20 @@ import protein from "../pics/dashboard/protein.png";
 import fat from "../pics/dashboard/fat.png";
 
 export default function Dashboard() {
-  const formCheck = useRef("");
+  const formCheck = useRef(localStorage.getItem("Register") || null);
   const [overlayClass, setOverlayClass] = useState("false");
 
-  const handleOverlay = (event) => {
-    setOverlayClass(!overlayClass);
-    formCheck.current = event.target.textContent;
-  };
+  // const handleOverlay = (event) => {
+  //   setOverlayClass(!overlayClass);
+  //   formCheck.current = event.target.textContent;
+  // };
+  console.log(overlayClass);
 
   const handleRemoveOverlay = (event) => {
     event.preventDefault();
+    console.log("function reached!");
     setOverlayClass(!overlayClass);
+    localStorage.setItem("Register", "fulfilled");
   };
 
   return (
@@ -139,20 +142,82 @@ export default function Dashboard() {
       </main>
       <div
         className={
-          !overlayClass && formCheck.current === "Login"
-            ? styles.formContainer
-            : classNames(styles.formContainer, styles.active)
+          !overlayClass && formCheck.current === "fulfilled"
+            ? classNames(styles.formContainer, styles.active)
+            : styles.formContainer
         }
       >
         <form
           //   onSubmit={handleSubmitLogin}
           action="/dashboard"
-          className={styles.loginUserName}
+          className={styles.loginUsername}
         >
           <h4>Please finish registration! </h4>
           <div className={styles.inputFields}>
-            <label htmlFor="name">Password</label>
-            <input type="password" name="password" />
+            <div className={styles.fieldsLeft}>
+              <label htmlFor="gender">Gender</label>
+              <select name="gender" id="gender">
+                <option value="genderDefault">Choose one</option>
+                <option value="female">Female</option>
+                <option value="male">Male</option>
+                <option value="other">Other</option>
+              </select>
+              <label htmlFor="age">Age</label>
+              <select name="age" id="age">
+                <option value="ageDefault">Choose one</option>
+                <option value="child">1-12</option>
+                <option value="teen">13-17</option>
+                <option value="young">18-29</option>
+                <option value="middleAged">30-49</option>
+                <option value="bestAger">50-69</option>
+                <option value="old">70-89</option>
+                <option value="eldest">90-99</option>
+              </select>
+              <label htmlFor="height">Height (cm)</label>
+              <input type="number" name="height" placeholder="Please enter" />
+              <label htmlFor="weight">Weight (kg)</label>
+              <input type="number" name="weight" placeholder="Please enter" />
+            </div>
+            <div className={styles.fieldsRight}>
+              <label htmlFor="disability">Disability</label>
+              <select name="disability" id="disability">
+                <option value="disabilityDefault">None</option>
+                <option value="arms">Arms</option>
+                <option value="legs">Legs</option>
+                <option value="back">Back</option>
+              </select>
+              <label htmlFor="goals">Workout Goals</label>
+              <select name="goals" id="goals">
+                <option value="goalsDefault">Choose one</option>
+                <option value="looseWeight">Loose Weight</option>
+                <option value="stayFit">Stay Fit</option>
+                <option value="gainMuscles">Gain Muscles</option>
+              </select>
+              <label htmlFor="workoutDays">Workout Days/Week</label>
+              <select name="workoutDays" id="workoutDays">
+                <option value="daysDefault">Choose one</option>
+                <option value="days1">1</option>
+                <option value="days2">2</option>
+                <option value="days3">3</option>
+                <option value="days4">4</option>
+                <option value="days5">5</option>
+                <option value="days6">6</option>
+              </select>
+              <label htmlFor="activity">Activity Level</label>
+              <select name="activity" id="activity">
+                <option value="activityDefault">Choose one</option>
+                <option value="sedentary">Sedentary</option>
+                <option value="moderately">Moderately Active</option>
+                <option value="active">Active</option>
+              </select>
+            </div>
+          </div>
+          <div className={styles.bottomSection}>
+            <div>
+              <label htmlFor="equipment">Equipment available</label>
+              <input type="checkbox" name="equipment" />
+            </div>
+            <button onClick={handleRemoveOverlay}>OK</button>
           </div>
         </form>
       </div>
