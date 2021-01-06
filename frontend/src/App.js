@@ -11,15 +11,15 @@ import Userpage from "./Components/Userpage";
 function App() {
   return (
     <BrowserRouter>
-        <Route path="/" exact component={Home} />
-        <Route path="/" exact component={Motivation} />
-        <Route path="/" exact component={Services} />
-        <Route path="/" exact component={Testimonials} />
-        <Route path="/" exact component={Footer} />
-        <Switch>
+      <Route path="/" exact component={Home} />
+      <Route path="/" exact component={Motivation} />
+      <Route path="/" exact component={Services} />
+      <Route path="/" exact component={Testimonials} />
+      <Route path="/" exact component={Footer} />
+      <Switch>
         <Route path="/dashboard" exact component={Dashboard} />
         <Route path="/userpage" component={Userpage} />
-        </Switch>
+      </Switch>
     </BrowserRouter>
   );
 }

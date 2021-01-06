@@ -1,11 +1,18 @@
 import { React, useRef, useState } from "react";
-import { BrowserRouter, Link, Switch, Route } from "react-router-dom";
+import {
+  BrowserRouter,
+  Link,
+  Switch,
+  Route,
+  useHistory,
+} from "react-router-dom";
 import styles from "../modules/home.module.css";
 import imgLogo from "../pics/home/Logo.png";
 import classNames from "classnames";
 import Dashboard from "./Dashboard";
 
 export default function Home() {
+  const history = useHistory();
   const formCheck = useRef("");
   const [overlayClass, setOverlayClass] = useState("false");
 
@@ -48,6 +55,8 @@ export default function Home() {
         body: JSON.stringify(data),
       });
       const json = await response.json();
+      localStorage.setItem("Register", "pending");
+      history.push("/dashboard");
       console.log(json);
     } catch (err) {
       console.log(err);
@@ -150,7 +159,7 @@ export default function Home() {
             : styles.formContainer
         }
       >
-        <form onSubmit={handleSubmitRegister} action="/dashboard">
+        <form onSubmit={handleSubmitRegister}>
           <div className={styles.formGroup}>
             <label htmlFor="username">Username</label>
             <input type="text" name="username" />
