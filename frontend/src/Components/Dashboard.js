@@ -1,4 +1,4 @@
-import { React, useState, useRef } from "react";
+import { React, useState, useRef, useEffect } from "react";
 import classNames from "classnames";
 import imgLogo from "../pics/dashboard/Logo-black.png";
 import styles from "../modules/dashboard.module.css";
@@ -17,13 +17,17 @@ import protein from "../pics/dashboard/protein.png";
 import fat from "../pics/dashboard/fat.png";
 
 export default function Dashboard() {
-  const formCheck = useRef(localStorage.getItem("Register") || null);
   const [overlayClass, setOverlayClass] = useState("false");
+  const formCheck = localStorage.getItem("Register") || null;
 
-  // const handleOverlay = (event) => {
-  //   setOverlayClass(!overlayClass);
-  //   formCheck.current = event.target.textContent;
-  // };
+  useEffect(() => {
+    if (formCheck === "pending") {
+      setOverlayClass("true");
+    } else {
+      setOverlayClass("false");
+    }
+  }, []);
+
   console.log(overlayClass);
 
   const handleRemoveOverlay = (event) => {
@@ -142,7 +146,7 @@ export default function Dashboard() {
       </main>
       <div
         className={
-          !overlayClass && formCheck.current === "fulfilled"
+          overlayClass && formCheck === "pending"
             ? classNames(styles.formContainer, styles.active)
             : styles.formContainer
         }
@@ -223,7 +227,9 @@ export default function Dashboard() {
       </div>
       <div
         id={styles.overlay}
-        className={overlayClass ? null : styles.active}
+        className={
+          overlayClass && formCheck === "pending" ? styles.active : null
+        }
         onClick={handleRemoveOverlay}
       ></div>
     </div>
