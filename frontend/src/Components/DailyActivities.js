@@ -31,7 +31,7 @@ export default function DailyActivities() {
             </a>
           </div>
         </nav>
-        <h3 className={styles.date}>Tuesday, January 05, 2021</h3>
+        <h3 className={styles.date}>Monday, December 14, 2020</h3>
         <div className={styles.checkBox}>
           <div className={styles.redXCircleDiv}>
             <img src={redXCircle} />
@@ -41,35 +41,45 @@ export default function DailyActivities() {
           </div>
         </div>
         <div className={styles.mainContainer}>
-          <div className={styles.exerciseTextDiv}>
-            <h3>Exercise 1</h3>
-            <h3>Exercise 2</h3>
-            <h3>Exercise 3</h3>
-            <h3>Exercise 4</h3>
+          <div className={styles.exerciseContainer}>
+            <div className={styles.exerciseDiv}>
+              <h3>Exercise 1</h3>
+              <div className={styles.exerciseImg}></div>
+            </div>
+            <div className={styles.exerciseDiv}>
+              <h3>Exercise 2</h3>
+              <div className={styles.exerciseImg}></div>
+            </div>
+            <div className={styles.exerciseDiv}>
+              <h3>Exercise 3</h3>
+              <div className={styles.exerciseImg}></div>
+            </div>
+            <div className={styles.exerciseDiv}>
+              <h3>Exercise 4</h3>
+              <div className={styles.exerciseImg}></div>
+            </div>
           </div>
-
-          <div className={styles.exerciseImageDiv}>
-            <div className={styles.exerciseImg}></div>
-            <div className={styles.exerciseImg}></div>
-            <div className={styles.exerciseImg}></div>
-            <div className={styles.exerciseImg}></div>
-          </div>
-          <div className={styles.exerciseTextDiv}>
-            <h3>Exercise 5</h3>
-            <h3>Exercise 6</h3>
-            <h3>Exercise 7</h3>
-            <h3>Exercise 8</h3>
-          </div>
-
-          <div className={styles.exerciseImageDiv}>
-            <div className={styles.exerciseImg}></div>
-            <div className={styles.exerciseImg}></div>
-            <div className={styles.exerciseImg}></div>
-            <div className={styles.exerciseImg}></div>
+          <div className={styles.exerciseContainer}>
+            <div className={styles.exerciseDiv}>
+              <h3>Exercise 5</h3>
+              <div className={styles.exerciseImg}></div>
+            </div>
+            <div className={styles.exerciseDiv}>
+              <h3>Exercise 6</h3>
+              <div className={styles.exerciseImg}></div>
+            </div>
+            <div className={styles.exerciseDiv}>
+              <h3>Exercise 7</h3>
+              <div className={styles.exerciseImg}></div>
+            </div>
+            <div className={styles.exerciseDiv}>
+              <h3>Exercise 8</h3>
+              <div className={styles.exerciseImg}></div>
+            </div>
           </div>
           <div className={styles.buttons}>
-            <button>Done</button>
-            <button>Missed</button>
+            <button className={styles.grayBtn}>Done</button>
+            <button className={styles.redBtn}>Missed</button>
           </div>
         </div>
       </div>

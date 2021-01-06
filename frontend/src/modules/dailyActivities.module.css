@@ -78,9 +78,11 @@ ul li a {
 
 /* NAVBAR CODING ENDED */
 
+/* --------- */
+
 .background h3 {
   text-align: center;
-  font-size: max(20px, 1.5vw);
+  font-size: max(20px, 1.3vw);
   color: #000000;
   font-weight: normal;
   font-style: normal;
@@ -91,8 +93,7 @@ ul li a {
   display: flex;
   justify-content: space-between;
   width: 12vw;
-  margin: -3% 0 0 85%;
-  /* outline: 2px solid red; */
+  margin: -3% 0 0 82%;
 }
 
 .checkBox .redXCircleDiv {
@@ -110,31 +111,54 @@ ul li a {
   height: 68vh;
   padding: 0 12% 0 12%;
 }
-.mainContainer .exerciseTextDiv {
-  /* outline: 2px solid red; */
+
+.mainContainer .exerciseContainer {
   display: flex;
   justify-content: space-evenly;
-  
+  /* flex-wrap: wrap; */
+  margin-top: 30px;
 }
-.mainContainer .exerciseTextDiv h3 {
-    
-    
-}
-.mainContainer .exerciseImageDiv {
-  /*  outline: 3px solid blue; */
-   display: flex;
-   justify-content: space-evenly;
-   padding-top: 20px;
-}
+.mainContainer .exerciseContainer .exerciseDiv {
 
-.mainContainer .exerciseImageDiv .exerciseImg {
+  display: inline-block;
+}
+.mainContainer .exerciseContainer .exerciseDiv h3{
+  margin-bottom: 30px;
+  font-size: max(16px, 1.2vw);
+}
+.mainContainer .exerciseImg {
     width: 12vw;
     height: 149px;
     background: #B8C1CE;
     border-radius: 0px 15px;
 }
-.mainContainer .buttons {
+/* --------- */
 
+/* buttons */
+.mainContainer .buttons {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+  
+}
+.mainContainer .buttons button {
+  width: 8.5vw;
+  height: 60px;
+  border-radius: 20px;
+  margin: 25px;
+  padding: 15px;
+  border: none;
+  font-size: max(16px, 1.2vw);
+  color: #ffffff;
+  font-weight: 400;
+  font-style: normal;
+}
+.mainContainer .buttons .grayBtn {
+  background: #474747;
+}
+
+.mainContainer .buttons .redBtn {
+  background:#F93F3F;
 }
 
 
