@@ -9,6 +9,7 @@ import Dashboard from "./Components/Dashboard";
 import Userpage from "./Components/Userpage";
 import DailyActivities from "./Components/DailyActivities";
 import WorkoutOverview from "./Components/WorkoutOverview";
+import ManageWorkout from "./Components/ManageWorkout";
 
 function App() {
   return (
@@ -23,7 +24,8 @@ function App() {
         <Route path="/userpage" component={Userpage} />
         <Route path="/dailyactivities" component={DailyActivities} />
         <Route path="/workoutoverview" component={WorkoutOverview} />
-        </Switch>
+        <Route path="/manageWorkout" component={ManageWorkout} />
+      </Switch>
     </BrowserRouter>
   );
 }

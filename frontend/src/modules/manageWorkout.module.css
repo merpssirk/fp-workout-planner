@@ -1,0 +1,170 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+  color: whitesmoke;
+}
+
+.background {
+  height: 100vh;
+  width: 100vw;
+  background-image: url(../pics/dashboard/dashboard-background.png);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  animation: backImageAnimation 20s linear infinite;
+}
+
+/* NAVIGATION BAR */
+
+.navBar {
+  display: flex;
+  height: 10vh;
+  width: 100vw;
+  margin-bottom: 20px;
+  background: rgba(249, 16, 16, 0.8);
+  color: whitesmoke;
+}
+
+.navBar li {
+  font-size: max(15px, 1.8vw);
+}
+
+.navBar li a {
+  color: whitesmoke;
+  text-decoration: none;
+}
+
+.navBar li a:hover {
+  color: black;
+}
+
+ul a {
+  height: 70%;
+  margin: 0 3%;
+}
+
+ul img {
+  height: 100%;
+}
+
+.navBar ul {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  list-style-type: none;
+}
+
+ul li a {
+  margin: 0 40px 0 20px;
+}
+
+.profileWrapper {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  margin: 0 20px;
+}
+
+.profileWrapper a {
+  height: 70%;
+  margin-left: 20px;
+}
+
+.profileWrapper img {
+  height: 100%;
+}
+
+/* DAY BUTTONS */
+
+.dayIndicators {
+  display: flex;
+  justify-content: center;
+  color: black;
+}
+
+.dayIndicators h3 {
+  width: 11.8vw;
+  font-size: max(15px, 1.4vw);
+  text-align: center;
+}
+
+.dayIndicators .dayButton {
+  height: 50px;
+  width: 50px;
+  margin-top: 10%;
+  background-color: rgb(116, 182, 107);
+  border: 10px solid #474747;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.3);
+  border-radius: 50%;
+}
+
+.dayIndicators div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* EXERCISE PANELS */
+
+.exercisePanels {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 70vh;
+  width: 100vw;
+  margin-top: 2%;
+}
+
+.exercisePanels h3 {
+  font-size: max(15px, 1.2vw);
+}
+
+.panelsTop,
+.panelsBottom {
+  display: flex;
+  color: black;
+}
+
+.exercisePanels .panel {
+  position: relative;
+  height: 20vh;
+  width: 15vw;
+  margin: 25px 20px;
+  background: #b8c1ce;
+  border-radius: 0px 15px;
+}
+
+.exercisePanels .panel::after {
+  position: absolute;
+  content: url(../pics/manageWorkout/addSign.png);
+  bottom: -25px;
+  right: -25px;
+}
+
+.panel1,
+.panel2,
+.panel3,
+.panel4,
+.panel5,
+.panel6,
+.panel7,
+.panel8 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.background .saveButton {
+  height: 6vh;
+  width: 10vw;
+  margin-top: 2%;
+  font-size: 1.4vw;
+  color: whitesmoke;
+  background-color: #474747;
+  border-radius: 10px;
+}
