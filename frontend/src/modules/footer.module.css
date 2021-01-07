@@ -17,13 +17,13 @@
 
 .footerContainer .information ul li {
   list-style-type: none;
-  margin-top: 40px;
+  margin-top: 2.164vw;
   cursor: pointer;
 }
 .footerContainer .information ul li a {
   text-decoration: none;
   color: rgba(255, 255, 255, 1);
-  font-size: 24px;
+  font-size: max(16px, 1.4vw);
   font-weight: 400;
 }
 
@@ -45,7 +45,7 @@
 }
 
 .footerContainer .socialMedia p {
-  font-size: 20px;
+  font-size: max(16px, 1.2vw);
   color: rgba(255, 255, 255, 1);
   text-align: right;
   font-weight: 400;
@@ -55,14 +55,14 @@
 .footerContainer .socialMedia .socialMediaBg {
   display: flex;
   justify-content: center;
-  height: 45px;
-  width: 45px;
+  height: 2.445vw;
+  width: 2.445vw;
   background: rgba(255, 255, 255, 1);
   border-radius: 50%;
-  padding-top: 5px;
+  padding-top: 0.273vw;
 }
 
 .footerContainer .socialMedia a {
-  font-size: 17px;
+  font-size: max(10px, .9vw);;
   color: black;
 }
