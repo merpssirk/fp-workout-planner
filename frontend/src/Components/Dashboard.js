@@ -36,6 +36,36 @@ export default function Dashboard() {
     setOverlayClass(!overlayClass);
     localStorage.setItem("Register", "fulfilled");
   };
+  //---FINISH REGISTRATION PAGE CODE TO CONNECT BACKEND---
+  const handleFinishRegistration = async ( event ) => {
+    event.preventDefault();
+    const formData = new FormData( event.target );
+
+    const finishRegistrationField = {
+      gender: formData.get( "gender" ),
+      age: formData.get( "age" ),
+      height: formData.get( "height" ),
+      weight: formData.get( "weight" ),
+      disability: formData.get( "disability" ),
+      goals: formData.get( "goals" ),
+      workoutDays: formData.get( "workoutDays" ),
+      activity: formData.get( "activity" ),
+    }
+    try {
+      const response = await fetch("/user/finishRegisteration", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(finishRegistrationField),
+      })
+      const json = await response.json();
+      console.log( json );
+    } catch ( err ) {
+      console.log(err);
+    }
+  }
 
   return (
     <div className={styles.background}>
@@ -151,7 +181,7 @@ export default function Dashboard() {
             : styles.formContainer
         }
       >
-        <form
+        <form onSubmit={handleFinishRegistration}
           //   onSubmit={handleSubmitLogin}
           action="/dashboard"
           className={styles.loginUsername}
