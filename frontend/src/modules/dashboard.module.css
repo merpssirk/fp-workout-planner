@@ -80,9 +80,11 @@ ul li a {
 .dateWeatherWrapper {
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
-  height: 15%;
+  align-items: center;
+  height: 10%;
   width: 100%;
+  margin-top: 5%;
+  background: rgba(184, 193, 206, 0.9);
   font-size: 1.5rem;
   color: black;
 }
@@ -112,10 +114,9 @@ ul li a {
 
 .panel {
   height: 60%;
-  width: 98%;
-  margin: 40px auto;
+  width: 100%;
+  margin: 10px auto;
   background: rgba(184, 193, 206, 0.9);
-  border-radius: 40px;
 }
 
 .tilesWrapper {
