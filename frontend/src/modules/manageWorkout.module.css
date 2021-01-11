@@ -111,7 +111,7 @@ ul li a {
 
 /* EXERCISE PANELS */
 
-.exercisePanels {
+.exercisePanelsWrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -120,17 +120,19 @@ ul li a {
   margin-top: 2%;
 }
 
-.exercisePanels h3 {
+.exercisePanelsWrapper h3 {
   font-size: max(15px, 1.2vw);
 }
 
-.panelsTop,
-.panelsBottom {
+.panels {
   display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 75vw;
   color: black;
 }
 
-.exercisePanels .panel {
+.exercisePanelsWrapper .panel {
   position: relative;
   height: 20vh;
   width: 15vw;
@@ -139,7 +141,7 @@ ul li a {
   border-radius: 0px 15px;
 }
 
-.exercisePanels .panel::after {
+.exercisePanelsWrapper .panel::after {
   position: absolute;
   content: url(../pics/manageWorkout/addSign.png);
   bottom: -25px;

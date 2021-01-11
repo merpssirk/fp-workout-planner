@@ -18,7 +18,20 @@ import fat from "../pics/dashboard/fat.png";
 
 export default function Dashboard() {
   const [overlayClass, setOverlayClass] = useState("false");
+  const [currentDate, setCurrentDate] = useState();
   const formCheck = localStorage.getItem("Register") || null;
+
+  useEffect(() => {
+    const date = new Date();
+    const options = {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    };
+
+    setCurrentDate(new Intl.DateTimeFormat("en-GB", options).format(date));
+  });
 
   useEffect(() => {
     if (formCheck === "pending") {
@@ -92,7 +105,7 @@ export default function Dashboard() {
         </div>
       </nav>
       <div className={styles.dateWeatherWrapper}>
-        <div className={styles.date}>Monday, December 14, 2020</div>
+        <div className={styles.date}>{currentDate}</div>
         <div className={styles.weatherTownWrapper}>
           <div className={styles.weatherIcon}>
             <img src={weather} />
@@ -116,11 +129,11 @@ export default function Dashboard() {
             <div className={styles.tilesIcon}>
               <img src={weightlifter} />
             </div>
-            <san className={styles.tilesCounter}>
+            <span className={styles.tilesCounter}>
               Exercises created
               <br />
               12
-            </san>
+            </span>
           </div>
           <div className={styles.streakWrapper}>
             <div className={styles.tilesIcon}>
@@ -155,14 +168,22 @@ export default function Dashboard() {
             <h4>Nutrition</h4>
             <img src={lineTop} />
             <div className={styles.nutritionIcons}>
-              <img src={calories} />
-              <span className={styles.caloriesFigures}>3000</span>
-              <img src={carbs} />
-              <span className={styles.carbsFigures}>350</span>
-              <img src={protein} />
-              <span className={styles.proteinFigures}>200</span>
-              <img src={fat} />
-              <span className={styles.fatFigures}>120</span>
+              <div className={styles.macrosWrapper}>
+                <img src={calories} />
+                <span className={styles.caloriesFigures}>3000</span>
+              </div>
+              <div className={styles.macrosWrapper}>
+                <img src={carbs} />
+                <span className={styles.carbsFigures}>350</span>
+              </div>
+              <div className={styles.macrosWrapper}>
+                <img src={protein} />
+                <span className={styles.proteinFigures}>200</span>
+              </div>
+              <div className={styles.macrosWrapper}>
+                <img src={fat} />
+                <span className={styles.fatFigures}>120</span>
+              </div>
             </div>
           </div>
           <div className={styles.weightDifference}>

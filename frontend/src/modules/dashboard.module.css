@@ -80,9 +80,11 @@ ul li a {
 .dateWeatherWrapper {
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
-  height: 15%;
+  align-items: center;
+  height: 10%;
   width: 100%;
+  margin-top: 5%;
+  background: rgba(184, 193, 206, 0.9);
   font-size: 1.5rem;
   color: black;
 }
@@ -112,10 +114,9 @@ ul li a {
 
 .panel {
   height: 60%;
-  width: 98%;
-  margin: 40px auto;
+  width: 100%;
+  margin: 10px auto;
   background: rgba(184, 193, 206, 0.9);
-  border-radius: 40px;
 }
 
 .tilesWrapper {
@@ -124,6 +125,10 @@ ul li a {
   align-items: center;
   height: 20%;
   width: 100%;
+}
+
+.tilesWrapper span {
+  font-size: max(12px, 0.9vw);
 }
 
 .workoutsWrapper,
@@ -180,6 +185,7 @@ ul li a {
 
 .mainInfoWrapper h4 {
   margin-bottom: 15px;
+  font-size: max(15px, 1.1vw);
 }
 
 .workoutDiagram,
@@ -191,57 +197,38 @@ ul li a {
   width: 100%;
 }
 
+.workoutDiagram img {
+  width: 25vw;
+}
+
 .nutritionIcons {
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 20%;
-  width: 100%;
-  margin-top: 100px;
-}
-
-.workoutDiagram img {
   height: 50%;
+  width: 100%;
+  margin-top: 50px;
 }
 
 .nutritionIcons img {
-  height: 80%;
+  width: 5vw;
   margin: 15px 10px;
+}
+
+.macrosWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.macrosWrapper span {
+  font-size: max(15px, 1.8vw);
+  font-weight: bold;
 }
 
 .weightDiagram img {
   width: 95%;
-}
-
-.nutritionFigures {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-}
-
-.caloriesFigures {
-  position: absolute;
-  top: 80px;
-  left: 95px;
-}
-
-.carbsFigures {
-  position: absolute;
-  top: 80px;
-  left: 185px;
-}
-
-.proteinFigures {
-  position: absolute;
-  top: 80px;
-  left: 265px;
-}
-
-.fatFigures {
-  position: absolute;
-  top: 80px;
-  left: 350px;
 }
 
 /* FINISH REGISTRATION */

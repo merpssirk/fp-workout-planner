@@ -2,6 +2,7 @@ import React from "react";
 import styles from "../modules/manageWorkout.module.css";
 import imgLogo from "../pics/dashboard/Logo-black.png";
 import avatar from "../pics/dashboard/Avatar-male.png";
+import classNames from "classnames";
 
 export default function ManageWorkout() {
   return (
@@ -58,8 +59,8 @@ export default function ManageWorkout() {
           <button className={styles.dayButton} id="day7"></button>
         </div>
       </div>
-      <div className={styles.exercisePanels}>
-        <div className={styles.panelsTop}>
+      <div className={styles.exercisePanelsWrapper}>
+        <div className={styles.panels}>
           <div className={styles.panel1}>
             <h3>Exercise 1</h3>
             <div className={styles.panel}></div>
@@ -76,8 +77,6 @@ export default function ManageWorkout() {
             <h3>Exercise 4</h3>
             <div className={styles.panel}></div>
           </div>
-        </div>
-        <div className={styles.panelsBottom}>
           <div className={styles.panel5}>
             <h3>Exercise 5</h3>
             <div className={styles.panel}></div>
