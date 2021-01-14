@@ -2,8 +2,12 @@ const express = require("express")
 const Users = require("../Models/UserModel")
 const bcrypt = require("bcrypt")
 const { jwtIssuer } = require("../utils/jwtIssuer")
-const { body, validationResult } = require("express-validator")
-const router = express.Router()
+const { body, validationResult } = require( "express-validator" );
+const passport = require( "passport" );
+
+const router = express.Router();
+
+//router.use( passport.authenticate( 'jwt', { session: false } ) );
 
 //-------------Register Page------------------
 router.post("/register", async (request, response) => {
@@ -36,9 +40,18 @@ router.post("/register", async (request, response) => {
     })
     //Save in MongoDB
     const savedUser = await newUser.save()
+    const token = jwtIssuer( savedUser )
+    response
+      .cookie("jwt", token, {
+        httpOnly: true,
+        sameSite: "lax",
+      })
+      .send("Registered successfully!!!")
     //response.json( savedUser );
+   // request.id = savedUser._id
+    // console.log(request.id);
 
-    response.json({ msg: "Successfully Registered" })
+    //response.json({ msg: "Successfully Registered", token })
   } catch (err) {
     return response.status(500).json({ msg: err.message })
   }
@@ -48,9 +61,11 @@ router.post("/register", async (request, response) => {
 
 router.post("/login", async (request, response) => {
   try {
-    console.log(request.body)
+    //console.log(request.body)
     const { email, password } = request.body
+
     //validation
+
     if (!email || !password)
       return response
         .status(400)
@@ -63,14 +78,19 @@ router.post("/login", async (request, response) => {
         .json({ msg: "No accout with this email has been registered" })
 
     //comparing password
+
     const isMatch = await bcrypt.compare(password, user.password)
     if (!isMatch)
-      return response.status(400).json({ msg: "Invalid Credentials" })
+      return response.status(400).json({ msg: "Invalid Password" })
 
     //creating jsonwebtoken (jwt)
-    const token = jwtIssuer(user)
-    response.status(200).json({ token })
-    console.log(token)
+   
+    const token = jwtIssuer( user );
+    response.cookie( 'jwt', token, {
+      httpOnly: true,
+      sameSite: "lax"
+    } ).send( "LoggedIn successfully!!!" )
+    
   } catch (err) {
     return response.status(500).json({ msg: err.message })
   }
@@ -81,9 +101,22 @@ router.get("/dashboardData", (request, response) => {
 })
 
 //User Profile Edit Page
-router.put("/profileEdit", (request, response) => {
-  response.send("welcome")
-})
+router.put(
+  "/profileEdit/:id",
+  passport.authenticate("jwt", { session: false }),
+  async (request, response) => {
+    const { id: _id } = request.params
+
+    const updateField = request.body
+
+    const updateUserField = await Users.findByIdAndUpdate(_id, {
+      ...updateField,
+      _id,
+    })
+    console.log(updateUserField)
+    response.json(updateUserField)
+  }
+)
 
 //Manage Workout Page
 router.put("/workoutEdit", (request, response) => {
@@ -98,6 +131,7 @@ router.get("/workoutOverview", (request, response) => {
 //Finish Registration page
 router.post(
   "/finishRegistration",
+  passport.authenticate("jwt", { session: false }),
   [
     body("gender").isIn(["female", "male", "other"]),
     body("age").isIn([
@@ -110,46 +144,48 @@ router.post(
       "eldest",
     ]),
     body(["height", "weight"]).isNumeric(),
-    body("disability").isIn(["disabilityDefault", "arms", "legs", "back"]),
-    body("goals").isIn(["looseWeight", "stayFit", "gainMuscles"]),
-    body("workoutDays").isIn([
-      "days1",
-      "days2",
-      "days3",
-      "days4",
-      "days5",
-      "days6",
-    ]),
-    body("activity").isIn(["sedentary", "moderately", "active"]),
+    body("disability").isIn(["arms", "legs", "back", "none"]),
+    body("workoutGoals").isIn(["looseWeight", "stayFit", "gainMuscles"]),
+    body("workoutDays").isNumeric().isIn([1, 2, 3, 4, 5, 6]),
+    body("activityLevel").isIn(["sedentary", "moderately", "active"]),
   ],
-  (request, response) => {
+  async (request, response) => {
     const {
       gender,
       age,
       height,
       weight,
       disability,
-      goals,
+      workoutGoals,
+      activityLevel,
       workoutDays,
-      activity,
     } = request.body
-    const newUser = new Users({
+    console.log(request.body)
+    const newUser = {
       gender,
       age,
       height,
       weight,
       disability,
-      goals,
+      workoutGoals,
       workoutDays,
-      activity,
-    })
-    newUser.save()
-
-    const result = validationResult(request)
-    if (result.errors.length > 0) {
-      response.type("json").status(400).send(result.errors)
+      activityLevel,
+    }
+    console.log('1',request.user);
+    const user = await Users.findByIdAndUpdate(
+      request.user,
+      { $set: newUser },
+      { new: true }
+    )
+  
+    if (user) {
+      const result = validationResult(request)
+      if (result.errors.length > 0) {
+       return response.status(400).json({ result: result.errors })
+      }
+      response.status(200).json({msg: "Registration Finished"})
     } else {
-      response.send("Thank you for finish registration")
+      response.status( 401 ).json( { msg: "Can not find User" })
     }
   }
 )

@@ -78,6 +78,7 @@ ul li a {
 }
 
 .dateWeatherWrapper {
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -98,6 +99,31 @@ ul li a {
   justify-content: space-between;
   align-items: flex-end;
   width: auto;
+}
+.dateWeatherWrapper .weatherTownWrapper .weatherOverview {
+  position: absolute;
+  border-radius: 25px;
+  bottom: 0;
+  right: 10px;
+  overflow: auto;
+  background-color: rgba(184, 193, 206, 0.9);
+  color: #22254b;
+  padding: 1rem;
+  transform: translateY(102%);
+  z-index: -1;
+  transition: transform 0.3s ease-in-out;
+  width: 18vw;
+  height: 8vh;
+}
+.weatherTownWrapper:hover .weatherOverview {
+  transform: translateX(0);
+  z-index: 1;
+}
+.dateWeatherWrapper .weatherTownWrapper .weatherOverview p
+ {
+  font-size: max(12px, 0.8vw);
+  letter-spacing: 2px;
+  
 }
 
 .dateWeatherWrapper .weatherIcon img {
@@ -259,7 +285,10 @@ ul li a {
   font-size: max(12px, 0.8vw);
   text-align: center;
 }
-
+.inputFields .fieldsLeft input {
+  height: 3.2vh;
+  font-size: max(12px, 0.8vw);
+}
 .inputFields input::placeholder {
   opacity: 1;
 }

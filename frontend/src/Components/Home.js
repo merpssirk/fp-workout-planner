@@ -36,7 +36,7 @@ export default function Home() {
   // --------REGISTER PAGE CONNECTING TO THE BACKEND-----
   const handleSubmitRegister = async (event) => {
     event.preventDefault();
-    console.log("code is working");
+    //console.log("code is working");
     const formData = new FormData(event.target);
 
     const data = {
@@ -53,11 +53,11 @@ export default function Home() {
           Accept: "application/json",
         },
         body: JSON.stringify(data),
-      });
-      const json = await response.json();
+      })
+      //const json = await response.json();
       localStorage.setItem("Register", "pending");
       history.push("/dashboard");
-      console.log(json);
+      //console.log(json);
     } catch (err) {
       console.log(err);
     }
@@ -74,14 +74,17 @@ export default function Home() {
     try {
       const response = await fetch("/user/login", {
         method: "POST",
+        credentials: "include",
         body: JSON.stringify(data),
         headers: {
           "content-type": "application/json",
           Accept: "application/json",
         },
-      });
-      const json = await response.json();
-      console.log(json);
+      })
+      //const json = await response.json();
+      window.localStorage.setItem( "loggedIn", JSON.stringify( true ) );
+      history.push("/dashboard")
+      //console.log(json);
     } catch (err) {
       console.log(err);
     }
@@ -96,28 +99,28 @@ export default function Home() {
           </a>
           <li
             onClick={(e) => {
-              handleScroll(e);
+              handleScroll(e)
             }}
           >
             Motivation
           </li>
           <li
             onClick={(e) => {
-              handleScroll(e);
+              handleScroll(e)
             }}
           >
             Services
           </li>
           <li
             onClick={(e) => {
-              handleScroll(e);
+              handleScroll(e)
             }}
           >
             Testimonials
           </li>
           <li
             onClick={(e) => {
-              handleScroll(e);
+              handleScroll(e)
             }}
           >
             Contact
@@ -136,7 +139,7 @@ export default function Home() {
         </p>
         <button
           onClick={(e) => {
-            handleOverlay(e);
+            handleOverlay(e)
           }}
         >
           Register
@@ -146,7 +149,7 @@ export default function Home() {
         <button
           className={styles.loginButton}
           onClick={(e) => {
-            handleOverlay(e);
+            handleOverlay(e)
           }}
         >
           Login
@@ -162,15 +165,15 @@ export default function Home() {
         <form onSubmit={handleSubmitRegister}>
           <div className={styles.formGroup}>
             <label htmlFor="username">Username</label>
-            <input type="text" name="username" />
+            <input type="text" name="username" required="required" />
           </div>
           <div className={styles.formGroup}>
             <label htmlFor="email">Email</label>
-            <input type="email" name="email" />
+            <input type="email" name="email" required="required" />
           </div>
           <div className={styles.formGroup}>
             <label htmlFor="password">Password</label>
-            <input type="password" name="password" />
+            <input type="password" name="password" required="required" />
           </div>
           <input
             type="submit"
@@ -194,12 +197,12 @@ export default function Home() {
         >
           <div className={styles.formGroup}>
             <label htmlFor="email">Email</label>
-            <input type="email" name="email" />
+            <input type="email" name="email" required="required" />
           </div>
 
           <div className={styles.formGroup}>
             <label htmlFor="password">Password</label>
-            <input type="password" name="password" />
+            <input type="password" name="password" required="required" />
           </div>
           <input
             type="submit"
@@ -215,5 +218,5 @@ export default function Home() {
         onClick={handleRemoveOverlay}
       ></div>
     </div>
-  );
+  )
 }

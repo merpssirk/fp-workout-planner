@@ -1,9 +1,20 @@
 const express = require( 'express' );
 const mongoose = require( 'mongoose' );
 const dotenv = require( 'dotenv' ).config();
+const cookieParser = require( 'cookie-parser' );
+const passport = require( "passport" );
+const { jwtStrategy } = require( "./utils/passportStrategies" );
+const cors = require( "cors" );
 
 const app = express();
+passport.use( jwtStrategy );
+
+//middleware
+app.use( cors() );
 app.use( express.json() );
+app.use( cookieParser() );
+app.use( passport.initialize() );
+
 // ROUTES
 const UserRoutes = require( './UserRoutes/UserRoutes' );
 app.use( '/user', UserRoutes );

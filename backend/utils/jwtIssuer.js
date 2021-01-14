@@ -7,12 +7,10 @@ function jwtIssuer(user) {
     iat: Date.now(),
   }
 
-  const signedToken = jsonwebtoken.sign(payload, process.env.JWT_SECRET_TOKEN)
+  const signedToken = jsonwebtoken.sign( payload, process.env.JWT_SECRET_TOKEN,
+  {expiresIn:'1d'})
 
-  return {
-    token: `Bearer ${signedToken}`,
-    expiresIn,
-  }
+  return  signedToken       
 }
 
 module.exports = {

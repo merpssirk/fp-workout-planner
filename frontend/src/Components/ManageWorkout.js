@@ -1,30 +1,38 @@
 import React from "react";
+import { useHistory } from 'react-router-dom';
 import styles from "../modules/manageWorkout.module.css";
 import imgLogo from "../pics/dashboard/Logo-black.png";
 import avatar from "../pics/dashboard/Avatar-male.png";
 import classNames from "classnames";
 
 export default function ManageWorkout() {
+  //LOGOUT
+  const history = useHistory()
+  const handleLogout = () => {
+    window.localStorage.removeItem("loggedIn")
+    history.push("/")
+  }
+
   return (
     <div className={styles.background}>
       <nav className={styles.navBar}>
         <ul>
-          <a href="home">
+          <a href="/dashboard">
             <img src={imgLogo} />
           </a>
           <li>
-            <a href="motivation">Edit Workout</a>
+            <a href="/manageWorkout">Edit Workout</a>
           </li>
           <li>
-            <a href="services">Daily Activties</a>
+            <a href="/dailyactivities">Daily Activties</a>
           </li>
           <li>
-            <a href="testimonials">Workout Overview</a>
+            <a href="/workoutoverview">Workout Overview</a>
           </li>
         </ul>
         <div className={styles.profileWrapper}>
-          <span>Name</span>
-          <a href="#">
+          <span onClick={handleLogout}>Name</span>
+          <a href="/userpage">
             <img src={avatar} />
           </a>
         </div>
@@ -97,5 +105,5 @@ export default function ManageWorkout() {
         <button className={styles.saveButton}>Save</button>
       </div>
     </div>
-  );
+  )
 }

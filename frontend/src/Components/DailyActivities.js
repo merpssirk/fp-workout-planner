@@ -1,4 +1,5 @@
 import React from "react";
+import {useHistory} from 'react-router-dom'
 import styles from "../modules/dailyActivities.module.css";
 import avatar from "../pics/dashboard/Avatar-male.png";
 import imgLogo from "../pics/dashboard/Logo-black.png";
@@ -6,6 +7,13 @@ import greenCheckCircle from "../pics/dashboard/greenCheckCircle.png";
 import redXCircle from "../pics/dashboard/redXCircle.png";
 
 export default function DailyActivities() {
+  //LOGOUT
+  const history = useHistory()
+  const handleLogout = () => {
+    window.localStorage.removeItem("loggedIn")
+    history.push("/")
+  }
+
   const calendarData = {
     year: {
       2020: {
@@ -18,10 +26,10 @@ export default function DailyActivities() {
       2021: { month: { 1: {} } },
       2022: { month: { 1: {} } },
     },
-  };
+  }
 
   const handleWorkoutData = (year, month, day, id) => {
-    updateMonth(year, month, day, id);
+    updateMonth(year, month, day, id)
 
     function updateMonth(year, monthIndex, day, id) {
       if (
@@ -30,9 +38,9 @@ export default function DailyActivities() {
         !calendarData.year[year].month[monthIndex].done ||
         !calendarData.year[year].month[monthIndex].missed
       ) {
-        createMonth(year, monthIndex, day, id);
+        createMonth(year, monthIndex, day, id)
       } else {
-        updateDay(year, monthIndex, day, id);
+        updateDay(year, monthIndex, day, id)
       }
     }
 
@@ -42,53 +50,53 @@ export default function DailyActivities() {
       if (!calendarData.year[year]) {
         calendarData.year[year] = {
           month: { [monthIndex]: { done: [], missed: [] } },
-        };
+        }
       }
-      console.log(calendarData.year);
+      console.log(calendarData.year)
       // create month
-      calendarData.year[year].month[monthIndex] = { done: [], missed: [] };
+      calendarData.year[year].month[monthIndex] = { done: [], missed: [] }
       if (id === 1) {
-        calendarData.year[year].month[monthIndex].done.push(day);
+        calendarData.year[year].month[monthIndex].done.push(day)
       } else if (id === 2) {
-        calendarData.year[year].month[monthIndex].missed.push(day);
+        calendarData.year[year].month[monthIndex].missed.push(day)
       }
     }
 
     function updateDay(year, monthIndex, day, id) {
       if (id === 1) {
-        calendarData.year[year].month[monthIndex].done.push(day);
+        calendarData.year[year].month[monthIndex].done.push(day)
       } else if (id === 2) {
-        calendarData.year[year].month[monthIndex].missed.push(day);
+        calendarData.year[year].month[monthIndex].missed.push(day)
       }
     }
-  };
+  }
 
-  handleWorkoutData(2019, 3, 1, 1);
+  handleWorkoutData(2019, 3, 1, 1)
 
-  console.log(calendarData.year);
-  console.log(calendarData.year[2019].month[3].done);
+  console.log(calendarData.year)
+  console.log(calendarData.year[2019].month[3].done)
 
   return (
     <>
       <div className={styles.background}>
         <nav className={styles.navBar}>
           <ul>
-            <a href="home">
+            <a href="/dashboard">
               <img src={imgLogo} />
             </a>
             <li>
-              <a href="motivation">Edit Workout</a>
+              <a href="/manageWorkout">Edit Workout</a>
             </li>
             <li>
-              <a href="services">Daily Activties</a>
+              <a href="/dailyactivities">Daily Activties</a>
             </li>
             <li>
-              <a href="testimonials">Workout Overview</a>
+              <a href="/workoutoverview">Workout Overview</a>
             </li>
           </ul>
           <div className={styles.profileWrapper}>
-            <span>Name</span>
-            <a href="#">
+            <span onClick={handleLogout}>Name</span>
+            <a href="/userpage">
               <img src={avatar} />
             </a>
           </div>
@@ -146,5 +154,5 @@ export default function DailyActivities() {
         </div>
       </div>
     </>
-  );
+  )
 }
