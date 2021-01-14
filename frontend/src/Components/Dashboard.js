@@ -78,7 +78,6 @@ export default function Dashboard() {
     })
   },[])
 
-
   //---FINISH REGISTRATION PAGE CONNECT TO BACKEND---
   const handleFinishRegistration = async (event) => {
     event.preventDefault()
@@ -90,6 +89,7 @@ export default function Dashboard() {
       height: formData.get("height"),
       weight: formData.get("weight"),
       disability: formData.get("disability"),
+
       workoutGoals: formData.get("workoutGoals"),
       workoutDays: formData.get("workoutDays"),
       activityLevel: formData.get("activityLevel"),
@@ -110,7 +110,7 @@ export default function Dashboard() {
     } catch (err) {
       console.log(err)
     }
-  }
+  };
 
   return (
     <div className={styles.background}>

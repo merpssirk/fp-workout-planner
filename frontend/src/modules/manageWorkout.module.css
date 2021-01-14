@@ -93,7 +93,7 @@ ul li a {
   text-align: center;
 }
 
-.dayIndicators .dayButton {
+.dayIndicators .buttonGreen {
   height: 50px;
   width: 50px;
   margin-top: 10%;
@@ -101,6 +101,31 @@ ul li a {
   border: 10px solid #474747;
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.3);
   border-radius: 50%;
+}
+
+.dayIndicators .buttonYellow {
+  height: 50px;
+  width: 50px;
+  margin-top: 10%;
+  background-color: rgb(209, 182, 63);
+  border: 10px solid #474747;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.3);
+  border-radius: 50%;
+}
+
+.dayIndicators .buttonGrey {
+  height: 50px;
+  width: 50px;
+  margin-top: 10%;
+  background-color: #474747;
+  border: 10px solid #474747;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.3);
+  border-radius: 50%;
+}
+
+.dayIndicators .activeButton {
+  border: 10px solid rgba(249, 16, 16, 0.8);
+  outline: 0;
 }
 
 .dayIndicators div {
@@ -141,11 +166,16 @@ ul li a {
   border-radius: 0px 15px;
 }
 
-.exercisePanelsWrapper .panel::after {
+.addSign {
   position: absolute;
-  content: url(../pics/manageWorkout/addSign.png);
-  bottom: -25px;
-  right: -25px;
+  background-image: url(../pics/manageWorkout/addSign.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  height: 30px;
+  width: 30px;
+  border: none;
+  bottom: -30px;
+  right: -30px;
 }
 
 .panel1,
@@ -169,4 +199,53 @@ ul li a {
   color: whitesmoke;
   background-color: #474747;
   border-radius: 10px;
+}
+
+/* OVERLAY */
+
+#overlay {
+  position: fixed;
+  opacity: 0;
+  transition: 300ms ease-in-out;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.85);
+  pointer-events: none;
+  z-index: 1;
+}
+
+#overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.formContainer {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 25%;
+  height: 70%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  transition: 300ms ease-in-out;
+  background: rgb(90, 87, 87);
+  color: whitesmoke;
+  border-radius: 8px;
+  padding-top: 56.78px;
+  z-index: 2;
+}
+
+.formContainer button {
+  position: absolute;
+  height: 4vh;
+  width: 6vw;
+  bottom: 5%;
+}
+
+.formContainer.active {
+  transform: translate(-50%, -50%) scale(1);
 }
