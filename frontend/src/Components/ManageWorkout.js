@@ -1,4 +1,4 @@
-import { useHistory } from 'react-router-dom';
+import { useHistory } from "react-router-dom";
 import { React, useState, useRef, useEffect } from "react";
 import styles from "../modules/manageWorkout.module.css";
 import imgLogo from "../pics/dashboard/Logo-black.png";
@@ -6,7 +6,7 @@ import avatar from "../pics/dashboard/Avatar-male.png";
 import classNames from "classnames";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
-export default function ManageWorkoutV2() {
+export default function ManageWorkout() {
   const panels = [
     { name: "p1", id: "1" },
     { name: "p2", id: "2" },
@@ -30,15 +30,6 @@ export default function ManageWorkoutV2() {
   const [dayButtonColour5, setDayButtonColour5] = useState("buttonGrey");
   const [dayButtonColour6, setDayButtonColour6] = useState("buttonGrey");
   let getDayButton = useRef([]);
-
-  // useEffect(() => {
-  //   const formCheck = "";
-  //   if (formCheck === "pending") {
-  //     setOverlayClass("true");
-  //   } else {
-  //     setOverlayClass("false");
-  //   }
-  // }, []);
 
   const handleSetOverlay = () => {
     setOverlayClass(!overlayClass);
@@ -91,14 +82,12 @@ export default function ManageWorkoutV2() {
     console.log(event.className);
   };
 
-
-export default function ManageWorkout() {
   //LOGOUT
-  const history = useHistory()
+  const history = useHistory();
   const handleLogout = () => {
-    window.localStorage.removeItem("loggedIn")
-    history.push("/")
-  }
+    window.localStorage.removeItem("loggedIn");
+    history.push("/");
+  };
 
   return (
     <div className={styles.background}>
@@ -282,5 +271,5 @@ export default function ManageWorkout() {
         onClick={handleRemoveOverlay}
       ></div>
     </div>
-  )
+  );
 }
