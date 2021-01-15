@@ -3,12 +3,10 @@
   padding: 0;
   box-sizing: border-box;
 }
-
 body {
   font-family: "Montserrat", sans-serif;
   color: whitesmoke;
 }
-
 .background {
   height: 100vh;
   width: 100vw;
@@ -18,81 +16,17 @@ body {
   animation: backImageAnimation 20s linear infinite;
 }
 
-/* NAVIGATION BAR */
-
-.navBar {
-  display: flex;
-  height: 10vh;
-  width: 100vw;
-  margin-bottom: 20px;
-  background: rgba(249, 16, 16, 0.8);
-  color: whitesmoke;
-}
-
-.navBar li {
-  font-size: max(15px, 1.8vw);
-}
-
-.navBar li a {
-  color: whitesmoke;
-  text-decoration: none;
-}
-
-.navBar li a:hover {
-  color: black;
-}
-
-ul a {
-  height: 70%;
-  margin: 0 3%;
-}
-
-ul img {
-  height: 100%;
-}
-
-.navBar ul {
-  display: flex;
-  align-items: center;
-  height: 100%;
-  width: 100%;
-  list-style-type: none;
-}
-
-ul li a {
-  margin: 0 40px 0 20px;
-}
-
-.profileWrapper {
-  display: flex;
-  align-items: center;
-  height: 100%;
-  margin: 0 20px;
-}
-
-.profileWrapper a {
-  height: 70%;
-  margin-left: 20px;
-}
-
-.profileWrapper img {
-  height: 100%;
-}
-
 /* DAY BUTTONS */
-
 .dayIndicators {
   display: flex;
   justify-content: center;
   color: black;
 }
-
 .dayIndicators h3 {
   width: 11.8vw;
   font-size: max(15px, 1.4vw);
   text-align: center;
 }
-
 .dayIndicators .buttonGreen {
   height: 50px;
   width: 50px;
@@ -102,7 +36,6 @@ ul li a {
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.3);
   border-radius: 50%;
 }
-
 .dayIndicators .buttonYellow {
   height: 50px;
   width: 50px;
@@ -112,7 +45,6 @@ ul li a {
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.3);
   border-radius: 50%;
 }
-
 .dayIndicators .buttonGrey {
   height: 50px;
   width: 50px;
@@ -122,20 +54,16 @@ ul li a {
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.3);
   border-radius: 50%;
 }
-
 .dayIndicators .activeButton {
   border: 10px solid rgba(249, 16, 16, 0.8);
   outline: 0;
 }
-
 .dayIndicators div {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-
 /* EXERCISE PANELS */
-
 .exercisePanelsWrapper {
   display: flex;
   flex-direction: column;
@@ -144,11 +72,9 @@ ul li a {
   width: 100vw;
   margin-top: 2%;
 }
-
 .exercisePanelsWrapper h3 {
   font-size: max(15px, 1.2vw);
 }
-
 .panels {
   display: flex;
   justify-content: center;
@@ -156,7 +82,6 @@ ul li a {
   width: 75vw;
   color: black;
 }
-
 .exercisePanelsWrapper .panel {
   position: relative;
   height: 20vh;
@@ -165,7 +90,6 @@ ul li a {
   background: #b8c1ce;
   border-radius: 0px 15px;
 }
-
 .addSign {
   position: absolute;
   background-image: url(../../pics/manageWorkout/addSign.png);
@@ -177,7 +101,6 @@ ul li a {
   bottom: -30px;
   right: -30px;
 }
-
 .panel1,
 .panel2,
 .panel3,
@@ -190,7 +113,6 @@ ul li a {
   flex-direction: column;
   align-items: center;
 }
-
 .background .saveButton {
   height: 6vh;
   width: 10vw;
@@ -200,9 +122,7 @@ ul li a {
   background-color: #474747;
   border-radius: 10px;
 }
-
 /* OVERLAY */
-
 #overlay {
   position: fixed;
   opacity: 0;
@@ -215,12 +135,10 @@ ul li a {
   pointer-events: none;
   z-index: 1;
 }
-
 #overlay.active {
   opacity: 1;
   pointer-events: all;
 }
-
 .formContainer {
   position: fixed;
   display: flex;
@@ -238,14 +156,12 @@ ul li a {
   padding-top: 56.78px;
   z-index: 2;
 }
-
 .formContainer button {
   position: absolute;
   height: 4vh;
   width: 6vw;
   bottom: 5%;
 }
-
 .formContainer.active {
   transform: translate(-50%, -50%) scale(1);
 }

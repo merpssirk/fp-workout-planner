@@ -1,11 +1,9 @@
-import { useHistory } from "react-router-dom";
-import { React, useState, useRef, useEffect } from "react";
-import styles from "./manageWorkout.module.css";
-import imgLogo from "../../pics/dashboard/Logo-black.png";
-import avatar from "../../pics/dashboard/Avatar-male.png";
-import classNames from "classnames";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-
+import { useHistory } from "react-router-dom"
+import { React, useState, useRef, useEffect } from "react"
+import styles from "./manageWorkout.module.css"
+import classNames from "classnames"
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
+import MembersNavbar from "../MembersNavbar/MembersNavbar";
 export default function ManageWorkout() {
   const panels = [
     { name: "p1", id: "1" },
@@ -16,43 +14,41 @@ export default function ManageWorkout() {
     { name: "p6", id: "6" },
     { name: "p7", id: "7" },
     { name: "p8", id: "8" },
-  ];
-
-  const formCheck = useRef("");
-  const [list, setList] = useState(panels);
-  const [overlayClass, setOverlayClass] = useState("false");
-  const [activeButton, setActiveButton] = useState("active0");
-  const [dayButtonColour0, setDayButtonColour0] = useState("buttonGrey");
-  const [dayButtonColour1, setDayButtonColour1] = useState("buttonGrey");
-  const [dayButtonColour2, setDayButtonColour2] = useState("buttonGrey");
-  const [dayButtonColour3, setDayButtonColour3] = useState("buttonGrey");
-  const [dayButtonColour4, setDayButtonColour4] = useState("buttonGrey");
-  const [dayButtonColour5, setDayButtonColour5] = useState("buttonGrey");
-  const [dayButtonColour6, setDayButtonColour6] = useState("buttonGrey");
-  let getDayButton = useRef([]);
-
+  ]
+  const formCheck = useRef("")
+  const [list, setList] = useState(panels)
+  const [overlayClass, setOverlayClass] = useState("false")
+  const [activeButton, setActiveButton] = useState("active0")
+  const [radioButton, setRadioButton] = useState("abs")
+  const [dayButtonColour0, setDayButtonColour0] = useState("buttonGrey")
+  const [dayButtonColour1, setDayButtonColour1] = useState("buttonGrey")
+  const [dayButtonColour2, setDayButtonColour2] = useState("buttonGrey")
+  const [dayButtonColour3, setDayButtonColour3] = useState("buttonGrey")
+  const [dayButtonColour4, setDayButtonColour4] = useState("buttonGrey")
+  const [dayButtonColour5, setDayButtonColour5] = useState("buttonGrey")
+  const [dayButtonColour6, setDayButtonColour6] = useState("buttonGrey")
+  let getDayButton = useRef([])
   const handleSetOverlay = () => {
-    setOverlayClass(!overlayClass);
-  };
-
+    setOverlayClass(!overlayClass)
+  }
   const handleRemoveOverlay = (event) => {
-    event.preventDefault();
-    setOverlayClass(!overlayClass);
-    localStorage.setItem("Register", "fulfilled");
-  };
-
+    event.preventDefault()
+    setOverlayClass(!overlayClass)
+  }
+  const handleWorkoutApi = (e) => {
+    e.preventDefault()
+    console.log(radioButton)
+  }
   const reorder = (list, startIndex, endIndex) => {
-    const result = Array.from(list);
-    const [removed] = result.splice(startIndex, 1);
-    result.splice(endIndex, 0, removed);
-    return result;
-  };
-
+    const result = Array.from(list)
+    const [removed] = result.splice(startIndex, 1)
+    result.splice(endIndex, 0, removed)
+    return result
+  }
   const onEnd = (result) => {
-    if (!result.destination) return;
-    setList(reorder(list, result.source.index, result.destination.index));
-  };
-
+    if (!result.destination) return
+    setList(reorder(list, result.source.index, result.destination.index))
+  }
   const handleDayButton = (event) => {
     const names = [
       setDayButtonColour0,
@@ -62,63 +58,39 @@ export default function ManageWorkout() {
       setDayButtonColour4,
       setDayButtonColour5,
       setDayButtonColour6,
-    ];
-    const number = event.id.charAt(event.id.length - 1) - 1;
-    setActiveButton("active" + number);
-    console.log("Active button is: ", activeButton);
-
+    ]
+    const number = event.id.charAt(event.id.length - 1) - 1
+    setActiveButton("active" + number)
+    console.log("Active button is: ", activeButton)
     if (event.className.includes("buttonGrey")) {
-      console.log(number);
-      names[number]("buttonGreen");
+      console.log(number)
+      names[number]("buttonGreen")
     } else if (event.className.includes("buttonGreen")) {
-      console.log("yellow");
-      console.log(event);
-      names[number]("buttonYellow");
+      console.log("yellow")
+      console.log(event)
+      names[number]("buttonYellow")
     } else {
-      console.log("grey");
-      console.log(event);
-      names[number]("buttonGrey");
+      console.log("grey")
+      console.log(event)
+      names[number]("buttonGrey")
     }
-    console.log(event.className);
-  };
-
+    console.log(event.className)
+  }
   //LOGOUT
-  const history = useHistory();
+  const history = useHistory()
   const handleLogout = () => {
-    window.localStorage.removeItem("loggedIn");
-    history.push("/");
-  };
-
+    window.localStorage.removeItem("loggedIn")
+    history.push("/")
+  }
   return (
     <div className={styles.background}>
-      <nav className={styles.navBar}>
-        <ul>
-          <a href="/dashboard">
-            <img src={imgLogo} />
-          </a>
-          <li>
-            <a href="/manageWorkout">Edit Workout</a>
-          </li>
-          <li>
-            <a href="/dailyactivities">Daily Activties</a>
-          </li>
-          <li>
-            <a href="/workoutoverview">Workout Overview</a>
-          </li>
-        </ul>
-        <div className={styles.profileWrapper}>
-          <span onClick={handleLogout}>Name</span>
-          <a href="/userpage">
-            <img src={avatar} />
-          </a>
-        </div>
-      </nav>
+      <MembersNavbar />
       <div className={styles.dayIndicators}>
         <div className={styles.day1}>
           <h3>DAY 1</h3>
           <button
             onClick={(e) => {
-              handleDayButton(e.target);
+              handleDayButton(e.target)
             }}
             ref={getDayButton.current[0]}
             className={
@@ -133,7 +105,7 @@ export default function ManageWorkout() {
           <h3>DAY 2</h3>
           <button
             onClick={(e) => {
-              handleDayButton(e.target);
+              handleDayButton(e.target)
             }}
             ref={getDayButton.current[1]}
             className={
@@ -148,7 +120,7 @@ export default function ManageWorkout() {
           <h3>DAY 3</h3>
           <button
             onClick={(e) => {
-              handleDayButton(e.target);
+              handleDayButton(e.target)
             }}
             ref={getDayButton.current[2]}
             className={
@@ -163,7 +135,7 @@ export default function ManageWorkout() {
           <h3>DAY 4</h3>
           <button
             onClick={(e) => {
-              handleDayButton(e.target);
+              handleDayButton(e.target)
             }}
             ref={getDayButton.current[3]}
             className={
@@ -178,7 +150,7 @@ export default function ManageWorkout() {
           <h3>DAY 5</h3>
           <button
             onClick={(e) => {
-              handleDayButton(e.target);
+              handleDayButton(e.target)
             }}
             ref={getDayButton.current[4]}
             className={
@@ -193,7 +165,7 @@ export default function ManageWorkout() {
           <h3>DAY 6</h3>
           <button
             onClick={(e) => {
-              handleDayButton(e.target);
+              handleDayButton(e.target)
             }}
             ref={getDayButton.current[5]}
             className={
@@ -208,7 +180,7 @@ export default function ManageWorkout() {
           <h3>DAY 7</h3>
           <button
             onClick={(e) => {
-              handleDayButton(e.target);
+              handleDayButton(e.target)
             }}
             ref={getDayButton.current[6]}
             className={
@@ -262,8 +234,104 @@ export default function ManageWorkout() {
             : styles.formContainer
         }
       >
-        <h4>Choose an exercise from the list!</h4>
-        <button onClick={handleRemoveOverlay}>OK</button>
+        <h4>
+          Select the body part to search <br />
+          an exercise for!
+        </h4>
+        <form onSubmit={handleWorkoutApi} className={styles.muscles}>
+          <div className={styles.muscleOptions}>
+            <input
+              type="radio"
+              id="abs"
+              name="muscles"
+              value="abs"
+              checked={radioButton === "abs"}
+              onChange={(e) => {
+                setRadioButton(e.target.value)
+              }}
+            />
+            <label for="abs">Abs</label>
+          </div>
+          <div className={styles.muscleOptions}>
+            <input
+              type="radio"
+              id="arms"
+              name="muscles"
+              value="arms"
+              checked={radioButton === "arms"}
+              onChange={(e) => {
+                setRadioButton(e.target.value)
+              }}
+            />
+            <label for="arms">Arms</label>
+          </div>
+          <div className={styles.muscleOptions}>
+            <input
+              type="radio"
+              id="back"
+              name="muscles"
+              value="back"
+              checked={radioButton === "back"}
+              onChange={(e) => {
+                setRadioButton(e.target.value)
+              }}
+            />
+            <label for="back">Back</label>
+          </div>
+          <div className={styles.muscleOptions}>
+            <input
+              type="radio"
+              id="biceps"
+              name="muscles"
+              value="biceps"
+              checked={radioButton === "biceps"}
+              onChange={(e) => {
+                setRadioButton(e.target.value)
+              }}
+            />
+            <label for="biceps">Biceps</label>
+          </div>
+          <div className={styles.muscleOptions}>
+            <input
+              type="radio"
+              id="chest"
+              name="muscles"
+              value="chest"
+              checked={radioButton === "chest"}
+              onChange={(e) => {
+                setRadioButton(e.target.value)
+              }}
+            />
+            <label for="chest">Chest</label>
+          </div>
+          <div className={styles.muscleOptions}>
+            <input
+              type="radio"
+              id="Legs"
+              name="muscles"
+              value="legs"
+              checked={radioButton === "legs"}
+              onChange={(e) => {
+                setRadioButton(e.target.value)
+              }}
+            />
+            <label for="Legs">Legs</label>
+          </div>
+          <div className={styles.muscleOptions}>
+            <input
+              type="radio"
+              id="Shoulders"
+              name="muscles"
+              value="shoulders"
+              checked={radioButton === "shoulders"}
+              onChange={(e) => {
+                setRadioButton(e.target.value)
+              }}
+            />
+            <label for="shoulders">Shoulders</label>
+          </div>
+          <input type="submit" value="OK" />
+        </form>
       </div>
       <div
         id={styles.overlay}
@@ -271,5 +339,6 @@ export default function ManageWorkout() {
         onClick={handleRemoveOverlay}
       ></div>
     </div>
-  );
+  )
 }
+// onClick={handleRemoveOverlay}
