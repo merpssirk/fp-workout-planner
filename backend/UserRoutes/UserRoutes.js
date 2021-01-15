@@ -1,5 +1,6 @@
 const express = require("express")
-const Users = require("../Models/UserModel")
+const Users = require( "../Models/UserModel" )
+const WorkoutInfo = require( "../Models/WorkoutModel" );
 const bcrypt = require("bcrypt")
 const { jwtIssuer } = require("../utils/jwtIssuer")
 const { body, validationResult } = require( "express-validator" );
@@ -47,11 +48,6 @@ router.post("/register", async (request, response) => {
         sameSite: "lax",
       })
       .send("Registered successfully!!!")
-    //response.json( savedUser );
-   // request.id = savedUser._id
-    // console.log(request.id);
-
-    //response.json({ msg: "Successfully Registered", token })
   } catch (err) {
     return response.status(500).json({ msg: err.message })
   }
@@ -61,11 +57,9 @@ router.post("/register", async (request, response) => {
 
 router.post("/login", async (request, response) => {
   try {
-    //console.log(request.body)
     const { email, password } = request.body
 
     //validation
-
     if (!email || !password)
       return response
         .status(400)
@@ -75,21 +69,21 @@ router.post("/login", async (request, response) => {
     if (!user)
       return response
         .status(400)
-        .json({ msg: "No accout with this email has been registered" })
+        .json({ msg: "No account with this email has been registered" })
 
     //comparing password
-
     const isMatch = await bcrypt.compare(password, user.password)
     if (!isMatch)
       return response.status(400).json({ msg: "Invalid Password" })
 
     //creating jsonwebtoken (jwt)
-   
     const token = jwtIssuer( user );
-    response.cookie( 'jwt', token, {
-      httpOnly: true,
-      sameSite: "lax"
-    } ).send( "LoggedIn successfully!!!" )
+    response
+      .cookie("jwt", token, {
+        httpOnly: true,
+        sameSite: "lax",
+      })
+      .json({ msg: "LoggedIn successfully!!!" })
     
   } catch (err) {
     return response.status(500).json({ msg: err.message })
@@ -108,7 +102,7 @@ router.put(
     const { id: _id } = request.params
 
     const updateField = request.body
-
+    
     const updateUserField = await Users.findByIdAndUpdate(_id, {
       ...updateField,
       _id,
@@ -120,7 +114,9 @@ router.put(
 
 //Manage Workout Page
 router.put("/workoutEdit", (request, response) => {
-  response.send("welcome")
+  
+  response.send( "welcome" )
+  
 })
 
 //Workout Overview Page

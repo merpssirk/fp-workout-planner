@@ -52,6 +52,7 @@ export default function Home() {
           "Content-Type": "application/json",
           Accept: "application/json",
         },
+
         body: JSON.stringify(data),
       })
       //const json = await response.json();
@@ -81,10 +82,11 @@ export default function Home() {
           Accept: "application/json",
         },
       })
-      //const json = await response.json();
+      const json = await response.json();
+      console.log(json)
       window.localStorage.setItem( "loggedIn", JSON.stringify( true ) );
       history.push("/dashboard")
-      //console.log(json);
+      
     } catch (err) {
       console.log(err);
     }

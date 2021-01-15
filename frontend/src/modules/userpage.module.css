@@ -150,10 +150,15 @@ ul li a {
   padding: 5% 4% 0 3%;
   
 }
-
+.container .rightColumn .userPic {
+  padding: 10px;
+  font-size: max(8px, .9vw);
+  border: none;
+}
 .container .rightColumn .rightColumnWhiteLine {
   left: 52%;
 }
+
 
 /* RIGHT COLUMN CODING ENDED */
 
@@ -209,7 +214,11 @@ ul li a {
     width: 28vw;
     height: 35px;
   }
-
+.container .rightColumn .userPic {
+  padding: 8px;
+  font-size: max(8px, 1.3vw);
+  border: none;
+}
   .container img {
     top: 7%;
     height: 40vh;

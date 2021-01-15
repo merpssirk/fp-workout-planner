@@ -29,11 +29,12 @@ export default function Userpage() {
       workoutGoals: userData.get("workoutGoals"),
       workoutDays: userData.get("workoutDays"),
       activityLevel: userData.get( "activityLevel" ),
+      avatar: userData.get("avatar")
     }
     try {
       //5ffef1e6a2b2c494bc2441f4
       const response = await fetch(
-        "/user/profileEdit",
+        "/user/profileEdit/5ffc466c0eb73edc274c20ea",
         {
           method: "PUT",
           //credentials: true,
@@ -165,7 +166,7 @@ export default function Userpage() {
                 <label htmlFor="workoutDays">Workout Days/Week</label>
               </div>
               <div className={styles.formGroup}>
-                <input type="picture" name="avatar" />
+                <input className={styles.userPic} type="file" accept=".png, .jpg., .jpeg" name="avatar" />
                 <label htmlFor="avatar">Change Avatar</label>
               </div>
               <div className={styles.formGroup}>
