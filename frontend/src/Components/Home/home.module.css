@@ -12,20 +12,20 @@ body {
 .background {
   height: 100vh;
   width: 100vw;
-  background-image: url(../pics/home/homepage-main.png);
+  background-image: url(../../pics/home/homepage-main.png);
   background-repeat: no-repeat;
   background-size: 100% 100%;
   animation: backImageAnimation 20s linear infinite;
 }
 
 @keyframes backImageAnimation {
-  0%{background-image: url(../pics/home/homepage-main.png)}
-  23%{background-image: url(../pics/home/homepage-main.png)}
-  33%{background-image: url(../pics/home/homepage-main2.png)}
-  57%{background-image: url(../pics/home/homepage-main2.png)}
-  67%{background-image: url(../pics/home/homepage-main3.png)}
-  90%{background-image: url(../pics/home/homepage-main3.png)}
-  100%{background-image: url(../pics/home/homepage-main.png)}
+  0%{background-image: url(../../pics/home/homepage-main.png)}
+  23%{background-image: url(../../pics/home/homepage-main.png)}
+  33%{background-image: url(../../pics/home/homepage-main2.png)}
+  57%{background-image: url(../../pics/home/homepage-main2.png)}
+  67%{background-image: url(../../pics/home/homepage-main3.png)}
+  90%{background-image: url(../../pics/home/homepage-main3.png)}
+  100%{background-image: url(../../pics/home/homepage-main.png)}
 }
 
 .navBar {

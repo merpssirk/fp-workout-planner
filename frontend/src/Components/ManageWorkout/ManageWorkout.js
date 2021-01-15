@@ -1,8 +1,8 @@
 import { useHistory } from "react-router-dom";
 import { React, useState, useRef, useEffect } from "react";
-import styles from "../modules/manageWorkout.module.css";
-import imgLogo from "../pics/dashboard/Logo-black.png";
-import avatar from "../pics/dashboard/Avatar-male.png";
+import styles from "./manageWorkout.module.css";
+import imgLogo from "../../pics/dashboard/Logo-black.png";
+import avatar from "../../pics/dashboard/Avatar-male.png";
 import classNames from "classnames";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 

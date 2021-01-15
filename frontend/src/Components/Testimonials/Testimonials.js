@@ -1,9 +1,9 @@
 import React from "react";
-import tile1 from "../pics/testimonials/tile1.png";
-import tile2 from "../pics/testimonials/tile2.png";
-import tile3 from "../pics/testimonials/tile3.png";
-import img2 from "../pics/home/Logo.png";
-import styles from "../modules/testimonials.module.css";
+import tile1 from "../../pics/testimonials/tile1.png"
+import tile2 from "../../pics/testimonials/tile2.png"
+import tile3 from "../../pics/testimonials/tile3.png"
+//import img2 from "../pics/home/Logo.png";
+import styles from "./testimonials.module.css";
 
 export default function Testimonials() {
   return (

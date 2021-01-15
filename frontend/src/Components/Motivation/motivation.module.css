@@ -35,6 +35,6 @@
 }
 
 .motivation h1::after {
-  content: url(../pics/motivation/Rectangle\ 49.png);
+  content: url(../../pics/motivation/Rectangle\ 49.png);
   margin-left: 5px;
 }

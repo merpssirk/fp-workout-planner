@@ -1,11 +1,11 @@
 import React from "react";
-import styles from "../modules/services.module.css";
+import styles from "./services.module.css";
 
 //Import Pictures
-import service1 from "../pics/services/service1.png";
-import service2 from "../pics/services/service2.png";
-import service3 from "../pics/services/service3.png";
-import redlines from "../pics/services/redlines.png";
+import service1 from "../../pics/services/service1.png";
+import service2 from "../../pics/services/service2.png"
+import service3 from "../../pics/services/service3.png"
+//import redlines from "../pics/services/redlines.png";
 
 export default function Services() {
   return (

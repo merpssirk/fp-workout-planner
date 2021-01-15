@@ -12,7 +12,7 @@ body {
 .background {
   height: 100vh;
   width: 100vw;
-  background-image: url(../pics/dashboard/dashboard-background.png);
+  background-image: url(../../pics/dashboard/dashboard-background.png);
   background-repeat: no-repeat;
   background-size: 100% 100%;
   animation: backImageAnimation 20s linear infinite;

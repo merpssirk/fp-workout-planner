@@ -1,0 +1,108 @@
+/* FINISH REGISTRATION */
+
+.inputFields {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  margin-top: 5%;
+}
+
+.inputFields .fieldsLeft {
+  display: flex;
+  flex-direction: column;
+  width: 25%;
+  margin-right: 5%;
+}
+
+.inputFields .fieldsRight {
+  display: flex;
+  flex-direction: column;
+  width: 25%;
+}
+
+.inputFields label {
+  margin: 5% 0;
+  font-size: max(12px, 0.8vw);
+  text-align: center;
+}
+.inputFields .fieldsLeft input {
+  height: 3.2vh;
+  font-size: max(12px, 0.8vw);
+}
+.inputFields input::placeholder {
+  opacity: 1;
+}
+
+.inputFields select {
+  height: 30px;
+}
+
+.bottomSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-top: 3%;
+  font-size: max(12px, 1vw);
+}
+
+.bottomSection label {
+  margin-right: 15px;
+}
+
+.bottomSection button {
+  height: 3.5vh;
+  width: 15%;
+  margin-top: 3%;
+  background-color: #f91010;
+  color: whitesmoke;
+  border: none;
+  border-radius: 10px;
+}
+
+/* OVERLAY */
+
+#overlay {
+  position: fixed;
+  opacity: 0;
+  transition: 300ms ease-in-out;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.95);
+  pointer-events: none;
+  z-index: 1;
+}
+
+#overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.formContainer {
+  position: fixed;
+  width: 50%;
+  height: 75%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  transition: 300ms ease-in-out;
+  background-image: url(../../../pics/dashboard/FinishRegistration.png);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  border-radius: 8px;
+  padding-top: 56.78px;
+  z-index: 2;
+}
+
+.formContainer.active {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.formContainer h4 {
+  margin-top: 10%;
+  text-align: center;
+  font-size: max(12px, 1vw);
+}

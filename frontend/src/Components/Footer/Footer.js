@@ -1,7 +1,7 @@
 import React from "react";
-import styles from "../modules/footer.module.css";
+import styles from "./footer.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import imgTriangle from "../pics/footer/triangle.png";
+import imgTriangle from "../../pics/footer/triangle.png";
 import {
   faFacebook,
   faInstagram,

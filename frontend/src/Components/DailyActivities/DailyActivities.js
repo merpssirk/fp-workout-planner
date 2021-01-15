@@ -1,10 +1,11 @@
 import React from "react";
 import {useHistory} from 'react-router-dom'
-import styles from "../modules/dailyActivities.module.css";
-import avatar from "../pics/dashboard/Avatar-male.png";
-import imgLogo from "../pics/dashboard/Logo-black.png";
-import greenCheckCircle from "../pics/dashboard/greenCheckCircle.png";
-import redXCircle from "../pics/dashboard/redXCircle.png";
+import styles from "./dailyActivities.module.css";
+import avatar from "../../pics/dashboard/Avatar-male.png"
+//import avatar from "../pics/dashboard/Avatar-male.png";
+import imgLogo from "../../pics/dashboard/Logo-black.png"
+import greenCheckCircle from "../../pics/dashboard/greenCheckCircle.png"
+import redXCircle from "../../pics/dashboard/redXCircle.png"
 
 export default function DailyActivities() {
   //LOGOUT

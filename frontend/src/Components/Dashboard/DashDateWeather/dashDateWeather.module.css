@@ -1,0 +1,57 @@
+.dateWeatherWrapper {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 10%;
+  width: 100%;
+  margin-top: 5%;
+  background: rgba(184, 193, 206, 0.9);
+  font-size: 1.5rem;
+  color: black;
+}
+.dateWeatherWrapper .date {
+  margin-left: 30px;
+}
+.dateWeatherWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: auto;
+}
+.weatherTownWrapper {
+  display: flex;
+  align-items: center;
+}
+.dateWeatherWrapper .weatherTownWrapper .weatherOverview {
+  position: absolute;
+  border-radius: 25px;
+  bottom: 0;
+  right: 10px;
+  overflow: auto;
+  background-color: rgba(184, 193, 206, 0.9);
+  color: #22254b;
+  padding: 1rem;
+  transform: translateY(102%);
+  z-index: -1;
+  transition: transform 0.3s ease-in-out;
+  width: 18vw;
+  height: 8vh;
+}
+.weatherTownWrapper:hover .weatherOverview {
+  transform: translateX(0);
+  z-index: 1;
+}
+.dateWeatherWrapper .weatherTownWrapper .weatherOverview p {
+  font-size: max(12px, 0.8vw);
+  letter-spacing: 2px;
+}
+.dateWeatherWrapper .weatherIcon img {
+  height: 10vh;
+}
+.dateWeatherWrapper .weatherIcon {
+  margin-right: 40px;
+}
+.dateWeatherWrapper .town {
+  margin-right: 30px;
+}

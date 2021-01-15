@@ -1,10 +1,10 @@
 import React from "react"
 import { useHistory } from "react-router-dom"
-import leftWhiteLine from "../pics/dashboard/leftWhiteLine.png";
-import rightWhiteLine from "../pics/dashboard/rightWhiteLine.png";
-import styles from "../modules/userpage.module.css"
-import avatar from "../pics/dashboard/Avatar-male.png"
-import imgLogo from "../pics/dashboard/Logo-black.png"
+import leftWhiteLine from "../../pics/dashboard/leftWhiteLine.png"
+import rightWhiteLine from "../../pics/dashboard/rightWhiteLine.png"
+import styles from "./userpage.module.css"
+import avatar from "../../pics/dashboard/Avatar-male.png"
+import imgLogo from "../../pics/dashboard/Logo-black.png"
 
 export default function Userpage() {
   //LOGOUT

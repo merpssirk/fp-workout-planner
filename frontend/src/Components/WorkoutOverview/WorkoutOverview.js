@@ -1,10 +1,10 @@
 import React from "react";
 import { useHistory } from 'react-router-dom';
-import styles from "../modules/workoutoverview.module.css"
-import avatar from "../pics/dashboard/Avatar-male.png"
-import imgLogo from "../pics/dashboard/Logo-black.png"
-import leftArrow from "../pics/dashboard/leftArrow.png"
-import rightArrow from "../pics/dashboard/rightArrow.png"
+import styles from "./workoutoverview.module.css"
+import avatar from "../../pics/dashboard/Avatar-male.png"
+import imgLogo from "../../pics/dashboard/Logo-black.png"
+import leftArrow from "../../pics/dashboard/leftArrow.png"
+import rightArrow from "../../pics/dashboard/rightArrow.png"
 export default function WorkoutOverview() {
   //LOGOUT
   const history = useHistory()

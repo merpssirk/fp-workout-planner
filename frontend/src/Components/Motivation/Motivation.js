@@ -1,6 +1,6 @@
 import React from "react";
-import styles from "../modules/motivation.module.css";
-import img from "../pics/motivation/arnie.png";
+import styles from "./motivation.module.css";
+import img from "../../pics/motivation/arnie.png";
 
 export default function Motivation() {
   return (
