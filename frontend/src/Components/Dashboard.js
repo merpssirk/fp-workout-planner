@@ -1,87 +1,89 @@
-import { React, useState, useRef, useEffect } from "react"
+import { React, useState, useRef, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import classNames from "classnames"
-import imgLogo from "../pics/dashboard/Logo-black.png"
-import styles from "../modules/dashboard.module.css"
-import avatar from "../pics/dashboard/Avatar-male.png"
+import classNames from "classnames";
+import imgLogo from "../pics/dashboard/Logo-black.png";
+import styles from "../modules/dashboard.module.css";
+import avatar from "../pics/dashboard/Avatar-male.png";
 //import weather from "../pics/dashboard/weather.png"
-import dumbbell from "../pics/dashboard/dumbbell.png"
-import weightlifter from "../pics/dashboard/weightlifter.png"
-import flame from "../pics/dashboard/flame.png"
-import scale from "../pics/dashboard/scale.png"
-import lineTop from "../pics/dashboard/line-top.png"
-import workoutDia from "../pics/dashboard/workout-diagram.png"
-import weightDia from "../pics/dashboard/weight-diagram.png"
-import calories from "../pics/dashboard/calories.png"
-import carbs from "../pics/dashboard/carbs.png"
-import protein from "../pics/dashboard/protein.png"
-import fat from "../pics/dashboard/fat.png"
+import dumbbell from "../pics/dashboard/dumbbell.png";
+import weightlifter from "../pics/dashboard/weightlifter.png";
+import flame from "../pics/dashboard/flame.png";
+import scale from "../pics/dashboard/scale.png";
+import lineTop from "../pics/dashboard/line-top.png";
+import workoutDia from "../pics/dashboard/workout-diagram.png";
+import weightDia from "../pics/dashboard/weight-diagram.png";
+import calories from "../pics/dashboard/calories.png";
+import carbs from "../pics/dashboard/carbs.png";
+import protein from "../pics/dashboard/protein.png";
+import fat from "../pics/dashboard/fat.png";
 //import axios from "axios"
 
 export default function Dashboard() {
   //LOGOUT
   const history = useHistory();
   const handleLogout = () => {
-    window.localStorage.removeItem( "loggedIn" );
-    history.push('/')
-  }
+    window.localStorage.removeItem("loggedIn");
+    history.push("/");
+  };
 
-  const [overlayClass, setOverlayClass] = useState("false")
-  const [currentDate, setCurrentDate] = useState()
-  const formCheck = localStorage.getItem("Register") || null
+  const [overlayClass, setOverlayClass] = useState("false");
+  const [currentDate, setCurrentDate] = useState();
+  const formCheck = localStorage.getItem("Register") || null;
 
   useEffect(() => {
-    const date = new Date()
+    const date = new Date();
     const options = {
       weekday: "long",
       year: "numeric",
       month: "long",
       day: "numeric",
-    }
+    };
 
-    setCurrentDate(new Intl.DateTimeFormat("en-GB", options).format(date))
-  })
+    setCurrentDate(new Intl.DateTimeFormat("en-GB", options).format(date));
+  });
 
   useEffect(() => {
     if (formCheck === "pending") {
-      setOverlayClass("true")
+      setOverlayClass("true");
     } else {
-      setOverlayClass("false")
+      setOverlayClass("false");
     }
-  }, [])
+  }, []);
 
-  console.log(overlayClass)
+  console.log(overlayClass);
 
   const handleRemoveOverlay = () => {
     //event.preventDefault()
-    console.log("function reached!")
-    setOverlayClass(!overlayClass)
-    localStorage.setItem("Register", "fulfilled")
-  }
+    console.log("function reached!");
+    setOverlayClass(!overlayClass);
+    localStorage.setItem("Register", "fulfilled");
+  };
   //---WEATHER INFORMATION---
   const API_KEY = "fd8bafc7164f93efdf3c8815e92e4f18";
-  const [mainTemp, setMainTemp] = useState( '' );
-  const [city, setCity] = useState( 'Hamburg' );
-  const [iconID, setIconID] = useState( '' );
-  const [feels_like, setFeelsLike] = useState( '' );
-  const [description, setDescription] = useState( '' );
+  const [mainTemp, setMainTemp] = useState("");
+  const [city, setCity] = useState("Hamburg");
+  const [iconID, setIconID] = useState("");
+  const [feels_like, setFeelsLike] = useState("");
+  const [description, setDescription] = useState("");
 
-  useEffect( () => {
-    fetch( `https://api.openweathermap.org/data/2.5/weather?q=${city},de&appid=${API_KEY}&units=metric` )
-      .then( ( res ) => res.json() )
-      .then( ( data ) => {
-        console.log( data );
-        setMainTemp( data.main.temp );
-        setIconID( data.weather[0].icon );
-        setFeelsLike(data.main.feels_like)
-        setDescription(data.weather[0].description)
-    })
-  },[])
+  useEffect(() => {
+    fetch(
+      `https://api.openweathermap.org/data/2.5/weather?q=${city},de&appid=${API_KEY}&units=metric`
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setMainTemp(Math.round(data.main.temp));
+        setIconID(data.weather[0].icon);
+        setFeelsLike(data.main.feels_like);
+        setDescription(data.weather[0].description);
+      });
+  }, []);
 
   //---FINISH REGISTRATION PAGE CONNECT TO BACKEND---
   const handleFinishRegistration = async (event) => {
-    event.preventDefault()
-    const formData = new FormData(event.target)
+    event.preventDefault();
+    const formData = new FormData(event.target);
 
     const finishRegistrationField = {
       gender: formData.get("gender"),
@@ -93,22 +95,21 @@ export default function Dashboard() {
       workoutGoals: formData.get("workoutGoals"),
       workoutDays: formData.get("workoutDays"),
       activityLevel: formData.get("activityLevel"),
-    }
+    };
     try {
-         const response = await fetch("/user/finishRegistration", {
-           method: "POST",
-           headers: {
-            "Content-Type": "application/json"
-           },
-           credentials: "include",
-           body: JSON.stringify(finishRegistrationField),
-         })
+      const response = await fetch("/user/finishRegistration", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify(finishRegistrationField),
+      });
       //const json = await response.json();
-      console.log("function is reached")
+      console.log("function is reached");
       handleRemoveOverlay();
-      
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
   };
 
@@ -145,7 +146,7 @@ export default function Dashboard() {
             />
           </div>
           <div className={styles.town}>
-            {city} {mainTemp}°
+            {city}, {mainTemp}°
           </div>
           <div className={styles.weatherOverview}>
             <p>
@@ -339,5 +340,5 @@ export default function Dashboard() {
         onClick={handleRemoveOverlay}
       ></div>
     </div>
-  )
+  );
 }

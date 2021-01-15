@@ -22,6 +22,7 @@ export default function ManageWorkout() {
   const [list, setList] = useState(panels);
   const [overlayClass, setOverlayClass] = useState("false");
   const [activeButton, setActiveButton] = useState("active0");
+  const [radioButton, setRadioButton] = useState("abs");
   const [dayButtonColour0, setDayButtonColour0] = useState("buttonGrey");
   const [dayButtonColour1, setDayButtonColour1] = useState("buttonGrey");
   const [dayButtonColour2, setDayButtonColour2] = useState("buttonGrey");
@@ -38,7 +39,11 @@ export default function ManageWorkout() {
   const handleRemoveOverlay = (event) => {
     event.preventDefault();
     setOverlayClass(!overlayClass);
-    localStorage.setItem("Register", "fulfilled");
+  };
+
+  const handleWorkoutApi = (e) => {
+    e.preventDefault();
+    console.log(radioButton);
   };
 
   const reorder = (list, startIndex, endIndex) => {
@@ -262,8 +267,104 @@ export default function ManageWorkout() {
             : styles.formContainer
         }
       >
-        <h4>Choose an exercise from the list!</h4>
-        <button onClick={handleRemoveOverlay}>OK</button>
+        <h4>
+          Select the body part to search <br />
+          an exercise for!
+        </h4>
+        <form onSubmit={handleWorkoutApi} className={styles.muscles}>
+          <div className={styles.muscleOptions}>
+            <input
+              type="radio"
+              id="abs"
+              name="muscles"
+              value="abs"
+              checked={radioButton === "abs"}
+              onChange={(e) => {
+                setRadioButton(e.target.value);
+              }}
+            />
+            <label for="abs">Abs</label>
+          </div>
+          <div className={styles.muscleOptions}>
+            <input
+              type="radio"
+              id="arms"
+              name="muscles"
+              value="arms"
+              checked={radioButton === "arms"}
+              onChange={(e) => {
+                setRadioButton(e.target.value);
+              }}
+            />
+            <label for="arms">Arms</label>
+          </div>
+          <div className={styles.muscleOptions}>
+            <input
+              type="radio"
+              id="back"
+              name="muscles"
+              value="back"
+              checked={radioButton === "back"}
+              onChange={(e) => {
+                setRadioButton(e.target.value);
+              }}
+            />
+            <label for="back">Back</label>
+          </div>
+          <div className={styles.muscleOptions}>
+            <input
+              type="radio"
+              id="biceps"
+              name="muscles"
+              value="biceps"
+              checked={radioButton === "biceps"}
+              onChange={(e) => {
+                setRadioButton(e.target.value);
+              }}
+            />
+            <label for="biceps">Biceps</label>
+          </div>
+          <div className={styles.muscleOptions}>
+            <input
+              type="radio"
+              id="chest"
+              name="muscles"
+              value="chest"
+              checked={radioButton === "chest"}
+              onChange={(e) => {
+                setRadioButton(e.target.value);
+              }}
+            />
+            <label for="chest">Chest</label>
+          </div>
+          <div className={styles.muscleOptions}>
+            <input
+              type="radio"
+              id="Legs"
+              name="muscles"
+              value="legs"
+              checked={radioButton === "legs"}
+              onChange={(e) => {
+                setRadioButton(e.target.value);
+              }}
+            />
+            <label for="Legs">Legs</label>
+          </div>
+          <div className={styles.muscleOptions}>
+            <input
+              type="radio"
+              id="Shoulders"
+              name="muscles"
+              value="shoulders"
+              checked={radioButton === "shoulders"}
+              onChange={(e) => {
+                setRadioButton(e.target.value);
+              }}
+            />
+            <label for="shoulders">Shoulders</label>
+          </div>
+          <input type="submit" value="OK" />
+        </form>
       </div>
       <div
         id={styles.overlay}
@@ -273,3 +374,5 @@ export default function ManageWorkout() {
     </div>
   );
 }
+
+// onClick={handleRemoveOverlay}

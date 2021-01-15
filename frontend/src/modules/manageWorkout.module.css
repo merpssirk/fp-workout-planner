@@ -233,13 +233,14 @@ ul li a {
   transform: translate(-50%, -50%) scale(0);
   transition: 300ms ease-in-out;
   background: rgb(90, 87, 87);
+  text-align: center;
   color: whitesmoke;
   border-radius: 8px;
   padding-top: 56.78px;
   z-index: 2;
 }
 
-.formContainer button {
+.formContainer input[type="submit"] {
   position: absolute;
   height: 4vh;
   width: 6vw;
@@ -248,4 +249,19 @@ ul li a {
 
 .formContainer.active {
   transform: translate(-50%, -50%) scale(1);
+}
+
+.formContainer .muscles {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 20px;
+}
+
+.formContainer .muscleOptions {
+  margin: 20px 0;
+}
+
+.muscleOptions label {
+  margin-left: 10px;
 }

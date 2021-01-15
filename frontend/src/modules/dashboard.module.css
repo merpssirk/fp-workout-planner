@@ -94,12 +94,18 @@ ul li a {
   margin-left: 30px;
 }
 
-.dateWeatherWrapper .weatherTownWrapper {
+.dateWeatherWrapper {
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
+  align-items: center;
   width: auto;
 }
+
+.weatherTownWrapper {
+  display: flex;
+  align-items: center;
+}
+
 .dateWeatherWrapper .weatherTownWrapper .weatherOverview {
   position: absolute;
   border-radius: 25px;
@@ -119,15 +125,13 @@ ul li a {
   transform: translateX(0);
   z-index: 1;
 }
-.dateWeatherWrapper .weatherTownWrapper .weatherOverview p
- {
+.dateWeatherWrapper .weatherTownWrapper .weatherOverview p {
   font-size: max(12px, 0.8vw);
   letter-spacing: 2px;
-  
 }
 
 .dateWeatherWrapper .weatherIcon img {
-  height: 60px;
+  height: 10vh;
 }
 
 .dateWeatherWrapper .weatherIcon {
