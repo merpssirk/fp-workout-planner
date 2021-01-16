@@ -16,7 +16,7 @@
 	pointer-events: all;
 }
 
-.selectBodyPartPopup {
+.selectExercisePopup {
 	position: fixed;
 	display: flex;
 	flex-direction: column;
@@ -35,13 +35,13 @@
 	z-index: 2;
 }
 
-.selectBodyPartPopup h4 {
+.selectExercisePopup h4 {
 	font-weight: normal;
 	font-size: max(12px, 2vh);
 	text-align: center;
 }
 
-.selectBodyPartPopup input[type="submit"] {
+.selectExercisePopup button {
 	position: absolute;
 	height: 4vh;
 	width: 6vw;
@@ -53,23 +53,23 @@
 	border-radius: 5px;
 }
 
-.selectBodyPartPopup input[type="submit"]:focus {
+.selectExercisePopup button:focus {
 	outline: 0;
 }
 
-.selectBodyPartPopup.active {
+.selectExercisePopup.active {
 	transform: translate(-50%, -50%) scale(1);
 }
 
-.selectBodyPartPopup .muscles {
+.selectExercisePopup .muscles {
 	margin-top: 10%;
 }
 
-.selectBodyPartPopup .muscleOptions {
+.selectExercisePopup .muscleOptions {
 	margin-top: 30%;
 }
 
-.selectBodyPartPopup label {
+.selectExercisePopup label {
 	margin-left: 10px;
 	font-size: max(12px, 1.5vh);
 }

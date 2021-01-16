@@ -1,5 +1,6 @@
 import React from 'react';
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import {ReactComponent as ResetIcon} from "../../../pics/manageWorkout/times-circle-regular.svg";
 import styles from './exercisePanels.module.css';
 
 export default function ExercisePanels(props) {
@@ -20,6 +21,7 @@ export default function ExercisePanels(props) {
                           {...provided.dragHandleProps}
                         >
                           <h3>Exercise {item.id}</h3>
+                          <ResetIcon className={styles.reset}/>
                           <div className={styles.exerciseWrapper}>
                             <div className={styles.exerciseInnerWrapper}>
                             <div className={styles.bodyPartWrapper}>

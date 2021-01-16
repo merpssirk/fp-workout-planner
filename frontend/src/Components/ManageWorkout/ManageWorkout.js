@@ -5,6 +5,7 @@ import MembersNavbar from "../MembersNavbar/MembersNavbar";
 import DayIndicators from "./DayIndicators/DayIndicators";
 import ExercisePanels from "./ExercisePanels/ExercisePanels";
 import SelectBodyPart from "./SelectBodyPart/SelectBodyPart";
+import SelectExercise from "./SelectExercise/SelectExercise";
 
 export default function ManageWorkout() {
   const panels = [
@@ -17,33 +18,43 @@ export default function ManageWorkout() {
     { name: "p7", id: "7" },
     { name: "p8", id: "8" },
   ]
+
   // const formCheck = useRef("")
   const [list, setList] = useState(panels)
   const [overlayClass, setOverlayClass] = useState("false")
+  const [showPopup, setShowPopup] = useState('false')
   const [activeButton, setActiveButton] = useState("active0")
   const [radioButton, setRadioButton] = useState("abs")
   const [buttonColour, setButtonColour] = useState(["buttonGrey","buttonGrey","buttonGrey","buttonGrey","buttonGrey","buttonGrey","buttonGrey"]);
+  
   const handleSetOverlay = () => {
-    setOverlayClass(!overlayClass)
+    setOverlayClass(!overlayClass);
+    setShowPopup("one");
   }
+
   const handleRemoveOverlay = (event) => {
     event.preventDefault()
     setOverlayClass(!overlayClass)
+    setShowPopup("false");
   }
   const handleWorkoutApi = (e) => {
     e.preventDefault()
-    console.log(radioButton)
+    setShowPopup("two");
+    console.log("radio button",radioButton)
   }
+
   const reorder = (list, startIndex, endIndex) => {
     const result = Array.from(list)
     const [removed] = result.splice(startIndex, 1)
     result.splice(endIndex, 0, removed)
     return result
   }
+
   const onEnd = (result) => {
     if (!result.destination) return
     setList(reorder(list, result.source.index, result.destination.index))
   }
+
   const handleDayButton = (event) => {
     const newColour = [...buttonColour];
     const number = event.id.charAt(event.id.length - 1) - 1
@@ -75,13 +86,14 @@ export default function ManageWorkout() {
     window.localStorage.removeItem("loggedIn")
     history.push("/")
   }
+
   return (
     <div className={styles.background}>
       <MembersNavbar />
       <DayIndicators onHandleDayButton={handleDayButton} activeButton={activeButton} buttonColour={buttonColour}/>
       <ExercisePanels onEnd={onEnd} list={list} onHandleSetOverlay={handleSetOverlay}/>
-      <SelectBodyPart overlayClass={overlayClass} onHandleWorkoutApi={handleWorkoutApi} radioButton={radioButton} onHandleRadioButton={handleRadioButton}/>
-      
+      <SelectBodyPart showPopup={showPopup} onHandleWorkoutApi={handleWorkoutApi} radioButton={radioButton} onHandleRadioButton={handleRadioButton}/>
+      <SelectExercise showPopup={showPopup} onHandleRemoveOverlay={handleRemoveOverlay}/>
       <div
         id={styles.overlay}
         className={overlayClass ? null : styles.active}

@@ -6,14 +6,14 @@ export default function SelectBodyPart(props) {
     return (
         <div
         className={
-          !props.overlayClass
-            ? classNames(styles.formContainer, styles.active)
-            : styles.formContainer
+          props.showPopup === "one"
+            ? classNames(styles.selectBodyPartPopup, styles.active)
+            : styles.selectBodyPartPopup
         }
       >
         <h4>
-          Select the body part to search <br />
-          an exercise for!
+          Please select the body part to  <br />
+          search an exercise for!
         </h4>
         <form onSubmit={props.onHandleWorkoutApi} className={styles.muscles}>
           <div className={styles.muscleOptions}>
