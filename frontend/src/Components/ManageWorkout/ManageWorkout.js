@@ -89,7 +89,7 @@ export default function ManageWorkout() {
 
   return (
     <div className={styles.background}>
-      <MembersNavbar />
+      <MembersNavbar onHandleLogout={handleLogout} />
       <DayIndicators onHandleDayButton={handleDayButton} activeButton={activeButton} buttonColour={buttonColour}/>
       <ExercisePanels onEnd={onEnd} list={list} onHandleSetOverlay={handleSetOverlay}/>
       <SelectBodyPart showPopup={showPopup} onHandleWorkoutApi={handleWorkoutApi} radioButton={radioButton} onHandleRadioButton={handleRadioButton}/>
