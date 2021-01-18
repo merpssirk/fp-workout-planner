@@ -90,9 +90,21 @@ router.post("/login", async (request, response) => {
   }
 })
 //Dashboard Page
-router.get("/dashboardData", (request, response) => {
-  response.send("welcome")
-})
+router.get(
+  "/dashboardNutrition",
+  passport.authenticate("jwt", { session: false }),
+  async (request, response) => {
+    try {
+      
+      const userInfo = await Users.find({_id: request.user})
+      console.log(userInfo)
+      response.status(200).json(userInfo)
+    } catch (err) {
+      response.status(500).json({ msg: err.message })
+    }
+    // response.send("welcome")
+  }
+)
 
 //User Profile Edit Page
 router.put(
@@ -130,20 +142,12 @@ router.post(
   passport.authenticate("jwt", { session: false }),
   [
     body("gender").isIn(["female", "male", "other"]),
-    body("age").isIn([
-      "child",
-      "teen",
-      "young",
-      "middleAged",
-      "bestAger",
-      "old",
-      "eldest",
-    ]),
+    body("age").isNumeric(),
     body(["height", "weight"]).isNumeric(),
     body("disability").isIn(["arms", "legs", "back", "none"]),
     body("workoutGoals").isIn(["looseWeight", "stayFit", "gainMuscles"]),
     body("workoutDays").isNumeric().isIn([1, 2, 3, 4, 5, 6]),
-    body("activityLevel").isIn(["sedentary", "moderately", "active"]),
+    body("activityLevel").isIn(["sedentary", "moderately", "active", "extraActive"]),
   ],
   async (request, response) => {
     const {
@@ -167,7 +171,7 @@ router.post(
       workoutDays,
       activityLevel,
     }
-    console.log('1',request.user);
+    console.log('user_ID',request.user);
     const user = await Users.findByIdAndUpdate(
       request.user,
       { $set: newUser },

@@ -29,16 +29,14 @@ export default function DashFinishRegistration(props) {
                 <option value="other">Other</option>
               </select>
               <label htmlFor="age">Age</label>
-              <select name="age" id="age" required="required">
-                <option value="ageDefault">Choose one</option>
-                <option value="child">1-12</option>
-                <option value="teen">13-17</option>
-                <option value="young">18-29</option>
-                <option value="middleAged">30-49</option>
-                <option value="bestAger">50-69</option>
-                <option value="old">70-89</option>
-                <option value="eldest">90-99</option>
-              </select>
+              <input
+                type="number"
+                name="age"
+                id="age"
+                required="required"
+                placeholder="Please enter"
+              />
+
               <label htmlFor="height">Height (cm)</label>
               <input
                 type="number"
@@ -85,6 +83,7 @@ export default function DashFinishRegistration(props) {
                 <option value="sedentary">Sedentary</option>
                 <option value="moderately">Moderately Active</option>
                 <option value="active">Active</option>
+                <option value="extraActive">Extra Ative</option>
               </select>
             </div>
           </div>
@@ -102,7 +101,9 @@ export default function DashFinishRegistration(props) {
       <div
         id={styles.overlay}
         className={
-          props.overlayClass && props.formCheck === "pending" ? styles.active : null
+          props.overlayClass && props.formCheck === "pending"
+            ? styles.active
+            : null
         }
         onClick={props.onHandleRemoveOverlay}
       ></div>

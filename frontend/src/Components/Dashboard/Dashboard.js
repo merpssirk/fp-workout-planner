@@ -2,11 +2,12 @@ import { React, useState, useRef, useEffect } from "react"
 import { useHistory } from "react-router-dom"
 import styles from "./dashboard.module.css"
 //import MembersNavbar from "./MembersNavbar/MembersNavbar"
-import MembersNavbar from "../MembersNavbar/MembersNavbar";
+import MembersNavbar from "../MembersNavbar/MembersNavbar"
 import DashDateWeather from "./DashDateWeather/DashDateWeather"
 import DashInfoPanel from "./DashInfoPanel/DashInfoPanel"
 import DashMainPanels from "./DashMainPanels/DashMainPanels"
 import DashFinishRegistration from "./DashFinishRegistration/DashFinishRegistration"
+import axios from "axios"
 
 export default function Dashboard() {
   //LOGOUT
@@ -40,11 +41,9 @@ export default function Dashboard() {
     }
   }, [])
 
-  console.log(overlayClass)
-
+  
   const handleRemoveOverlay = () => {
-    //event.preventDefault()
-    console.log("function reached!")
+    
     setOverlayClass(!overlayClass)
     localStorage.setItem("Register", "fulfilled")
   }
@@ -62,7 +61,7 @@ export default function Dashboard() {
     )
       .then((res) => res.json())
       .then((data) => {
-        console.log(data)
+        //console.log(data)
         setMainTemp(Math.round(data.main.temp))
         setIconID(data.weather[0].icon)
         setFeelsLike(data.main.feels_like)
@@ -81,7 +80,6 @@ export default function Dashboard() {
       height: formData.get("height"),
       weight: formData.get("weight"),
       disability: formData.get("disability"),
-
       workoutGoals: formData.get("workoutGoals"),
       workoutDays: formData.get("workoutDays"),
       activityLevel: formData.get("activityLevel"),
@@ -102,7 +100,106 @@ export default function Dashboard() {
       console.log(err)
     }
   }
+  //NUTRITION CALCULATION
+  // CALCULATE MEN'S BMR
+  const [nutrition, setNutrition] = useState( "" );
+  const [caloriesValue, setCaloriesValue] = useState( 0 );
+  
+  const calculateBMRForMen = (menWeight, menHeight, menAge) => {
+    const weight = 66.47 + 13.75 * menWeight
+    const height = 5.003 * menHeight
+    const age = 6.755 * menAge
+    return weight + height - age
+  }
 
+ // calculateBMRForMen()
+  //console.log(calculateBMRForMen(34,178, 23));
+
+  //CALCULATE WOMEN'S BMR
+  const calculateBMRForWomen = (womenWeight, womenHeight, womenAge) => {
+    const weight = 655.1 + 9.563 * womenWeight
+    const height = 1.85 * womenHeight
+    const age = 4.676 * womenAge
+    return weight + height - age
+  }
+  //calculateBMRForWomen()
+  //console.log(calculateBMRForWomen())
+  useEffect( () => {
+    
+    axios
+      .get("user/dashboardNutrition", {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((res) => {
+        setNutrition( res.data )
+        console.log( res.data );
+
+        let getGender;
+        
+        const gender = [calculateBMRForMen, calculateBMRForWomen];
+
+        if ( res.data.gender === "male" ) {
+           getGender = gender[0];
+        }
+        else {
+           getGender = gender[1];
+        }      
+       // console.log(res.data[0].weight)
+       // console.log(
+       //   calculateBMRForMen(
+        //    Number(res.data[0].weight),
+       //     Number(res.data[0].height),
+       //     Number(res.data[0].age)
+      //    )
+      //  )
+        switch ( res.data[0].activityLevel ) {
+          case "sedentary":
+            setCaloriesValue(
+              getGender(
+                res.data[0].weight,
+                res.data[0].height,
+                res.data[0].age
+              ) * 1.2
+            )
+            break
+          case "moderately":
+            setCaloriesValue(
+              getGender(
+                res.data[0].weight,
+                res.data[0].height,
+                res.data[0].age
+              ) * 1.55
+            )
+            break
+          case "active":
+            setCaloriesValue(
+              getGender(
+                res.data[0].weight,
+                res.data[0].height,
+                res.data[0].age
+              ) * 1.725
+            )
+            break
+          case "extraActive":
+            setCaloriesValue(
+              getGender(
+                res.data[0].weight,
+                res.data[0].height,
+                res.data[0].age
+              ) * 1.9
+            )
+            break
+          
+          default:
+            break
+        }
+
+        console.log(caloriesValue)
+      } )
+  }, [] )
+  
   return (
     <div className={styles.background}>
       <MembersNavbar onHandleLogout={handleLogout} />
@@ -116,7 +213,7 @@ export default function Dashboard() {
       />
       <main className={styles.panel}>
         <DashInfoPanel />
-        <DashMainPanels />
+        <DashMainPanels caloriesValue={caloriesValue} />
         <DashFinishRegistration
           overlayClass={overlayClass}
           formCheck={formCheck}

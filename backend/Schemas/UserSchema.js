@@ -6,8 +6,7 @@ const UserSchema = new mongoose.Schema( {
   password: { type: String, required: true },
   gender: { type: String, enum: ["female", "male", "other"] },
   age: {
-    type: String,
-    enum: ["child", "teen", "young", "middleAged", "bestAger", "old", "eldest"],
+    type:Number,
   },
   height: { type: Number },
   weight: { type: Number },
@@ -22,7 +21,7 @@ const UserSchema = new mongoose.Schema( {
   },
   activityLevel: {
     type: String,
-    enum: ["sedentary", "moderately", "active"],
+    enum: ["sedentary", "moderately", "active", "extraActive"],
   },
   workoutDays: { type: Number, enum: [1, 2, 3, 4, 5, 6] },
   avatar: { type: String },
