@@ -31,15 +31,15 @@ export default function DashMainPanels(props) {
           </div>
           <div className={styles.macrosWrapper}>
             <img src={carbs} />
-            <span className={styles.carbsFigures}>350</span>
+            <span className={styles.carbsFigures}>{props.macros[0]}</span>
           </div>
           <div className={styles.macrosWrapper}>
             <img src={protein} />
-            <span className={styles.proteinFigures}>200</span>
+            <span className={styles.proteinFigures}>{Math.round(props.macros[1])}</span>
           </div>
           <div className={styles.macrosWrapper}>
             <img src={fat} />
-            <span className={styles.fatFigures}>120</span>
+            <span className={styles.fatFigures}>{Math.round(props.macros[2])}</span>
           </div>
         </div>
       </div>

@@ -1,25 +1,65 @@
 import { React, useState, useRef, useEffect } from "react"
 import { useHistory } from "react-router-dom"
 import styles from "./dashboard.module.css"
-//import MembersNavbar from "./MembersNavbar/MembersNavbar"
 import MembersNavbar from "../MembersNavbar/MembersNavbar"
 import DashDateWeather from "./DashDateWeather/DashDateWeather"
 import DashInfoPanel from "./DashInfoPanel/DashInfoPanel"
 import DashMainPanels from "./DashMainPanels/DashMainPanels"
 import DashFinishRegistration from "./DashFinishRegistration/DashFinishRegistration"
 import axios from "axios"
+import WeightUpdate from "../WeightUpdate/WeightUpdate"
 
 export default function Dashboard() {
+
+  //NOTIFICATION 
+  /* const weightUpdateNotification = () => {
+    setInterval(() => {
+      const date = new Date()
+      if (date.getDay() === 3) {
+        alert("Reminder: Please update your weight!")
+      }
+    })
+  }
+  useEffect( () => {
+    weightUpdateNotification();
+  },[]) */
+
+  //UDPATE WEIGHT CONNECT TO BACKEND
+  const handleUpdatedWeight = async (event) => {
+    event.preventDefault()
+    const updatedWeightValue = new FormData(event.target)
+    const updatedWeightField = {
+      updatedWeight: updatedWeightValue.get("updatedWeight"),
+    }
+    try {
+      await fetch("/user/updatedWeight", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify(updatedWeightField),
+      } )
+      handleRemoveOverlay();
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   //LOGOUT
   const history = useHistory()
   const handleLogout = () => {
     window.localStorage.removeItem("loggedIn")
     history.push("/")
   }
+  const workoutGoals = useRef()
 
   const [overlayClass, setOverlayClass] = useState("false")
   const [currentDate, setCurrentDate] = useState()
   const formCheck = localStorage.getItem("Register") || null
+
+  const [macros, setMacros] = useState([])
+  const [weight, setWeight] = useState(0)
 
   useEffect(() => {
     const date = new Date()
@@ -41,9 +81,10 @@ export default function Dashboard() {
     }
   }, [])
 
-  
+  const handleSetOverlay = () => {
+    setOverlayClass("true")
+  }
   const handleRemoveOverlay = () => {
-    
     setOverlayClass(!overlayClass)
     localStorage.setItem("Register", "fulfilled")
   }
@@ -94,7 +135,7 @@ export default function Dashboard() {
         body: JSON.stringify(finishRegistrationField),
       })
       //const json = await response.json();
-      console.log("function is reached")
+      //console.log("function is reached")
       handleRemoveOverlay()
     } catch (err) {
       console.log(err)
@@ -102,9 +143,9 @@ export default function Dashboard() {
   }
   //NUTRITION CALCULATION
   // CALCULATE MEN'S BMR
-  const [nutrition, setNutrition] = useState( "" );
-  const [caloriesValue, setCaloriesValue] = useState( 0 );
-  
+  //const [nutrition, setNutrition] = useState("")
+  const [caloriesValue, setCaloriesValue] = useState(0)
+
   const calculateBMRForMen = (menWeight, menHeight, menAge) => {
     const weight = 66.47 + 13.75 * menWeight
     const height = 5.003 * menHeight
@@ -112,7 +153,7 @@ export default function Dashboard() {
     return weight + height - age
   }
 
- // calculateBMRForMen()
+  // calculateBMRForMen()
   //console.log(calculateBMRForMen(34,178, 23));
 
   //CALCULATE WOMEN'S BMR
@@ -124,8 +165,7 @@ export default function Dashboard() {
   }
   //calculateBMRForWomen()
   //console.log(calculateBMRForWomen())
-  useEffect( () => {
-    
+  useEffect(() => {
     axios
       .get("user/dashboardNutrition", {
         headers: {
@@ -133,28 +173,30 @@ export default function Dashboard() {
         },
       })
       .then((res) => {
-        setNutrition( res.data )
-        console.log( res.data );
+        workoutGoals.current = res.data[0].workoutGoals
+        console.log("workoutGoals:", workoutGoals)
 
-        let getGender;
-        
-        const gender = [calculateBMRForMen, calculateBMRForWomen];
+       // setNutrition(res.data)
+        console.log(res.data)
+        setWeight(res.data[0].weight)
+        let getGender
 
-        if ( res.data.gender === "male" ) {
-           getGender = gender[0];
+        const gender = [calculateBMRForMen, calculateBMRForWomen]
+
+        if (res.data.gender === "male") {
+          getGender = gender[0]
+        } else {
+          getGender = gender[1]
         }
-        else {
-           getGender = gender[1];
-        }      
-       // console.log(res.data[0].weight)
-       // console.log(
-       //   calculateBMRForMen(
+        // console.log(res.data[0].weight)
+        // console.log(
+        //   calculateBMRForMen(
         //    Number(res.data[0].weight),
-       //     Number(res.data[0].height),
-       //     Number(res.data[0].age)
-      //    )
-      //  )
-        switch ( res.data[0].activityLevel ) {
+        //     Number(res.data[0].height),
+        //     Number(res.data[0].age)
+        //    )
+        //  )
+        switch (res.data[0].activityLevel) {
           case "sedentary":
             setCaloriesValue(
               getGender(
@@ -191,15 +233,50 @@ export default function Dashboard() {
               ) * 1.9
             )
             break
-          
+
           default:
             break
         }
+      })
+  }, [overlayClass])
 
-        console.log(caloriesValue)
-      } )
-  }, [] )
-  
+  useEffect(() => {
+    let kcalGoal = 0
+    let protein = 0
+    let fat = 0
+    switch ( workoutGoals.current ) {
+      
+      case "looseWeight":
+        kcalGoal = caloriesValue - caloriesValue * 0.2
+        protein = weight
+        fat = weight * 0.4
+        break
+      case "stayFit":
+        kcalGoal = caloriesValue
+        protein = weight * 1.2
+        fat = weight * 0.5
+        break
+      case "gainMuscles":
+        kcalGoal = caloriesValue + caloriesValue * 0.2
+        protein = weight * 1.5
+        fat = weight * 0.8
+        break
+      default:
+        break
+    }
+    const proteinPercent = (protein * 4 * 100) / kcalGoal
+    const fatPercent = (fat * 9 * 100) / kcalGoal
+    const carbsPercent = 100 - proteinPercent - fatPercent
+    const carbs = Math.round( ( caloriesValue * carbsPercent ) / 100 / 4 )
+    console.log('result:', (carbs *4) + (protein *4)+ (fat * 9));
+    console.log(carbs);
+    console.log(carbsPercent)
+    console.log(fatPercent)
+    console.log(proteinPercent)
+    
+    setMacros([carbs, protein, fat])
+  }, [caloriesValue])
+
   return (
     <div className={styles.background}>
       <MembersNavbar onHandleLogout={handleLogout} />
@@ -213,7 +290,13 @@ export default function Dashboard() {
       />
       <main className={styles.panel}>
         <DashInfoPanel />
-        <DashMainPanels caloriesValue={caloriesValue} />
+        <DashMainPanels caloriesValue={caloriesValue} macros={macros} />
+        <WeightUpdate
+          onHandleSetOverlay={handleSetOverlay}
+          onHandleRemoveOverlay={handleRemoveOverlay}
+          overlayClass={overlayClass}
+          onHandleUpdatedWeight={handleUpdatedWeight}
+        />
         <DashFinishRegistration
           overlayClass={overlayClass}
           formCheck={formCheck}

@@ -88,8 +88,31 @@ router.post("/login", async (request, response) => {
   } catch (err) {
     return response.status(500).json({ msg: err.message })
   }
-})
-//Dashboard Page
+} )
+//------WEIGHT-UPDATE-------
+router.post(
+  "/updatedWeight",
+  passport.authenticate("jwt", { session: false }),
+  async ( request, response ) => {
+    
+    const { updatedWeight } = request.body;
+    const newUser = {
+      updatedWeight,
+    }
+    const user = await Users.findByIdAndUpdate( request.user, { $set: newUser },
+      { new: true } )
+    if ( user ) {
+      response.status( 200 ).json( { msg: "Your weight is Updated" } )
+    }
+    else {
+      response.status( 401 ).json( { msg: "Can not update your weight!!!" } )
+    }
+    
+  }
+)
+
+
+//--------DASHBOARD-------
 router.get(
   "/dashboardNutrition",
   passport.authenticate("jwt", { session: false }),
@@ -108,9 +131,19 @@ router.get(
 
 //User Profile Edit Page
 router.put(
-  "/profileEdit/:id",
+  "/profileEdit",
   passport.authenticate("jwt", { session: false }),
-  async (request, response) => {
+  async ( request, response ) => {
+    
+    /* try {
+      
+      const userUpdate = await Users.findByIdAndUpdate({_id: request.user})
+      console.log(userUpdate)
+      response.status(200).json({msg: "Updated Successfully"})
+    } catch (err) {
+      response.status(500).json({ msg: err.message })
+    } */
+      
     const { id: _id } = request.params
 
     const updateField = request.body
@@ -123,6 +156,7 @@ router.put(
     response.json(updateUserField)
   }
 )
+
 
 //Manage Workout Page
 router.put("/workoutEdit", (request, response) => {
