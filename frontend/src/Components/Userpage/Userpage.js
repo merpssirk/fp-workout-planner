@@ -71,7 +71,7 @@ export default function Userpage() {
             </li>
           </ul>
           <div className={styles.profileWrapper}>
-            <span onClick={handleLogout}>Name</span>
+            <span onClick={handleLogout}>Logout</span>
             <a href="/userpage">
               <img src={avatar} />
             </a>
@@ -101,16 +101,7 @@ export default function Userpage() {
               </div>
               <div className={styles.formGroup}>
                 <label htmlFor="age">Age</label>
-                <select name="age">
-                  <option value="ageDefault">Choose one</option>
-                  <option value="child">1-12</option>
-                  <option value="teen">13-17</option>
-                  <option value="young">18-29</option>
-                  <option value="niddleAged">30-49</option>
-                  <option value="bestAger">50-69</option>
-                  <option value="old">70-89</option>
-                  <option value="eldest">90-99</option>
-                </select>
+                <input type="number" name="age" id="age" required="required" />
               </div>
               <div className={styles.formGroup}>
                 <label htmlFor="height">Height (cm)</label>
@@ -131,6 +122,7 @@ export default function Userpage() {
                   <option value="sedentary">Sedentary</option>
                   <option value="moderately">Moderately active</option>
                   <option value="active">Active</option>
+                  <option value="extraActive">Extra Active</option>
                 </select>
                 <label htmlFor="activityLevel">Activity Level</label>
               </div>
@@ -166,7 +158,12 @@ export default function Userpage() {
                 <label htmlFor="workoutDays">Workout Days/Week</label>
               </div>
               <div className={styles.formGroup}>
-                <input className={styles.userPic} type="file" accept=".png, .jpg., .jpeg" name="avatar" />
+                <input
+                  className={styles.userPic}
+                  type="file"
+                  accept=".png, .jpg., .jpeg"
+                  name="avatar"
+                />
                 <label htmlFor="avatar">Change Avatar</label>
               </div>
               <div className={styles.formGroup}>
