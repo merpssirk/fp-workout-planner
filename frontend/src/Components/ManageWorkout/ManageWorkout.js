@@ -17,88 +17,147 @@ export default function ManageWorkout() {
     { name: "p6", id: "6" },
     { name: "p7", id: "7" },
     { name: "p8", id: "8" },
-  ]
+  ];
 
   // const formCheck = useRef("")
-  const [list, setList] = useState(panels)
-  const [overlayClass, setOverlayClass] = useState("false")
-  const [showPopup, setShowPopup] = useState('false')
-  const [activeButton, setActiveButton] = useState("active0")
-  const [radioButton, setRadioButton] = useState("abs")
-  const [buttonColour, setButtonColour] = useState(["buttonGrey","buttonGrey","buttonGrey","buttonGrey","buttonGrey","buttonGrey","buttonGrey"]);
-  
+  const [list, setList] = useState(panels);
+  const [overlayClass, setOverlayClass] = useState("false");
+  const [showPopup, setShowPopup] = useState("false");
+  const [activeButton, setActiveButton] = useState("active0");
+  const [radioButton, setRadioButton] = useState(0);
+  const [getExercise, setGetExercise] = useState("");
+  const [exerciseData, setExerciseData] = useState([]);
+  const [buttonColour, setButtonColour] = useState([
+    "buttonGrey",
+    "buttonGrey",
+    "buttonGrey",
+    "buttonGrey",
+    "buttonGrey",
+    "buttonGrey",
+    "buttonGrey",
+  ]);
+
   const handleSetOverlay = () => {
     setOverlayClass(!overlayClass);
     setShowPopup("one");
-  }
+  };
 
   const handleRemoveOverlay = (event) => {
-    event.preventDefault()
-    setOverlayClass(!overlayClass)
+    event.preventDefault();
+    setOverlayClass(!overlayClass);
     setShowPopup("false");
-  }
+  };
   const handleWorkoutApi = (e) => {
-    e.preventDefault()
-    setShowPopup("two");
-    console.log("radio button",radioButton)
-  }
+    e.preventDefault();
+    console.log("radio button", radioButton);
+
+    switch (radioButton) {
+      case "abs":
+        setGetExercise("muscles=14&muscles=6");
+        break;
+      case "arms":
+        setGetExercise("muscles=1&muscles=11&muscles=13&muscles=5");
+        break;
+      case "back":
+        setGetExercise("muscles=8&muscles=12&muscles=9");
+        break;
+      case "chest":
+        setGetExercise("muscles=4");
+        break;
+      case "legs":
+        setGetExercise("muscles=7&muscles=8&muscles=10&muscles=15");
+        break;
+      case "shoulders":
+        setGetExercise("muscles=2&muscles=3");
+        break;
+      default:
+        break;
+    }
+
+    fetch(
+      `https://wger.de/api/v2/exercise/?${getExercise}&limit=<50>&language=2`
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        setExerciseData(data.results);
+        setShowPopup("two");
+      });
+
+    console.log(getExercise);
+  };
 
   const reorder = (list, startIndex, endIndex) => {
-    const result = Array.from(list)
-    const [removed] = result.splice(startIndex, 1)
-    result.splice(endIndex, 0, removed)
-    return result
-  }
+    const result = Array.from(list);
+    const [removed] = result.splice(startIndex, 1);
+    result.splice(endIndex, 0, removed);
+    return result;
+  };
 
   const onEnd = (result) => {
-    if (!result.destination) return
-    setList(reorder(list, result.source.index, result.destination.index))
-  }
+    if (!result.destination) return;
+    setList(reorder(list, result.source.index, result.destination.index));
+  };
 
   const handleDayButton = (event) => {
     const newColour = [...buttonColour];
-    const number = event.id.charAt(event.id.length - 1) - 1
-    
-    if (activeButton === "active"  +[number]){
+    const number = event.id.charAt(event.id.length - 1) - 1;
 
-    if (event.className.includes("buttonGrey")) {
-      newColour[number] = "buttonGreen";
-      setButtonColour(newColour);
-    } else if (event.className.includes("buttonGreen")) {
-      newColour[number] = "buttonYellow";
-      setButtonColour(newColour);
+    if (activeButton === "active" + [number]) {
+      if (event.className.includes("buttonGrey")) {
+        newColour[number] = "buttonGreen";
+        setButtonColour(newColour);
+      } else if (event.className.includes("buttonGreen")) {
+        newColour[number] = "buttonYellow";
+        setButtonColour(newColour);
+      } else {
+        newColour[number] = "buttonGrey";
+        setButtonColour(newColour);
+      }
     } else {
-      newColour[number] = "buttonGrey";
-      setButtonColour(newColour);
+      setActiveButton("active" + number);
     }
-   }else{
-    setActiveButton("active" + number);
-   }
-  }
+  };
 
-  const handleRadioButton = (value)=>{
-    setRadioButton(value)
-  }
+  const handleRadioButton = (value) => {
+    setRadioButton(value);
+  };
 
   //LOGOUT
-  const history = useHistory()
+  const history = useHistory();
   const handleLogout = () => {
-    window.localStorage.removeItem("loggedIn")
-    history.push("/")
-  }
+    window.localStorage.removeItem("loggedIn");
+    history.push("/");
+  };
 
   return (
     <div className={styles.background}>
       <MembersNavbar onHandleLogout={handleLogout} />
-      <DayIndicators onHandleDayButton={handleDayButton} activeButton={activeButton} buttonColour={buttonColour}/>
-      <ExercisePanels onEnd={onEnd} list={list} onHandleSetOverlay={handleSetOverlay}/>
-      <SelectBodyPart showPopup={showPopup} onHandleWorkoutApi={handleWorkoutApi} radioButton={radioButton} onHandleRadioButton={handleRadioButton}/>
-      <SelectExercise showPopup={showPopup} onHandleRemoveOverlay={handleRemoveOverlay}/>
+      <DayIndicators
+        onHandleDayButton={handleDayButton}
+        activeButton={activeButton}
+        buttonColour={buttonColour}
+      />
+      <ExercisePanels
+        onEnd={onEnd}
+        list={list}
+        onHandleSetOverlay={handleSetOverlay}
+      />
+      <SelectBodyPart
+        showPopup={showPopup}
+        onHandleWorkoutApi={handleWorkoutApi}
+        radioButton={radioButton}
+        onHandleRadioButton={handleRadioButton}
+      />
+      <SelectExercise
+        showPopup={showPopup}
+        onHandleRemoveOverlay={handleRemoveOverlay}
+        exerciseData={exerciseData}
+      />
       <div
         id={styles.overlay}
         className={overlayClass ? null : styles.active}
         onClick={handleRemoveOverlay}
       ></div>
     </div>
-  )
+  );
 }
