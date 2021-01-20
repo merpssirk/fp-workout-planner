@@ -24,8 +24,9 @@ export default function ManageWorkout() {
   const [overlayClass, setOverlayClass] = useState("false");
   const [showPopup, setShowPopup] = useState("false");
   const [activeButton, setActiveButton] = useState("active0");
-  const [radioButton, setRadioButton] = useState(0);
-  const [getExercise, setGetExercise] = useState("");
+  const [radioButton, setRadioButton] = useState("");
+  // const [getExercise, setGetExercise] = useState("");
+  const { exerciseTitle, setExerciseTitle } = useState([]);
   const [exerciseData, setExerciseData] = useState([]);
   const [buttonColour, setButtonColour] = useState([
     "buttonGrey",
@@ -37,7 +38,8 @@ export default function ManageWorkout() {
     "buttonGrey",
   ]);
 
-  const handleSetOverlay = () => {
+  const handleSetOverlay = (id) => {
+    console.log("The id form the panels is:", id);
     setOverlayClass(!overlayClass);
     setShowPopup("one");
   };
@@ -47,44 +49,46 @@ export default function ManageWorkout() {
     setOverlayClass(!overlayClass);
     setShowPopup("false");
   };
+
   const handleWorkoutApi = (e) => {
     e.preventDefault();
     console.log("radio button", radioButton);
 
+    let query;
+
     switch (radioButton) {
       case "abs":
-        setGetExercise("muscles=14&muscles=6");
+        query = "muscles=14&muscles=6";
         break;
       case "arms":
-        setGetExercise("muscles=1&muscles=11&muscles=13&muscles=5");
+        query = "muscles=1&muscles=11&muscles=13&muscles=5";
         break;
       case "back":
-        setGetExercise("muscles=8&muscles=12&muscles=9");
+        query = "muscles=8&muscles=12&muscles=9";
         break;
       case "chest":
-        setGetExercise("muscles=4");
+        query = "muscles=4";
         break;
       case "legs":
-        setGetExercise("muscles=7&muscles=8&muscles=10&muscles=15");
+        query = "muscles=7&muscles=8&muscles=10&muscles=15";
         break;
       case "shoulders":
-        setGetExercise("muscles=2&muscles=3");
+        query = "muscles=2&muscles=3";
         break;
       default:
         break;
     }
 
-    fetch(
-      `https://wger.de/api/v2/exercise/?${getExercise}&limit=<50>&language=2`
-    )
+    fetch(`https://wger.de/api/v2/exercise/?${query}&limit=<50>&language=2`)
       .then((res) => res.json())
       .then((data) => {
+        // setGetExercise(query);
         setExerciseData(data.results);
         setShowPopup("two");
       });
-
-    console.log(getExercise);
   };
+
+  // DRAG AND DROP
 
   const reorder = (list, startIndex, endIndex) => {
     const result = Array.from(list);
@@ -97,6 +101,8 @@ export default function ManageWorkout() {
     if (!result.destination) return;
     setList(reorder(list, result.source.index, result.destination.index));
   };
+
+  //------------------------------------------------------------------------
 
   const handleDayButton = (event) => {
     const newColour = [...buttonColour];
@@ -120,6 +126,10 @@ export default function ManageWorkout() {
 
   const handleRadioButton = (value) => {
     setRadioButton(value);
+  };
+
+  const handleExerciseTitle = (title) => {
+    console.log("The title of the exercise is:", title);
   };
 
   //LOGOUT
@@ -152,6 +162,7 @@ export default function ManageWorkout() {
         showPopup={showPopup}
         onHandleRemoveOverlay={handleRemoveOverlay}
         exerciseData={exerciseData}
+        onHandleExerciseTitle={handleExerciseTitle}
       />
       <div
         id={styles.overlay}
