@@ -16,7 +16,13 @@ export default function SelectExercise(props) {
       </h4>
       <ul className={styles.exerciseList}>
         {props.exerciseData.map((item, index) => (
-          <li className={styles.exerciseData} key={index}>
+          <li
+            className={styles.exerciseData}
+            key={index}
+            onClick={() => {
+              props.onHandleExerciseTitle(item.name);
+            }}
+          >
             {item.name}
           </li>
         ))}
