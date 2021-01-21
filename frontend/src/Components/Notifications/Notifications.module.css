@@ -1,0 +1,8 @@
+.msgContainer {
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    color: white;
+    background: gray;
+    transform: translate(-50%, -50%);
+}

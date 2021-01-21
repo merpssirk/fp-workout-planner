@@ -1,12 +1,12 @@
 const express = require("express")
-const Users = require( "../Models/UserModel" )
-const WorkoutInfo = require( "../Models/WorkoutModel" );
+const Users = require("../Models/UserModel")
+const WorkoutInfo = require("../Models/WorkoutModel")
 const bcrypt = require("bcrypt")
 const { jwtIssuer } = require("../utils/jwtIssuer")
-const { body, validationResult } = require( "express-validator" );
-const passport = require( "passport" );
+const { body, validationResult } = require("express-validator")
+const passport = require("passport")
 
-const router = express.Router();
+const router = express.Router()
 
 //router.use( passport.authenticate( 'jwt', { session: false } ) );
 
@@ -41,7 +41,7 @@ router.post("/register", async (request, response) => {
     })
     //Save in MongoDB
     const savedUser = await newUser.save()
-    const token = jwtIssuer( savedUser )
+    const token = jwtIssuer(savedUser)
     response
       .cookie("jwt", token, {
         httpOnly: true,
@@ -73,44 +73,61 @@ router.post("/login", async (request, response) => {
 
     //comparing password
     const isMatch = await bcrypt.compare(password, user.password)
-    if (!isMatch)
-      return response.status(400).json({ msg: "Invalid Password" })
+    if (!isMatch) return response.status(400).json({ msg: "Invalid Password" })
 
     //creating jsonwebtoken (jwt)
-    const token = jwtIssuer( user );
+    const token = jwtIssuer(user)
     response
       .cookie("jwt", token, {
         httpOnly: true,
         sameSite: "lax",
       })
       .json({ msg: "LoggedIn successfully!!!" })
-    
   } catch (err) {
     return response.status(500).json({ msg: err.message })
   }
-} )
-//------WEIGHT-UPDATE-------
+})
+//------POST UPDATED WEIGHT-------
 router.post(
   "/updatedWeight",
   passport.authenticate("jwt", { session: false }),
-  async ( request, response ) => {
-    
-    const { updatedWeight } = request.body;
+  async (request, response) => {
+    const { updatedWeight } = request.body
     const newUser = {
       updatedWeight,
     }
-    const user = await Users.findByIdAndUpdate( request.user, { $set: newUser },
-      { new: true } )
-    if ( user ) {
-      response.status( 200 ).json( { msg: "Your weight is Updated" } )
+    const user = await Users.findByIdAndUpdate(
+      request.user,
+      {
+        $push: newUser,
+        timestamps: {
+          createdAt: Date.now(),
+          lastUpdatedAt: Date.now(),
+        },
+      },
+      { new: true }
+    )
+    if (user) {
+      response.status(200).json({ msg: "Your weight is Updated" })
+    } else {
+      response.status(401).json({ msg: "Can not update your weight!!!" })
     }
-    else {
-      response.status( 401 ).json( { msg: "Can not update your weight!!!" } )
-    }
-    
   }
 )
-
+//GET UPDATED WEIGHT
+router.get(
+  "/updatedWeight",
+  passport.authenticate("jwt", { session: false }),
+  async (request, response) => {
+    try {
+      const updatedWeight = await Users.find({ _id: request.user })
+      // console.log(updatedWeight)
+      response.status(200).json(updatedWeight)
+    } catch (err) {
+      response.status(500).json({ msg: err.message })
+    }
+  }
+)
 
 //--------DASHBOARD-------
 router.get(
@@ -118,9 +135,8 @@ router.get(
   passport.authenticate("jwt", { session: false }),
   async (request, response) => {
     try {
-      
-      const userInfo = await Users.find({_id: request.user})
-      console.log(userInfo)
+      const userInfo = await Users.find({ _id: request.user })
+      // console.log(userInfo)
       response.status(200).json(userInfo)
     } catch (err) {
       response.status(500).json({ msg: err.message })
@@ -133,37 +149,79 @@ router.get(
 router.put(
   "/profileEdit",
   passport.authenticate("jwt", { session: false }),
-  async ( request, response ) => {
-    
-    /* try {
-      
-      const userUpdate = await Users.findByIdAndUpdate({_id: request.user})
-      console.log(userUpdate)
-      response.status(200).json({msg: "Updated Successfully"})
-    } catch (err) {
-      response.status(500).json({ msg: err.message })
-    } */
-      
-    const { id: _id } = request.params
+  async (request, response) => {
+    const {
+      username,
+      email,
+      gender,
+      age,
+      height,
+      weight,
+      disability,
+      workoutGoals,
+      activityLevel,
+      workoutDays,
+    } = request.body
+    //  console.log(request.body)
+    const newUser = {
+      username,
+      email,
+      gender,
+      age,
+      height,
+      weight,
+      disability,
+      workoutGoals,
+      activityLevel,
+      workoutDays,
+    }
 
-    const updateField = request.body
-    
-    const updateUserField = await Users.findByIdAndUpdate(_id, {
-      ...updateField,
-      _id,
-    })
-    console.log(updateUserField)
-    response.json(updateUserField)
+    const userEdit = await Users.findByIdAndUpdate(
+      request.user,
+      {
+        $set: newUser,
+      },
+      { new: true }
+    )
+    if (userEdit) {
+      response.status(200).json({ msg: "Profile Edited Successfully" })
+    } else {
+      response.status(401).json({ msg: "Can not edit your profile!!!" })
+    }
   }
 )
 
-
 //Manage Workout Page
-router.put("/workoutEdit", (request, response) => {
-  
-  response.send( "welcome" )
-  
-})
+router.post(
+  "/manageWorkout",
+  passport.authenticate("jwt", { session: false }),
+  async (request, response) => {
+    try {
+      const { exercise, bodyPart, sets, repetitions } = request.body
+      const newUserWorkout = new WorkoutInfo([{
+        exercise,
+        bodyPart,
+        sets,
+        repetitions,}
+      ])
+
+      const user = await Users.findById( request.user )
+      await newUserWorkout.save()
+      console.log("newUserData", newUserWorkout);
+      console.log( user )
+      if (user) {
+        response.status(200).json({ msg: "workout saved" })
+      } else {
+        response.status(401).json({ msg: "workout can not save" })
+      }
+    } catch ( err ) {
+      response.status(401).json({msg: err.message})
+      console.log(err);
+    }
+
+    
+  }
+)
 
 //Workout Overview Page
 router.get("/workoutOverview", (request, response) => {
@@ -181,7 +239,12 @@ router.post(
     body("disability").isIn(["arms", "legs", "back", "none"]),
     body("workoutGoals").isIn(["looseWeight", "stayFit", "gainMuscles"]),
     body("workoutDays").isNumeric().isIn([1, 2, 3, 4, 5, 6]),
-    body("activityLevel").isIn(["sedentary", "moderately", "active", "extraActive"]),
+    body("activityLevel").isIn([
+      "sedentary",
+      "moderately",
+      "active",
+      "extraActive",
+    ]),
   ],
   async (request, response) => {
     const {
@@ -194,7 +257,7 @@ router.post(
       activityLevel,
       workoutDays,
     } = request.body
-    console.log(request.body)
+    // console.log(request.body)
     const newUser = {
       gender,
       age,
@@ -205,21 +268,27 @@ router.post(
       workoutDays,
       activityLevel,
     }
-    console.log('user_ID',request.user);
+    console.log("user_ID", request.user)
     const user = await Users.findByIdAndUpdate(
       request.user,
-      { $set: newUser },
+      {
+        $set: newUser,
+        timestamps: {
+          createdAt: Date.now(),
+          lastUpdatedAt: Date.now(),
+        },
+      },
       { new: true }
     )
-  
+
     if (user) {
       const result = validationResult(request)
       if (result.errors.length > 0) {
-       return response.status(400).json({ result: result.errors })
+        return response.status(400).json({ result: result.errors })
       }
-      response.status(200).json({msg: "Registration Finished"})
+      response.status(200).json({ msg: "Registration Finished" })
     } else {
-      response.status( 401 ).json( { msg: "Can not find User" })
+      response.status(401).json({ msg: "Can not find User" })
     }
   }
 )

@@ -1,4 +1,4 @@
-import { React, useState, useRef, useEffect } from "react"
+import { React, useState, useRef, useEffect, useContext } from "react"
 import { useHistory } from "react-router-dom"
 import styles from "./dashboard.module.css"
 import MembersNavbar from "../MembersNavbar/MembersNavbar"
@@ -8,23 +8,56 @@ import DashMainPanels from "./DashMainPanels/DashMainPanels"
 import DashFinishRegistration from "./DashFinishRegistration/DashFinishRegistration"
 import axios from "axios"
 import WeightUpdate from "../WeightUpdate/WeightUpdate"
+import { NotificationContext } from "../Notifications/Notifications";
 
 export default function Dashboard() {
+ const setMessage = useContext( NotificationContext );
+  
+  
+  const [getLatestWeight, setGetLatestWeight] = useState([])
+  const [getUpdatedTime, setGetUpdatedTime] = useState("")
+  const workoutGoals = useRef()
+  const [overlayClass, setOverlayClass] = useState("false")
+  const [currentDate, setCurrentDate] = useState()
+  const formCheck = localStorage.getItem("Register") || null
+  const [macros, setMacros] = useState([])
+  const [weight, setWeight] = useState(0)
 
-  //NOTIFICATION 
-  /* const weightUpdateNotification = () => {
-    setInterval(() => {
-      const date = new Date()
-      if (date.getDay() === 3) {
-        alert("Reminder: Please update your weight!")
-      }
-    })
-  }
-  useEffect( () => {
-    weightUpdateNotification();
-  },[]) */
+  //NOTIFICATION
 
-  //UDPATE WEIGHT CONNECT TO BACKEND
+  // GET UPDATED WEIGHT FROM MongoDB
+
+  /* useEffect(() => {
+    axios
+      .get("user/updatedWeight", {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((res) => {
+        setGetLatestWeight(res.data[0].updatedWeight)
+        console.log(res.data[0].updatedWeight)
+        //setGetUpdatedTime(res.data[0].timestamps.lastUpdatedAt)
+        //console.log(res.data[0].timestamps.lastUpdatedAt)
+        console.log(getUpdatedTime)
+        console.log(getUpdatedTime + 7 * 24 * 60 * 60 * 1000)
+
+        const myDate = new Date(
+          new Date().getTime(getUpdatedTime) + 0 * 24 * 60 * 60 * 1000
+        )
+        myDate.setHours(0, 0, 0, 0)
+        console.log(myDate)
+        const date = new Date()
+        date.setHours(0, 0, 0, 0)
+        console.log(date)
+        if (date === myDate) {
+          console.log("Please Update!!!")
+        }
+      })
+  }, []) */
+
+  //POST UDPATED WEIGHT: CONNECT TO BACKEND
+
   const handleUpdatedWeight = async (event) => {
     event.preventDefault()
     const updatedWeightValue = new FormData(event.target)
@@ -39,8 +72,8 @@ export default function Dashboard() {
         },
         credentials: "include",
         body: JSON.stringify(updatedWeightField),
-      } )
-      handleRemoveOverlay();
+      })
+      handleRemoveOverlay()
     } catch (error) {
       console.log(error)
     }
@@ -52,15 +85,7 @@ export default function Dashboard() {
     window.localStorage.removeItem("loggedIn")
     history.push("/")
   }
-  const workoutGoals = useRef()
-
-  const [overlayClass, setOverlayClass] = useState("false")
-  const [currentDate, setCurrentDate] = useState()
-  const formCheck = localStorage.getItem("Register") || null
-
-  const [macros, setMacros] = useState([])
-  const [weight, setWeight] = useState(0)
-
+  
   useEffect(() => {
     const date = new Date()
     const options = {
@@ -111,7 +136,10 @@ export default function Dashboard() {
   }, [])
 
   //---FINISH REGISTRATION PAGE CONNECT TO BACKEND---
-  const handleFinishRegistration = async (event) => {
+  const handleFinishRegistration = async ( event ) => {
+    
+    setMessage( "Welcome in your Dashboard Page!!" )
+    //console.log(setMessage);
     event.preventDefault()
     const formData = new FormData(event.target)
 
@@ -174,11 +202,9 @@ export default function Dashboard() {
       })
       .then((res) => {
         workoutGoals.current = res.data[0].workoutGoals
-        console.log("workoutGoals:", workoutGoals)
 
-       // setNutrition(res.data)
-        console.log(res.data)
         setWeight(res.data[0].weight)
+
         let getGender
 
         const gender = [calculateBMRForMen, calculateBMRForWomen]
@@ -188,14 +214,7 @@ export default function Dashboard() {
         } else {
           getGender = gender[1]
         }
-        // console.log(res.data[0].weight)
-        // console.log(
-        //   calculateBMRForMen(
-        //    Number(res.data[0].weight),
-        //     Number(res.data[0].height),
-        //     Number(res.data[0].age)
-        //    )
-        //  )
+
         switch (res.data[0].activityLevel) {
           case "sedentary":
             setCaloriesValue(
@@ -244,8 +263,7 @@ export default function Dashboard() {
     let kcalGoal = 0
     let protein = 0
     let fat = 0
-    switch ( workoutGoals.current ) {
-      
+    switch (workoutGoals.current) {
       case "looseWeight":
         kcalGoal = caloriesValue - caloriesValue * 0.2
         protein = weight
@@ -267,13 +285,13 @@ export default function Dashboard() {
     const proteinPercent = (protein * 4 * 100) / kcalGoal
     const fatPercent = (fat * 9 * 100) / kcalGoal
     const carbsPercent = 100 - proteinPercent - fatPercent
-    const carbs = Math.round( ( caloriesValue * carbsPercent ) / 100 / 4 )
-    console.log('result:', (carbs *4) + (protein *4)+ (fat * 9));
-    console.log(carbs);
-    console.log(carbsPercent)
-    console.log(fatPercent)
-    console.log(proteinPercent)
-    
+    const carbs = Math.round((caloriesValue * carbsPercent) / 100 / 4)
+    //console.log('result:', (carbs *4) + (protein *4)+ (fat * 9));
+    // console.log(carbs);
+    // console.log(carbsPercent)
+    // console.log(fatPercent)
+    //console.log(proteinPercent)
+
     setMacros([carbs, protein, fat])
   }, [caloriesValue])
 

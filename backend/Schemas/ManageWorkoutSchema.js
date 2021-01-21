@@ -3,9 +3,10 @@ const UserSchema = require("./UserSchema")
 
 const WorkoutSchema = new mongoose.Schema({
   user: { type: mongoose.Types.ObjectId, ref: 'Users'},
-  days: [
+  day: [
     [
       {
+        exercise: {type: Number},
         bodyPart: { type: String },
         sets: { type: Number },
         repetitions: { type: Number },

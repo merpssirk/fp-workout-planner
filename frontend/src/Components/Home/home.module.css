@@ -11,7 +11,7 @@ body {
 
 .background {
   height: 100vh;
-  width: 100vw;
+  width: 99vw;
   background-image: url(../../pics/home/homepage-main.png);
   background-repeat: no-repeat;
   background-size: 100% 100%;
@@ -30,7 +30,7 @@ body {
 
 .navBar {
   height: 10vh;
-  width: 100vw;
+  width: 99vw;
   margin-bottom: 20px;
   background: rgba(9, 9, 9, 0.63);
   color: whitesmoke;
@@ -39,6 +39,7 @@ body {
 .navBar li {
   color: whitesmoke;
   text-decoration: none;
+  cursor: pointer;
 }
 
 .navBar li:hover {
@@ -46,6 +47,7 @@ body {
 }
 
 ul a {
+  cursor: pointer;
   height: 70%;
   margin: 0 3%;
 }
@@ -121,6 +123,7 @@ h3 {
   text-align: center;
   border: none;
   border-radius: 5px;
+  cursor: pointer;
 }
 
 .registerTile button:focus {
@@ -157,6 +160,7 @@ h3 {
   text-align: center;
   border: none;
   border-radius: 5px;
+  cursor: pointer;
 }
 
 .loginButton:focus {
@@ -261,6 +265,7 @@ h3 {
   font-weight: normal;
   font-size: 18px;
   color: #ffffff;
+  cursor: pointer;
 }
 .formContainer2 .loginBtn {
   position: absolute;
@@ -275,6 +280,7 @@ h3 {
   font-weight: normal;
   font-size: 18px;
   color: #ffffff;
+  cursor: pointer;
 }
 
 .loginUserName {

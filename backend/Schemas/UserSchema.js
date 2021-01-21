@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require("mongoose")
 
 const UserSchema = new mongoose.Schema({
   username: { type: String, required: true },
@@ -11,6 +11,10 @@ const UserSchema = new mongoose.Schema({
   height: { type: Number },
   weight: { type: Number },
   updatedWeight: [{ type: Number }],
+  timestamps: {
+    createdAt: {type: Date},
+    lastUpdatedAt: {type: Date},
+  },
   disability: {
     type: String,
     default: "none",
@@ -29,4 +33,4 @@ const UserSchema = new mongoose.Schema({
   changePassword: { type: String },
 })
 
-module.exports = UserSchema;
+module.exports = UserSchema
