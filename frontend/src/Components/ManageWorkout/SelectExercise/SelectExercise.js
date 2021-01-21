@@ -19,8 +19,9 @@ export default function SelectExercise(props) {
           <li
             className={styles.exerciseData}
             key={index}
+            tabIndex="1"
             onClick={() => {
-              props.onHandleExerciseTitle(item.name);
+              props.onHandleExerciseTemp(item.name);
             }}
           >
             {item.name}

@@ -1,6 +1,7 @@
 .exercisePanelsWrapper {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   height: 70vh;
   width: 100vw;
@@ -9,6 +10,11 @@
 .exercisePanelsWrapper h3 {
   font-size: max(15px, 1.2vw);
 }
+
+.exercisePanelsWrapper h1 {
+  color: #474747;
+}
+
 .panels {
   display: flex;
   justify-content: center;
@@ -39,7 +45,10 @@
 }
 
 .exercisePanelsWrapper .panel h3 {
+  width: 90%;
   margin-top: 3%;
+  padding: 0 10px;
+  font-size: max(12px, 1.8vh);
   text-align: center;
 }
 .addSign {

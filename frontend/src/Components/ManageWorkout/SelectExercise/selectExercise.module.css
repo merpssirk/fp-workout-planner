@@ -28,7 +28,11 @@
   padding: 10px;
   transform: translate(-50%, -50%) scale(0);
   transition: 300ms ease-in-out;
-  background: rgb(90, 87, 87);
+  background: linear-gradient(
+    159.21deg,
+    #f91010 2.41%,
+    rgba(249, 16, 16, 0.33) 96.9%
+  );
   color: whitesmoke;
   border-radius: 8px;
   padding-top: 56.78px;
@@ -49,8 +53,11 @@
   margin-left: -3vw;
   bottom: 5%;
   font-size: max(12px, 1.5vh);
+  background: #000000;
+  border-radius: 8px;
   border: none;
-  border-radius: 5px;
+  font-weight: normal;
+  color: #ffffff;
 }
 
 .selectExercisePopup button:focus {
@@ -79,7 +86,7 @@
   width: 90%;
   margin-top: 8%;
   padding: 5px;
-  background: whitesmoke;
+  background: rgba(245, 245, 245, 0.7);
   color: black;
 
   border-radius: 8px;
@@ -89,4 +96,10 @@
 .selectExercisePopup .exerciseData {
   list-style-type: none;
   font-size: max(12px, 2vh);
+  cursor: pointer;
+}
+
+.selectExercisePopup .exerciseData[tabindex="1"]:focus {
+  background: #f91010 2.41%;
+  color: whitesmoke;
 }

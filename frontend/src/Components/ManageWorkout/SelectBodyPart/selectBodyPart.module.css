@@ -1,75 +1,82 @@
 #overlay {
-	position: fixed;
-	opacity: 0;
-	transition: 300ms ease-in-out;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	background-color: rgba(0, 0, 0, 0.85);
-	pointer-events: none;
-	z-index: 1;
+  position: fixed;
+  opacity: 0;
+  transition: 300ms ease-in-out;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.85);
+  pointer-events: none;
+  z-index: 1;
 }
 
 #overlay.active {
-	opacity: 1;
-	pointer-events: all;
+  opacity: 1;
+  pointer-events: all;
 }
 
 .selectBodyPartPopup {
-	position: fixed;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	width: 25%;
-	height: 70%;
-	top: 50%;
-	left: 50%;
-	padding: 10px;
-	transform: translate(-50%, -50%) scale(0);
-	transition: 300ms ease-in-out;
-	background: rgb(90, 87, 87);
-	color: whitesmoke;
-	border-radius: 8px;
-	padding-top: 56.78px;
-	z-index: 2;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 25%;
+  height: 70%;
+  top: 50%;
+  left: 50%;
+  padding: 10px;
+  transform: translate(-50%, -50%) scale(0);
+  transition: 300ms ease-in-out;
+  background: linear-gradient(
+    159.21deg,
+    #f91010 2.41%,
+    rgba(249, 16, 16, 0.33) 96.9%
+  );
+  color: whitesmoke;
+  border-radius: 8px;
+  padding-top: 56.78px;
+  z-index: 2;
 }
 
 .selectBodyPartPopup h4 {
-	font-weight: normal;
-	font-size: max(12px, 2vh);
-	text-align: center;
+  font-weight: normal;
+  font-size: max(12px, 2vh);
+  text-align: center;
 }
 
 .selectBodyPartPopup input[type="submit"] {
-	position: absolute;
-	height: 4vh;
-	width: 6vw;
-	left: 50%;
-	margin-left: -3vw;
-	bottom: 5%;
-	font-size: max(12px, 1.5vh);
-	border: none;
-	border-radius: 5px;
+  position: absolute;
+  height: 4vh;
+  width: 6vw;
+  left: 50%;
+  margin-left: -3vw;
+  bottom: 5%;
+  background: #000000;
+  border-radius: 8px;
+  border: none;
+  font-weight: normal;
+  font-size: 18px;
+  color: #ffffff;
 }
 
 .selectBodyPartPopup input[type="submit"]:focus {
-	outline: 0;
+  outline: 0;
 }
 
 .selectBodyPartPopup.active {
-	transform: translate(-50%, -50%) scale(1);
+  transform: translate(-50%, -50%) scale(1);
 }
 
 .selectBodyPartPopup .muscles {
-	margin-top: 10%;
+  margin-top: 10%;
 }
 
 .selectBodyPartPopup .muscleOptions {
-	margin-top: 30%;
+  margin-top: 30%;
 }
 
 .selectBodyPartPopup label {
-	margin-left: 10px;
-	font-size: max(12px, 1.5vh);
+  margin-left: 10px;
+  font-size: max(12px, 1.5vh);
 }
