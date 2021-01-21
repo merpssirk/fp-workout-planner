@@ -8,6 +8,23 @@ import SelectBodyPart from "./SelectBodyPart/SelectBodyPart";
 import SelectExercise from "./SelectExercise/SelectExercise";
 
 export default function ManageWorkout() {
+  // const manageWorkoutData = [
+  //   [{ exercise: "", bodyPart: "", sets: 0, repetitons: 0 },
+  //   { exercise: "", bodyPart: "", sets: 0, repetitons: 0 },
+  //   { exercise: "", bodyPart: "", sets: 0, repetitons: 0 },
+  //   { exercise: "", bodyPart: "", sets: 0, repetitons: 0 },
+  //   { exercise: "", bodyPart: "", sets: 0, repetitons: 0 },
+  //   { exercise: "", bodyPart: "", sets: 0, repetitons: 0 },
+  //   { exercise: "", bodyPart: "", sets: 0, repetitons: 0 },],
+  //   [{ exercise: "", bodyPart: "", sets: 0, repetitons: 0 },
+  //   { exercise: "", bodyPart: "", sets: 0, repetitons: 0 },
+  //   { exercise: "", bodyPart: "", sets: 0, repetitons: 0 },
+  //   { exercise: "", bodyPart: "", sets: 0, repetitons: 0 },
+  //   { exercise: "", bodyPart: "", sets: 0, repetitons: 0 },
+  //   { exercise: "", bodyPart: "", sets: 0, repetitons: 0 },
+  //   { exercise: "", bodyPart: "", sets: 0, repetitons: 0 },]
+  // ];
+
   const panels = [
     { name: "p1", id: "1" },
     { name: "p2", id: "2" },
@@ -19,14 +36,23 @@ export default function ManageWorkout() {
     { name: "p8", id: "8" },
   ];
 
-  // const formCheck = useRef("")
+  const activePanel = useRef();
   const [list, setList] = useState(panels);
   const [overlayClass, setOverlayClass] = useState("false");
   const [showPopup, setShowPopup] = useState("false");
-  const [activeButton, setActiveButton] = useState("active0");
+  const [activeButton, setActiveButton] = useState(0);
   const [radioButton, setRadioButton] = useState("");
   // const [getExercise, setGetExercise] = useState("");
-  const { exerciseTitle, setExerciseTitle } = useState([]);
+  const [exerciseTemp, setExerciseTemp] = useState([
+    { exercise: "", bodyPart: "" },
+    { exercise: "", bodyPart: "" },
+    { exercise: "", bodyPart: "" },
+    { exercise: "", bodyPart: "" },
+    { exercise: "", bodyPart: "" },
+    { exercise: "", bodyPart: "" },
+    { exercise: "", bodyPart: "" },
+    { exercise: "", bodyPart: "" },
+  ]);
   const [exerciseData, setExerciseData] = useState([]);
   const [buttonColour, setButtonColour] = useState([
     "buttonGrey",
@@ -38,8 +64,24 @@ export default function ManageWorkout() {
     "buttonGrey",
   ]);
 
+  // useEffect(()=>{
+  //   try {
+  //     const response = await fetch("/user/manageWorkout", {
+  //       method: "GET",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       credentials: "include",
+  //       body: JSON.stringify(finishRegistrationField),
+  //     })
+
+  //   } catch (err) {
+  //     console.log(err)
+  //   }
+  // })
+
   const handleSetOverlay = (id) => {
-    console.log("The id form the panels is:", id);
+    activePanel.current = id;
     setOverlayClass(!overlayClass);
     setShowPopup("one");
   };
@@ -108,7 +150,7 @@ export default function ManageWorkout() {
     const newColour = [...buttonColour];
     const number = event.id.charAt(event.id.length - 1) - 1;
 
-    if (activeButton === "active" + [number]) {
+    if (activeButton === number) {
       if (event.className.includes("buttonGrey")) {
         newColour[number] = "buttonGreen";
         setButtonColour(newColour);
@@ -120,7 +162,7 @@ export default function ManageWorkout() {
         setButtonColour(newColour);
       }
     } else {
-      setActiveButton("active" + number);
+      setActiveButton(number);
     }
   };
 
@@ -128,8 +170,22 @@ export default function ManageWorkout() {
     setRadioButton(value);
   };
 
-  const handleExerciseTitle = (title) => {
-    console.log("The title of the exercise is:", title);
+  const handleExerciseTemp = (value) => {
+    const buffer = [...exerciseTemp];
+    buffer[activePanel.current - 1].exercise = value;
+    buffer[activePanel.current - 1].bodyPart = radioButton;
+    setExerciseTemp(buffer);
+    console.log(buffer);
+  };
+
+  const handleResetPanel = (panel, sets, repetitions) => {
+    console.log(panel, sets, repetitions);
+    const buffer = [...exerciseTemp];
+    buffer[panel - 1].exercise = "";
+    buffer[panel - 1].bodyPart = "";
+    sets.value = "";
+    repetitions.value = "";
+    setExerciseTemp(buffer);
   };
 
   //LOGOUT
@@ -151,6 +207,10 @@ export default function ManageWorkout() {
         onEnd={onEnd}
         list={list}
         onHandleSetOverlay={handleSetOverlay}
+        exerciseTemp={exerciseTemp}
+        activeButton={activeButton}
+        buttonColour={buttonColour}
+        onHandleResetPanel={handleResetPanel}
       />
       <SelectBodyPart
         showPopup={showPopup}
@@ -162,7 +222,7 @@ export default function ManageWorkout() {
         showPopup={showPopup}
         onHandleRemoveOverlay={handleRemoveOverlay}
         exerciseData={exerciseData}
-        onHandleExerciseTitle={handleExerciseTitle}
+        onHandleExerciseTemp={handleExerciseTemp}
       />
       <div
         id={styles.overlay}
