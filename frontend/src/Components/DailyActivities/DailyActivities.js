@@ -96,7 +96,7 @@ export default function DailyActivities() {
             </li>
           </ul>
           <div className={styles.profileWrapper}>
-            <span onClick={handleLogout}>Name</span>
+            <span onClick={handleLogout}>Logout</span>
             <a href="/userpage">
               <img src={avatar} />
             </a>
