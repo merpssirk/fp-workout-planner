@@ -7,21 +7,22 @@ import DashInfoPanel from "./DashInfoPanel/DashInfoPanel"
 import DashMainPanels from "./DashMainPanels/DashMainPanels"
 import DashFinishRegistration from "./DashFinishRegistration/DashFinishRegistration"
 import axios from "axios"
-import WeightUpdate from "../WeightUpdate/WeightUpdate"
+import WeightUpdate from "./WeightUpdate/WeightUpdate"
 import { NotificationContext } from "../Notifications/Notifications";
 
 export default function Dashboard() {
  const setMessage = useContext( NotificationContext );
-  
-  
   const [getLatestWeight, setGetLatestWeight] = useState([])
   const [getUpdatedTime, setGetUpdatedTime] = useState("")
   const workoutGoals = useRef()
-  const [overlayClass, setOverlayClass] = useState("false")
+  const [overlayClass, setOverlayClass] = useState(false)
   const [currentDate, setCurrentDate] = useState()
   const formCheck = localStorage.getItem("Register") || null
+  const [caloriesValue, setCaloriesValue] = useState(0)
   const [macros, setMacros] = useState([])
   const [weight, setWeight] = useState(0)
+
+  console.log("Dashboard.js", overlayClass);
 
   //NOTIFICATION
 
@@ -73,6 +74,7 @@ export default function Dashboard() {
         credentials: "include",
         body: JSON.stringify(updatedWeightField),
       })
+      console.log("handleUpdateWeight reached");
       handleRemoveOverlay()
     } catch (error) {
       console.log(error)
@@ -100,19 +102,20 @@ export default function Dashboard() {
 
   useEffect(() => {
     if (formCheck === "pending") {
-      setOverlayClass("true")
+      setOverlayClass(true)
     } else {
-      setOverlayClass("false")
+      setOverlayClass(false)
     }
   }, [])
 
   const handleSetOverlay = () => {
-    setOverlayClass("true")
+    setOverlayClass(true)
   }
   const handleRemoveOverlay = () => {
-    setOverlayClass(!overlayClass)
+    setOverlayClass(false)
     localStorage.setItem("Register", "fulfilled")
   }
+
   //---WEATHER INFORMATION---
   const API_KEY = "fd8bafc7164f93efdf3c8815e92e4f18"
   const [mainTemp, setMainTemp] = useState("")
@@ -163,7 +166,7 @@ export default function Dashboard() {
         body: JSON.stringify(finishRegistrationField),
       })
       //const json = await response.json();
-      //console.log("function is reached")
+      console.log("function is reached")
       handleRemoveOverlay()
     } catch (err) {
       console.log(err)
@@ -172,7 +175,6 @@ export default function Dashboard() {
   //NUTRITION CALCULATION
   // CALCULATE MEN'S BMR
   //const [nutrition, setNutrition] = useState("")
-  const [caloriesValue, setCaloriesValue] = useState(0)
 
   const calculateBMRForMen = (menWeight, menHeight, menAge) => {
     const weight = 66.47 + 13.75 * menWeight
@@ -309,17 +311,18 @@ export default function Dashboard() {
       <main className={styles.panel}>
         <DashInfoPanel />
         <DashMainPanels caloriesValue={caloriesValue} macros={macros} />
-        <WeightUpdate
-          onHandleSetOverlay={handleSetOverlay}
-          onHandleRemoveOverlay={handleRemoveOverlay}
-          overlayClass={overlayClass}
-          onHandleUpdatedWeight={handleUpdatedWeight}
-        />
         <DashFinishRegistration
           overlayClass={overlayClass}
           formCheck={formCheck}
           onHandleFinishRegistration={handleFinishRegistration}
           onHandleRemoveOverlay={handleRemoveOverlay}
+        />
+        <WeightUpdate
+          onHandleSetOverlay={handleSetOverlay}
+          onHandleRemoveOverlay={handleRemoveOverlay}
+          overlayClass={overlayClass}
+          onHandleUpdatedWeight={handleUpdatedWeight}
+          formCheck={formCheck}
         />
       </main>
     </div>
