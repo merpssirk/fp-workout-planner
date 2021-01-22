@@ -1,9 +1,10 @@
-import React from "react"
+import {React, useEffect} from "react"
 import styles from "./WeightUpdate.module.css"
 import classNames from "classnames";
 
 export default function WeightUpdate( props ) {
-    
+    console.log("WeightUpdate", props.overlayClass2);
+
   return (
     <>
       <div onClick={props.onHandleSetOverlay} className={styles.container}>
@@ -11,9 +12,9 @@ export default function WeightUpdate( props ) {
       </div>
       <div
         className={
-          props.overlayClass
-            ? classNames(styles.formContainer, styles.active)
-            : styles.formContainer
+          (props.overlayClass && props.formCheck !== "pending")
+            ? classNames(styles.formContainer2, styles.active)
+            : styles.formContainer2
         }
       >
         <div className={styles.pupopContainer}>
@@ -29,7 +30,7 @@ export default function WeightUpdate( props ) {
               placeholder="Enter your weight"
               required="required"
             />
-            <button /* onClick={props.onHandleRemoveOverlay} */ type="submit">
+            <button type="submit">
               OK
             </button>
           </form>
@@ -37,7 +38,7 @@ export default function WeightUpdate( props ) {
       </div>
       <div
         id={styles.overlay}
-        className={!props.overlayClass ? null : styles.active}
+        className={props.overlayClass ? styles.active : null }
         onClick={props.onHandleRemoveOverlay}
       ></div>
     </>
