@@ -1,66 +1,66 @@
-
 .mainInfoWrapper {
-  display: flex;
-  justify-content: space-between;
-  height: 70%;
-  width: 100%;
-  margin-top: 50px;
+	display: flex;
+	justify-content: space-between;
+	height: 70%;
+	width: 100%;
+	margin-top: 50px;
 }
 
 .workoutOverview,
 .nutrition,
 .weightDifference {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 30%;
-  color: rgb(56, 53, 53);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 30%;
+	color: rgb(56, 53, 53);
 }
 
 .mainInfoWrapper h4 {
-  margin-bottom: 15px;
-  font-size: max(15px, 1.1vw);
+	margin-bottom: 15px;
+	font-size: max(15px, 1.1vw);
 }
 
 .workoutDiagram,
 .weightDiagram {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+	width: 100%;
 }
 
 .workoutDiagram img {
-  width: 25vw;
+	width: 25vw;
 }
 
 .nutritionIcons {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 50%;
-  width: 100%;
-  margin-top: 50px;
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 50%;
+	width: 100%;
+	margin-top: 50px;
 }
 
-.nutritionIcons img {
-  width: 5vw;
-  margin: 15px 10px;
+.nutritionIcons .macroIcons {
+	height: auto;
+	width: 5vw;
+	margin: 15px 10px;
 }
 
 .macrosWrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 .macrosWrapper span {
-  font-size: max(15px, 1.8vw);
-  font-weight: bold;
+	font-size: max(15px, 1.8vw);
+	font-weight: bold;
 }
 
 .weightDiagram img {
-  width: 95%;
+	width: 95%;
 }
