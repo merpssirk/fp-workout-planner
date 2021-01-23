@@ -1,8 +1,10 @@
-import React from "react";
+import { React } from "react";
 import classNames from "classnames";
 import styles from "./selectExercise.module.css";
 
 export default function SelectExercise(props) {
+  console.log(props.tempDescription);
+
   return (
     <div
       className={
@@ -11,23 +13,32 @@ export default function SelectExercise(props) {
           : styles.selectExercisePopup
       }
     >
-      <h4>
-        Please choose one exercise <br /> from the list!
-      </h4>
-      <ul className={styles.exerciseList}>
-        {props.exerciseData.map((item, index) => (
-          <li
-            className={styles.exerciseData}
-            key={index}
-            tabIndex="1"
-            onClick={() => {
-              props.onHandleExerciseTemp(item.name);
-            }}
-          >
-            {item.name}
-          </li>
-        ))}
-      </ul>
+      <h4>Please choose one exercise from the list!</h4>
+      <div className={styles.listWrapper}>
+        <ul className={styles.exerciseList}>
+          {props.exerciseData.map((item, index) => (
+            <li
+              className={styles.exerciseData}
+              key={index}
+              tabIndex="1"
+              onClick={() => {
+                props.onHandleExerciseTemp(item);
+              }}
+            >
+              {item.name}
+            </li>
+          ))}
+        </ul>
+        {props.description[0] ? (
+          <div className={styles.descriptionWrapper}>
+            <h4>Description</h4>
+            {props.description[1] ? (
+              <img src={props.description[1]} alt="Exercise image" />
+            ) : null}
+            <p className={styles.description}>{props.description[0]}</p>
+          </div>
+        ) : null}
+      </div>
       <button onClick={props.onHandleRemoveOverlay}>OK</button>
     </div>
   );
