@@ -1,105 +1,137 @@
 #overlay {
-  position: fixed;
-  opacity: 0;
-  transition: 300ms ease-in-out;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.85);
-  pointer-events: none;
-  z-index: 1;
+	position: fixed;
+	opacity: 0;
+	transition: 300ms ease-in-out;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(0, 0, 0, 0.85);
+	pointer-events: none;
+	z-index: 1;
 }
 
 #overlay.active {
-  opacity: 1;
-  pointer-events: all;
+	opacity: 1;
+	pointer-events: all;
 }
 
 .selectExercisePopup {
-  position: fixed;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 25%;
-  height: 70%;
-  top: 50%;
-  left: 50%;
-  padding: 10px;
-  transform: translate(-50%, -50%) scale(0);
-  transition: 300ms ease-in-out;
-  background: linear-gradient(
-    159.21deg,
-    #f91010 2.41%,
-    rgba(249, 16, 16, 0.33) 96.9%
-  );
-  color: whitesmoke;
-  border-radius: 8px;
-  padding-top: 56.78px;
-  z-index: 2;
+	position: fixed;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 45%;
+	height: 70%;
+	top: 50%;
+	left: 50%;
+	padding: 10px;
+	transform: translate(-50%, -50%) scale(0);
+	transition: 300ms ease-in-out;
+	background: linear-gradient(
+		159.21deg,
+		#f91010 2.41%,
+		rgba(249, 16, 16, 0.33) 96.9%
+	);
+	color: whitesmoke;
+	border-radius: 8px;
+	padding-top: 56.78px;
+	z-index: 2;
+}
+
+.selectExercisePopup .listWrapper {
+	display: flex;
+	justify-content: center;
+	height: 95%;
+	width: 100%;
+}
+
+.selectExercisePopup .listWrapper .descriptionWrapper {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 70%;
+	width: 45%;
+	margin-top: 8%;
+	margin-left: 2%;
+}
+
+.selectExercisePopup .listWrapper .descriptionWrapper img {
+	height: 30%;
+	max-width: 50%;
+	margin: 10px 0;
 }
 
 .selectExercisePopup h4 {
-  font-weight: normal;
-  font-size: max(12px, 2vh);
-  text-align: center;
+	font-weight: normal;
+	font-size: max(12px, 2.5vh);
+	text-align: center;
 }
 
 .selectExercisePopup button {
-  position: absolute;
-  height: 4vh;
-  width: 6vw;
-  left: 50%;
-  margin-left: -3vw;
-  bottom: 5%;
-  font-size: max(12px, 1.5vh);
-  background: #000000;
-  border-radius: 8px;
-  border: none;
-  font-weight: normal;
-  color: #ffffff;
+	position: absolute;
+	height: 4vh;
+	width: 6vw;
+	left: 50%;
+	margin-left: -3vw;
+	bottom: 5%;
+	font-size: max(12px, 1.5vh);
+	background: #000000;
+	border-radius: 8px;
+	border: none;
+	font-weight: normal;
+	color: #ffffff;
 }
 
 .selectExercisePopup button:focus {
-  outline: 0;
+	outline: 0;
 }
 
 .selectExercisePopup.active {
-  transform: translate(-50%, -50%) scale(1);
+	transform: translate(-50%, -50%) scale(1);
 }
 
 .selectExercisePopup .muscles {
-  margin-top: 10%;
+	margin-top: 10%;
 }
 
 .selectExercisePopup .muscleOptions {
-  margin-top: 30%;
+	margin-top: 30%;
 }
 
 .selectExercisePopup label {
-  margin-left: 10px;
-  font-size: max(12px, 1.5vh);
+	margin-left: 10px;
+	font-size: max(12px, 1.5vh);
 }
 
 .selectExercisePopup .exerciseList {
-  height: 70%;
-  width: 90%;
-  margin-top: 8%;
-  padding: 5px;
-  background: rgba(245, 245, 245, 0.7);
-  color: black;
+	height: 70%;
+	width: 45%;
+	margin-top: 8%;
+	padding: 5px;
+	background: rgba(245, 245, 245, 0.7);
+	color: black;
 
-  border-radius: 8px;
-  overflow-y: scroll;
+	border-radius: 8px;
+	overflow-y: auto;
+}
+
+.selectExercisePopup .listWrapper p {
+	height: 90%;
+	width: 100%;
+	padding: 10px;
+	font-size: max(14px, 2vh);
+	overflow-y: auto;
 }
 
 .selectExercisePopup .exerciseData {
-  list-style-type: none;
-  font-size: max(12px, 2vh);
-  cursor: pointer;
+	list-style-type: none;
+	font-size: max(12px, 2vh);
+	cursor: pointer;
 }
 
 .selectExercisePopup .exerciseData[tabindex="1"]:focus {
-  background: #f91010 2.41%;
-  color: whitesmoke;
+	background: #f91010 2.41%;
+	color: whitesmoke;
 }

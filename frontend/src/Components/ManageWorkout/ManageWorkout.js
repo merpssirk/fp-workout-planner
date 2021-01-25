@@ -44,15 +44,16 @@ export default function ManageWorkout() {
   const [radioButton, setRadioButton] = useState("");
   // const [getExercise, setGetExercise] = useState("");
   const [exerciseTemp, setExerciseTemp] = useState([
-    { exercise: "", bodyPart: "" },
-    { exercise: "", bodyPart: "" },
-    { exercise: "", bodyPart: "" },
-    { exercise: "", bodyPart: "" },
-    { exercise: "", bodyPart: "" },
-    { exercise: "", bodyPart: "" },
-    { exercise: "", bodyPart: "" },
-    { exercise: "", bodyPart: "" },
+    { exercise: "", bodyPart: "", description: "" },
+    { exercise: "", bodyPart: "", description: "" },
+    { exercise: "", bodyPart: "", description: "" },
+    { exercise: "", bodyPart: "", description: "" },
+    { exercise: "", bodyPart: "", description: "" },
+    { exercise: "", bodyPart: "", description: "" },
+    { exercise: "", bodyPart: "", description: "" },
+    { exercise: "", bodyPart: "", description: "" },
   ]);
+  const [description, setDescription] = useState([]);
   const [exerciseData, setExerciseData] = useState([]);
   const [buttonColour, setButtonColour] = useState([
     "buttonGrey",
@@ -84,6 +85,7 @@ export default function ManageWorkout() {
     activePanel.current = id;
     setOverlayClass(!overlayClass);
     setShowPopup("one");
+    setDescription("");
   };
 
   const handleRemoveOverlay = (event) => {
@@ -170,12 +172,33 @@ export default function ManageWorkout() {
     setRadioButton(value);
   };
 
-  const handleExerciseTemp = (value) => {
+  const handleExerciseTemp = (selection) => {
     const buffer = [...exerciseTemp];
-    buffer[activePanel.current - 1].exercise = value;
+    const tempDescription = selection.description.replace(/<[^>]*>/g, "");
+    buffer[activePanel.current - 1].exercise = selection.name;
     buffer[activePanel.current - 1].bodyPart = radioButton;
+    buffer[activePanel.current - 1].description = tempDescription;
     setExerciseTemp(buffer);
-    console.log(buffer);
+
+    handleFetchExerciseImage(selection, tempDescription);
+    console.log("Complete data of selected exercise:", selection);
+  };
+
+  const handleFetchExerciseImage = (selection, tempDescription) => {
+    const query = "exercise=" + selection.id;
+
+    fetch(`https://wger.de/api/v2/exerciseimage/?${query}&language=2`)
+      .then((res) => res.json())
+      .then((data) => {
+        const buffer = [...description];
+        buffer[0] = tempDescription;
+        if (data.results.length > 0) {
+          buffer[1] = data.results[0].image;
+        } else {
+          buffer[1] = "";
+        }
+        setDescription(buffer);
+      });
   };
 
   const handleResetPanel = (panel, sets, repetitions) => {
@@ -222,7 +245,10 @@ export default function ManageWorkout() {
         showPopup={showPopup}
         onHandleRemoveOverlay={handleRemoveOverlay}
         exerciseData={exerciseData}
+        exerciseTemp={exerciseTemp}
         onHandleExerciseTemp={handleExerciseTemp}
+        activePanel={activePanel}
+        description={description}
       />
       <div
         id={styles.overlay}

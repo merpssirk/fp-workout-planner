@@ -43,12 +43,15 @@ export default function ExercisePanels(props) {
                             {...provided.dragHandleProps}
                           >
                             <h3>{props.exerciseTemp[item.id - 1].exercise}</h3>
-                            <ResetIcon
-                              onClick={() => {
-                                resetPanel(item.id);
-                              }}
-                              className={styles.reset}
-                            />
+                            {props.exerciseTemp[item.id - 1].exercise ===
+                            "" ? null : (
+                              <ResetIcon
+                                onClick={() => {
+                                  resetPanel(item.id);
+                                }}
+                                className={styles.reset}
+                              />
+                            )}
                             <div className={styles.exerciseWrapper}>
                               {props.exerciseTemp[item.id - 1].exercise ===
                               "" ? null : (
