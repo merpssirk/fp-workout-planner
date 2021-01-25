@@ -16,8 +16,10 @@ app.use( cookieParser() );
 app.use( passport.initialize() );
 
 // ROUTES
-const UserRoutes = require( './UserRoutes/UserRoutes' );
+const UserRoutes = require( './Routes/User' );
+const DashboardRoutes = require( "./Routes/Dashboard" );
 app.use( '/user', UserRoutes );
+app.use( '/dashboard', DashboardRoutes );
 
 // CONNECT TO THE MONGODB
 mongoose

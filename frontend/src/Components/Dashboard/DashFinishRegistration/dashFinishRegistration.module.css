@@ -25,6 +25,7 @@
   margin: 5% 0;
   font-size: max(12px, 0.8vw);
   text-align: center;
+  color: #FFFFFF;
 }
 .inputFields .fieldsLeft input {
   height: 3.2vh;
@@ -49,6 +50,7 @@
 
 .bottomSection label {
   margin-right: 15px;
+  color: #FFFFFF;
 }
 
 .bottomSection button {
@@ -105,4 +107,5 @@
   margin-top: 10%;
   text-align: center;
   font-size: max(12px, 1vw);
+  color: #FFFFFF;
 }

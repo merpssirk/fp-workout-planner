@@ -65,21 +65,34 @@ export default function ManageWorkout() {
     "buttonGrey",
   ]);
 
-  // useEffect(()=>{
-  //   try {
-  //     const response = await fetch("/user/manageWorkout", {
-  //       method: "GET",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       credentials: "include",
-  //       body: JSON.stringify(finishRegistrationField),
-  //     })
+  const handleWorkout = async() => {
+try {
+  const response = await fetch("/dashboard/manageWorkout", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "include",
+    body: JSON.stringify(
+      {
+        exercise: "push-up",
+        bodyPart: "back",
+        sets: 3,
+        repetitions: 9,
+      }
+      
+    ),
+  })
+  console.log("started fetch", response)
+} catch (err) {
+  console.log(err)
+}
+  }
 
-  //   } catch (err) {
-  //     console.log(err)
-  //   }
-  // })
+   useEffect(()=>{
+     handleWorkout();
+   }, [] )
+  
 
   const handleSetOverlay = (id) => {
     activePanel.current = id;

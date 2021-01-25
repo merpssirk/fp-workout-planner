@@ -1,4 +1,4 @@
-import { React, useRef, useState } from "react"
+import { React, useRef, useState, useContext } from "react"
 import {
   BrowserRouter,
   Link,
@@ -10,8 +10,11 @@ import styles from "./home.module.css"
 import imgLogo from "../../pics/home/Logo.png"
 import classNames from "classnames"
 //import Dashboard from "../../Dashboard/Dashboard"
+import { NotificationContext } from "../Notifications/Notifications";
 
 export default function Home() {
+  const setMessage = useContext( NotificationContext );
+
   const history = useHistory()
   const formCheck = useRef("")
   const [overlayClass, setOverlayClass] = useState("false")
@@ -65,7 +68,8 @@ export default function Home() {
     }
   }
   // ---------LOGIN PAGE CONNECTING TO THE BACKEND--------
-  const handleSubmitLogin = async (event) => {
+  const handleSubmitLogin = async ( event ) => {
+    setMessage("Welcome Back on Your Dashboard Page!!")
     event.preventDefault()
     const formData = new FormData(event.target)
     const data = {
