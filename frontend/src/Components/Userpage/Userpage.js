@@ -34,7 +34,7 @@ export default function Userpage() {
     try {
       //5ffef1e6a2b2c494bc2441f4
       const response = await fetch(
-        "/user/profileEdit",
+        "/dashboard/profileEdit",
         {
           method: "PUT",
           //credentials: true,

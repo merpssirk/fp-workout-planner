@@ -22,7 +22,7 @@ export default function Notifications({ children }) {
   return (
     <NotificationContext.Provider value={handleNotifications}>
       {message.map((notification, id) => (
-        <p key={id} className={styles.msgContainer}>
+        <p key={id} className={styles.messageContainer}>
           {notification}
         </p>
       ))}

@@ -1,6 +1,6 @@
 const mongoose = require( 'mongoose' );
 const WorkoutSchema = require( '../Schemas/ManageWorkoutSchema' );
 
-const WorkoutInfo = mongoose.model( 'workoutInfo', WorkoutSchema );
+const WorkoutInfo = mongoose.model( 'WorkoutInfo', WorkoutSchema );
 
 module.exports = WorkoutInfo;

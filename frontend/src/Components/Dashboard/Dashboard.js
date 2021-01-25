@@ -66,7 +66,7 @@ export default function Dashboard() {
       updatedWeight: updatedWeightValue.get("updatedWeight"),
     }
     try {
-      await fetch("/user/updatedWeight", {
+      await fetch("/dashboard/updatedWeight", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -157,7 +157,7 @@ export default function Dashboard() {
       activityLevel: formData.get("activityLevel"),
     }
     try {
-      const response = await fetch("/user/finishRegistration", {
+      const response = await fetch("/dashboard/finishRegistration", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -166,7 +166,7 @@ export default function Dashboard() {
         body: JSON.stringify(finishRegistrationField),
       })
       //const json = await response.json();
-      console.log("function is reached")
+      //console.log("function is reached")
       handleRemoveOverlay()
     } catch (err) {
       console.log(err)
@@ -197,7 +197,7 @@ export default function Dashboard() {
   //console.log(calculateBMRForWomen())
   useEffect(() => {
     axios
-      .get("user/dashboardNutrition", {
+      .get("dashboard/dashboardNutrition", {
         headers: {
           "Content-Type": "application/json",
         },

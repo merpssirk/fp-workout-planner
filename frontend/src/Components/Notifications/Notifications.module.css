@@ -1,8 +1,13 @@
-.msgContainer {
+.messageContainer {
     position: absolute;
-    top: 25%;
-    left: 50%;
-    color: white;
-    background: gray;
-    transform: translate(-50%, -50%);
+    top: 11%;
+    left: 45%;
+    color: rgb(8, 8, 8);
+    background: rgba(184, 193, 206, 0.9);
+    width: 300px;
+    height: 80px;
+    font-size: max(15px, 1.2vw);
+    border-radius: 10px;
+    text-align: center;
+    padding-top: 10px;
 }
