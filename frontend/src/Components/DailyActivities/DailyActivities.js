@@ -1,6 +1,6 @@
-import React from "react";
-import {useHistory} from 'react-router-dom'
-import styles from "./dailyActivities.module.css";
+import React, { useEffect, useState } from "react"
+import { useHistory } from "react-router-dom"
+import styles from "./dailyActivities.module.css"
 import avatar from "../../pics/dashboard/Avatar-male.png"
 //import avatar from "../pics/dashboard/Avatar-male.png";
 import imgLogo from "../../pics/dashboard/Logo-black.png"
@@ -14,6 +14,22 @@ export default function DailyActivities() {
     window.localStorage.removeItem("loggedIn")
     history.push("/")
   }
+  // DATE:
+  const [currentDate, setCurrentDate] = useState()
+
+  const getCurrentDate = () => {
+    const date = new Date()
+    const options = {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    }
+    setCurrentDate(new Intl.DateTimeFormat("en-GB", options).format(date))
+  }
+  useEffect(() => {
+    getCurrentDate()
+  })
 
   const calendarData = {
     year: {
@@ -102,7 +118,7 @@ export default function DailyActivities() {
             </a>
           </div>
         </nav>
-        <h3 className={styles.date}>Monday, December 14, 2020</h3>
+        <h3 className={styles.date}>{currentDate}</h3>
         <div className={styles.checkBox}>
           <div className={styles.redXCircleDiv}>
             <img src={redXCircle} />
@@ -114,38 +130,86 @@ export default function DailyActivities() {
         <div className={styles.mainContainer}>
           <div className={styles.exerciseContainer}>
             <div className={styles.exerciseDiv}>
-              <h3>Exercise 1</h3>
-              <div className={styles.exerciseImg}></div>
+              <div className={styles.exerciseImg}>
+                <h4>Exercise 1</h4>
+                <ul>
+                  <li>Body Part:</li>
+                  <li>Sets:</li>
+                  <li>Repetitions:</li>
+                </ul>
+              </div>
             </div>
             <div className={styles.exerciseDiv}>
-              <h3>Exercise 2</h3>
-              <div className={styles.exerciseImg}></div>
+              <div className={styles.exerciseImg}>
+                <h4>Exercise 2</h4>
+                <ul>
+                  <li>Body Part:</li>
+                  <li>Sets:</li>
+                  <li>Repetitions:</li>
+                </ul>
+              </div>
             </div>
             <div className={styles.exerciseDiv}>
-              <h3>Exercise 3</h3>
-              <div className={styles.exerciseImg}></div>
+              <div className={styles.exerciseImg}>
+                <h4>Exercise 3</h4>
+                <ul>
+                  <li>Body Part:</li>
+                  <li>Sets:</li>
+                  <li>Repetitions:</li>
+                </ul>
+              </div>
             </div>
             <div className={styles.exerciseDiv}>
-              <h3>Exercise 4</h3>
-              <div className={styles.exerciseImg}></div>
+              <div className={styles.exerciseImg}>
+                <h4>Exercise 4</h4>
+                <ul>
+                  <li>Body Part:</li>
+                  <li>Sets:</li>
+                  <li>Repetitions:</li>
+                </ul>
+              </div>
             </div>
           </div>
           <div className={styles.exerciseContainer}>
             <div className={styles.exerciseDiv}>
-              <h3>Exercise 5</h3>
-              <div className={styles.exerciseImg}></div>
+              <div className={styles.exerciseImg}>
+                <h4>Exercise 5</h4>
+                <ul>
+                  <li>Body Part:</li>
+                  <li>Sets:</li>
+                  <li>Repetitions:</li>
+                </ul>
+              </div>
             </div>
             <div className={styles.exerciseDiv}>
-              <h3>Exercise 6</h3>
-              <div className={styles.exerciseImg}></div>
+              <div className={styles.exerciseImg}>
+                <h4>Exercise 6</h4>
+                <ul>
+                  <li>Body Part:</li>
+                  <li>Sets:</li>
+                  <li>Repetitions:</li>
+                </ul>
+              </div>
             </div>
             <div className={styles.exerciseDiv}>
-              <h3>Exercise 7</h3>
-              <div className={styles.exerciseImg}></div>
+              <div className={styles.exerciseImg}>
+                <h4>Exercise 7</h4>
+                <ul>
+                  <li>Body Part:</li>
+                  <li>Sets:</li>
+                  <li>Repetitions:</li>
+                </ul>
+              </div>
             </div>
             <div className={styles.exerciseDiv}>
-              <h3>Exercise 8</h3>
-              <div className={styles.exerciseImg}></div>
+              <div className={styles.exerciseImg}>
+                <h4>Exercise 8</h4>
+                <ul>
+                  <li>Body Part:</li>
+                  <li>Sets:</li>
+                  <li>Repetitions:</li>
+                </ul>
+              </div>
             </div>
           </div>
           <div className={styles.buttons}>

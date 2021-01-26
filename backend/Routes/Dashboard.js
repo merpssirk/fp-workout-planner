@@ -162,32 +162,47 @@ router.put("/profileEdit", async (request, response) => {
 //--DASHBOARD: MANAGE-WORKOUT PAGE--//
 router.post("/manageWorkout", async (request, response) => {
   try {
-    const { exercise, bodyPart, sets, repetitions } = request.body
-    const newUserWorkout = new WorkoutInfo({
-      day: [
-        [
-          {
-            exercise,
-            bodyPart,
-            sets,
-            repetitions,
-          },
-        ],
-      ],
-    })
+    const { workout } = request.body
+    
+    console.log("Request.body",request.body);
+   console.log("User", request.user);
+    const workoutData = await WorkoutInfo.findOne( { 
+      user: request.user
+    } );
+    console.log("workoutData", workoutData);
+    if ( workoutData ) {
+      await workoutData.update( workout);
+    }
+    else {
+      console.log('test');
+      const newUserWorkout =  await new WorkoutInfo( {
+      
+      user: request.user,
+      workout: workout
+      } )
+      
+     // newUserWorkout.user = user._id
+      await newUserWorkout.save()
+    }
+    //console.log("user", user);
+    console.log("workout", workout);
+    // SEARAR By user id request.user
+    // find the existing workout for the user
+    // if it exists, update
+    // otherwise create new workout
 
-    const user = await Users.findById({ _id: request.user })
-    //console.log("Request.User", request.user);
-    console.log( "newUserWorkout : ", newUserWorkout )
-    newUserWorkout.user = user._id
-    await newUserWorkout.save()
+    /* const user = await Users.findById({ _id: request.user }) */
+   // console.log("Request.User", request.user);
+   //console.log( "newUserWorkout : ", newUserWorkout )
+    /* newUserWorkout.user = user._id
+    await newUserWorkout.save() */
 
-    console.log("newUserData", newUserWorkout)
-    console.log(user)
-    if (user) {
-      response.status(200).json({ msg: "workout saved" })
+   // console.log("newUserData", newUserWorkout)
+  //  console.log(user)
+    if (workoutData) {
+      response.status(200).json({ msg: "workoutData updated" })
     } else {
-      response.status(401).json({ msg: "workout can not save" })
+      response.status(401).json({ msg: "workoutData can not update" })
     }
   } catch (err) {
     response.status(401).json({ msg: err.message })
