@@ -1,13 +1,16 @@
 import { useHistory } from "react-router-dom";
-import { React, useState, useRef, useEffect } from "react";
+import { React, useState, useRef, useEffect, useContext} from "react";
 import styles from "./manageWorkout.module.css";
 import MembersNavbar from "../MembersNavbar/MembersNavbar";
 import DayIndicators from "./DayIndicators/DayIndicators";
 import ExercisePanels from "./ExercisePanels/ExercisePanels";
 import SelectBodyPart from "./SelectBodyPart/SelectBodyPart";
 import SelectExercise from "./SelectExercise/SelectExercise";
+import { exerciseDataContext } from "../Dashboard/Dashboard";
 
 export default function ManageWorkout() {
+  const workoutData = useContext( exerciseDataContext );
+  console.log("data from Dahsboard", workoutData);
   // const manageWorkoutData = [
   //   [{ exercise: "", bodyPart: "", sets: 0, repetitons: 0 },
   //   { exercise: "", bodyPart: "", sets: 0, repetitons: 0 },
@@ -313,11 +316,12 @@ export default function ManageWorkout() {
         description={description}
         onHandleNextExercise={handleNextExercise}
       />
+      
       <div
         id={styles.overlay}
         className={overlayClass ? null : styles.active}
         onClick={handleRemoveOverlay}
       ></div>
     </div>
-  );
+  )
 }

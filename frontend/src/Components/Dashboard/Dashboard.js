@@ -1,4 +1,4 @@
-import { React, useState, useRef, useEffect, useContext } from "react"
+import { React, useState, useRef, useEffect, useContext, createContext } from "react"
 import { useHistory } from "react-router-dom"
 import styles from "./dashboard.module.css"
 import MembersNavbar from "../MembersNavbar/MembersNavbar"
@@ -8,13 +8,17 @@ import DashMainPanels from "./DashMainPanels/DashMainPanels"
 import DashFinishRegistration from "./DashFinishRegistration/DashFinishRegistration"
 import axios from "axios"
 import WeightUpdate from "./WeightUpdate/WeightUpdate"
-import { NotificationContext } from "../Notifications/Notifications";
+import { NotificationContext } from "../Notifications/Notifications"
+import defaultWorkout from "./WorkoutDatabase"
+console.log("DefaultDatabase", defaultWorkout)
+export const exerciseDataContext = createContext();
 
-export default function Dashboard() {
- const setMessage = useContext( NotificationContext );
+export default function Dashboard(props) {
+  const setMessage = useContext(NotificationContext)
   const [getLatestWeight, setGetLatestWeight] = useState([])
   const [getUpdatedTime, setGetUpdatedTime] = useState("")
   const workoutGoals = useRef()
+  const workoutData = useRef();
   const [overlayClass, setOverlayClass] = useState(false)
   const [currentDate, setCurrentDate] = useState()
   const formCheck = localStorage.getItem("Register") || null
@@ -22,7 +26,7 @@ export default function Dashboard() {
   const [macros, setMacros] = useState([])
   const [weight, setWeight] = useState(0)
 
-  console.log("Dashboard.js", overlayClass);
+  console.log("Dashboard.js", overlayClass)
 
   //NOTIFICATION
 
@@ -74,7 +78,7 @@ export default function Dashboard() {
         credentials: "include",
         body: JSON.stringify(updatedWeightField),
       })
-      console.log("handleUpdateWeight reached");
+      console.log("handleUpdateWeight reached")
       handleRemoveOverlay()
     } catch (error) {
       console.log(error)
@@ -87,7 +91,7 @@ export default function Dashboard() {
     window.localStorage.removeItem("loggedIn")
     history.push("/")
   }
-  
+
   useEffect(() => {
     const date = new Date()
     const options = {
@@ -136,12 +140,25 @@ export default function Dashboard() {
         setFeelsLike(data.main.feels_like)
         setDescription(data.weather[0].description)
       })
+
+    fetch("/dashboard/defaultWorkout", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    })
+      .then((res) => res.json())
+      .then( ( data ) => {
+        workoutData.current = data;
+        //props.onHandleWorkoutData(data);
+        console.log(props.test);
+      })
   }, [])
 
   //---FINISH REGISTRATION PAGE CONNECT TO BACKEND---
-  const handleFinishRegistration = async ( event ) => {
-    
-    setMessage( "Welcome in your Dashboard Page!!" )
+  const handleFinishRegistration = async (event) => {
+    setMessage("Welcome in your Dashboard Page!!")
     //console.log(setMessage);
     event.preventDefault()
     const formData = new FormData(event.target)
@@ -168,10 +185,26 @@ export default function Dashboard() {
       //const json = await response.json();
       //console.log("function is reached")
       handleRemoveOverlay()
+      handleDefaultWorkout()
     } catch (err) {
       console.log(err)
     }
   }
+  const handleDefaultWorkout = async () => {
+    try {
+      await fetch("/dashboard/defaultWorkout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify( defaultWorkout ),
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   //NUTRITION CALCULATION
   // CALCULATE MEN'S BMR
   //const [nutrition, setNutrition] = useState("")
@@ -325,6 +358,11 @@ export default function Dashboard() {
           formCheck={formCheck}
         />
       </main>
+      <exerciseDataContext.Provider
+        value={workoutData.current}
+      >
+
+      </exerciseDataContext.Provider>
     </div>
   )
 }

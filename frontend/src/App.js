@@ -11,8 +11,12 @@ import DailyActivities from "./Components/DailyActivities/DailyActivities"
 import WorkoutOverview from "./Components/WorkoutOverview/WorkoutOverview"
 import ManageWorkout from "./Components/ManageWorkout/ManageWorkout"
 import PrivateRoute from "./Components/PrivateRoute/PrivateRoute"
-import Notifications from "./Components/Notifications/Notifications";
+import Notifications from "./Components/Notifications/Notifications"
 function App() {
+  let test = "props is working"
+  const handleWorkoutData = (data) => {
+    console.log("Successfully fetched from the database", data)
+  }
   return (
     <Notifications>
       <BrowserRouter>
@@ -28,7 +32,13 @@ function App() {
         <Route path="/workoutoverview" exact component={WorkoutOverview} />
         <Route path="/manageWorkout" exact component={ManageWorkout} />*/}
 
-          <PrivateRoute path="/dashboard" exact component={Dashboard} />
+          <PrivateRoute
+            path="/dashboard"
+            exact
+            component={Dashboard}
+            //onHandleWorkoutData={handleWorkoutData}
+            test={test}
+          />
           <PrivateRoute path="/userpage" component={Userpage} exact />
           <PrivateRoute
             path="/dailyactivities"
