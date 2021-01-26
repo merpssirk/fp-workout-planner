@@ -4,6 +4,7 @@ const { body, validationResult } = require( "express-validator" )
 
 const Users = require( "../Models/UserModel" )
 const WorkoutInfo = require("../Models/WorkoutModel")
+const { request, response } = require( "express" )
 
 const router = express.Router()
 
@@ -171,7 +172,9 @@ router.post("/manageWorkout", async (request, response) => {
     } );
     console.log("workoutData", workoutData);
     if ( workoutData ) {
-      await workoutData.update( workout);
+      await WorkoutInfo.findByIdAndUpdate(workoutData._id, workout, {
+        new: true,
+      })
     }
     else {
       console.log('test');
@@ -218,6 +221,53 @@ router.get("/workoutOverview", (request, response) => {
 //--DASHBOARD: DAILY-ACTIVITY PAGE--//
 router.get("/dailyActivity", (request, response) => {
   response.send("welcome")
+})
+
+//--DASHBOARD: DEFAULT-WORKOUT--//
+router.post( "/defaultWorkout", async ( request, response ) => {
+  try {
+    const { workout } = request.body;
+
+    console.log( "Workout", workout );
+
+    const defaultWorkoutData = await new WorkoutInfo({
+      
+      workout,
+      user:request.user
+    })
+    await defaultWorkoutData.save()
+    //const defaultWorkout = await WorkoutInfo.findOne( { user: request.user } )
+
+   // console.log( "requestUserdefaultworkout", request.user );
+    
+   // console.log( "defaultWorkoutData", defaultWorkout );
+    /* 
+    if ( defaultWorkout ) {
+      const defaultWorkoutData = await new WorkoutInfo( {
+        user: request.user,
+        workout: workout
+      })
+      await defaultWorkoutData.save()
+    } else {
+      response.status(401).json({msg: "User could not be found"})
+    } */
+  }
+  catch ( error ) {
+    console.log(error);
+  }
+} )
+
+//--DASHBOARD: DEFAULT-WORKOUT  GET DATA--//
+router.get( "/defaultWorkout", async ( request, response ) => {
+  try { 
+    const defaultData = await WorkoutInfo.find( { user: request.user } )
+    
+    response.status( 200 ).json( defaultData );
+    console.log("GET-DefaultData",defaultData);
+  }
+  catch ( error ) {
+    response.status( 401 ).json( { msg: error.message } );
+  }
 })
 
 module.exports = router
