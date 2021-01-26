@@ -28,6 +28,24 @@ export default function SelectExercise(props) {
               {item.name}
             </li>
           ))}
+          <div className={styles.nextPreviousWrapper}>
+            <span
+              className={styles.previous}
+              onClick={(event) => {
+                props.onHandleNextExercise(event.target);
+              }}
+            >
+              Previous
+            </span>
+            <span
+              className={styles.next}
+              onClick={(event) => {
+                props.onHandleNextExercise(event.target);
+              }}
+            >
+              Next
+            </span>
+          </div>
         </ul>
         {props.description[0] ? (
           <div className={styles.descriptionWrapper}>
