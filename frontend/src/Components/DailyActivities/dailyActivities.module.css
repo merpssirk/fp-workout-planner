@@ -88,6 +88,7 @@ ul li a {
   font-style: normal;
   margin-top: 3%;
 }
+
 .checkBox {
   position: relative;
   display: flex;
@@ -119,18 +120,34 @@ ul li a {
   margin-top: 30px;
 }
 .mainContainer .exerciseContainer .exerciseDiv {
-
   display: inline-block;
+  
 }
-.mainContainer .exerciseContainer .exerciseDiv h3{
-  margin-bottom: 30px;
-  font-size: max(16px, 1.2vw);
+.mainContainer .exerciseContainer .exerciseDiv h4 {
+  font-size: max(10px, 1vw);
+  text-align: center;
+  color: #000000;
+  margin-top: 15%;
+  padding: 10px 10px 0 10px;
+}
+.mainContainer .exerciseContainer .exerciseDiv ul {
+  margin: 15% 0 0 15%;
+  line-height: 1.5rem;
+}
+
+.mainContainer .exerciseContainer .exerciseDiv ul li {
+  font-style: normal;
+  font-weight: 400;
+  font-size: max(10px, 0.8vw);
+  list-style-type: none;
+  color: #000000;
+  
 }
 .mainContainer .exerciseImg {
-    width: 12vw;
-    height: 149px;
-    background: #B8C1CE;
-    border-radius: 0px 15px;
+  width: 15vw;
+  height: 190px;
+  background: #b8c1ce;
+  border-radius: 0px 15px;
 }
 /* --------- */
 
@@ -139,7 +156,6 @@ ul li a {
   display: flex;
   justify-content: center;
   margin-top: 50px;
-  
 }
 .mainContainer .buttons button {
   width: 8.5vw;
@@ -158,9 +174,8 @@ ul li a {
 }
 
 .mainContainer .buttons .redBtn {
-  background:#F93F3F;
+  background: #f93f3f;
 }
-
 
 /* 
 @media screen and (min-width: 1100px) {
