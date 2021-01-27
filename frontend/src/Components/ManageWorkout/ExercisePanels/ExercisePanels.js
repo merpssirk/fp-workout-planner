@@ -6,7 +6,16 @@ import styles from "./exercisePanels.module.css";
 export default function ExercisePanels(props) {
   const getSets = useRef([]);
   const getRepetitions = useRef([]);
-  console.log(props.exerciseTemp[0].exercise);
+  const getExercises = useRef(
+    props.workoutData["day" + (props.activeButton + 1)].exercises
+  );
+
+  useEffect(() => {
+    getExercises.current =
+      props.workoutData["day" + (props.activeButton + 1)].exercises;
+  }, [props]);
+  console.log("The active Button is:", getExercises.current);
+  console.log(props.workoutData["day" + (props.activeButton + 1)].exercises);
 
   const resetPanel = (panel) => {
     props.onHandleResetPanel(
@@ -16,11 +25,7 @@ export default function ExercisePanels(props) {
     );
   };
 
-  useEffect(() => {
-    console.log(props);
-  }, [props]);
-
-  switch (props.buttonColour[props.activeButton]) {
+  switch (props.workoutData["day" + (props.activeButton + 1)].button) {
     case "buttonGreen":
       return (
         <div className={styles.exercisePanelsWrapper}>
@@ -42,9 +47,17 @@ export default function ExercisePanels(props) {
                             {...provided.draggableProps}
                             {...provided.dragHandleProps}
                           >
-                            <h3>{props.exerciseTemp[item.id - 1].exercise}</h3>
-                            {props.exerciseTemp[item.id - 1].exercise ===
-                            "" ? null : (
+                            <h3>
+                              {props.workoutData[
+                                "day" + (props.activeButton + 1)
+                              ].exercises[item.id - 1] === undefined
+                                ? null
+                                : props.workoutData[
+                                    "day" + (props.activeButton + 1)
+                                  ].exercises[item.id - 1][0]}
+                            </h3>
+                            {props.workoutData["day" + (props.activeButton + 1)]
+                              .exercises[item.id - 1] === undefined ? null : (
                               <ResetIcon
                                 onClick={() => {
                                   resetPanel(item.id);
@@ -53,15 +66,20 @@ export default function ExercisePanels(props) {
                               />
                             )}
                             <div className={styles.exerciseWrapper}>
-                              {props.exerciseTemp[item.id - 1].exercise ===
-                              "" ? null : (
+                              {props.workoutData[
+                                "day" + (props.activeButton + 1)
+                              ].exercises[item.id - 1] === undefined ? null : (
                                 <div className={styles.exerciseInnerWrapper}>
                                   <div className={styles.bodyPartWrapper}>
                                     <span className={styles.bodyPart}>
                                       Body Part:
                                     </span>
                                     <span className={styles.bodyPartValue}>
-                                      {props.exerciseTemp[item.id - 1].bodyPart}
+                                      {
+                                        props.workoutData[
+                                          "day" + (props.activeButton + 1)
+                                        ].exercises[item.id - 1][1]
+                                      }
                                     </span>
                                   </div>
                                   <div className={styles.setsWrapper}>
@@ -69,6 +87,11 @@ export default function ExercisePanels(props) {
                                     <input
                                       type="number"
                                       name="setsValue"
+                                      value={
+                                        props.workoutData[
+                                          "day" + (props.activeButton + 1)
+                                        ].exercises[item.id - 1][2]
+                                      }
                                       min="1"
                                       max="8"
                                       ref={(element) =>
@@ -84,6 +107,11 @@ export default function ExercisePanels(props) {
                                     <input
                                       type="number"
                                       name="repetitionsValue"
+                                      value={
+                                        props.workoutData[
+                                          "day" + (props.activeButton + 1)
+                                        ].exercises[item.id - 1][3]
+                                      }
                                       min="1"
                                       max="100"
                                       ref={(element) =>
