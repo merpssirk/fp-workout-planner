@@ -1,9 +1,5 @@
 import { React, useRef, useState, useContext } from "react"
 import {
-  BrowserRouter,
-  Link,
-  Switch,
-  Route,
   useHistory,
 } from "react-router-dom"
 import styles from "./home.module.css"
@@ -57,7 +53,12 @@ export default function Home() {
         },
 
         body: JSON.stringify(data),
-      })
+      } )
+      if ( response.status !== 200 ) {
+        throw "error";
+        
+      }
+      console.log(response);
       //const json = await response.json();
       localStorage.setItem( "Register", "pending" )
       window.localStorage.setItem("loggedIn", JSON.stringify(true))
@@ -86,7 +87,12 @@ export default function Home() {
           "content-type": "application/json",
           Accept: "application/json",
         },
-      })
+      } )
+      if ( response.status !== 200 ) {
+        throw "error";
+        alert("An Account with this email already exist")
+      }
+      console.log(response.status);
       const json = await response.json()
       console.log(json)
       window.localStorage.setItem("loggedIn", JSON.stringify(true))
@@ -100,8 +106,8 @@ export default function Home() {
     <div className={styles.background}>
       <nav className={styles.navBar}>
         <ul>
-          <a href="#">
-            <img src={imgLogo} />
+          <a href="/home">
+            <img src={imgLogo} alt={imgLogo} />
           </a>
           <li
             onClick={(e) => {

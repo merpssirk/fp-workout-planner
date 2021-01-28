@@ -1,15 +1,15 @@
-import {React, useEffect} from "react"
+import React from "react"
 import styles from "./WeightUpdate.module.css"
 import classNames from "classnames";
 
 export default function WeightUpdate( props ) {
-    console.log("WeightUpdate", props.overlayClass2);
+   // console.log("WeightUpdate", props.overlayClass2);
 
   return (
     <>
-      <div onClick={props.onHandleSetOverlay} className={styles.container}>
+      { props.updateMessage ? <div onClick={props.onHandleSetOverlay} className={styles.container}>
         <span>Reminder: Please update your weight!</span>
-      </div>
+      </div> : null}
       <div
         className={
           (props.overlayClass && props.formCheck !== "pending")

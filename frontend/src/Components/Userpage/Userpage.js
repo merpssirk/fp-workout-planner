@@ -58,7 +58,7 @@ export default function Userpage() {
         <nav className={styles.navBar}>
           <ul>
             <a href="/dashboard">
-              <img src={imgLogo} />
+              <img src={imgLogo} alt={imgLogo} />
             </a>
             <li>
               <a href="/manageWorkout">Edit Workout</a>
@@ -73,7 +73,7 @@ export default function Userpage() {
           <div className={styles.profileWrapper}>
             <span onClick={handleLogout}>Logout</span>
             <a href="/userpage">
-              <img src={avatar} />
+              <img src={avatar} alt={avatar} />
             </a>
           </div>
         </nav>
@@ -112,7 +112,7 @@ export default function Userpage() {
                 <input type="number" name="weight" />
               </div>
 
-              <img src={leftWhiteLine} />
+              <img src={leftWhiteLine} alt={leftWhiteLine} />
             </div>
             {/* Right Column */}
             <div className={styles.rightColumn}>
@@ -174,6 +174,7 @@ export default function Userpage() {
               <img
                 className={styles.rightColumnWhiteLine}
                 src={rightWhiteLine}
+                alt={rightWhiteLine}
               />
             </div>
           </div>

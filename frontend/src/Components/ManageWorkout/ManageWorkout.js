@@ -8,6 +8,7 @@ import SelectBodyPart from "./SelectBodyPart/SelectBodyPart";
 import SelectExercise from "./SelectExercise/SelectExercise";
 import { exerciseDataContext } from "../Dashboard/Dashboard";
 
+
 export default function ManageWorkout() {
   const workoutData = useContext( exerciseDataContext );
   console.log("data from Dahsboard", workoutData);
@@ -211,7 +212,7 @@ export default function ManageWorkout() {
     setList(reorder(list, result.source.index, result.destination.index));
   };
 
-  //------------------------------------------------------------------------
+  //-------
 
   const handleDayButton = (event) => {
     const newColour = [...buttonColour];

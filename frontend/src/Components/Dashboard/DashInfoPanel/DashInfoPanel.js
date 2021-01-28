@@ -10,7 +10,7 @@ export default function DashInfoPanel() {
       <div className={styles.tilesWrapper}>
         <div className={styles.workoutsWrapper}>
           <div className={styles.tilesIcon}>
-            <img src={dumbbell} />
+            <img src={dumbbell} alt={dumbbell} />
           </div>
           <span className={styles.tilesCounter}>
             Workouts done
@@ -20,7 +20,7 @@ export default function DashInfoPanel() {
         </div>
         <div className={styles.exercisesWrapper}>
           <div className={styles.tilesIcon}>
-            <img src={weightlifter} />
+            <img src={weightlifter} alt={weightlifter} />
           </div>
           <span className={styles.tilesCounter}>
             Exercises created
@@ -30,7 +30,7 @@ export default function DashInfoPanel() {
         </div>
         <div className={styles.streakWrapper}>
           <div className={styles.tilesIcon}>
-            <img src={flame} />
+            <img src={flame} alt={flame }/>
           </div>
           <span className={styles.tilesCounter}>
             Streak (days)
@@ -40,7 +40,7 @@ export default function DashInfoPanel() {
         </div>
         <div className={styles.weightWrapper}>
           <div className={styles.tilesIcon}>
-            <img src={scale} />
+            <img src={scale} alt={ scale}/>
           </div>
           <span className={styles.tilesCounter}>
             Weight difference

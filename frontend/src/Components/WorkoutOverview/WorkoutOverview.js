@@ -19,7 +19,7 @@ export default function WorkoutOverview() {
         <nav className={styles.navBar}>
           <ul>
             <a href="/dashboard">
-              <img src={imgLogo} />
+              <img src={imgLogo} alt={imgLogo} />
             </a>
             <li>
               <a href="/manageWorkout">Edit Workout</a>
@@ -28,21 +28,21 @@ export default function WorkoutOverview() {
               <a href="/dailyactivities">Daily Activties</a>
             </li>
             <li>
-              <a href="/workoutoverview">Workout Overview</a>
+              <a href="/workoutoverview" className={styles.current}>Workout Overview</a>
             </li>
           </ul>
           <div className={styles.profileWrapper}>
             <span onClick={handleLogout}>Logout</span>
             <a href="/userpage">
-              <img src={avatar} />
+              <img src={avatar} alt={avatar} />
             </a>
           </div>
         </nav>
         <div className={styles.mainContainer}>
           <div className={styles.date}>
-            <img src={leftArrow} />
+            <img src={leftArrow} alt={leftArrow} />
             <p>December 2020</p>
-            <img src={rightArrow} />
+            <img src={rightArrow} alt={rightArrow} />
           </div>
           <div className={styles.calendar}>
             <div className={styles.weekdays}>

@@ -18,14 +18,14 @@ export default function DashMainPanels(props) {
     <div className={styles.mainInfoWrapper}>
       <div className={styles.workoutOverview}>
         <h4>Workout Overview</h4>
-        <img src={lineTop} />
+        <img src={lineTop} alt={lineTop} />
         <div className={styles.workoutDiagram}>
-          <img src={workoutDia} />
+          <img src={workoutDia} alt={workoutDia} />
         </div>
       </div>
       <div className={styles.nutrition}>
         <h4>Nutrition</h4>
-        <img src={lineTop} />
+        <img src={lineTop} alt={lineTop} />
         <div className={styles.nutritionIcons}>
           <div className={styles.macrosWrapper}>
             <Calories className={styles.macroIcons} />
@@ -38,20 +38,24 @@ export default function DashMainPanels(props) {
             <span className={styles.carbsFigures}>{props.macros[0]}</span>
           </div>
           <div className={styles.macrosWrapper}>
-            <Protein className={styles.macroIcons}/>
-            <span className={styles.proteinFigures}>{Math.round(props.macros[1])}</span>
+            <Protein className={styles.macroIcons} />
+            <span className={styles.proteinFigures}>
+              {Math.round(props.macros[1])}
+            </span>
           </div>
           <div className={styles.macrosWrapper}>
             <Fat className={styles.macroIcons} />
-            <span className={styles.fatFigures}>{Math.round(props.macros[2])}</span>
+            <span className={styles.fatFigures}>
+              {Math.round(props.macros[2])}
+            </span>
           </div>
         </div>
       </div>
       <div className={styles.weightDifference}>
         <h4>Weight</h4>
-        <img src={lineTop} />
+        <img src={lineTop} alt={lineTop} />
         <div className={styles.weightDiagram}>
-          <img src={weightDia} />
+          <img src={weightDia} alt={weightDia} />
         </div>
       </div>
     </div>

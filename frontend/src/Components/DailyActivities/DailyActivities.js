@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { useHistory } from "react-router-dom"
+
 import styles from "./dailyActivities.module.css"
 import avatar from "../../pics/dashboard/Avatar-male.png"
 //import avatar from "../pics/dashboard/Avatar-male.png";
@@ -30,7 +31,8 @@ export default function DailyActivities() {
   useEffect(() => {
     getCurrentDate()
   })
-
+// Calendar Data
+  
   const calendarData = {
     year: {
       2020: {
@@ -69,7 +71,7 @@ export default function DailyActivities() {
           month: { [monthIndex]: { done: [], missed: [] } },
         }
       }
-      console.log(calendarData.year)
+      //console.log(calendarData.year)
       // create month
       calendarData.year[year].month[monthIndex] = { done: [], missed: [] }
       if (id === 1) {
@@ -90,8 +92,9 @@ export default function DailyActivities() {
 
   handleWorkoutData(2019, 3, 1, 1)
 
-  console.log(calendarData.year)
-  console.log(calendarData.year[2019].month[3].done)
+  //console.log(calendarData.year)
+ // console.log(calendarData.year[2019].month[3].done)
+
 
   return (
     <>
@@ -99,13 +102,13 @@ export default function DailyActivities() {
         <nav className={styles.navBar}>
           <ul>
             <a href="/dashboard">
-              <img src={imgLogo} />
+              <img src={imgLogo} alt={imgLogo} />
             </a>
             <li>
               <a href="/manageWorkout">Edit Workout</a>
             </li>
             <li>
-              <a href="/dailyactivities">Daily Activties</a>
+              <a href="/dailyactivities" className={styles.current}>Daily Activties</a>
             </li>
             <li>
               <a href="/workoutoverview">Workout Overview</a>
@@ -114,17 +117,17 @@ export default function DailyActivities() {
           <div className={styles.profileWrapper}>
             <span onClick={handleLogout}>Logout</span>
             <a href="/userpage">
-              <img src={avatar} />
+              <img src={avatar} alt={avatar} />
             </a>
           </div>
         </nav>
         <h3 className={styles.date}>{currentDate}</h3>
         <div className={styles.checkBox}>
           <div className={styles.redXCircleDiv}>
-            <img src={redXCircle} />
+            <img src={redXCircle} alt={redXCircle} />
           </div>
           <div className={styles.greenCircleDiv}>
-            <img src={greenCheckCircle} />
+            <img src={greenCheckCircle} alt={greenCheckCircle} />
           </div>
         </div>
         <div className={styles.mainContainer}>
@@ -217,6 +220,7 @@ export default function DailyActivities() {
             <button className={styles.redBtn}>Missed</button>
           </div>
         </div>
+        
       </div>
     </>
   )
