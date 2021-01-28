@@ -13,7 +13,8 @@ const UserSchema = new mongoose.Schema({
   updatedWeight: [{ type: Number }],
   timestamps: {
     createdAt: {type: Date},
-    lastUpdatedAt: {type: Date},
+    lastUpdatedAt: { type: Date },
+    startWorkoutAt: {type: Date}
   },
   disability: {
     type: String,

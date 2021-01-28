@@ -109,7 +109,7 @@ export default function Home() {
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log(999, JSON.stringify(data))
+        //  console.log(999, JSON.stringify(data))
           localStorage.setItem("workoutData", JSON.stringify(data))
         })
     } catch (err) {

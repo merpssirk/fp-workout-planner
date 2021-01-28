@@ -8,7 +8,7 @@ import {
 } from "react"
 import { useHistory } from "react-router-dom"
 import DayJs from "react-dayjs"
-
+import dayjs from "dayjs"
 import styles from "./dashboard.module.css"
 import MembersNavbar from "../MembersNavbar/MembersNavbar"
 import DashDateWeather from "./DashDateWeather/DashDateWeather"
@@ -19,7 +19,7 @@ import axios from "axios"
 import WeightUpdate from "./WeightUpdate/WeightUpdate"
 import { NotificationContext } from "../Notifications/Notifications"
 import defaultWorkout from "./WorkoutDatabase"
-import dayjs from "dayjs"
+
 //console.log("DefaultDatabase", defaultWorkout)
 export const exerciseDataContext = createContext()
 
