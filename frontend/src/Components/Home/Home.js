@@ -1,53 +1,53 @@
-import { React, useRef, useState, useContext } from "react"
+import { React, useRef, useState, useContext } from "react";
 import {
   BrowserRouter,
   Link,
   Switch,
   Route,
   useHistory,
-} from "react-router-dom"
-import styles from "./home.module.css"
-import imgLogo from "../../pics/home/Logo.png"
-import classNames from "classnames"
+} from "react-router-dom";
+import styles from "./home.module.css";
+import imgLogo from "../../pics/home/Logo.png";
+import classNames from "classnames";
 //import Dashboard from "../../Dashboard/Dashboard"
 import { NotificationContext } from "../Notifications/Notifications";
 
 export default function Home() {
-  const setMessage = useContext( NotificationContext );
+  const setMessage = useContext(NotificationContext);
 
-  const history = useHistory()
-  const formCheck = useRef("")
-  const [overlayClass, setOverlayClass] = useState("false")
+  const history = useHistory();
+  const formCheck = useRef("");
+  const [overlayClass, setOverlayClass] = useState("false");
 
   const handleOverlay = (event) => {
-    setOverlayClass(!overlayClass)
-    formCheck.current = event.target.textContent
-  }
+    setOverlayClass(!overlayClass);
+    formCheck.current = event.target.textContent;
+  };
 
   const handleRemoveOverlay = (event) => {
-    event.preventDefault()
-    setOverlayClass(!overlayClass)
-  }
+    event.preventDefault();
+    setOverlayClass(!overlayClass);
+  };
 
   const handleScroll = (event) => {
-    const section = event.target.textContent.toLowerCase()
-    document.getElementById(section).scrollIntoView({ behavior: "smooth" })
-  }
+    const section = event.target.textContent.toLowerCase();
+    document.getElementById(section).scrollIntoView({ behavior: "smooth" });
+  };
 
-  console.log(overlayClass)
+  console.log(overlayClass);
 
   // --------REGISTER PAGE CONNECTING TO THE BACKEND-----
   const handleSubmitRegister = async (event) => {
-    event.preventDefault()
+    event.preventDefault();
     //console.log("code is working");
-    const formData = new FormData(event.target)
+    const formData = new FormData(event.target);
 
     const data = {
       username: formData.get("username"),
       email: formData.get("email"),
       password: formData.get("password"),
-    }
-    console.log(data)
+    };
+    console.log(data);
     try {
       const response = await fetch("/user/register", {
         method: "POST",
@@ -57,25 +57,25 @@ export default function Home() {
         },
 
         body: JSON.stringify(data),
-      })
+      });
       //const json = await response.json();
-      localStorage.setItem( "Register", "pending" )
-      window.localStorage.setItem("loggedIn", JSON.stringify(true))
-      history.push("/dashboard")
+      localStorage.setItem("Register", "pending");
+      window.localStorage.setItem("loggedIn", JSON.stringify(true));
+      history.push("/dashboard");
       //console.log(json);
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
-  }
+  };
   // ---------LOGIN PAGE CONNECTING TO THE BACKEND--------
-  const handleSubmitLogin = async ( event ) => {
-    setMessage("Welcome Back on Your Dashboard Page!!")
-    event.preventDefault()
-    const formData = new FormData(event.target)
+  const handleSubmitLogin = async (event) => {
+    setMessage("Welcome Back on Your Dashboard Page!!");
+    event.preventDefault();
+    const formData = new FormData(event.target);
     const data = {
       email: formData.get("email"),
       password: formData.get("password"),
-    }
+    };
 
     try {
       const response = await fetch("/user/login", {
@@ -86,15 +86,31 @@ export default function Home() {
           "content-type": "application/json",
           Accept: "application/json",
         },
-      })
-      const json = await response.json()
-      console.log(json)
-      window.localStorage.setItem("loggedIn", JSON.stringify(true))
-      history.push("/dashboard")
+      });
+      const json = await response.json();
+      console.log(json);
+      window.localStorage.setItem("loggedIn", JSON.stringify(true));
+      history.push("/dashboard");
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
-  }
+
+    try {
+      fetch("/dashboard/defaultWorkout", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          localStorage.setItem("workoutData", JSON.stringify(data));
+        });
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <div className={styles.background}>
@@ -105,28 +121,28 @@ export default function Home() {
           </a>
           <li
             onClick={(e) => {
-              handleScroll(e)
+              handleScroll(e);
             }}
           >
             Motivation
           </li>
           <li
             onClick={(e) => {
-              handleScroll(e)
+              handleScroll(e);
             }}
           >
             Services
           </li>
           <li
             onClick={(e) => {
-              handleScroll(e)
+              handleScroll(e);
             }}
           >
             Testimonials
           </li>
           <li
             onClick={(e) => {
-              handleScroll(e)
+              handleScroll(e);
             }}
           >
             Contact
@@ -145,7 +161,7 @@ export default function Home() {
         </p>
         <button
           onClick={(e) => {
-            handleOverlay(e)
+            handleOverlay(e);
           }}
         >
           Register
@@ -155,7 +171,7 @@ export default function Home() {
         <button
           className={styles.loginButton}
           onClick={(e) => {
-            handleOverlay(e)
+            handleOverlay(e);
           }}
         >
           Login
@@ -224,5 +240,5 @@ export default function Home() {
         onClick={handleRemoveOverlay}
       ></div>
     </div>
-  )
+  );
 }

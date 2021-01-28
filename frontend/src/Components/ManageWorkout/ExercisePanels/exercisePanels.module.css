@@ -19,7 +19,7 @@
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  width: 75vw;
+  width: 80vw;
   color: black;
 }
 
@@ -38,7 +38,7 @@
 .exercisePanelsWrapper .panel {
   position: relative;
   height: 20vh;
-  width: 15vw;
+  width: 17vw;
   margin: 25px 20px;
   background: #b8c1ce;
   border-radius: 0px 15px;
@@ -111,7 +111,9 @@
 }
 
 .setsWrapper,
-.bodyPartWrapper {
+.bodyPartWrapper,
+.repetitionsWrapper {
+  width: 12vw;
   margin-bottom: 5%;
 }
 
