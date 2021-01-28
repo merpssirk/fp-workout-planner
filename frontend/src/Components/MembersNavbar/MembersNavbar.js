@@ -8,10 +8,12 @@ export default function MembersNavbar(props) {
       <nav className={styles.navBar}>
         <ul>
           <a href="/dashboard">
-            <img src={imgLogo} />
+            <img className={styles.current} src={imgLogo} alt={imgLogo} />
           </a>
           <li>
-            <a href="/manageWorkout">Edit Workout</a>
+            <a href="/manageWorkout">
+              Edit Workout
+            </a>
           </li>
           <li>
             <a href="/dailyactivities">Daily Activties</a>
@@ -23,7 +25,7 @@ export default function MembersNavbar(props) {
         <div className={styles.profileWrapper}>
           <span onClick={props.onHandleLogout}>Logout</span>
           <a href="/userpage">
-            <img src={avatar} />
+            <img src={avatar} alt={avatar} />
           </a>
         </div>
       </nav>

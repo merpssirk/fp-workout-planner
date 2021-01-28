@@ -8,6 +8,7 @@ import SelectBodyPart from "./SelectBodyPart/SelectBodyPart";
 import SelectExercise from "./SelectExercise/SelectExercise";
 import { exerciseDataContext } from "../Dashboard/Dashboard";
 
+
 export default function ManageWorkout() {
   const [workoutData, setWorkoutData] = useState(
     JSON.parse(localStorage.getItem("workoutData")).workout
@@ -213,7 +214,7 @@ export default function ManageWorkout() {
     setList(reorder(list, result.source.index, result.destination.index));
   };
 
-  //------------------------------------------------------------------------
+  //-------
 
   const handleDayButton = (event) => {
     const updateWorkoutData = { ...workoutData };

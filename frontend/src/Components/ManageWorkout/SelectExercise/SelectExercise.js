@@ -51,7 +51,7 @@ export default function SelectExercise(props) {
           <div className={styles.descriptionWrapper}>
             <h4>Description</h4>
             {props.description[1] ? (
-              <img src={props.description[1]} alt="Exercise image" />
+              <img src={props.description[1]} alt={props.description }/>
             ) : null}
             <p className={styles.description}>{props.description[0]}</p>
           </div>

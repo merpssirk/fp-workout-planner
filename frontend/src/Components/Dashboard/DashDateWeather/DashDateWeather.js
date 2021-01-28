@@ -7,7 +7,12 @@ export default function DashDateWeather(props) {
         <div className={styles.weatherTownWrapper}>
           <div className={styles.weatherIcon}>
             <img
-              src={"http://openweathermap.org/img/wn/" + props.iconID + "@2x.png"}
+              src={
+                "http://openweathermap.org/img/wn/" + props.iconID + "@2x.png"
+              }
+              alt={
+                "http://openweathermap.org/img/wn/" + props.iconID + "@2x.png"
+              }
             />
           </div>
           <div className={styles.town}>

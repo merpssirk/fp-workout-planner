@@ -48,16 +48,14 @@ router.post(
       workoutGoals,
       workoutDays,
       activityLevel,
+      
     }
     console.log("user_ID", request.user)
     const user = await Users.findByIdAndUpdate(
       request.user,
       {
         $set: newUser,
-        timestamps: {
-          createdAt: Date.now(),
-          lastUpdatedAt: Date.now(),
-        },
+        
       },
       { new: true }
     )
@@ -84,10 +82,7 @@ router.post("/updatedWeight", async (request, response) => {
     request.user,
     {
       $push: newUser,
-      timestamps: {
-        createdAt: Date.now(),
-        lastUpdatedAt: Date.now(),
-      },
+      
     },
     { new: true }
   )
@@ -165,19 +160,19 @@ router.post("/manageWorkout", async (request, response) => {
   try {
     const { workout } = request.body
     
-    console.log("Request.body",request.body);
-   console.log("User", request.user);
+    //console.log("Request.body",request.body);
+   //console.log("User", request.user);
     const workoutData = await WorkoutInfo.findOne( { 
       user: request.user
     } );
-    console.log("workoutData", workoutData);
+   // console.log("workoutData", workoutData);
     if ( workoutData ) {
       await WorkoutInfo.findByIdAndUpdate(workoutData._id, workout, {
         new: true,
       })
     }
     else {
-      console.log('test');
+    //  console.log('test');
       const newUserWorkout =  await new WorkoutInfo( {
       
       user: request.user,
@@ -188,7 +183,7 @@ router.post("/manageWorkout", async (request, response) => {
       await newUserWorkout.save()
     }
     //console.log("user", user);
-    console.log("workout", workout);
+   // console.log("workout", workout);
     // SEARAR By user id request.user
     // find the existing workout for the user
     // if it exists, update
@@ -209,7 +204,7 @@ router.post("/manageWorkout", async (request, response) => {
     }
   } catch (err) {
     response.status(401).json({ msg: err.message })
-    console.log(err)
+   // console.log(err)
   }
 })
 
@@ -228,7 +223,7 @@ router.post( "/defaultWorkout", async ( request, response ) => {
   try {
     const { workout } = request.body;
 
-    console.log( "Workout", workout );
+   // console.log( "Workout", workout );
 
     const defaultWorkoutData = await new WorkoutInfo({
       
@@ -263,7 +258,7 @@ router.get( "/defaultWorkout", async ( request, response ) => {
     const defaultData = await WorkoutInfo.find( { user: request.user } )
     
     response.status( 200 ).json( defaultData );
-    console.log("GET-DefaultData",defaultData);
+   // console.log("GET-DefaultData",defaultData);
   }
   catch ( error ) {
     response.status( 401 ).json( { msg: error.message } );

@@ -5,68 +5,73 @@ import {
   useEffect,
   useContext,
   createContext,
-} from "react";
-import { useHistory } from "react-router-dom";
-import styles from "./dashboard.module.css";
-import MembersNavbar from "../MembersNavbar/MembersNavbar";
-import DashDateWeather from "./DashDateWeather/DashDateWeather";
-import DashInfoPanel from "./DashInfoPanel/DashInfoPanel";
-import DashMainPanels from "./DashMainPanels/DashMainPanels";
-import DashFinishRegistration from "./DashFinishRegistration/DashFinishRegistration";
-import axios from "axios";
-import WeightUpdate from "./WeightUpdate/WeightUpdate";
-import { NotificationContext } from "../Notifications/Notifications";
-import defaultWorkout from "./WorkoutDatabase";
-console.log("DefaultDatabase", defaultWorkout);
-export const exerciseDataContext = createContext();
+} from "react"
+import { useHistory } from "react-router-dom"
+import DayJs from "react-dayjs"
+
+import styles from "./dashboard.module.css"
+import MembersNavbar from "../MembersNavbar/MembersNavbar"
+import DashDateWeather from "./DashDateWeather/DashDateWeather"
+import DashInfoPanel from "./DashInfoPanel/DashInfoPanel"
+import DashMainPanels from "./DashMainPanels/DashMainPanels"
+import DashFinishRegistration from "./DashFinishRegistration/DashFinishRegistration"
+import axios from "axios"
+import WeightUpdate from "./WeightUpdate/WeightUpdate"
+import { NotificationContext } from "../Notifications/Notifications"
+import defaultWorkout from "./WorkoutDatabase"
+import dayjs from "dayjs"
+//console.log("DefaultDatabase", defaultWorkout)
+export const exerciseDataContext = createContext()
 
 export default function Dashboard(props) {
-  const setMessage = useContext(NotificationContext);
-  const [getLatestWeight, setGetLatestWeight] = useState([]);
-  const [getUpdatedTime, setGetUpdatedTime] = useState("");
-  const workoutGoals = useRef();
-  const workoutData = useRef();
-  const [overlayClass, setOverlayClass] = useState(false);
-  const [currentDate, setCurrentDate] = useState();
-  const formCheck = localStorage.getItem("Register") || null;
-  const [caloriesValue, setCaloriesValue] = useState(0);
-  const [macros, setMacros] = useState([]);
-  const [weight, setWeight] = useState(0);
+  const setMessage = useContext(NotificationContext)
+ // const [getLatestWeight, setGetLatestWeight] = useState([])
+  const [getUpdatedTime, setGetUpdatedTime] = useState(Date)
+  const [updateMessage, setUpdateMessage] = useState(false)
+  const workoutGoals = useRef()
+  const workoutData = useRef()
+  const [overlayClass, setOverlayClass] = useState(false)
+  const [currentDate, setCurrentDate] = useState()
+  const formCheck = localStorage.getItem("Register") || null
+  const [caloriesValue, setCaloriesValue] = useState(0)
+  const [macros, setMacros] = useState([])
+  const [weight, setWeight] = useState(0)
 
-  console.log("Dashboard.js", overlayClass);
-
-  //NOTIFICATION
-
+  // console.log("Dashboard.js", overlayClass)
   // GET UPDATED WEIGHT FROM MongoDB
-
-  /* useEffect(() => {
+  useEffect(() => {
     axios
-      .get("user/updatedWeight", {
+      .get("dashboard/updatedWeight", {
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "include",
       })
       .then((res) => {
-        setGetLatestWeight(res.data[0].updatedWeight)
-        console.log(res.data[0].updatedWeight)
-        //setGetUpdatedTime(res.data[0].timestamps.lastUpdatedAt)
-        //console.log(res.data[0].timestamps.lastUpdatedAt)
-        console.log(getUpdatedTime)
-        console.log(getUpdatedTime + 7 * 24 * 60 * 60 * 1000)
+        //setGetLatestWeight(res.data[0].updatedWeight)
+        // console.log("User's updatedWeight", res.data[0].updatedWeight)
 
-        const myDate = new Date(
-          new Date().getTime(getUpdatedTime) + 0 * 24 * 60 * 60 * 1000
+        setGetUpdatedTime(res.data[0].timestamps.lastUpdatedAt)
+
+        console.log(
+          "user's updated weight time: ",
+          res.data[0].timestamps.lastUpdatedAt
         )
-        myDate.setHours(0, 0, 0, 0)
+        console.log(getUpdatedTime)
+
+        const myDate = dayjs(getUpdatedTime).add(1, "day").format("DD.MM.YYYY")
+
         console.log(myDate)
-        const date = new Date()
-        date.setHours(0, 0, 0, 0)
+        const date = dayjs().format("DD.MM.YYYY")
         console.log(date)
         if (date === myDate) {
-          console.log("Please Update!!!")
+          setTimeout(() => {
+            setUpdateMessage(true)
+          }, 3000)
+          console.log("update")
         }
       })
-  }, []) */
+  }, [])
 
   //POST UDPATED WEIGHT: CONNECT TO BACKEND
 
@@ -206,9 +211,11 @@ export default function Dashboard(props) {
         },
         credentials: "include",
         body: JSON.stringify(defaultWorkout),
+
       });
       localStorage.setItem("workoutData", JSON.stringify(defaultWorkout));
       console.log("After localStorage", defaultWorkout);
+
     } catch (error) {
       console.log(error);
     }
@@ -365,6 +372,7 @@ export default function Dashboard(props) {
           overlayClass={overlayClass}
           onHandleUpdatedWeight={handleUpdatedWeight}
           formCheck={formCheck}
+          updateMessage={updateMessage}
         />
       </main>
       <exerciseDataContext.Provider

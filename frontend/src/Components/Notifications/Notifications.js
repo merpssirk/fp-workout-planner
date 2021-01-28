@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect } from "react"
+import React, { createContext, useState} from "react"
 import styles from "./Notifications.module.css"
 export const NotificationContext = createContext()
 
@@ -12,7 +12,7 @@ export default function Notifications({ children }) {
     setTimeout(() => {
       // console.log(12345)
       setMessage([...message.slice(1)])
-    }, 9000)
+    }, 3000)
   }
 
   /* useEffect( () => {

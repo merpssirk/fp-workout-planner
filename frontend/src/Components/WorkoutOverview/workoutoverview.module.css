@@ -35,7 +35,8 @@ body {
   text-decoration: none;
 }
 
-.navBar li a:hover {
+.navBar li a:hover,
+.navBar li a.current {
   color: black;
 }
 
@@ -65,6 +66,9 @@ ul li a {
   align-items: center;
   height: 100%;
   margin: 0 20px;
+}
+.profileWrapper span:hover {
+  color: black;
 }
 
 .profileWrapper a {

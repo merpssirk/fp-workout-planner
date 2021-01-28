@@ -33,6 +33,10 @@ router.post("/register", async (request, response) => {
       username,
       email,
       password: passwordHash,
+      timestamps: {
+        createdAt: Date.now(),
+        lastUpdatedAt: Date.now(),
+      },
     })
     //Save in MongoDB
     const savedUser = await newUser.save()
