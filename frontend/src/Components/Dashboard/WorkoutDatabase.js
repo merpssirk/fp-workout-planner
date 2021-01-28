@@ -1,6 +1,7 @@
 const workoutSaved = {
   workout: {
     day1: {
+      button: "buttonGreen",
       exercises: [
         ["Bench Press", "chest", 3, 8],
         ["Military Press", "shoulders", 3, 8],
@@ -12,6 +13,7 @@ const workoutSaved = {
       panels: [1, 2, 3, 4, 5, 6, 7, 8],
     },
     day2: {
+      button: "buttonGreen",
       exercises: [
         ["Front Squats", "legs", 3, 8],
         ["Deadlifts", "back", 3, 6],
@@ -21,6 +23,7 @@ const workoutSaved = {
       panels: [1, 2, 3, 4, 5, 6, 7, 8],
     },
     day3: {
+      button: "buttonGreen",
       exercises: [
         ["Incline Bench Press", "chest", 4, 8],
         ["Shoulder Press, Dumbbells", "shoulders", 3, 10],
@@ -32,10 +35,12 @@ const workoutSaved = {
       panels: [1, 2, 3, 4, 5, 6, 7, 8],
     },
     day4: {
+      button: "buttonYellow",
       exercises: [["Rest Day"]],
       panels: [1, 2, 3, 4, 5, 6, 7, 8],
     },
     day5: {
+      button: "buttonGreen",
       exercises: [
         ["Leg Extension", "legs", 4, 8],
         ["Calf Press Using Leg Press Machine", "legs", 3, 10],
@@ -47,6 +52,7 @@ const workoutSaved = {
       panels: [1, 2, 3, 4, 5, 6, 7, 8],
     },
     day6: {
+      button: "buttonGreen",
       exercises: [
         ["Lat Pull Down (Straight Back)", "back", 3, 8],
         ["Bicpes Curls With Barbell", "arms", 3, 8],
@@ -59,10 +65,11 @@ const workoutSaved = {
       panels: [1, 2, 3, 4, 5, 6, 7, 8],
     },
     day7: {
+      button: "buttonYellow",
       exercises: [["Rest Day"]],
       panels: [1, 2, 3, 4, 5, 6, 7, 8],
     },
   },
-}
+};
 
 module.exports = workoutSaved;

@@ -1,5 +1,5 @@
 import { useHistory } from "react-router-dom";
-import { React, useState, useRef, useEffect, useContext} from "react";
+import { React, useState, useRef, useEffect, useContext } from "react";
 import styles from "./manageWorkout.module.css";
 import MembersNavbar from "../MembersNavbar/MembersNavbar";
 import DayIndicators from "./DayIndicators/DayIndicators";
@@ -10,8 +10,10 @@ import { exerciseDataContext } from "../Dashboard/Dashboard";
 
 
 export default function ManageWorkout() {
-  const workoutData = useContext( exerciseDataContext );
-  console.log("data from Dahsboard", workoutData);
+  const [workoutData, setWorkoutData] = useState(
+    JSON.parse(localStorage.getItem("workoutData")).workout
+  );
+  console.log("The newest workout data", workoutData.day1.button);
   // const manageWorkoutData = [
   //   [{ exercise: "", bodyPart: "", sets: 0, repetitons: 0 },
   //   { exercise: "", bodyPart: "", sets: 0, repetitons: 0 },
@@ -61,13 +63,13 @@ export default function ManageWorkout() {
   const [description, setDescription] = useState([]);
   const [exerciseData, setExerciseData] = useState([]);
   const [buttonColour, setButtonColour] = useState([
-    "buttonGrey",
-    "buttonGrey",
-    "buttonGrey",
-    "buttonGrey",
-    "buttonGrey",
-    "buttonGrey",
-    "buttonGrey",
+    workoutData.day1.button,
+    workoutData.day2.button,
+    workoutData.day3.button,
+    workoutData.day4.button,
+    workoutData.day5.button,
+    workoutData.day6.button,
+    workoutData.day7.button,
   ]);
 
   const handleWorkout = async () => {
@@ -101,9 +103,9 @@ export default function ManageWorkout() {
     }
   };
 
-  useEffect(() => {
-    handleWorkout();
-  }, []);
+  // useEffect(() => {
+  //   handleWorkout();
+  // }, []);
 
   const handleSetOverlay = (id) => {
     activePanel.current = id;
@@ -215,19 +217,21 @@ export default function ManageWorkout() {
   //-------
 
   const handleDayButton = (event) => {
-    const newColour = [...buttonColour];
-    const number = event.id.charAt(event.id.length - 1) - 1;
+    const updateWorkoutData = { ...workoutData };
+    const number = parseInt(event.id.charAt(event.id.length - 1) - 1);
+    console.log(number);
+    console.log(updateWorkoutData["day" + (number + 1)]);
 
     if (activeButton === number) {
       if (event.className.includes("buttonGrey")) {
-        newColour[number] = "buttonGreen";
-        setButtonColour(newColour);
+        updateWorkoutData["day" + (number + 1)].button = "buttonGreen";
+        setWorkoutData(updateWorkoutData);
       } else if (event.className.includes("buttonGreen")) {
-        newColour[number] = "buttonYellow";
-        setButtonColour(newColour);
+        updateWorkoutData["day" + (number + 1)].button = "buttonYellow";
+        setWorkoutData(updateWorkoutData);
       } else {
-        newColour[number] = "buttonGrey";
-        setButtonColour(newColour);
+        updateWorkoutData["day" + (number + 1)].button = "buttonGrey";
+        setWorkoutData(updateWorkoutData);
       }
     } else {
       setActiveButton(number);
@@ -291,6 +295,7 @@ export default function ManageWorkout() {
         onHandleDayButton={handleDayButton}
         activeButton={activeButton}
         buttonColour={buttonColour}
+        workoutData={workoutData}
       />
       <ExercisePanels
         onEnd={onEnd}
@@ -300,6 +305,7 @@ export default function ManageWorkout() {
         activeButton={activeButton}
         buttonColour={buttonColour}
         onHandleResetPanel={handleResetPanel}
+        workoutData={workoutData}
       />
       <SelectBodyPart
         showPopup={showPopup}
@@ -317,12 +323,12 @@ export default function ManageWorkout() {
         description={description}
         onHandleNextExercise={handleNextExercise}
       />
-      
+
       <div
         id={styles.overlay}
         className={overlayClass ? null : styles.active}
         onClick={handleRemoveOverlay}
       ></div>
     </div>
-  )
+  );
 }
