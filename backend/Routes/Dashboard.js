@@ -209,37 +209,25 @@ router.get("/workoutOverview", (request, response) => {
 })
 
 //--DASHBOARD: DAILY-ACTIVITY PAGE--//
-router.get("/dailyActivity", (request, response) => {
-  response.send("welcome")
+router.get("/dailyActivity", async (request, response) => {
+  try {
+    const defaultDailyActivity = await Users.findOne( { _id: request.user } )
+    console.log("defaultDailyActivity", defaultDailyActivity)
+    response.status(200).json(defaultDailyActivity)
+  } catch (error) {
+    response.status(401).json({ msg: error.message })
+  }
 })
 
 //--DASHBOARD: DEFAULT-WORKOUT--//
 router.post("/defaultWorkout", async (request, response) => {
   try {
     const { workout } = request.body
-
-    // console.log( "Workout", workout );
-
     const defaultWorkoutData = await new WorkoutInfo({
       workout,
       user: request.user,
     })
     await defaultWorkoutData.save()
-    //const defaultWorkout = await WorkoutInfo.findOne( { user: request.user } )
-
-    // console.log( "requestUserdefaultworkout", request.user );
-
-    // console.log( "defaultWorkoutData", defaultWorkout );
-    /* 
-    if ( defaultWorkout ) {
-      const defaultWorkoutData = await new WorkoutInfo( {
-        user: request.user,
-        workout: workout
-      })
-      await defaultWorkoutData.save()
-    } else {
-      response.status(401).json({msg: "User could not be found"})
-    } */
   } catch (error) {
     console.log(error)
   }
