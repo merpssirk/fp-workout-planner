@@ -1,10 +1,10 @@
 const express = require("express")
 const passport = require("passport")
-const { body, validationResult } = require( "express-validator" )
+const { body, validationResult } = require("express-validator")
 
-const Users = require( "../Models/UserModel" )
+const Users = require("../Models/UserModel")
 const WorkoutInfo = require("../Models/WorkoutModel")
-const { request, response } = require( "express" )
+const { request, response } = require("express")
 
 const router = express.Router()
 
@@ -48,14 +48,12 @@ router.post(
       workoutGoals,
       workoutDays,
       activityLevel,
-      
     }
     console.log("user_ID", request.user)
     const user = await Users.findByIdAndUpdate(
       request.user,
       {
         $set: newUser,
-        
       },
       { new: true }
     )
@@ -82,7 +80,6 @@ router.post("/updatedWeight", async (request, response) => {
     request.user,
     {
       $push: newUser,
-      
     },
     { new: true }
   )
@@ -159,44 +156,42 @@ router.put("/profileEdit", async (request, response) => {
 router.post("/manageWorkout", async (request, response) => {
   try {
     const { workout } = request.body
-    
+
     //console.log("Request.body",request.body);
-   //console.log("User", request.user);
-    const workoutData = await WorkoutInfo.findOne( { 
-      user: request.user
-    } );
-   // console.log("workoutData", workoutData);
-    if ( workoutData ) {
+    //console.log("User", request.user);
+    const workoutData = await WorkoutInfo.findOne({
+      user: request.user,
+    })
+    // console.log("workoutData", workoutData);
+    if (workoutData) {
       await WorkoutInfo.findByIdAndUpdate(workoutData._id, workout, {
         new: true,
       })
-    }
-    else {
-    //  console.log('test');
-      const newUserWorkout =  await new WorkoutInfo( {
-      
-      user: request.user,
-      workout: workout
-      } )
-      
-     // newUserWorkout.user = user._id
+    } else {
+      //  console.log('test');
+      const newUserWorkout = await new WorkoutInfo({
+        user: request.user,
+        workout: workout,
+      })
+
+      // newUserWorkout.user = user._id
       await newUserWorkout.save()
     }
     //console.log("user", user);
-   // console.log("workout", workout);
+    // console.log("workout", workout);
     // SEARAR By user id request.user
     // find the existing workout for the user
     // if it exists, update
     // otherwise create new workout
 
     /* const user = await Users.findById({ _id: request.user }) */
-   // console.log("Request.User", request.user);
-   //console.log( "newUserWorkout : ", newUserWorkout )
+    // console.log("Request.User", request.user);
+    //console.log( "newUserWorkout : ", newUserWorkout )
     /* newUserWorkout.user = user._id
     await newUserWorkout.save() */
 
-   // console.log("newUserData", newUserWorkout)
-  //  console.log(user)
+    // console.log("newUserData", newUserWorkout)
+    //  console.log(user)
     if (workoutData) {
       response.status(200).json({ msg: "workoutData updated" })
     } else {
@@ -204,7 +199,7 @@ router.post("/manageWorkout", async (request, response) => {
     }
   } catch (err) {
     response.status(401).json({ msg: err.message })
-   // console.log(err)
+    // console.log(err)
   }
 })
 
@@ -219,23 +214,22 @@ router.get("/dailyActivity", (request, response) => {
 })
 
 //--DASHBOARD: DEFAULT-WORKOUT--//
-router.post( "/defaultWorkout", async ( request, response ) => {
+router.post("/defaultWorkout", async (request, response) => {
   try {
-    const { workout } = request.body;
+    const { workout } = request.body
 
-   // console.log( "Workout", workout );
+    // console.log( "Workout", workout );
 
     const defaultWorkoutData = await new WorkoutInfo({
-      
       workout,
-      user:request.user
+      user: request.user,
     })
     await defaultWorkoutData.save()
     //const defaultWorkout = await WorkoutInfo.findOne( { user: request.user } )
 
-   // console.log( "requestUserdefaultworkout", request.user );
-    
-   // console.log( "defaultWorkoutData", defaultWorkout );
+    // console.log( "requestUserdefaultworkout", request.user );
+
+    // console.log( "defaultWorkoutData", defaultWorkout );
     /* 
     if ( defaultWorkout ) {
       const defaultWorkoutData = await new WorkoutInfo( {
@@ -246,22 +240,20 @@ router.post( "/defaultWorkout", async ( request, response ) => {
     } else {
       response.status(401).json({msg: "User could not be found"})
     } */
+  } catch (error) {
+    console.log(error)
   }
-  catch ( error ) {
-    console.log(error);
-  }
-} )
+})
 
 //--DASHBOARD: DEFAULT-WORKOUT  GET DATA--//
-router.get( "/defaultWorkout", async ( request, response ) => {
-  try { 
-    const defaultData = await WorkoutInfo.find( { user: request.user } )
-    
-    response.status( 200 ).json( defaultData );
-   // console.log("GET-DefaultData",defaultData);
-  }
-  catch ( error ) {
-    response.status( 401 ).json( { msg: error.message } );
+router.get("/defaultWorkout", async (request, response) => {
+  try {
+    const defaultData = await WorkoutInfo.findOne({ user: request.user })
+
+    response.status(200).json(defaultData)
+    // console.log("GET-DefaultData",defaultData);
+  } catch (error) {
+    response.status(401).json({ msg: error.message })
   }
 })
 
