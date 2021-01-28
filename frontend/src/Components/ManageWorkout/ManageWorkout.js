@@ -8,39 +8,30 @@ import SelectBodyPart from "./SelectBodyPart/SelectBodyPart";
 import SelectExercise from "./SelectExercise/SelectExercise";
 import { exerciseDataContext } from "../Dashboard/Dashboard";
 
-
 export default function ManageWorkout() {
   const [workoutData, setWorkoutData] = useState(
     JSON.parse(localStorage.getItem("workoutData")).workout
   );
-  console.log("The newest workout data", workoutData.day1.button);
-  // const manageWorkoutData = [
-  //   [{ exercise: "", bodyPart: "", sets: 0, repetitons: 0 },
-  //   { exercise: "", bodyPart: "", sets: 0, repetitons: 0 },
-  //   { exercise: "", bodyPart: "", sets: 0, repetitons: 0 },
-  //   { exercise: "", bodyPart: "", sets: 0, repetitons: 0 },
-  //   { exercise: "", bodyPart: "", sets: 0, repetitons: 0 },
-  //   { exercise: "", bodyPart: "", sets: 0, repetitons: 0 },
-  //   { exercise: "", bodyPart: "", sets: 0, repetitons: 0 },],
-  //   [{ exercise: "", bodyPart: "", sets: 0, repetitons: 0 },
-  //   { exercise: "", bodyPart: "", sets: 0, repetitons: 0 },
-  //   { exercise: "", bodyPart: "", sets: 0, repetitons: 0 },
-  //   { exercise: "", bodyPart: "", sets: 0, repetitons: 0 },
-  //   { exercise: "", bodyPart: "", sets: 0, repetitons: 0 },
-  //   { exercise: "", bodyPart: "", sets: 0, repetitons: 0 },
-  //   { exercise: "", bodyPart: "", sets: 0, repetitons: 0 },]
-  // ];
+  console.log("The newest workout data", workoutData.day1.panels);
 
-  const panels = [
-    { name: "p1", id: "1" },
-    { name: "p2", id: "2" },
-    { name: "p3", id: "3" },
-    { name: "p4", id: "4" },
-    { name: "p5", id: "5" },
-    { name: "p6", id: "6" },
-    { name: "p7", id: "7" },
-    { name: "p8", id: "8" },
-  ];
+  let panels = [];
+
+  workoutData.day1.panels.forEach((element) => {
+    panels.push({ id: element });
+  });
+
+  // console.log("test Panels:", testPanels);
+
+  // const panels = [
+  //   { name: "p1", id: "1" },
+  //   { name: "p2", id: "2" },
+  //   { name: "p3", id: "3" },
+  //   { name: "p4", id: "4" },
+  //   { name: "p5", id: "5" },
+  //   { name: "p6", id: "6" },
+  //   { name: "p7", id: "7" },
+  //   { name: "p8", id: "8" },
+  // ];
 
   const activePanel = useRef();
   const nextExerciseData = useRef([]);
