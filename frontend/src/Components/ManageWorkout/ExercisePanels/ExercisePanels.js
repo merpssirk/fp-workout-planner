@@ -87,7 +87,7 @@ export default function ExercisePanels(props) {
                                     <input
                                       type="number"
                                       name="setsValue"
-                                      value={
+                                      defaultValue={
                                         props.workoutData[
                                           "day" + (props.activeButton + 1)
                                         ].exercises[item.id - 1][2]
@@ -107,7 +107,7 @@ export default function ExercisePanels(props) {
                                     <input
                                       type="number"
                                       name="repetitionsValue"
-                                      value={
+                                      defaultValue={
                                         props.workoutData[
                                           "day" + (props.activeButton + 1)
                                         ].exercises[item.id - 1][3]
