@@ -21,6 +21,7 @@
   flex-wrap: wrap;
   width: 80vw;
   color: black;
+  overflow: hidden;
 }
 
 .panels .reset {
