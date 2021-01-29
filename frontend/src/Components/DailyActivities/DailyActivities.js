@@ -83,7 +83,6 @@ export default function DailyActivities() {
     getCurrentDate();
   });
   // Calendar Data
-
   const calendarData = {
     year: {
       2020: {
@@ -116,13 +115,11 @@ export default function DailyActivities() {
 
     function createMonth(year, monthIndex, day, id) {
       // validate year
-
       if (!calendarData.year[year]) {
         calendarData.year[year] = {
           month: { [monthIndex]: { done: [], missed: [] } },
         };
       }
-      //console.log(calendarData.year)
       // create month
       calendarData.year[year].month[monthIndex] = { done: [], missed: [] };
       if (id === 1) {
@@ -142,11 +139,6 @@ export default function DailyActivities() {
   };
 
   handleWorkoutData(2019, 3, 1, 1);
-
-  //console.log(calendarData.year)
-  // console.log(calendarData.year[2019].month[3].done)
-
-  //console.log("data check", currentWorkout)
 
   return (
     <>
