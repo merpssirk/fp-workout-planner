@@ -14,25 +14,8 @@ export default function ManageWorkout() {
   );
   console.log("The newest workout data", workoutData.day1.panels);
 
+  // let tempPanels = workoutData["day" + (activeButton + 1)].panels;
   let panels = [];
-
-  workoutData.day1.panels.forEach((element) => {
-    panels.push({ id: element });
-  });
-
-  // console.log("test Panels:", testPanels);
-
-  // const panels = [
-  //   { name: "p1", id: "1" },
-  //   { name: "p2", id: "2" },
-  //   { name: "p3", id: "3" },
-  //   { name: "p4", id: "4" },
-  //   { name: "p5", id: "5" },
-  //   { name: "p6", id: "6" },
-  //   { name: "p7", id: "7" },
-  //   { name: "p8", id: "8" },
-  // ];
-
   const activePanel = useRef();
   const nextExerciseData = useRef([]);
   const [list, setList] = useState(panels);
@@ -53,15 +36,23 @@ export default function ManageWorkout() {
   ]);
   const [description, setDescription] = useState([]);
   const [exerciseData, setExerciseData] = useState([]);
-  const [buttonColour, setButtonColour] = useState([
-    workoutData.day1.button,
-    workoutData.day2.button,
-    workoutData.day3.button,
-    workoutData.day4.button,
-    workoutData.day5.button,
-    workoutData.day6.button,
-    workoutData.day7.button,
-  ]);
+  // const [buttonColour, setButtonColour] = useState([
+  //   workoutData.day1.button,
+  //   workoutData.day2.button,
+  //   workoutData.day3.button,
+  //   workoutData.day4.button,
+  //   workoutData.day5.button,
+  //   workoutData.day6.button,
+  //   workoutData.day7.button,
+  // ]);
+
+  useEffect(() => {
+    panels = [];
+    workoutData["day" + (activeButton + 1)].panels.forEach((element) => {
+      panels.push({ name: element.toString(), id: element.toString() });
+    });
+    setList(panels);
+  }, [activeButton]);
 
   const handleWorkout = async () => {
     const workoutSaved = {
@@ -88,7 +79,6 @@ export default function ManageWorkout() {
           workout: workoutData,
         }),
       });
-      console.log("started fetch", response);
     } catch (err) {
       console.log(err);
     }
@@ -113,7 +103,6 @@ export default function ManageWorkout() {
 
   const handleWorkoutApi = (e) => {
     e.preventDefault();
-    console.log("radio button", radioButton);
 
     let query;
 
@@ -153,8 +142,6 @@ export default function ManageWorkout() {
         if (data.hasOwnProperty("previous")) {
           nextExerciseData.current[1] = data.previous;
         }
-        console.log("json workout data", data);
-        console.log("next or previous available", nextExerciseData.current);
       });
   };
 
@@ -172,9 +159,6 @@ export default function ManageWorkout() {
         break;
     }
 
-    console.log(query);
-    console.log(event.textContent);
-
     fetch(query)
       .then((res) => res.json())
       .then((data) => {
@@ -186,8 +170,6 @@ export default function ManageWorkout() {
         if (data.hasOwnProperty("previous")) {
           nextExerciseData.current[1] = data.previous;
         }
-        console.log("json workout data", data);
-        console.log("next or previous available", nextExerciseData.current);
       });
   };
 
@@ -209,9 +191,8 @@ export default function ManageWorkout() {
 
   const handleDayButton = (event) => {
     const updateWorkoutData = { ...workoutData };
+    handleUpdatePanels();
     const number = parseInt(event.id.charAt(event.id.length - 1) - 1);
-    console.log(number);
-    console.log(updateWorkoutData["day" + (number + 1)]);
 
     if (activeButton === number) {
       if (event.className.includes("buttonGrey")) {
@@ -227,6 +208,23 @@ export default function ManageWorkout() {
     } else {
       setActiveButton(number);
     }
+  };
+
+  const handleUpdatePanels = () => {
+    const bufferNewList = [];
+    const bufferList = [...list];
+    const bufferData = { ...workoutData };
+    console.log("list before update", list);
+    console.log("...", workoutData["day" + (activeButton + 1)].panels);
+    console.log("Buffer list", bufferList);
+
+    bufferList.forEach((element) => {
+      bufferNewList.push(parseInt(element.name));
+    });
+    // console.log("buffer data check", bufferData["day" + (activeButton + 1)]);
+    bufferData["day" + (activeButton + 1)].panels = bufferNewList;
+    console.log("Buffer with new ordered list", bufferData);
+    setWorkoutData(bufferData);
   };
 
   const handleRadioButton = (value) => {
@@ -285,7 +283,7 @@ export default function ManageWorkout() {
       <DayIndicators
         onHandleDayButton={handleDayButton}
         activeButton={activeButton}
-        buttonColour={buttonColour}
+        // buttonColour={buttonColour}
         workoutData={workoutData}
       />
       <ExercisePanels
@@ -294,7 +292,7 @@ export default function ManageWorkout() {
         onHandleSetOverlay={handleSetOverlay}
         exerciseTemp={exerciseTemp}
         activeButton={activeButton}
-        buttonColour={buttonColour}
+        // buttonColour={buttonColour}
         onHandleResetPanel={handleResetPanel}
         workoutData={workoutData}
       />
