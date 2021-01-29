@@ -7,53 +7,50 @@ import avatar from "../../pics/dashboard/Avatar-male.png"
 import imgLogo from "../../pics/dashboard/Logo-black.png"
 import greenCheckCircle from "../../pics/dashboard/greenCheckCircle.png"
 import redXCircle from "../../pics/dashboard/redXCircle.png"
-import DayJs from "react-dayjs"
+//import DayJs from "react-dayjs"
 import dayjs from "dayjs"
 
 export default function DailyActivities() {
-  const [currentWorkout, setCurrentWorkout] = useState([])
-
+  const [currentWorkout, setCurrentWorkout] = useState()
   const [workoutData, setWorkoutData] = useState(
     JSON.parse(localStorage.getItem("workoutData")).workout
   )
-  console.log(workoutData)
-
-  useEffect(() => {
-    fetch("/dashboard/dailyActivity", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data.timestamps.startWorkoutAt)
-
-        const startDay = dayjs().format("dddd")
-
-        const currentDay = dayjs().format("dddd")
-
-        const daysArray = [
-          startDay,
-          dayjs().add(1, "day").format("dddd"),
-          dayjs().add(2, "day").format("dddd"),
-          dayjs().add(3, "day").format("dddd"),
-          dayjs().add(4, "day").format("dddd"),
-          dayjs().add(5, "day").format("dddd"),
-          dayjs().add(6, "day").format("dddd"),
-        ]
-
-        const dayIndex = daysArray.indexOf(currentDay)
-
-        // const currentWorkout =
-       // setCurrentWorkout(workoutData["day" + (dayIndex + 1)].exercises)
-        const currentWorkout = workoutData["day" + ( dayIndex + 1 )].exercises
-        console.log(currentWorkout)
+  console.log( workoutData )
+    
+  useEffect( () => {
+    try {
+      fetch("/dashboard/dailyActivity", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
       })
-  }, [])
-/* 
-  useEffect(() => {
+        .then((res) => res.json())
+        .then( ( data ) => {
+          
+          console.log(data.timestamps.startWorkoutAt)
+          const startDay = dayjs().format("dddd")
+          const currentDay = dayjs().format("dddd")
+          const daysArray = [
+            startDay,
+            dayjs().add( 1, "day" ).format( "dddd" ),
+            dayjs().add( 2, "day" ).format( "dddd" ),
+            dayjs().add( 3, "day" ).format( "dddd" ),
+            dayjs().add( 4, "day" ).format( "dddd" ),
+            dayjs().add( 5, "day" ).format( "dddd" ),
+            dayjs().add( 6, "day" ).format( "dddd" ),
+          ];
+          const dayIndex = daysArray.indexOf(currentDay)
+          setCurrentWorkout(workoutData["day" + (dayIndex + 1)].exercises)
+          console.log(currentWorkout)
+        })
+    } catch ( error ) {
+      console.log(error);
+    }
+  }, [workoutData])
+
+  /* useEffect(() => {
     console.log(currentWorkout)
   }, [currentWorkout])
  */
@@ -80,7 +77,6 @@ export default function DailyActivities() {
     getCurrentDate()
   })
   // Calendar Data
-
   const calendarData = {
     year: {
       2020: {
@@ -113,13 +109,11 @@ export default function DailyActivities() {
 
     function createMonth(year, monthIndex, day, id) {
       // validate year
-
       if (!calendarData.year[year]) {
         calendarData.year[year] = {
           month: { [monthIndex]: { done: [], missed: [] } },
         }
       }
-      //console.log(calendarData.year)
       // create month
       calendarData.year[year].month[monthIndex] = { done: [], missed: [] }
       if (id === 1) {
@@ -139,11 +133,6 @@ export default function DailyActivities() {
   }
 
   handleWorkoutData(2019, 3, 1, 1)
-
-  //console.log(calendarData.year)
-  // console.log(calendarData.year[2019].month[3].done)
-
-  //console.log("data check", currentWorkout)
 
   return (
     <>
@@ -181,9 +170,7 @@ export default function DailyActivities() {
             <img src={greenCheckCircle} alt={greenCheckCircle} />
           </div>
         </div>
-
-        
-          <div className={styles.mainContainer}>
+          {currentWorkout ? (<div className={styles.mainContainer}>
             <div className={styles.exerciseContainer}>
               <div className={styles.exerciseDiv}>
                 <div className={styles.exerciseImg}>
@@ -320,7 +307,7 @@ export default function DailyActivities() {
               <button className={styles.grayBtn}>Done</button>
               <button className={styles.redBtn}>Missed</button>
             </div>
-          </div>
+          </div>): null}
       </div>
     </>
   )
