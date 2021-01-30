@@ -18,11 +18,16 @@ export default function ExercisePanels(props) {
   console.log(props.workoutData["day" + (props.activeButton + 1)].exercises);
 
   const resetPanel = (panel) => {
-    props.onHandleResetPanel(
+    props.onHandleResetPanel(panel);
+  };
+
+  const updateSetsReps = (panel) => {
+    props.onHandleSetsReps(
       panel,
       getSets.current[panel - 1],
       getRepetitions.current[panel - 1]
     );
+    // console.log("Value of the sets", getSets.current[panel - 1]);
   };
 
   switch (props.workoutData["day" + (props.activeButton + 1)].button) {
@@ -87,11 +92,14 @@ export default function ExercisePanels(props) {
                                     <input
                                       type="number"
                                       name="setsValue"
-                                      defaultValue={
+                                      value={
                                         props.workoutData[
                                           "day" + (props.activeButton + 1)
                                         ].exercises[item.id - 1][2]
                                       }
+                                      onChange={() => {
+                                        updateSetsReps(item.id);
+                                      }}
                                       min="1"
                                       max="8"
                                       ref={(element) =>
@@ -107,11 +115,14 @@ export default function ExercisePanels(props) {
                                     <input
                                       type="number"
                                       name="repetitionsValue"
-                                      defaultValue={
+                                      value={
                                         props.workoutData[
                                           "day" + (props.activeButton + 1)
                                         ].exercises[item.id - 1][3]
                                       }
+                                      onChange={() => {
+                                        updateSetsReps(item.id);
+                                      }}
                                       min="1"
                                       max="100"
                                       ref={(element) =>
@@ -143,7 +154,12 @@ export default function ExercisePanels(props) {
               )}
             </Droppable>
           </DragDropContext>
-          <button className={styles.saveButton}>Save</button>
+          <button
+            className={styles.saveButton}
+            onClick={props.onUpdateWorkoutData}
+          >
+            Save
+          </button>
         </div>
       );
       break;
