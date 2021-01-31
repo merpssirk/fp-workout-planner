@@ -1,6 +1,7 @@
 import { React, useEffect, useRef } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { ReactComponent as ResetIcon } from "../../../pics/manageWorkout/times-circle-regular.svg";
+import {ReactComponent as PlusSign} from "../../../pics/manageWorkout/plus-solid.svg";
 import styles from "./exercisePanels.module.css";
 
 export default function ExercisePanels(props) {
@@ -61,15 +62,12 @@ export default function ExercisePanels(props) {
                                     "day" + (props.activeButton + 1)
                                   ].exercises[item.id - 1][0]}
                             </h3>
-                            {props.workoutData["day" + (props.activeButton + 1)]
-                              .exercises[item.id - 1] === undefined ? null : (
-                              <ResetIcon
+                            <ResetIcon
                                 onClick={() => {
                                   resetPanel(item.id);
                                 }}
                                 className={styles.reset}
                               />
-                            )}
                             <div className={styles.exerciseWrapper}>
                               {props.workoutData[
                                 "day" + (props.activeButton + 1)
@@ -136,14 +134,14 @@ export default function ExercisePanels(props) {
                                 </div>
                               )}
                             </div>
-                            <button
+                            <PlusSign
                               onClick={() => {
                                 props.onHandleSetOverlay(item.id);
                               }}
                               className={styles.addSign}
                               id={item.id}
                               key={item.id}
-                            ></button>
+                            ></PlusSign>
                           </div>
                         </>
                       )}
@@ -154,12 +152,20 @@ export default function ExercisePanels(props) {
               )}
             </Droppable>
           </DragDropContext>
+          <div className={styles.buttons}>
           <button
             className={styles.saveButton}
             onClick={props.onUpdateWorkoutData}
           >
             Save
           </button>
+          <button
+            className={styles.saveButton}
+            onClick={props.onHandleAddPanel}
+          >
+            Add One
+          </button>
+          </div>
         </div>
       );
       break;

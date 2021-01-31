@@ -6,8 +6,6 @@ import DayIndicators from "./DayIndicators/DayIndicators";
 import ExercisePanels from "./ExercisePanels/ExercisePanels";
 import SelectBodyPart from "./SelectBodyPart/SelectBodyPart";
 import SelectExercise from "./SelectExercise/SelectExercise";
-// import { exerciseDataContext } from "../Dashboard/Dashboard";
-// import { workout } from "../Dashboard/WorkoutDatabase";
 
 export default function ManageWorkout() {
   const [workoutData, setWorkoutData] = useState(
@@ -277,8 +275,28 @@ export default function ManageWorkout() {
     const bufferData = { ...workoutData };
 
     bufferData["day" + (activeButton + 1)].exercises.splice([panel - 1], 1);
+    bufferData["day" + (activeButton + 1)].panels.splice([panel - 1], 1);
     setWorkoutData(bufferData);
+
+    panels = [];
+    workoutData["day" + (activeButton + 1)].panels.forEach((element) => {
+      panels.push({ name: element.toString(), id: element.toString() });
+    });
+    setList(panels);
   };
+
+  const handleAddPanel = ()=>{
+    const bufferData = { ...workoutData };
+    const newPanel = bufferData["day" + (activeButton + 1)].panels.length + 1
+    bufferData["day" + (activeButton + 1)].panels.push(newPanel.toString());
+    setWorkoutData(bufferData);
+
+    panels = [];
+    workoutData["day" + (activeButton + 1)].panels.forEach((element) => {
+      panels.push({ name: element.toString(), id: element.toString() });
+    });
+    setList(panels);
+  }
 
   //LOGOUT
   const history = useHistory();
@@ -305,6 +323,7 @@ export default function ManageWorkout() {
         onHandleResetPanel={handleResetPanel}
         workoutData={workoutData}
         onUpdateWorkoutData={updateWorkoutData}
+        onHandleAddPanel={handleAddPanel}
       />
       <SelectBodyPart
         showPopup={showPopup}
