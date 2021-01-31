@@ -273,15 +273,28 @@ export default function ManageWorkout() {
 
   const handleResetPanel = (panel) => {
     const bufferData = { ...workoutData };
-
+    
     bufferData["day" + (activeButton + 1)].exercises.splice([panel - 1], 1);
     bufferData["day" + (activeButton + 1)].panels.splice([panel - 1], 1);
     setWorkoutData(bufferData);
-
+    
     panels = [];
-    workoutData["day" + (activeButton + 1)].panels.forEach((element) => {
-      panels.push({ name: element.toString(), id: element.toString() });
+    bufferData["day" + (activeButton + 1)].panels.forEach((element) => {
+      console.log("Element", element);
+      console.log("Panel", panel);
+      if (element > panel){
+        const newElement = element-1;
+        console.log("New Element", newElement);
+        panels.push({ name: newElement.toString(), id: newElement.toString() });
+      } else {
+
+        panels.push({ name: element.toString(), id: element.toString() });
+      }
     });
+    console.log("List", list);
+    console.log("Panels after splice", bufferData["day" + (activeButton + 1)].panels);
+    console.log("Panels", panels);
+
     setList(panels);
   };
 
