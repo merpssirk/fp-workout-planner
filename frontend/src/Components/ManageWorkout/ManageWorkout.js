@@ -1,20 +1,22 @@
 import { useHistory } from "react-router-dom";
-import { React, useState, useRef, useEffect, useContext } from "react";
+import { React, useState, useRef, useEffect } from "react";
 import styles from "./manageWorkout.module.css";
 import MembersNavbar from "../MembersNavbar/MembersNavbar";
 import DayIndicators from "./DayIndicators/DayIndicators";
 import ExercisePanels from "./ExercisePanels/ExercisePanels";
 import SelectBodyPart from "./SelectBodyPart/SelectBodyPart";
 import SelectExercise from "./SelectExercise/SelectExercise";
-import { exerciseDataContext } from "../Dashboard/Dashboard";
 
 export default function ManageWorkout() {
   const [workoutData, setWorkoutData] = useState(
     JSON.parse(localStorage.getItem("workoutData")).workout
   );
-  console.log("The newest workout data", workoutData.day1.panels);
+  console.log(
+    "Raw data from the localStorage",
+    JSON.parse(localStorage.getItem("workoutData"))
+  );
+  console.log("Workout data reduced", workoutData);
 
-  // let tempPanels = workoutData["day" + (activeButton + 1)].panels;
   let panels = [];
   const activePanel = useRef();
   const nextExerciseData = useRef([]);
@@ -23,7 +25,6 @@ export default function ManageWorkout() {
   const [showPopup, setShowPopup] = useState("false");
   const [activeButton, setActiveButton] = useState(0);
   const [radioButton, setRadioButton] = useState("");
-  // const [getExercise, setGetExercise] = useState("");
   const [exerciseTemp, setExerciseTemp] = useState([
     { exercise: "", bodyPart: "", description: "" },
     { exercise: "", bodyPart: "", description: "" },
@@ -36,15 +37,6 @@ export default function ManageWorkout() {
   ]);
   const [description, setDescription] = useState([]);
   const [exerciseData, setExerciseData] = useState([]);
-  // const [buttonColour, setButtonColour] = useState([
-  //   workoutData.day1.button,
-  //   workoutData.day2.button,
-  //   workoutData.day3.button,
-  //   workoutData.day4.button,
-  //   workoutData.day5.button,
-  //   workoutData.day6.button,
-  //   workoutData.day7.button,
-  // ]);
 
   useEffect(() => {
     panels = [];
@@ -54,39 +46,25 @@ export default function ManageWorkout() {
     setList(panels);
   }, [activeButton]);
 
-  const handleWorkout = async () => {
-    const workoutSaved = {
-      workout: {
-        day3: {
-          exercises: [
-            ["pull up", "back", 5, 9],
-            ["pull up", "back", 5, 9],
-            ["pull up", "back", 5, 9],
-          ],
-        },
-      },
-    };
-    const workoutData = workoutSaved.workout;
-
-    try {
-      const response = await fetch("/dashboard/manageWorkout", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-        body: JSON.stringify({
-          workout: workoutData,
-        }),
-      });
-    } catch (err) {
-      console.log(err);
-    }
+  const updateWorkoutData = async () => {
+    const fullData = JSON.parse(localStorage.getItem("workoutData"));
+    fullData.workout = workoutData;
+    localStorage.setItem("workoutData", JSON.stringify(fullData));
+    // try {
+    //   const response = await fetch("/dashboard/manageWorkout", {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     credentials: "include",
+    //     body: JSON.stringify({
+    //       workout: workoutData,
+    //     }),
+    //   });
+    // } catch (err) {
+    //   console.log(err);
+    // }
   };
-
-  // useEffect(() => {
-  //   handleWorkout();
-  // }, []);
 
   const handleSetOverlay = (id) => {
     activePanel.current = id;
@@ -185,9 +163,20 @@ export default function ManageWorkout() {
   const onEnd = (result) => {
     if (!result.destination) return;
     setList(reorder(list, result.source.index, result.destination.index));
+    console.log(list);
   };
 
   //-------
+
+  useEffect(() => {
+    // Update the workout data after drag and drop was used
+    const bufferList = [];
+    const bufferData = { ...workoutData };
+    console.log(list);
+    list.map((item) => bufferList.push(item.name));
+    bufferData["day" + (activeButton + 1)].panels = bufferList;
+    setWorkoutData(bufferData);
+  }, [list]);
 
   const handleDayButton = (event) => {
     const updateWorkoutData = { ...workoutData };
@@ -221,7 +210,6 @@ export default function ManageWorkout() {
     bufferList.forEach((element) => {
       bufferNewList.push(parseInt(element.name));
     });
-    // console.log("buffer data check", bufferData["day" + (activeButton + 1)]);
     bufferData["day" + (activeButton + 1)].panels = bufferNewList;
     console.log("Buffer with new ordered list", bufferData);
     setWorkoutData(bufferData);
@@ -233,14 +221,29 @@ export default function ManageWorkout() {
 
   const handleExerciseTemp = (selection) => {
     const buffer = [...exerciseTemp];
+    const bufferData = { ...workoutData };
     const tempDescription = selection.description.replace(/<[^>]*>/g, "");
     buffer[activePanel.current - 1].exercise = selection.name;
     buffer[activePanel.current - 1].bodyPart = radioButton;
     buffer[activePanel.current - 1].description = tempDescription;
+
+    if (
+      !bufferData["day" + (activeButton + 1)].exercises[activePanel.current - 1]
+    ) {
+      bufferData["day" + (activeButton + 1)].exercises[
+        activePanel.current - 1
+      ] = [];
+    }
+    bufferData["day" + (activeButton + 1)].exercises[
+      activePanel.current - 1
+    ][0] = selection.name;
+    bufferData["day" + (activeButton + 1)].exercises[
+      activePanel.current - 1
+    ][1] = radioButton;
     setExerciseTemp(buffer);
+    setWorkoutData(bufferData);
 
     handleFetchExerciseImage(selection, tempDescription);
-    console.log("Complete data of selected exercise:", selection);
   };
 
   const handleFetchExerciseImage = (selection, tempDescription) => {
@@ -260,15 +263,53 @@ export default function ManageWorkout() {
       });
   };
 
-  const handleResetPanel = (panel, sets, repetitions) => {
-    console.log(panel, sets, repetitions);
-    const buffer = [...exerciseTemp];
-    buffer[panel - 1].exercise = "";
-    buffer[panel - 1].bodyPart = "";
-    sets.value = "";
-    repetitions.value = "";
-    setExerciseTemp(buffer);
+  const handleSetsReps = (panel, sets, reps) => {
+    const bufferData = { ...workoutData };
+    bufferData["day" + (activeButton + 1)].exercises[panel - 1][2] = sets.value;
+    bufferData["day" + (activeButton + 1)].exercises[panel - 1][3] = reps.value;
+    console.log(bufferData);
+    setWorkoutData(bufferData);
   };
+
+  const handleResetPanel = (panel) => {
+    const bufferData = { ...workoutData };
+    
+    bufferData["day" + (activeButton + 1)].exercises.splice([panel - 1], 1);
+    bufferData["day" + (activeButton + 1)].panels.splice([panel - 1], 1);
+    setWorkoutData(bufferData);
+    
+    panels = [];
+    bufferData["day" + (activeButton + 1)].panels.forEach((element) => {
+      console.log("Element", element);
+      console.log("Panel", panel);
+      if (element > panel){
+        const newElement = element-1;
+        console.log("New Element", newElement);
+        panels.push({ name: newElement.toString(), id: newElement.toString() });
+      } else {
+
+        panels.push({ name: element.toString(), id: element.toString() });
+      }
+    });
+    console.log("List", list);
+    console.log("Panels after splice", bufferData["day" + (activeButton + 1)].panels);
+    console.log("Panels", panels);
+
+    setList(panels);
+  };
+
+  const handleAddPanel = ()=>{
+    const bufferData = { ...workoutData };
+    const newPanel = bufferData["day" + (activeButton + 1)].panels.length + 1
+    bufferData["day" + (activeButton + 1)].panels.push(newPanel.toString());
+    setWorkoutData(bufferData);
+
+    panels = [];
+    workoutData["day" + (activeButton + 1)].panels.forEach((element) => {
+      panels.push({ name: element.toString(), id: element.toString() });
+    });
+    setList(panels);
+  }
 
   //LOGOUT
   const history = useHistory();
@@ -283,7 +324,6 @@ export default function ManageWorkout() {
       <DayIndicators
         onHandleDayButton={handleDayButton}
         activeButton={activeButton}
-        // buttonColour={buttonColour}
         workoutData={workoutData}
       />
       <ExercisePanels
@@ -292,9 +332,11 @@ export default function ManageWorkout() {
         onHandleSetOverlay={handleSetOverlay}
         exerciseTemp={exerciseTemp}
         activeButton={activeButton}
-        // buttonColour={buttonColour}
+        onHandleSetsReps={handleSetsReps}
         onHandleResetPanel={handleResetPanel}
         workoutData={workoutData}
+        onUpdateWorkoutData={updateWorkoutData}
+        onHandleAddPanel={handleAddPanel}
       />
       <SelectBodyPart
         showPopup={showPopup}
