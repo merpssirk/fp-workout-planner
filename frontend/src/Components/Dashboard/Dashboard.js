@@ -349,6 +349,54 @@ export default function Dashboard(props) {
     setMacros([carbs, protein, fat])
   }, [caloriesValue])
 
+  const [exerciseCreated, setExerciseCreated] = useState()
+
+  useEffect(() => {
+    axios
+      .get("/dashboard/defaultWorkout", {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      })
+      .then((res) => {
+        //workoutData.current = res.data.workout.day1.exercises
+        console.log(res.data.workout)
+        const arr1 = res.data.workout.day1.exercises
+        const arr1Result = arr1.length
+        console.log(arr1Result)
+
+        const arr2 = res.data.workout.day2.exercises
+        const arr2Result = arr2.length
+        console.log(arr2Result)
+
+        const arr3 = res.data.workout.day3.exercises
+        const arr3Result = arr3.length
+        console.log(arr3Result)
+
+        /* const arr4 = res.data.workout.day4.exercises
+        const arr4Result = arr4.length
+        console.log(arr4Result) */
+
+        const arr5 = res.data.workout.day5.exercises
+        const arr5Result = arr5.length
+        console.log( arr5Result )
+        
+        const arr6 = res.data.workout.day6.exercises
+        const arr6Result = arr6.length
+        console.log( arr6Result )
+        
+       /*  const arr7 = res.data.workout.day7.exercises
+        const arr7Result = arr7.length
+        console.log(arr7Result) */
+        
+        setExerciseCreated(
+          arr1Result + arr2Result + arr3Result + arr5Result + arr6Result
+        )
+        console.log(exerciseCreated)
+      })
+  }, [] )
+  
   return (
     <div className={styles.background}>
       <MembersNavbar onHandleLogout={handleLogout} />
@@ -361,7 +409,7 @@ export default function Dashboard(props) {
         description={description}
       />
       <main className={styles.panel}>
-        <DashInfoPanel />
+        <DashInfoPanel exerciseCreated={exerciseCreated} />
         <DashMainPanels caloriesValue={caloriesValue} macros={macros} />
         <DashFinishRegistration
           overlayClass={overlayClass}

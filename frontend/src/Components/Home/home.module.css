@@ -223,14 +223,17 @@ h3 {
     rgba(249, 16, 16, 0.33) 96.9%
   );
   border-radius: 8px;
-  padding-top: 56.78px;
+  padding-top: 25.78px;
   z-index: 2;
 }
 
 .formContainer2.active {
   transform: translate(-50%, -50%) scale(1);
 }
-
+form span {
+  color: yellow;
+  font-size: 12px;
+}
 .formContainer .formGroup, .formContainer2 .formGroup {
   position: relative;
   text-align: center;
@@ -250,6 +253,8 @@ h3 {
   border-radius: 8px;
   border: none;
   margin: 10px 0 0 0;
+  padding: 0 10px 0 10px;
+  text-align: center;
 }
 
 .formContainer .registerBtn {

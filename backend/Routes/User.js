@@ -19,7 +19,7 @@ router.post("/register", async (request, response) => {
     if (password.length < 8)
       return response
         .status(400)
-        .json({ msg: "Password Should be at least 8 Characters long" })
+        .json({ msg: "Password Should be at least 8 Characters" })
 
     const existingUser = await Users.findOne({ email: email })
     if (existingUser)
@@ -47,7 +47,7 @@ router.post("/register", async (request, response) => {
         httpOnly: true,
         sameSite: "lax",
       })
-      .send("Registered successfully!!!")
+      .json({msg: "Registered successfully!!!"})
   } catch (err) {
     return response.status(500).json({ msg: err.message })
   }
@@ -87,5 +87,6 @@ router.post("/login", async (request, response) => {
     return response.status(500).json({ msg: err.message })
   }
 })
+
 
 module.exports = router
