@@ -24,23 +24,23 @@ import defaultWorkout from "./WorkoutDatabase"
 export const exerciseDataContext = createContext()
 
 export default function Dashboard(props) {
-  const [userData, setUserData] = useState({});
-  const [workoutData, setWorkoutData] = useState({});
-  const setMessage = useContext(NotificationContext);
+  const [userData, setUserData] = useState({})
+  const [workoutData, setWorkoutData] = useState({})
+  const setMessage = useContext(NotificationContext)
   // const [getLatestWeight, setGetLatestWeight] = useState([]
-  const [fetchCheck, setFetchCheck] = useState(false);
-  const [exerciseCreated, setExerciseCreated] = useState(0);
-  const [getUpdatedTime, setGetUpdatedTime] = useState(Date);
-  const [updateMessage, setUpdateMessage] = useState(false);
-  const workoutGoals = useRef();
+  const [fetchCheck, setFetchCheck] = useState(false)
+  const [exerciseCreated, setExerciseCreated] = useState(0)
+  const [getUpdatedTime, setGetUpdatedTime] = useState(Date)
+  const [updateMessage, setUpdateMessage] = useState(false)
+  const workoutGoals = useRef()
   // const workoutData = useRef();
-  const [overlayClass, setOverlayClass] = useState(false);
-  const [currentDate, setCurrentDate] = useState();
-  const formCheck = localStorage.getItem("Register") || null;
-  const [caloriesValue, setCaloriesValue] = useState(0);
-  const [macros, setMacros] = useState([]);
-  const [weight, setWeight] = useState(0);
-  const [bodyPart, setBodyPart] = useState([]);
+  const [overlayClass, setOverlayClass] = useState(false)
+  const [currentDate, setCurrentDate] = useState()
+  const formCheck = localStorage.getItem("Register") || null
+  const [caloriesValue, setCaloriesValue] = useState(0)
+  const [macros, setMacros] = useState([])
+  const [weight, setWeight] = useState(0)
+  const [bodyPart, setBodyPart] = useState([])
 
   // GET UPDATED WEIGHT FROM MongoDB
   useEffect(() => {
@@ -52,10 +52,10 @@ export default function Dashboard(props) {
         credentials: "include",
       })
       .then((res) => {
-        setGetUpdatedTime(res.data[0].timestamps.lastUpdatedAt);
-        setUserData(res.data[0]);
-        const myDate = dayjs(getUpdatedTime).add(1, "day").format("DD.MM.YYYY");
-        const date = dayjs().format("DD.MM.YYYY");
+        setGetUpdatedTime(res.data[0].timestamps.lastUpdatedAt)
+        setUserData(res.data[0])
+        const myDate = dayjs(getUpdatedTime).add(1, "day").format("DD.MM.YYYY")
+        const date = dayjs().format("DD.MM.YYYY")
         if (date === myDate) {
           setTimeout(() => {
             setUpdateMessage(true)
@@ -80,9 +80,9 @@ export default function Dashboard(props) {
         },
         credentials: "include",
         body: JSON.stringify(updatedWeightField),
-      });
+      })
       //console.log("handleUpdateWeight reached")
-      handleRemoveOverlay();
+      handleRemoveOverlay()
     } catch (error) {
       console.log(error)
     }
@@ -137,11 +137,11 @@ export default function Dashboard(props) {
     )
       .then((res) => res.json())
       .then((data) => {
-        setMainTemp(Math.round(data.main.temp));
-        setIconID(data.weather[0].icon);
-        setFeelsLike(data.main.feels_like);
-        setDescription(data.weather[0].description);
-      });
+        setMainTemp(Math.round(data.main.temp))
+        setIconID(data.weather[0].icon)
+        setFeelsLike(data.main.feels_like)
+        setDescription(data.weather[0].description)
+      })
   }, [])
 
   //---FINISH REGISTRATION PAGE CONNECT TO BACKEND---
@@ -307,34 +307,33 @@ export default function Dashboard(props) {
   }, [caloriesValue])
 
   useEffect(() => {
-    //console.log("Workout Data", workoutData.workout);
+    
     if (workoutData) {
       let bodyParts = []
       let bodyPartsSum = []
-      let result
-      for (const day in workoutData.workout) {
-        if (!workoutData.workout.hasOwnProperty(day)) {
-          continue
-        }
-        const flatBodyParts = workoutData.workout[day].exercises.flat()
-        bodyParts = flatBodyParts.concat(bodyParts)
-      }
-
-    if (bodyParts.length > 0) {
-      for (let index = 0; index < 6; index++) {
-        const query = ["abs", "arms", "back", "chest", "legs", "shoulders"];
-
-        const result = bodyParts.reduce((arr, curr) => {
-          if (curr === query[index]) {
-            arr.push(curr);
+        for (const day in workoutData.workout) {
+          if (!workoutData.workout.hasOwnProperty(day)) {
+            continue
           }
-          return arr;
-        }, []);
-
-          bodyPartsSum.push(result.length)
+          const flatBodyParts = workoutData.workout[day].exercises.flat()
+          bodyParts = flatBodyParts.concat(bodyParts)
         }
-        setBodyPart(bodyPartsSum)
-      }
+
+        if (bodyParts.length > 0) {
+          for (let index = 0; index < 6; index++) {
+            const query = ["abs", "arms", "back", "chest", "legs", "shoulders"]
+
+            const result = bodyParts.reduce((arr, curr) => {
+              if (curr === query[index]) {
+                arr.push(curr)
+              }
+              return arr
+            }, [])
+
+            bodyPartsSum.push(result.length)
+          }
+          setBodyPart(bodyPartsSum)
+        }
     }
   }, [workoutData])
 
@@ -381,8 +380,11 @@ export default function Dashboard(props) {
   }
   useEffect(() => {
     getWorkOutData()
-    
   }, [])
+
+  const handleWorkoutDone = () => {
+    console.log(workoutData)
+  }
 
   return (
     <div className={styles.background}>

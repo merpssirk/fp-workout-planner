@@ -157,41 +157,23 @@ router.post("/manageWorkout", async (request, response) => {
   try {
     const { workout } = request.body
 
-    //console.log("Request.body",request.body);
-    //console.log("User", request.user);
     const workoutData = await WorkoutInfo.findOne({
       user: request.user,
     })
-    // console.log("workoutData", workoutData);
+    
     if (workoutData) {
       await WorkoutInfo.findByIdAndUpdate(workoutData._id, workout, {
         new: true,
       })
     } else {
-      //  console.log('test');
+      
       const newUserWorkout = await new WorkoutInfo({
         user: request.user,
         workout: workout,
       })
-
-      // newUserWorkout.user = user._id
       await newUserWorkout.save()
     }
-    //console.log("user", user);
-    // console.log("workout", workout);
-    // SEARAR By user id request.user
-    // find the existing workout for the user
-    // if it exists, update
-    // otherwise create new workout
-
-    /* const user = await Users.findById({ _id: request.user }) */
-    // console.log("Request.User", request.user);
-    //console.log( "newUserWorkout : ", newUserWorkout )
-    /* newUserWorkout.user = user._id
-    await newUserWorkout.save() */
-
-    // console.log("newUserData", newUserWorkout)
-    //  console.log(user)
+    
     if (workoutData) {
       response.status(200).json({ msg: "workoutData updated" })
     } else {
@@ -247,5 +229,7 @@ router.get("/defaultWorkoutTwo", async (request, response) => {
     response.status(401).json({ msg: error.message })
   }
 })
+
+
 
 module.exports = router
