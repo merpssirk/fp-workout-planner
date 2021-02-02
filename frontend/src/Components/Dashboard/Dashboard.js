@@ -24,15 +24,16 @@ import defaultWorkout from "./WorkoutDatabase";
 export const exerciseDataContext = createContext();
 
 export default function Dashboard(props) {
+  const [userData, setUserData] = useState({});
+  const [workoutData, setWorkoutData] = useState({});
   const setMessage = useContext(NotificationContext);
   // const [getLatestWeight, setGetLatestWeight] = useState([]
-  const [fetchCheck, setFetchCheck] = useState( false )
-  const [exerciseCreated, setExerciseCreated] = useState(0)
+  const [fetchCheck, setFetchCheck] = useState(false);
+  const [exerciseCreated, setExerciseCreated] = useState(0);
   const [getUpdatedTime, setGetUpdatedTime] = useState(Date);
   const [updateMessage, setUpdateMessage] = useState(false);
   const workoutGoals = useRef();
   // const workoutData = useRef();
-  const [workoutData, setWorkoutData] = useState({});
   const [overlayClass, setOverlayClass] = useState(false);
   const [currentDate, setCurrentDate] = useState();
   const formCheck = localStorage.getItem("Register") || null;
@@ -52,7 +53,7 @@ export default function Dashboard(props) {
       })
       .then((res) => {
         setGetUpdatedTime(res.data[0].timestamps.lastUpdatedAt);
-
+        setUserData(res.data[0]);
         const myDate = dayjs(getUpdatedTime).add(1, "day").format("DD.MM.YYYY");
         const date = dayjs().format("DD.MM.YYYY");
         if (date === myDate) {
@@ -79,9 +80,9 @@ export default function Dashboard(props) {
         },
         credentials: "include",
         body: JSON.stringify(updatedWeightField),
-      })
+      });
       //console.log("handleUpdateWeight reached")
-      handleRemoveOverlay()
+      handleRemoveOverlay();
     } catch (error) {
       console.log(error);
     }
@@ -136,11 +137,11 @@ export default function Dashboard(props) {
     )
       .then((res) => res.json())
       .then((data) => {
-        setMainTemp(Math.round(data.main.temp))
-        setIconID(data.weather[0].icon)
-        setFeelsLike(data.main.feels_like)
-        setDescription(data.weather[0].description)
-      })
+        setMainTemp(Math.round(data.main.temp));
+        setIconID(data.weather[0].icon);
+        setFeelsLike(data.main.feels_like);
+        setDescription(data.weather[0].description);
+      });
 
     fetch("/dashboard/defaultWorkout", {
       method: "GET",
@@ -316,10 +317,13 @@ export default function Dashboard(props) {
   }, [caloriesValue]);
 
   useEffect(() => {
-    console.log("Workout Data", workoutData.workout);
+    handleBodyPartsChart();
+    handleWeightChart();
+  }, [workoutData]);
+
+  const handleBodyPartsChart = () => {
     let bodyParts = [];
     let bodyPartsSum = [];
-    let result;
 
     for (const day in workoutData.workout) {
       if (!workoutData.workout.hasOwnProperty(day)) {
@@ -331,9 +335,9 @@ export default function Dashboard(props) {
 
     if (bodyParts.length > 0) {
       for (let index = 0; index < 6; index++) {
-        let query = ["abs", "arms", "back", "chest", "legs", "shoulders"];
+        const query = ["abs", "arms", "back", "chest", "legs", "shoulders"];
 
-        let result = bodyParts.reduce((arr, curr) => {
+        const result = bodyParts.reduce((arr, curr) => {
           if (curr === query[index]) {
             arr.push(curr);
           }
@@ -344,55 +348,68 @@ export default function Dashboard(props) {
       }
       setBodyPart(bodyPartsSum);
     }
-  }, [workoutData]);
+  };
 
-  
- /*  useEffect( () => {
-    fetch()
+  const handleWeightChart = () => {
+    if (Object.keys(userData).length !== 0) {
+      console.log("The users data", userData.weight);
+      // if (userData.weight)
+
+      // const lastNumbers = userData.weight.slice(
+      //   Math.max(userData.weight.length - 5, 0)
+      // );
+      // console.log(lastNumbers);
+    }
+  };
+
+  useEffect(() => {
+    // fetch();
     axios
       .get("/dashboard/defaultWorkout", {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
+        withCredentials: true,
       })
-      .then((res) => {
-        console.log(res) */
-        /* const arr1 = res.data.workout.day1.exercises
-        const arr1Result = arr1.length
-       // console.log(arr1Result)
+      .then(
+        (res) => {
+          console.log(res);
+          const arr1 = res.data.workout.day1.exercises;
+          const arr1Result = arr1.length;
+          // console.log(arr1Result)
 
-        const arr2 = res.data.workout.day2.exercises
-        const arr2Result = arr2.length
-       // console.log(arr2Result)
+          const arr2 = res.data.workout.day2.exercises;
+          const arr2Result = arr2.length;
+          // console.log(arr2Result)
 
-        const arr3 = res.data.workout.day3.exercises
-        const arr3Result = arr3.length
-        //console.log(arr3Result)
+          const arr3 = res.data.workout.day3.exercises;
+          const arr3Result = arr3.length;
+          //console.log(arr3Result)
 
-         const arr4 = res.data.workout.day4.exercises
-        const arr4Result = arr4.length
-        console.log(arr4Result) 
+          const arr4 = res.data.workout.day4.exercises;
+          const arr4Result = arr4.length;
+          console.log(arr4Result);
 
-         const arr5 = res.data.workout.day5.exercises
-        const arr5Result = arr5.length
-       // console.log(arr5Result)
+          const arr5 = res.data.workout.day5.exercises;
+          const arr5Result = arr5.length;
+          // console.log(arr5Result)
 
-        const arr6 = res.data.workout.day6.exercises
-        const arr6Result = arr6.length
-        //console.log(arr6Result) 
+          const arr6 = res.data.workout.day6.exercises;
+          const arr6Result = arr6.length;
+          //console.log(arr6Result)
 
-         const arr7 = res.data.workout.day7.exercises
-        const arr7Result = arr7.length
-        console.log(arr7Result) 
- 
-        setExerciseCreated(
-          arr1Result + arr2Result + arr3Result + arr5Result + arr6Result
-        )
-        console.log(exerciseCreated) */ 
- /*      })
-  }, []) */
-  
+          const arr7 = res.data.workout.day7.exercises;
+          const arr7Result = arr7.length;
+          console.log(arr7Result);
+
+          setExerciseCreated(
+            arr1Result + arr2Result + arr3Result + arr5Result + arr6Result
+          );
+          console.log(exerciseCreated);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+  }, []);
+
   return (
     <div className={styles.background}>
       <MembersNavbar onHandleLogout={handleLogout} />
@@ -405,7 +422,7 @@ export default function Dashboard(props) {
         description={description}
       />
       <main className={styles.panel}>
-        <DashInfoPanel exerciseCreated={exerciseCreated} />     
+        <DashInfoPanel exerciseCreated={exerciseCreated} />
         <DashMainPanels
           caloriesValue={caloriesValue}
           macros={macros}
