@@ -88,7 +88,7 @@ ul li a {
   text-align: center;
   font-size: max(20px, 1.3vw);
   color: #000000;
-  font-weight: normal;
+  font-weight: 700;
   font-style: normal;
   margin-top: 3%;
 }
@@ -117,13 +117,14 @@ ul li a {
 
 .mainContainer .exerciseContainer {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
   flex-wrap: wrap;
   margin: 30px;
   padding: 10px;
 }
 .mainContainer .exerciseContainer .exerciseDiv {
   display: inline-block;
+  margin-left: 2%;
 }
 .mainContainer .exerciseContainer .exerciseDiv h4 {
   font-size: max(10px, 1vw);

@@ -8,9 +8,9 @@ const workoutSaved = {
         ["Close-grip Bench Press", "arms", 3, 8],
         ["Chin-ups", "back", 4, 6],
         ["Bicpes Curls With Barbell", "arms", 3, 10],
-        ["Dips", "arm", 3, 8],
+        ["Dips", "arms", 3, 8],
       ],
-      panels: [1, 2, 3, 4, 5, 6, 7, 8],
+      panels: [1, 2, 3, 4, 5, 6],
     },
     day2: {
       button: "buttonGreen",
@@ -20,7 +20,7 @@ const workoutSaved = {
         ["Barbel Lunges", "legs", 3, 8],
         ["Leg Curl", "legs", 3, 8],
       ],
-      panels: [1, 2, 3, 4, 5, 6, 7, 8],
+      panels: [1, 2, 3, 4],
     },
     day3: {
       button: "buttonGreen",
@@ -32,7 +32,7 @@ const workoutSaved = {
         ["Lateral Raises", "shoulders", 3, 8],
         ["Triceps Extensions on Cable", "arms", 3, 8],
       ],
-      panels: [1, 2, 3, 4, 5, 6, 7, 8],
+      panels: [1, 2, 3, 4, 5, 6],
     },
     day4: {
       button: "buttonYellow",
@@ -49,7 +49,7 @@ const workoutSaved = {
         ["Calf Raises", "legs", 3, 8],
         ["Calf Raises on Hackenschmitt Machine", "legs", 3, 8],
       ],
-      panels: [1, 2, 3, 4, 5, 6, 7, 8],
+      panels: [1, 2, 3, 4, 5, 6],
     },
     day6: {
       button: "buttonGreen",
@@ -62,7 +62,7 @@ const workoutSaved = {
         ["Facepull", "back", 3, 8],
         ["Rowing, T-bar", "back", 3, 8],
       ],
-      panels: [1, 2, 3, 4, 5, 6, 7, 8],
+      panels: [1, 2, 3, 4, 5, 6, 7],
     },
     day7: {
       button: "buttonYellow",

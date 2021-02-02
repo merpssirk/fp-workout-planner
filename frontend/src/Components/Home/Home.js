@@ -4,11 +4,14 @@ import styles from "./home.module.css"
 import imgLogo from "../../pics/home/Logo.png"
 import classNames from "classnames"
 //import Dashboard from "../../Dashboard/Dashboard"
-import { NotificationContext } from "../Notifications/Notifications"
+//import { NotificationContext } from "../Notifications/Notifications"
 
 export default function Home() {
-  const setMessage = useContext(NotificationContext)
 
+ // const setMessage = useContext( NotificationContext )
+  
+  const [error, setError] = useState("");
+  
   const history = useHistory()
   const formCheck = useRef("")
   const [overlayClass, setOverlayClass] = useState("false")
@@ -33,7 +36,7 @@ export default function Home() {
   // --------REGISTER PAGE CONNECTING TO THE BACKEND-----
   const handleSubmitRegister = async (event) => {
     event.preventDefault()
-    //console.log("code is working");
+   
     const formData = new FormData(event.target)
 
     const data = {
@@ -51,24 +54,29 @@ export default function Home() {
         },
 
         body: JSON.stringify(data),
-      })
+      } )
+     const json = await response.json()
+     console.log( json );
+     setError(json.msg)       
+            
       if (response.status !== 200) {
         throw "error"
       }
       console.log(response)
-
-      //const json = await response.json();
+      
       localStorage.setItem("Register", "pending")
-      window.localStorage.setItem("loggedIn", JSON.stringify(true))
+      window.localStorage.setItem( "loggedIn", JSON.stringify( true ) )
+      
       history.push("/dashboard")
-      //console.log(json);
+    
     } catch (err) {
-      console.log(err)
+      console.log( err )  
     }
   }
+  
   // ---------LOGIN PAGE CONNECTING TO THE BACKEND--------
   const handleSubmitLogin = async (event) => {
-    setMessage("Welcome Back on Your Dashboard Page!!")
+   // setMessage("Welcome Back on Your Dashboard Page!!")
     event.preventDefault()
     const formData = new FormData(event.target)
     const data = {
@@ -85,14 +93,17 @@ export default function Home() {
           "content-type": "application/json",
           Accept: "application/json",
         },
-      })
+      } )
+      const json = await response.json()
+      console.log( json )
+      setError(json.msg)       
       if (response.status !== 200) {
         throw "error"
-        alert("An Account with this email already exist")
+        
       }
       console.log(response.status)
-      const json = await response.json()
-      console.log(json)
+      //const json = await response.json()
+      //console.log(json)
       window.localStorage.setItem("loggedIn", JSON.stringify(true))
       history.push("/dashboard")
     } catch (err) {
@@ -121,7 +132,7 @@ export default function Home() {
     <div className={styles.background}>
       <nav className={styles.navBar}>
         <ul>
-          <a href="/home">
+          <a href="/">
             <img src={imgLogo} alt={imgLogo} />
           </a>
           <li
@@ -191,6 +202,7 @@ export default function Home() {
       >
         <form onSubmit={handleSubmitRegister}>
           <div className={styles.formGroup}>
+            <span>{error}</span>
             <label htmlFor="username">Username</label>
             <input type="text" name="username" required="required" />
           </div>
@@ -223,6 +235,7 @@ export default function Home() {
           className={styles.loginUserName}
         >
           <div className={styles.formGroup}>
+            <span>{error}</span>
             <label htmlFor="email">Email</label>
             <input type="email" name="email" required="required" />
           </div>

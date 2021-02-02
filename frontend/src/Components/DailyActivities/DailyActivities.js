@@ -14,10 +14,12 @@ export default function DailyActivities() {
   const [workoutData, setWorkoutData] = useState(
     JSON.parse(localStorage.getItem("workoutData")).workout
   )
-  const panels = useRef([0, 1, 2, 3, 4, 5, 6, 7]);
+  const panels = useRef([0, 1, 2, 3, 4, 5, 6, 7])
   console.log(workoutData)
 
-  const [currentWorkout, setCurrentWorkout] = useState(workoutData.day1.exercises[0])
+  const [currentWorkout, setCurrentWorkout] = useState(
+    workoutData.day1.exercises[0]
+  )
   const [indexOfDay, setIndexOfDay] = useState()
 
   const handleCalculateDays = (data) => {
@@ -39,8 +41,8 @@ export default function DailyActivities() {
     setIndexOfDay(dayIndex)
     console.log(dayIndex)
     console.log(workoutData["day" + (dayIndex + 1)].exercises)
-    setCurrentWorkout( workoutData["day" + ( dayIndex + 1 )].exercises )
-    console.log(data);
+    setCurrentWorkout(workoutData["day" + (dayIndex + 1)].exercises)
+    console.log(data)
   }
   useEffect(() => {
     fetch("/dashboard/dailyActivity", {
@@ -52,9 +54,8 @@ export default function DailyActivities() {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log( data.timestamps.startWorkoutAt )
-        handleCalculateDays( data )
-        
+        console.log(data.timestamps.startWorkoutAt)
+        handleCalculateDays(data)
       })
       .catch((err) => {
         console.log(err)
@@ -172,7 +173,9 @@ export default function DailyActivities() {
             </a>
           </div>
         </nav>
-        <h3 className={styles.date}>{currentDate}</h3>
+        <h3 className={styles.date}>
+          Your workout for today - {currentDate}
+        </h3>
         <div className={styles.checkBox}>
           <div className={styles.redXCircleDiv}>
             <img src={redXCircle} alt={redXCircle} />
@@ -182,41 +185,46 @@ export default function DailyActivities() {
         {currentWorkout ? (
           <div className={styles.mainContainer}>
             <div className={styles.exerciseContainer}>
-
               {panels.current.map((item, index) => (
-                <div className={styles.exerciseDiv} key={index}>
-                  <div className={styles.exerciseImg} key={index}>
-                    <h4 key={index}>
-                      {!currentWorkout[item] ? null : currentWorkout[item][0]}
-                    </h4>
-                    <ul key={index}>
-                      <li key={index}>
-                        Body Part-:
-                        <b>
+                <>
+                  {currentWorkout[item] ? (
+                    <div className={styles.exerciseDiv} key={index}>
+                      <div className={styles.exerciseImg} key={index}>
+                        <h4 key={index}>
                           {!currentWorkout[item]
                             ? null
-                            : currentWorkout[item][1]}
-                        </b>
-                      </li>
-                      <li key={index}>
-                        Sets-:
-                        <b>
-                          {!currentWorkout[item]
-                            ? null
-                            : currentWorkout[item][2]}
-                        </b>
-                      </li>
-                      <li key={index}>
-                        Repetitions:
-                        <b>
-                          {!currentWorkout[item]
-                            ? null
-                            : currentWorkout[item][3]}
-                        </b>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
+                            : currentWorkout[item][0]}
+                        </h4>
+                        <ul key={index}>
+                          <li key={index}>
+                            Body Part-:
+                            <b>
+                              {!currentWorkout[item]
+                                ? null
+                                : currentWorkout[item][1]}
+                            </b>
+                          </li>
+                          <li key={index}>
+                            Sets-:
+                            <b>
+                              {!currentWorkout[item]
+                                ? null
+                                : currentWorkout[item][2]}
+                            </b>
+                          </li>
+                          <li key={index}>
+                            Repetitions:
+                            <b>
+                              {!currentWorkout[item]
+                                ? null
+                                : currentWorkout[item][3]}
+                            </b>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  ) : null}
+                </>
               ))}
             </div>
             <div className={styles.buttons}>
