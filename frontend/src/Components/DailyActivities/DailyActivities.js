@@ -22,6 +22,8 @@ export default function DailyActivities() {
   )
   const [indexOfDay, setIndexOfDay] = useState()
 
+  
+
   const handleCalculateDays = (data) => {
     const startDay = dayjs(data.timestamps.startWorkoutAt).format("dddd")
     console.log(startDay)
@@ -146,6 +148,18 @@ export default function DailyActivities() {
 
   handleWorkoutData(2019, 3, 1, 1)
 
+  const [pupopShow, setPupopShow] = useState( false )
+  console.log( pupopShow );
+  
+  const handlePupop = () => {
+   
+    setPupopShow(true)
+  }
+  useEffect( () => {
+    handlePupop()
+  }, [])
+
+
   return (
     <>
       <div className={styles.background}>
@@ -173,12 +187,14 @@ export default function DailyActivities() {
             </a>
           </div>
         </nav>
-        <h3 className={styles.date}>
-          Your workout for today - {currentDate}
-        </h3>
+        <h3 className={styles.date}>Your workout for today - {currentDate}</h3>
         <div className={styles.checkBox}>
-          <div className={styles.redXCircleDiv}>
-            <img src={redXCircle} alt={redXCircle} />
+          <div className={styles.greenCircleDiv}>
+            {pupopShow ? 
+              <img src={greenCheckCircle} alt={greenCheckCircle} />
+             : 
+              ""
+            }
           </div>
         </div>
 
@@ -228,7 +244,9 @@ export default function DailyActivities() {
               ))}
             </div>
             <div className={styles.buttons}>
-              <button className={styles.redBtn}>Missed</button>
+              <button onClick={pupopShow} className={styles.redBtn}>
+                Done
+              </button>
             </div>
           </div>
         ) : null}

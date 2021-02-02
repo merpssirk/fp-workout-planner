@@ -5,23 +5,23 @@ import {
   useEffect,
   useContext,
   createContext,
-} from "react";
-import { useHistory } from "react-router-dom";
-import DayJs from "react-dayjs";
-import dayjs from "dayjs";
-import styles from "./dashboard.module.css";
-import MembersNavbar from "../MembersNavbar/MembersNavbar";
-import DashDateWeather from "./DashDateWeather/DashDateWeather";
-import DashInfoPanel from "./DashInfoPanel/DashInfoPanel";
-import DashMainPanels from "./DashMainPanels/DashMainPanels";
-import DashFinishRegistration from "./DashFinishRegistration/DashFinishRegistration";
-import axios from "axios";
-import WeightUpdate from "./WeightUpdate/WeightUpdate";
-import { NotificationContext } from "../Notifications/Notifications";
-import defaultWorkout from "./WorkoutDatabase";
+} from "react"
+import { useHistory } from "react-router-dom"
+import DayJs from "react-dayjs"
+import dayjs from "dayjs"
+import styles from "./dashboard.module.css"
+import MembersNavbar from "../MembersNavbar/MembersNavbar"
+import DashDateWeather from "./DashDateWeather/DashDateWeather"
+import DashInfoPanel from "./DashInfoPanel/DashInfoPanel"
+import DashMainPanels from "./DashMainPanels/DashMainPanels"
+import DashFinishRegistration from "./DashFinishRegistration/DashFinishRegistration"
+import axios from "axios"
+import WeightUpdate from "./WeightUpdate/WeightUpdate"
+import { NotificationContext } from "../Notifications/Notifications"
+import defaultWorkout from "./WorkoutDatabase"
 
 //console.log("DefaultDatabase", defaultWorkout)
-export const exerciseDataContext = createContext();
+export const exerciseDataContext = createContext()
 
 export default function Dashboard(props) {
   const [userData, setUserData] = useState({});
@@ -58,20 +58,20 @@ export default function Dashboard(props) {
         const date = dayjs().format("DD.MM.YYYY");
         if (date === myDate) {
           setTimeout(() => {
-            setUpdateMessage(true);
-          }, 3000);
+            setUpdateMessage(true)
+          }, 3000)
         }
-      });
-  }, []);
+      })
+  }, [])
 
   //POST UDPATED WEIGHT: CONNECT TO BACKEND
 
   const handleUpdatedWeight = async (event) => {
-    event.preventDefault();
-    const updatedWeightValue = new FormData(event.target);
+    event.preventDefault()
+    const updatedWeightValue = new FormData(event.target)
     const updatedWeightField = {
       updatedWeight: updatedWeightValue.get("updatedWeight"),
-    };
+    }
     try {
       await fetch("/dashboard/updatedWeight", {
         method: "POST",
@@ -84,52 +84,52 @@ export default function Dashboard(props) {
       //console.log("handleUpdateWeight reached")
       handleRemoveOverlay();
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-  };
+  }
 
   //LOGOUT
-  const history = useHistory();
+  const history = useHistory()
   const handleLogout = () => {
-    window.localStorage.removeItem("loggedIn");
-    history.push("/");
-  };
+    window.localStorage.removeItem("loggedIn")
+    history.push("/")
+  }
 
   useEffect(() => {
-    const date = new Date();
+    const date = new Date()
     const options = {
       weekday: "long",
       year: "numeric",
       month: "long",
       day: "numeric",
-    };
+    }
 
-    setCurrentDate(new Intl.DateTimeFormat("en-GB", options).format(date));
-  });
+    setCurrentDate(new Intl.DateTimeFormat("en-GB", options).format(date))
+  })
 
   useEffect(() => {
     if (formCheck === "pending") {
-      setOverlayClass(true);
+      setOverlayClass(true)
     } else {
-      setOverlayClass(false);
+      setOverlayClass(false)
     }
-  }, []);
+  }, [])
 
   const handleSetOverlay = () => {
-    setOverlayClass(true);
-  };
+    setOverlayClass(true)
+  }
   const handleRemoveOverlay = () => {
-    setOverlayClass(false);
-    localStorage.setItem("Register", "fulfilled");
-  };
+    setOverlayClass(false)
+    localStorage.setItem("Register", "fulfilled")
+  }
 
   //---WEATHER INFORMATION---
-  const API_KEY = "fd8bafc7164f93efdf3c8815e92e4f18";
-  const [mainTemp, setMainTemp] = useState("");
-  const [city, setCity] = useState("Hamburg");
-  const [iconID, setIconID] = useState("");
-  const [feels_like, setFeelsLike] = useState("");
-  const [description, setDescription] = useState("");
+  const API_KEY = "fd8bafc7164f93efdf3c8815e92e4f18"
+  const [mainTemp, setMainTemp] = useState("")
+  const [city, setCity] = useState("Hamburg")
+  const [iconID, setIconID] = useState("")
+  const [feels_like, setFeelsLike] = useState("")
+  const [description, setDescription] = useState("")
 
   useEffect(() => {
     fetch(
@@ -142,26 +142,13 @@ export default function Dashboard(props) {
         setFeelsLike(data.main.feels_like);
         setDescription(data.weather[0].description);
       });
-
-    fetch("/dashboard/defaultWorkout", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setWorkoutData(data);
-        // props.onHandleWorkoutData(data);
-      });
-  }, []);
+  }, [])
 
   //---FINISH REGISTRATION PAGE CONNECT TO BACKEND---
   const handleFinishRegistration = async (event) => {
-    setMessage("Welcome in your Dashboard Page!!");
-    event.preventDefault();
-    const formData = new FormData(event.target);
+    setMessage("Welcome in your Dashboard Page!!")
+    event.preventDefault()
+    const formData = new FormData(event.target)
 
     const finishRegistrationField = {
       gender: formData.get("gender"),
@@ -172,7 +159,7 @@ export default function Dashboard(props) {
       workoutGoals: formData.get("workoutGoals"),
       workoutDays: formData.get("workoutDays"),
       activityLevel: formData.get("activityLevel"),
-    };
+    }
     try {
       const response = await fetch("/dashboard/finishRegistration", {
         method: "POST",
@@ -181,17 +168,20 @@ export default function Dashboard(props) {
         },
         credentials: "include",
         body: JSON.stringify(finishRegistrationField),
-      });
-      handleRemoveOverlay();
-      handleDefaultWorkout();
+      })
+
+      await handleDefaultWorkout()
+      await getWorkOutData()
+      handleRemoveOverlay()
     } catch (err) {
-      console.log(err);
+      console.log(err)
     }
-  };
+  }
+
   const handleDefaultWorkout = async () => {
     try {
-      localStorage.setItem("workoutData", JSON.stringify(defaultWorkout));
-      console.log("Default Workout", defaultWorkout);
+      localStorage.setItem("workoutData", JSON.stringify(defaultWorkout))
+      console.log("Default Workout", defaultWorkout)
       await fetch("/dashboard/defaultWorkout", {
         method: "POST",
         headers: {
@@ -199,28 +189,28 @@ export default function Dashboard(props) {
         },
         credentials: "include",
         body: JSON.stringify(defaultWorkout),
-      });
+      })
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-  };
+  }
 
   //NUTRITION CALCULATION
   // CALCULATE MEN'S BMR
   const calculateBMRForMen = (menWeight, menHeight, menAge) => {
-    const weight = 66.47 + 13.75 * menWeight;
-    const height = 5.003 * menHeight;
-    const age = 6.755 * menAge;
-    return weight + height - age;
-  };
+    const weight = 66.47 + 13.75 * menWeight
+    const height = 5.003 * menHeight
+    const age = 6.755 * menAge
+    return weight + height - age
+  }
 
   //CALCULATE WOMEN'S BMR
   const calculateBMRForWomen = (womenWeight, womenHeight, womenAge) => {
-    const weight = 655.1 + 9.563 * womenWeight;
-    const height = 1.85 * womenHeight;
-    const age = 4.676 * womenAge;
-    return weight + height - age;
-  };
+    const weight = 655.1 + 9.563 * womenWeight
+    const height = 1.85 * womenHeight
+    const age = 4.676 * womenAge
+    return weight + height - age
+  }
 
   useEffect(() => {
     axios
@@ -230,15 +220,15 @@ export default function Dashboard(props) {
         },
       })
       .then((res) => {
-        workoutGoals.current = res.data[0].workoutGoals;
-        setWeight(res.data[0].weight);
-        let getGender;
-        const gender = [calculateBMRForMen, calculateBMRForWomen];
+        workoutGoals.current = res.data[0].workoutGoals
+        setWeight(res.data[0].weight)
+        let getGender
+        const gender = [calculateBMRForMen, calculateBMRForWomen]
 
         if (res.data.gender === "male") {
-          getGender = gender[0];
+          getGender = gender[0]
         } else {
-          getGender = gender[1];
+          getGender = gender[1]
         }
 
         switch (res.data[0].activityLevel) {
@@ -249,8 +239,8 @@ export default function Dashboard(props) {
                 res.data[0].height,
                 res.data[0].age
               ) * 1.2
-            );
-            break;
+            )
+            break
           case "moderately":
             setCaloriesValue(
               getGender(
@@ -258,8 +248,8 @@ export default function Dashboard(props) {
                 res.data[0].height,
                 res.data[0].age
               ) * 1.55
-            );
-            break;
+            )
+            break
           case "active":
             setCaloriesValue(
               getGender(
@@ -267,8 +257,8 @@ export default function Dashboard(props) {
                 res.data[0].height,
                 res.data[0].age
               ) * 1.725
-            );
-            break;
+            )
+            break
           case "extraActive":
             setCaloriesValue(
               getGender(
@@ -276,62 +266,59 @@ export default function Dashboard(props) {
                 res.data[0].height,
                 res.data[0].age
               ) * 1.9
-            );
-            break;
+            )
+            break
 
           default:
-            break;
+            break
         }
-      });
-  }, [overlayClass]);
+      })
+  }, [overlayClass])
 
   useEffect(() => {
-    let kcalGoal = 0;
-    let protein = 0;
-    let fat = 0;
+    let kcalGoal = 0
+    let protein = 0
+    let fat = 0
     switch (workoutGoals.current) {
       case "looseWeight":
-        kcalGoal = caloriesValue - caloriesValue * 0.2;
-        protein = weight;
-        fat = weight * 0.4;
-        break;
+        kcalGoal = caloriesValue - caloriesValue * 0.2
+        protein = weight
+        fat = weight * 0.4
+        break
       case "stayFit":
-        kcalGoal = caloriesValue;
-        protein = weight * 1.2;
-        fat = weight * 0.5;
-        break;
+        kcalGoal = caloriesValue
+        protein = weight * 1.2
+        fat = weight * 0.5
+        break
       case "gainMuscles":
-        kcalGoal = caloriesValue + caloriesValue * 0.2;
-        protein = weight * 1.5;
-        fat = weight * 0.8;
-        break;
+        kcalGoal = caloriesValue + caloriesValue * 0.2
+        protein = weight * 1.5
+        fat = weight * 0.8
+        break
       default:
-        break;
+        break
     }
-    const proteinPercent = (protein * 4 * 100) / kcalGoal;
-    const fatPercent = (fat * 9 * 100) / kcalGoal;
-    const carbsPercent = 100 - proteinPercent - fatPercent;
-    const carbs = Math.round((caloriesValue * carbsPercent) / 100 / 4);
+    const proteinPercent = (protein * 4 * 100) / kcalGoal
+    const fatPercent = (fat * 9 * 100) / kcalGoal
+    const carbsPercent = 100 - proteinPercent - fatPercent
+    const carbs = Math.round((caloriesValue * carbsPercent) / 100 / 4)
 
-    setMacros([carbs, protein, fat]);
-  }, [caloriesValue]);
+    setMacros([carbs, protein, fat])
+  }, [caloriesValue])
 
   useEffect(() => {
-    handleBodyPartsChart();
-    handleWeightChart();
-  }, [workoutData]);
-
-  const handleBodyPartsChart = () => {
-    let bodyParts = [];
-    let bodyPartsSum = [];
-
-    for (const day in workoutData.workout) {
-      if (!workoutData.workout.hasOwnProperty(day)) {
-        continue;
+    //console.log("Workout Data", workoutData.workout);
+    if (workoutData) {
+      let bodyParts = []
+      let bodyPartsSum = []
+      let result
+      for (const day in workoutData.workout) {
+        if (!workoutData.workout.hasOwnProperty(day)) {
+          continue
+        }
+        const flatBodyParts = workoutData.workout[day].exercises.flat()
+        bodyParts = flatBodyParts.concat(bodyParts)
       }
-      const flatBodyParts = workoutData.workout[day].exercises.flat();
-      bodyParts = flatBodyParts.concat(bodyParts);
-    }
 
     if (bodyParts.length > 0) {
       for (let index = 0; index < 6; index++) {
@@ -344,71 +331,58 @@ export default function Dashboard(props) {
           return arr;
         }, []);
 
-        bodyPartsSum.push(result.length);
-      }
-      setBodyPart(bodyPartsSum);
-    }
-  };
-
-  const handleWeightChart = () => {
-    if (Object.keys(userData).length !== 0) {
-      console.log("The users data", userData.weight);
-      // if (userData.weight)
-
-      // const lastNumbers = userData.weight.slice(
-      //   Math.max(userData.weight.length - 5, 0)
-      // );
-      // console.log(lastNumbers);
-    }
-  };
-
-  useEffect(() => {
-    // fetch();
-    axios
-      .get("/dashboard/defaultWorkout", {
-        withCredentials: true,
-      })
-      .then(
-        (res) => {
-          console.log(res);
-          const arr1 = res.data.workout.day1.exercises;
-          const arr1Result = arr1.length;
-          // console.log(arr1Result)
-
-          const arr2 = res.data.workout.day2.exercises;
-          const arr2Result = arr2.length;
-          // console.log(arr2Result)
-
-          const arr3 = res.data.workout.day3.exercises;
-          const arr3Result = arr3.length;
-          //console.log(arr3Result)
-
-          const arr4 = res.data.workout.day4.exercises;
-          const arr4Result = arr4.length;
-          console.log(arr4Result);
-
-          const arr5 = res.data.workout.day5.exercises;
-          const arr5Result = arr5.length;
-          // console.log(arr5Result)
-
-          const arr6 = res.data.workout.day6.exercises;
-          const arr6Result = arr6.length;
-          //console.log(arr6Result)
-
-          const arr7 = res.data.workout.day7.exercises;
-          const arr7Result = arr7.length;
-          console.log(arr7Result);
-
-          setExerciseCreated(
-            arr1Result + arr2Result + arr3Result + arr5Result + arr6Result
-          );
-          console.log(exerciseCreated);
-        },
-        (error) => {
-          console.log(error);
+          bodyPartsSum.push(result.length)
         }
-      );
-  }, []);
+        setBodyPart(bodyPartsSum)
+      }
+    }
+  }, [workoutData])
+
+  const getWorkOutData = async () => {
+    const res = await axios.get("/dashboard/defaultWorkoutTwo", {
+      withCredentials: true,
+    })
+    if (res.data) {
+      console.log(res)
+      const arr1 = res.data.workout.day1.exercises
+      const arr1Result = arr1.length
+      // console.log(arr1Result)
+
+      const arr2 = res.data.workout.day2.exercises
+      const arr2Result = arr2.length
+      // console.log(arr2Result)
+
+      const arr3 = res.data.workout.day3.exercises
+      const arr3Result = arr3.length
+      //console.log(arr3Result)
+
+      /*  const arr4 = res.data.workout.day4.exercises
+        const arr4Result = arr4.length
+        console.log(arr4Result)  */
+
+      const arr5 = res.data.workout.day5.exercises
+      const arr5Result = arr5.length
+      // console.log(arr5Result)
+
+      const arr6 = res.data.workout.day6.exercises
+      const arr6Result = arr6.length
+      //console.log(arr6Result)
+
+      /*  const arr7 = res.data.workout.day7.exercises
+        const arr7Result = arr7.length
+        console.log(arr7Result)  */
+
+      setExerciseCreated(
+        arr1Result + arr2Result + arr3Result + arr5Result + arr6Result
+      )
+      setWorkoutData(res.data)
+      //console.log(exerciseCreated)
+    }
+  }
+  useEffect(() => {
+    getWorkOutData()
+    
+  }, [])
 
   return (
     <div className={styles.background}>
@@ -444,8 +418,8 @@ export default function Dashboard(props) {
         />
       </main>
       <exerciseDataContext.Provider
-        value={workoutData.current}
+        value={workoutData}
       ></exerciseDataContext.Provider>
     </div>
-  );
+  )
 }
