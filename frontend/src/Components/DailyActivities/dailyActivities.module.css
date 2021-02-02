@@ -98,14 +98,15 @@ ul li a {
   margin: -3% 0 0 82%;
 }
 
-.checkBox .redXCircleDiv {
+.checkBox .greenCircleDiv {
   width: max(3.5vw, 4.5vw);
   height: max(7vh, 9vh);
   background-color: #bcc4d0;
   border-radius: 10px;
   padding: 10%;
 }
-.checkBox .redXCircleDiv img {
+img {
+  
   width: max(2.5vw, 3.5vw);
   height: max(6.3vh, 7.3vh);
 }
@@ -173,7 +174,7 @@ ul li a {
   color: #ffffff;
   font-weight: 400;
   font-style: normal;
-  background: #f93f3f;
+  background: #474747;
 }
 
 /* Media Query */
@@ -192,12 +193,12 @@ ul li a {
     height: 6vh;
     margin:-7% 0 0 80%;
   }
-  .checkBox .redXCircleDiv {
+  .checkBox .greenCircleDiv {
     width: 10vw;
     height: 8.5vh;
    
   }
-  .checkBox .redXCircleDiv img {
+  .checkBox .greenCircleDiv img {
   width: 8vw;
   height: 6.5vh;
 }
@@ -266,7 +267,4 @@ ul li a {
   .mainContainer .buttons button {
     width: 25.5vw;
   }
-}
-@media only screen and (max-width: 768px) {
-
 }
