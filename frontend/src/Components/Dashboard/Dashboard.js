@@ -5,39 +5,40 @@ import {
   useEffect,
   useContext,
   createContext,
-} from "react"
-import { useHistory } from "react-router-dom"
-import DayJs from "react-dayjs"
-import dayjs from "dayjs"
-import styles from "./dashboard.module.css"
-import MembersNavbar from "../MembersNavbar/MembersNavbar"
-import DashDateWeather from "./DashDateWeather/DashDateWeather"
-import DashInfoPanel from "./DashInfoPanel/DashInfoPanel"
-import DashMainPanels from "./DashMainPanels/DashMainPanels"
-import DashFinishRegistration from "./DashFinishRegistration/DashFinishRegistration"
-import axios from "axios"
-import WeightUpdate from "./WeightUpdate/WeightUpdate"
-import { NotificationContext } from "../Notifications/Notifications"
-import defaultWorkout from "./WorkoutDatabase"
+} from "react";
+import { useHistory } from "react-router-dom";
+import DayJs from "react-dayjs";
+import dayjs from "dayjs";
+import styles from "./dashboard.module.css";
+import MembersNavbar from "../MembersNavbar/MembersNavbar";
+import DashDateWeather from "./DashDateWeather/DashDateWeather";
+import DashInfoPanel from "./DashInfoPanel/DashInfoPanel";
+import DashMainPanels from "./DashMainPanels/DashMainPanels";
+import DashFinishRegistration from "./DashFinishRegistration/DashFinishRegistration";
+import axios from "axios";
+import WeightUpdate from "./WeightUpdate/WeightUpdate";
+import { NotificationContext } from "../Notifications/Notifications";
+import defaultWorkout from "./WorkoutDatabase";
 
 //console.log("DefaultDatabase", defaultWorkout)
-export const exerciseDataContext = createContext()
+export const exerciseDataContext = createContext();
 
 export default function Dashboard(props) {
-  const setMessage = useContext(NotificationContext)
+  const setMessage = useContext(NotificationContext);
   // const [getLatestWeight, setGetLatestWeight] = useState([])
-  const [getUpdatedTime, setGetUpdatedTime] = useState(Date)
-  const [updateMessage, setUpdateMessage] = useState(false)
-  const workoutGoals = useRef()
-  const workoutData = useRef()
-  const [overlayClass, setOverlayClass] = useState(false)
-  const [currentDate, setCurrentDate] = useState()
-  const formCheck = localStorage.getItem("Register") || null
-  const [caloriesValue, setCaloriesValue] = useState(0)
-  const [macros, setMacros] = useState([])
-  const [weight, setWeight] = useState(0)
-  const [fetchCheck, setFetchCheck] = useState(false)
-  // console.log("Dashboard.js", overlayClass)
+  const [getUpdatedTime, setGetUpdatedTime] = useState(Date);
+  const [updateMessage, setUpdateMessage] = useState(false);
+  const workoutGoals = useRef();
+  // const workoutData = useRef();
+  const [workoutData, setWorkoutData] = useState({});
+  const [overlayClass, setOverlayClass] = useState(false);
+  const [currentDate, setCurrentDate] = useState();
+  const formCheck = localStorage.getItem("Register") || null;
+  const [caloriesValue, setCaloriesValue] = useState(0);
+  const [macros, setMacros] = useState([]);
+  const [weight, setWeight] = useState(0);
+  const [bodyPart, setBodyPart] = useState([]);
+
   // GET UPDATED WEIGHT FROM MongoDB
   useEffect(() => {
     axios
@@ -48,39 +49,26 @@ export default function Dashboard(props) {
         credentials: "include",
       })
       .then((res) => {
-        //setGetLatestWeight(res.data[0].updatedWeight)
-        // console.log("User's updatedWeight", res.data[0].updatedWeight)
+        setGetUpdatedTime(res.data[0].timestamps.lastUpdatedAt);
 
-        setGetUpdatedTime(res.data[0].timestamps.lastUpdatedAt)
-
-        console.log(
-          "user's updated weight time: ",
-          res.data[0].timestamps.lastUpdatedAt
-        )
-        console.log(getUpdatedTime)
-
-        const myDate = dayjs(getUpdatedTime).add(1, "day").format("DD.MM.YYYY")
-
-        console.log(myDate)
-        const date = dayjs().format("DD.MM.YYYY")
-        console.log(date)
+        const myDate = dayjs(getUpdatedTime).add(1, "day").format("DD.MM.YYYY");
+        const date = dayjs().format("DD.MM.YYYY");
         if (date === myDate) {
           setTimeout(() => {
-            setUpdateMessage(true)
-          }, 3000)
-          console.log("update")
+            setUpdateMessage(true);
+          }, 3000);
         }
-      })
-  }, [])
+      });
+  }, []);
 
   //POST UDPATED WEIGHT: CONNECT TO BACKEND
 
   const handleUpdatedWeight = async (event) => {
-    event.preventDefault()
-    const updatedWeightValue = new FormData(event.target)
+    event.preventDefault();
+    const updatedWeightValue = new FormData(event.target);
     const updatedWeightField = {
       updatedWeight: updatedWeightValue.get("updatedWeight"),
-    }
+    };
     try {
       await fetch("/dashboard/updatedWeight", {
         method: "POST",
@@ -89,56 +77,56 @@ export default function Dashboard(props) {
         },
         credentials: "include",
         body: JSON.stringify(updatedWeightField),
-      })
-      console.log("handleUpdateWeight reached")
-      handleRemoveOverlay()
+      });
+      console.log("handleUpdateWeight reached");
+      handleRemoveOverlay();
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   //LOGOUT
-  const history = useHistory()
+  const history = useHistory();
   const handleLogout = () => {
-    window.localStorage.removeItem("loggedIn")
-    history.push("/")
-  }
+    window.localStorage.removeItem("loggedIn");
+    history.push("/");
+  };
 
   useEffect(() => {
-    const date = new Date()
+    const date = new Date();
     const options = {
       weekday: "long",
       year: "numeric",
       month: "long",
       day: "numeric",
-    }
+    };
 
-    setCurrentDate(new Intl.DateTimeFormat("en-GB", options).format(date))
-  })
+    setCurrentDate(new Intl.DateTimeFormat("en-GB", options).format(date));
+  });
 
   useEffect(() => {
     if (formCheck === "pending") {
-      setOverlayClass(true)
+      setOverlayClass(true);
     } else {
-      setOverlayClass(false)
+      setOverlayClass(false);
     }
-  }, [])
+  }, []);
 
   const handleSetOverlay = () => {
-    setOverlayClass(true)
-  }
+    setOverlayClass(true);
+  };
   const handleRemoveOverlay = () => {
-    setOverlayClass(false)
-    localStorage.setItem("Register", "fulfilled")
-  }
+    setOverlayClass(false);
+    localStorage.setItem("Register", "fulfilled");
+  };
 
   //---WEATHER INFORMATION---
-  const API_KEY = "fd8bafc7164f93efdf3c8815e92e4f18"
-  const [mainTemp, setMainTemp] = useState("")
-  const [city, setCity] = useState("Hamburg")
-  const [iconID, setIconID] = useState("")
-  const [feels_like, setFeelsLike] = useState("")
-  const [description, setDescription] = useState("")
+  const API_KEY = "fd8bafc7164f93efdf3c8815e92e4f18";
+  const [mainTemp, setMainTemp] = useState("");
+  const [city, setCity] = useState("Hamburg");
+  const [iconID, setIconID] = useState("");
+  const [feels_like, setFeelsLike] = useState("");
+  const [description, setDescription] = useState("");
 
   useEffect(() => {
     fetch(
@@ -147,11 +135,11 @@ export default function Dashboard(props) {
       .then((res) => res.json())
       .then((data) => {
         //console.log(data)
-        setMainTemp(Math.round(data.main.temp))
-        setIconID(data.weather[0].icon)
-        setFeelsLike(data.main.feels_like)
-        setDescription(data.weather[0].description)
-      })
+        setMainTemp(Math.round(data.main.temp));
+        setIconID(data.weather[0].icon);
+        setFeelsLike(data.main.feels_like);
+        setDescription(data.weather[0].description);
+      });
 
     fetch("/dashboard/defaultWorkout", {
       method: "GET",
@@ -162,18 +150,16 @@ export default function Dashboard(props) {
     })
       .then((res) => res.json())
       .then((data) => {
-        workoutData.current = data
-
+        setWorkoutData(data);
         // props.onHandleWorkoutData(data);
-      })
-  }, [])
+      });
+  }, []);
 
   //---FINISH REGISTRATION PAGE CONNECT TO BACKEND---
   const handleFinishRegistration = async (event) => {
-    setMessage("Welcome in your Dashboard Page!!")
-    //console.log(setMessage);
-    event.preventDefault()
-    const formData = new FormData(event.target)
+    setMessage("Welcome in your Dashboard Page!!");
+    event.preventDefault();
+    const formData = new FormData(event.target);
 
     const finishRegistrationField = {
       gender: formData.get("gender"),
@@ -184,7 +170,7 @@ export default function Dashboard(props) {
       workoutGoals: formData.get("workoutGoals"),
       workoutDays: formData.get("workoutDays"),
       activityLevel: formData.get("activityLevel"),
-    }
+    };
     try {
       const response = await fetch("/dashboard/finishRegistration", {
         method: "POST",
@@ -193,19 +179,17 @@ export default function Dashboard(props) {
         },
         credentials: "include",
         body: JSON.stringify(finishRegistrationField),
-      })
-      //const json = await response.json();
-      //console.log("function is reached")
-      handleRemoveOverlay()
-      handleDefaultWorkout()
+      });
+      handleRemoveOverlay();
+      handleDefaultWorkout();
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
-  }
+  };
   const handleDefaultWorkout = async () => {
     try {
-      localStorage.setItem("workoutData", JSON.stringify(defaultWorkout))
-
+      localStorage.setItem("workoutData", JSON.stringify(defaultWorkout));
+      console.log("Default Workout", defaultWorkout);
       await fetch("/dashboard/defaultWorkout", {
         method: "POST",
         headers: {
@@ -213,40 +197,29 @@ export default function Dashboard(props) {
         },
         credentials: "include",
         body: JSON.stringify(defaultWorkout),
-      })
-      //setFetchCheck(true)
+      });
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
-  /*   useEffect(() => {
-    localStorage.setItem("workoutData", JSON.stringify(defaultWorkout))
-    console.log("After localStorage", defaultWorkout)
-  }, [fetchCheck]) */
+  };
 
   //NUTRITION CALCULATION
   // CALCULATE MEN'S BMR
-  //const [nutrition, setNutrition] = useState("")
-
   const calculateBMRForMen = (menWeight, menHeight, menAge) => {
-    const weight = 66.47 + 13.75 * menWeight
-    const height = 5.003 * menHeight
-    const age = 6.755 * menAge
-    return weight + height - age
-  }
-
-  // calculateBMRForMen()
-  //console.log(calculateBMRForMen(34,178, 23));
+    const weight = 66.47 + 13.75 * menWeight;
+    const height = 5.003 * menHeight;
+    const age = 6.755 * menAge;
+    return weight + height - age;
+  };
 
   //CALCULATE WOMEN'S BMR
   const calculateBMRForWomen = (womenWeight, womenHeight, womenAge) => {
-    const weight = 655.1 + 9.563 * womenWeight
-    const height = 1.85 * womenHeight
-    const age = 4.676 * womenAge
-    return weight + height - age
-  }
-  //calculateBMRForWomen()
-  //console.log(calculateBMRForWomen())
+    const weight = 655.1 + 9.563 * womenWeight;
+    const height = 1.85 * womenHeight;
+    const age = 4.676 * womenAge;
+    return weight + height - age;
+  };
+
   useEffect(() => {
     axios
       .get("dashboard/dashboardNutrition", {
@@ -255,18 +228,15 @@ export default function Dashboard(props) {
         },
       })
       .then((res) => {
-        workoutGoals.current = res.data[0].workoutGoals
-
-        setWeight(res.data[0].weight)
-
-        let getGender
-
-        const gender = [calculateBMRForMen, calculateBMRForWomen]
+        workoutGoals.current = res.data[0].workoutGoals;
+        setWeight(res.data[0].weight);
+        let getGender;
+        const gender = [calculateBMRForMen, calculateBMRForWomen];
 
         if (res.data.gender === "male") {
-          getGender = gender[0]
+          getGender = gender[0];
         } else {
-          getGender = gender[1]
+          getGender = gender[1];
         }
 
         switch (res.data[0].activityLevel) {
@@ -277,8 +247,8 @@ export default function Dashboard(props) {
                 res.data[0].height,
                 res.data[0].age
               ) * 1.2
-            )
-            break
+            );
+            break;
           case "moderately":
             setCaloriesValue(
               getGender(
@@ -286,8 +256,8 @@ export default function Dashboard(props) {
                 res.data[0].height,
                 res.data[0].age
               ) * 1.55
-            )
-            break
+            );
+            break;
           case "active":
             setCaloriesValue(
               getGender(
@@ -295,8 +265,8 @@ export default function Dashboard(props) {
                 res.data[0].height,
                 res.data[0].age
               ) * 1.725
-            )
-            break
+            );
+            break;
           case "extraActive":
             setCaloriesValue(
               getGender(
@@ -304,50 +274,77 @@ export default function Dashboard(props) {
                 res.data[0].height,
                 res.data[0].age
               ) * 1.9
-            )
-            break
+            );
+            break;
 
           default:
-            break
+            break;
         }
-      })
-  }, [overlayClass])
+      });
+  }, [overlayClass]);
 
   useEffect(() => {
-    let kcalGoal = 0
-    let protein = 0
-    let fat = 0
+    let kcalGoal = 0;
+    let protein = 0;
+    let fat = 0;
     switch (workoutGoals.current) {
       case "looseWeight":
-        kcalGoal = caloriesValue - caloriesValue * 0.2
-        protein = weight
-        fat = weight * 0.4
-        break
+        kcalGoal = caloriesValue - caloriesValue * 0.2;
+        protein = weight;
+        fat = weight * 0.4;
+        break;
       case "stayFit":
-        kcalGoal = caloriesValue
-        protein = weight * 1.2
-        fat = weight * 0.5
-        break
+        kcalGoal = caloriesValue;
+        protein = weight * 1.2;
+        fat = weight * 0.5;
+        break;
       case "gainMuscles":
-        kcalGoal = caloriesValue + caloriesValue * 0.2
-        protein = weight * 1.5
-        fat = weight * 0.8
-        break
+        kcalGoal = caloriesValue + caloriesValue * 0.2;
+        protein = weight * 1.5;
+        fat = weight * 0.8;
+        break;
       default:
-        break
+        break;
     }
-    const proteinPercent = (protein * 4 * 100) / kcalGoal
-    const fatPercent = (fat * 9 * 100) / kcalGoal
-    const carbsPercent = 100 - proteinPercent - fatPercent
-    const carbs = Math.round((caloriesValue * carbsPercent) / 100 / 4)
-    //console.log('result:', (carbs *4) + (protein *4)+ (fat * 9));
-    // console.log(carbs);
-    // console.log(carbsPercent)
-    // console.log(fatPercent)
-    //console.log(proteinPercent)
+    const proteinPercent = (protein * 4 * 100) / kcalGoal;
+    const fatPercent = (fat * 9 * 100) / kcalGoal;
+    const carbsPercent = 100 - proteinPercent - fatPercent;
+    const carbs = Math.round((caloriesValue * carbsPercent) / 100 / 4);
 
-    setMacros([carbs, protein, fat])
-  }, [caloriesValue])
+    setMacros([carbs, protein, fat]);
+  }, [caloriesValue]);
+
+  useEffect(() => {
+    console.log("Workout Data", workoutData.workout);
+    let bodyParts = [];
+    let bodyPartsSum = [];
+    let result;
+
+    for (const day in workoutData.workout) {
+      if (!workoutData.workout.hasOwnProperty(day)) {
+        continue;
+      }
+      const flatBodyParts = workoutData.workout[day].exercises.flat();
+      bodyParts = flatBodyParts.concat(bodyParts);
+    }
+
+    if (bodyParts.length > 0) {
+      for (let index = 0; index < 6; index++) {
+        let query = ["abs", "arms", "back", "chest", "legs", "shoulders"];
+
+        let result = bodyParts.reduce((arr, curr) => {
+          if (curr === query[index]) {
+            arr.push(curr);
+          }
+          return arr;
+        }, []);
+
+        bodyPartsSum.push(result.length);
+      }
+      setBodyPart(bodyPartsSum);
+      console.log(bodyPartsSum);
+    }
+  }, [workoutData]);
 
   return (
     <div className={styles.background}>
@@ -362,7 +359,11 @@ export default function Dashboard(props) {
       />
       <main className={styles.panel}>
         <DashInfoPanel />
-        <DashMainPanels caloriesValue={caloriesValue} macros={macros} />
+        <DashMainPanels
+          caloriesValue={caloriesValue}
+          macros={macros}
+          bodyPart={bodyPart}
+        />
         <DashFinishRegistration
           overlayClass={overlayClass}
           formCheck={formCheck}
@@ -382,5 +383,5 @@ export default function Dashboard(props) {
         value={workoutData.current}
       ></exerciseDataContext.Provider>
     </div>
-  )
+  );
 }
