@@ -228,14 +228,17 @@ router.post("/defaultWorkout", async (request, response) => {
       user: request.user,
     })
     await defaultWorkoutData.save()
-  } catch (error) {
+    response.json( defaultWorkoutData );
+  } catch ( error ) {
+    response.status(401).json({msg: error.message})
     console.log(error)
   }
 })
 
 //--DASHBOARD: DEFAULT-WORKOUT  GET DATA--//
-router.get("/defaultWorkout", async (request, response) => {
+router.get("/defaultWorkoutTwo", async (request, response) => {
   try {
+    console.log("DEFAULT-WORKOUT" , request.user)
     const defaultData = await WorkoutInfo.findOne({ user: request.user })
 
     response.status(200).json(defaultData)
