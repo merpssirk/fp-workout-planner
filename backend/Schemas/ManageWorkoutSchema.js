@@ -5,6 +5,7 @@ const WorkoutSchema = new mongoose.Schema({
   user: { type: mongoose.Types.ObjectId, ref: "Users" },
   //user: String,
   workout: {
+    
     day1: {
       button: { type: String },
       exercises: [[]],

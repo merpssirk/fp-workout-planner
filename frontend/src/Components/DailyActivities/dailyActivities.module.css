@@ -105,7 +105,7 @@ ul li a {
   border-radius: 10px;
   padding: 10%;
 }
-img {
+.checkBox .greenCircleDiv img {
   
   width: max(2.5vw, 3.5vw);
   height: max(6.3vh, 7.3vh);

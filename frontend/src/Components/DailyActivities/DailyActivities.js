@@ -159,6 +159,8 @@ export default function DailyActivities() {
     handlePupop()
   }, [])
 
+  
+
 
   return (
     <>

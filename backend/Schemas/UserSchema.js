@@ -12,9 +12,11 @@ const UserSchema = new mongoose.Schema({
   weight: { type: Number },
   updatedWeight: [{ type: Number }],
   timestamps: {
-    createdAt: {type: Date},
+    createdAt: { type: Date },
     lastUpdatedAt: { type: Date },
-    startWorkoutAt: {type: Date}
+    startWorkoutAt: { type: Date },
+    doneWorkout: [{ type: Date }],
+    missedWorkout: [{ type: Date }],
   },
   disability: {
     type: String,
@@ -32,6 +34,7 @@ const UserSchema = new mongoose.Schema({
   workoutDays: { type: Number, enum: [1, 2, 3, 4, 5, 6] },
   avatar: { type: String },
   changePassword: { type: String },
+  streak: { type: Number },
 })
 
 module.exports = UserSchema

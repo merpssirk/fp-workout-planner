@@ -1,5 +1,8 @@
 const workoutSaved = {
   workout: {
+   /*  doneWorkout: [],
+    missedWorkout: [],
+    streak: 0, */
     day1: {
       button: "buttonGreen",
       exercises: [
@@ -70,6 +73,6 @@ const workoutSaved = {
       panels: [1, 2, 3, 4, 5, 6, 7, 8],
     },
   },
-};
+}
 
 module.exports = workoutSaved;
