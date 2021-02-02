@@ -4,11 +4,11 @@ import styles from "./home.module.css"
 import imgLogo from "../../pics/home/Logo.png"
 import classNames from "classnames"
 //import Dashboard from "../../Dashboard/Dashboard"
-import { NotificationContext } from "../Notifications/Notifications"
+//import { NotificationContext } from "../Notifications/Notifications"
 
 export default function Home() {
 
-  const setMessage = useContext( NotificationContext )
+ // const setMessage = useContext( NotificationContext )
   
   const [error, setError] = useState("");
   
@@ -132,7 +132,7 @@ export default function Home() {
     <div className={styles.background}>
       <nav className={styles.navBar}>
         <ul>
-          <a href="/home">
+          <a href="/">
             <img src={imgLogo} alt={imgLogo} />
           </a>
           <li

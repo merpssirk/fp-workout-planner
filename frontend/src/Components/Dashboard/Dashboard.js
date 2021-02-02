@@ -36,7 +36,9 @@ export default function Dashboard(props) {
   const [caloriesValue, setCaloriesValue] = useState(0)
   const [macros, setMacros] = useState([])
   const [weight, setWeight] = useState(0)
-  const [fetchCheck, setFetchCheck] = useState(false)
+  const [fetchCheck, setFetchCheck] = useState( false )
+  const [exerciseCreated, setExerciseCreated] = useState(0)
+
   // console.log("Dashboard.js", overlayClass)
   // GET UPDATED WEIGHT FROM MongoDB
   useEffect(() => {
@@ -53,17 +55,14 @@ export default function Dashboard(props) {
 
         setGetUpdatedTime(res.data[0].timestamps.lastUpdatedAt)
 
-        console.log(
-          "user's updated weight time: ",
-          res.data[0].timestamps.lastUpdatedAt
-        )
-        console.log(getUpdatedTime)
+       // console.log("user's updated weight time: ", res.data[0].timestamps.lastUpdatedAt)
+       // console.log(getUpdatedTime)
 
         const myDate = dayjs(getUpdatedTime).add(1, "day").format("DD.MM.YYYY")
 
-        console.log(myDate)
+       // console.log(myDate)
         const date = dayjs().format("DD.MM.YYYY")
-        console.log(date)
+       // console.log(date)
         if (date === myDate) {
           setTimeout(() => {
             setUpdateMessage(true)
@@ -90,7 +89,7 @@ export default function Dashboard(props) {
         credentials: "include",
         body: JSON.stringify(updatedWeightField),
       })
-      console.log("handleUpdateWeight reached")
+      //console.log("handleUpdateWeight reached")
       handleRemoveOverlay()
     } catch (error) {
       console.log(error)
@@ -146,7 +145,6 @@ export default function Dashboard(props) {
     )
       .then((res) => res.json())
       .then((data) => {
-        //console.log(data)
         setMainTemp(Math.round(data.main.temp))
         setIconID(data.weather[0].icon)
         setFeelsLike(data.main.feels_like)
@@ -163,7 +161,7 @@ export default function Dashboard(props) {
       .then((res) => res.json())
       .then((data) => {
         workoutData.current = data
-
+       
         // props.onHandleWorkoutData(data);
       })
   }, [])
@@ -349,9 +347,9 @@ export default function Dashboard(props) {
     setMacros([carbs, protein, fat])
   }, [caloriesValue])
 
-  const [exerciseCreated, setExerciseCreated] = useState()
-
-  useEffect(() => {
+  
+ /*  useEffect( () => {
+    fetch()
     axios
       .get("/dashboard/defaultWorkout", {
         headers: {
@@ -360,42 +358,41 @@ export default function Dashboard(props) {
         credentials: "include",
       })
       .then((res) => {
-        //workoutData.current = res.data.workout.day1.exercises
-        console.log(res.data.workout)
-        const arr1 = res.data.workout.day1.exercises
+        console.log(res) */
+        /* const arr1 = res.data.workout.day1.exercises
         const arr1Result = arr1.length
-        console.log(arr1Result)
+       // console.log(arr1Result)
 
         const arr2 = res.data.workout.day2.exercises
         const arr2Result = arr2.length
-        console.log(arr2Result)
+       // console.log(arr2Result)
 
         const arr3 = res.data.workout.day3.exercises
         const arr3Result = arr3.length
-        console.log(arr3Result)
+        //console.log(arr3Result)
 
-        /* const arr4 = res.data.workout.day4.exercises
+         const arr4 = res.data.workout.day4.exercises
         const arr4Result = arr4.length
-        console.log(arr4Result) */
+        console.log(arr4Result) 
 
-        const arr5 = res.data.workout.day5.exercises
+         const arr5 = res.data.workout.day5.exercises
         const arr5Result = arr5.length
-        console.log( arr5Result )
-        
+       // console.log(arr5Result)
+
         const arr6 = res.data.workout.day6.exercises
         const arr6Result = arr6.length
-        console.log( arr6Result )
-        
-       /*  const arr7 = res.data.workout.day7.exercises
+        //console.log(arr6Result) 
+
+         const arr7 = res.data.workout.day7.exercises
         const arr7Result = arr7.length
-        console.log(arr7Result) */
-        
+        console.log(arr7Result) 
+ 
         setExerciseCreated(
           arr1Result + arr2Result + arr3Result + arr5Result + arr6Result
         )
-        console.log(exerciseCreated)
-      })
-  }, [] )
+        console.log(exerciseCreated) */ 
+ /*      })
+  }, []) */
   
   return (
     <div className={styles.background}>
