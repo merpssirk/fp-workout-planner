@@ -343,7 +343,6 @@ export default function Dashboard(props) {
         bodyPartsSum.push(result.length);
       }
       setBodyPart(bodyPartsSum);
-      console.log(bodyPartsSum);
     }
   }, [workoutData]);
 
