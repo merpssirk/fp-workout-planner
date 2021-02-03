@@ -72,7 +72,10 @@ router.post(
 
 //--DASHBOARD: "POST" UPDATED WEIGHT--//
 router.post("/updatedWeight", async (request, response) => {
-  const { updatedWeight } = request.body
+  const { updatedWeightField, weekOfYear } = request.body
+  const updatedWeight = [updatedWeightField, weekOfYear]
+  console.log("updatedWeight", updatedWeightField)
+
   const newUser = {
     updatedWeight,
   }
@@ -160,20 +163,19 @@ router.post("/manageWorkout", async (request, response) => {
     const workoutData = await WorkoutInfo.findOne({
       user: request.user,
     })
-    
+
     if (workoutData) {
       await WorkoutInfo.findByIdAndUpdate(workoutData._id, workout, {
         new: true,
       })
     } else {
-      
       const newUserWorkout = await new WorkoutInfo({
         user: request.user,
         workout: workout,
       })
       await newUserWorkout.save()
     }
-    
+
     if (workoutData) {
       response.status(200).json({ msg: "workoutData updated" })
     } else {
@@ -193,7 +195,7 @@ router.get("/workoutOverview", (request, response) => {
 //--DASHBOARD: DAILY-ACTIVITY PAGE--//
 router.get("/dailyActivity", async (request, response) => {
   try {
-    const defaultDailyActivity = await Users.findOne( { _id: request.user } )
+    const defaultDailyActivity = await Users.findOne({ _id: request.user })
     console.log("defaultDailyActivity", defaultDailyActivity)
     response.status(200).json(defaultDailyActivity)
   } catch (error) {
@@ -210,9 +212,9 @@ router.post("/defaultWorkout", async (request, response) => {
       user: request.user,
     })
     await defaultWorkoutData.save()
-    response.json( defaultWorkoutData );
-  } catch ( error ) {
-    response.status(401).json({msg: error.message})
+    response.json(defaultWorkoutData)
+  } catch (error) {
+    response.status(401).json({ msg: error.message })
     console.log(error)
   }
 })
@@ -220,7 +222,7 @@ router.post("/defaultWorkout", async (request, response) => {
 //--DASHBOARD: DEFAULT-WORKOUT  GET DATA--//
 router.get("/defaultWorkoutTwo", async (request, response) => {
   try {
-    console.log("DEFAULT-WORKOUT" , request.user)
+    console.log("DEFAULT-WORKOUT", request.user)
     const defaultData = await WorkoutInfo.findOne({ user: request.user })
 
     response.status(200).json(defaultData)
@@ -230,6 +232,30 @@ router.get("/defaultWorkoutTwo", async (request, response) => {
   }
 })
 
+//--DAILY-ACTIVITIES PAGE: "POST" ACTIVITIES DATE--//
+router.post("/updateDate", async (request, response) => {
+  try {
+    const { doneWorkout } = request.body
 
+    console.log("doneWorkout :", doneWorkout)
+    const user = await Users.findByIdAndUpdate(
+      request.user,
+      {
+        $push: { "timestamps.doneWorkout": doneWorkout },
+      },
+      { new: true }
+    )
+
+    if (user) {
+      response.status(200).json({ msg: "Your daily activity date is saved" })
+    } else {
+      response
+        .status(401)
+        .json({ msg: "Can not saved your daily activity date" })
+    }
+  } catch (error) {
+    response.status(401).json({ msg: error.message })
+  }
+})
 
 module.exports = router

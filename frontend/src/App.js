@@ -1,4 +1,4 @@
-import { React, useRef } from "react";
+import { React, useRef} from "react";
 import Home from "./Components/Home/Home";
 import Motivation from "./Components/Motivation/Motivation";
 import Testimonials from "./Components/Testimonials/Testimonials";
@@ -26,6 +26,7 @@ function App() {
         <Switch>
           <PrivateRoute path="/dashboard" exact component={Dashboard} />
           <PrivateRoute path="/userpage" component={Userpage} exact />
+          
           <PrivateRoute
             path="/dailyactivities"
             exact

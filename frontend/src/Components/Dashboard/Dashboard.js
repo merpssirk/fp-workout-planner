@@ -19,11 +19,17 @@ import axios from "axios"
 import WeightUpdate from "./WeightUpdate/WeightUpdate"
 import { NotificationContext } from "../Notifications/Notifications"
 import defaultWorkout from "./WorkoutDatabase"
+import weekOfYear from "dayjs/plugin/weekOfYear";
+dayjs.extend(weekOfYear)
+
 
 //console.log("DefaultDatabase", defaultWorkout)
-export const exerciseDataContext = createContext()
+//export const exerciseDataContext = createContext()
 
-export default function Dashboard(props) {
+export const dailyActivitiesContext = createContext();
+
+export default function Dashboard( props ) {
+  
   const [userData, setUserData] = useState({})
   const [workoutData, setWorkoutData] = useState({})
   const setMessage = useContext(NotificationContext)
@@ -54,7 +60,7 @@ export default function Dashboard(props) {
       .then((res) => {
         setGetUpdatedTime(res.data[0].timestamps.lastUpdatedAt)
         setUserData(res.data[0])
-        const myDate = dayjs(getUpdatedTime).add(1, "day").format("DD.MM.YYYY")
+        const myDate = dayjs(getUpdatedTime).add(0, "day").format("DD.MM.YYYY")
         const date = dayjs().format("DD.MM.YYYY")
         if (date === myDate) {
           setTimeout(() => {
@@ -68,10 +74,12 @@ export default function Dashboard(props) {
 
   const handleUpdatedWeight = async (event) => {
     event.preventDefault()
-    const updatedWeightValue = new FormData(event.target)
-    const updatedWeightField = {
-      updatedWeight: updatedWeightValue.get("updatedWeight"),
-    }
+    const updatedWeightValue = new FormData( event.target )
+
+    const weekOfYear = dayjs( "2018-06-27" ).week();
+    
+    const updatedWeightField = parseInt(updatedWeightValue.get("updatedWeight"))
+    
     try {
       await fetch("/dashboard/updatedWeight", {
         method: "POST",
@@ -79,7 +87,7 @@ export default function Dashboard(props) {
           "Content-Type": "application/json",
         },
         credentials: "include",
-        body: JSON.stringify(updatedWeightField),
+        body: JSON.stringify({updatedWeightField, weekOfYear}),
       })
       //console.log("handleUpdateWeight reached")
       handleRemoveOverlay()
@@ -380,11 +388,8 @@ export default function Dashboard(props) {
   }
   useEffect(() => {
     getWorkOutData()
+    //handleWorkoutDone()
   }, [])
-
-  const handleWorkoutDone = () => {
-    console.log(workoutData)
-  }
 
   return (
     <div className={styles.background}>
@@ -419,9 +424,7 @@ export default function Dashboard(props) {
           updateMessage={updateMessage}
         />
       </main>
-      <exerciseDataContext.Provider
-        value={workoutData}
-      ></exerciseDataContext.Provider>
+  
     </div>
   )
 }
