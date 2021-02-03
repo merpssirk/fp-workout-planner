@@ -10,13 +10,13 @@ const UserSchema = new mongoose.Schema({
   },
   height: { type: Number },
   weight: { type: Number },
-  updatedWeight: [{ type: Number }],
+  updatedWeight: [[{ type: Number }]],
   timestamps: {
     createdAt: { type: Date },
     lastUpdatedAt: { type: Date },
     startWorkoutAt: { type: Date },
-    doneWorkout: [{ type: Date }],
-    missedWorkout: [{ type: Date }],
+    doneWorkout: [{ type: Date, default: undefined }],
+    missedWorkout: [{ type: Date, default: undefined }],
   },
   disability: {
     type: String,

@@ -6,8 +6,9 @@ import avatar from "../../pics/dashboard/Avatar-male.png"
 //import avatar from "../pics/dashboard/Avatar-male.png";
 import imgLogo from "../../pics/dashboard/Logo-black.png"
 import greenCheckCircle from "../../pics/dashboard/greenCheckCircle.png"
-import redXCircle from "../../pics/dashboard/redXCircle.png"
-import DayJs from "react-dayjs"
+//import redXCircle from "../../pics/dashboard/redXCircle.png"
+//import DayJs from "react-dayjs"
+
 import dayjs from "dayjs"
 
 export default function DailyActivities() {
@@ -15,20 +16,18 @@ export default function DailyActivities() {
     JSON.parse(localStorage.getItem("workoutData")).workout
   )
   const panels = useRef([0, 1, 2, 3, 4, 5, 6, 7])
-  console.log(workoutData)
+  //console.log(workoutData)
 
   const [currentWorkout, setCurrentWorkout] = useState(
     workoutData.day1.exercises[0]
   )
   const [indexOfDay, setIndexOfDay] = useState()
 
-  
-
   const handleCalculateDays = (data) => {
     const startDay = dayjs(data.timestamps.startWorkoutAt).format("dddd")
-    console.log(startDay)
+    //console.log(startDay)
     const currentDay = dayjs().format("dddd")
-    console.log(currentDay)
+    // console.log(currentDay)
     const daysArray = [
       startDay,
       dayjs(data.timestamps.startWorkoutAt).add(1, "day").format("dddd"),
@@ -38,14 +37,16 @@ export default function DailyActivities() {
       dayjs(data.timestamps.startWorkoutAt).add(5, "day").format("dddd"),
       dayjs(data.timestamps.startWorkoutAt).add(6, "day").format("dddd"),
     ]
-    console.log(daysArray)
+    // console.log(daysArray)
     const dayIndex = daysArray.indexOf(currentDay)
     setIndexOfDay(dayIndex)
-    console.log(dayIndex)
-    console.log(workoutData["day" + (dayIndex + 1)].exercises)
+    // console.log(dayIndex)
+    //console.log(workoutData["day" + (dayIndex + 1)].exercises)
     setCurrentWorkout(workoutData["day" + (dayIndex + 1)].exercises)
-    console.log(data)
+    //console.log(data)
   }
+  const [userData, setUserData] = useState({})
+
   useEffect(() => {
     fetch("/dashboard/dailyActivity", {
       method: "GET",
@@ -56,8 +57,9 @@ export default function DailyActivities() {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data.timestamps.startWorkoutAt)
+        console.log(data)
         handleCalculateDays(data)
+        setUserData(data)
       })
       .catch((err) => {
         console.log(err)
@@ -68,12 +70,54 @@ export default function DailyActivities() {
     console.log(currentWorkout)
   }, [currentWorkout])
 
+  const [workoutDone, setWorkoutDone] = useState(false)
+
+  const handleWorkoutDone = () => {
+    const today = dayjs().format("DD.MM.YYYY")
+    if (Object.keys(userData).length !== 0) {
+      const workoutDoneAt = dayjs(userData.timestamps.doneWorkout).format(
+        "DD.MM.YYYY"
+      )
+      if (workoutDoneAt === today) {
+        setWorkoutDone(true)
+      }
+    }
+  }
+
+  useEffect(() => {
+    handleWorkoutDone()
+  }, [userData])
+
+  const handleSetWorkoutDone = () => {
+    setWorkoutDone(true)
+  }
+
+  const handleUpdateDate = async () => {
+    const doneWorkout = dayjs().format("DD.MM.YYYY")
+    try {
+      await fetch("/dashboard/updateDate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({ doneWorkout }),
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  useEffect(() => {
+    handleUpdateDate()
+  }, [])
+
   //LOGOUT
   const history = useHistory()
   const handleLogout = () => {
     window.localStorage.removeItem("loggedIn")
     history.push("/")
   }
+
   // DATE:
   const [currentDate, setCurrentDate] = useState()
 
@@ -90,6 +134,7 @@ export default function DailyActivities() {
   useEffect(() => {
     getCurrentDate()
   })
+
   // Calendar Data
   const calendarData = {
     year: {
@@ -148,20 +193,6 @@ export default function DailyActivities() {
 
   handleWorkoutData(2019, 3, 1, 1)
 
-  const [pupopShow, setPupopShow] = useState( false )
-  console.log( pupopShow );
-  
-  const handlePupop = () => {
-   
-    setPupopShow(true)
-  }
-  useEffect( () => {
-    handlePupop()
-  }, [])
-
-  
-
-
   return (
     <>
       <div className={styles.background}>
@@ -192,11 +223,9 @@ export default function DailyActivities() {
         <h3 className={styles.date}>Your workout for today - {currentDate}</h3>
         <div className={styles.checkBox}>
           <div className={styles.greenCircleDiv}>
-            {pupopShow ? 
+            {workoutDone ? (
               <img src={greenCheckCircle} alt={greenCheckCircle} />
-             : 
-              ""
-            }
+            ) : null}
           </div>
         </div>
 
@@ -246,7 +275,11 @@ export default function DailyActivities() {
               ))}
             </div>
             <div className={styles.buttons}>
-              <button onClick={pupopShow} className={styles.redBtn}>
+              <button
+                /* onSubmit={handleUpdateDate} */
+                onClick={handleSetWorkoutDone}
+                className={styles.redBtn}
+              >
                 Done
               </button>
             </div>

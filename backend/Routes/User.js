@@ -37,8 +37,7 @@ router.post("/register", async (request, response) => {
         createdAt: Date.now(),
         lastUpdatedAt: Date.now(),
         startWorkoutAt: Date.now(),
-        doneWorkout: Date.now(),
-        missedWorkout: Date.now(),
+        
       },
     })
     //Save in MongoDB
