@@ -16,7 +16,6 @@ export default function DailyActivities() {
     JSON.parse(localStorage.getItem("workoutData")).workout
   )
   const panels = useRef([0, 1, 2, 3, 4, 5, 6, 7])
-  //console.log(workoutData)
 
   const [currentWorkout, setCurrentWorkout] = useState(
     workoutData.day1.exercises[0]
@@ -25,9 +24,9 @@ export default function DailyActivities() {
 
   const handleCalculateDays = (data) => {
     const startDay = dayjs(data.timestamps.startWorkoutAt).format("dddd")
-    //console.log(startDay)
+    
     const currentDay = dayjs().format("dddd")
-    // console.log(currentDay)
+    
     const daysArray = [
       startDay,
       dayjs(data.timestamps.startWorkoutAt).add(1, "day").format("dddd"),
@@ -37,13 +36,12 @@ export default function DailyActivities() {
       dayjs(data.timestamps.startWorkoutAt).add(5, "day").format("dddd"),
       dayjs(data.timestamps.startWorkoutAt).add(6, "day").format("dddd"),
     ]
-    // console.log(daysArray)
+    
     const dayIndex = daysArray.indexOf(currentDay)
     setIndexOfDay(dayIndex)
-    // console.log(dayIndex)
-    //console.log(workoutData["day" + (dayIndex + 1)].exercises)
+    
     setCurrentWorkout(workoutData["day" + (dayIndex + 1)].exercises)
-    //console.log(data)
+    
   }
   const [userData, setUserData] = useState({})
 
@@ -72,9 +70,12 @@ export default function DailyActivities() {
 
   const [workoutDone, setWorkoutDone] = useState(false)
 
-  const handleWorkoutDone = () => {
+  const handleWorkoutDone = async () => {
+
     const today = dayjs().format("DD.MM.YYYY")
-    if (Object.keys(userData).length !== 0) {
+
+    if ( Object.keys( userData ).length !== 0 ) {
+      
       const workoutDoneAt = dayjs(userData.timestamps.doneWorkout).format(
         "DD.MM.YYYY"
       )
@@ -82,17 +83,7 @@ export default function DailyActivities() {
         setWorkoutDone(true)
       }
     }
-  }
 
-  useEffect(() => {
-    handleWorkoutDone()
-  }, [userData])
-
-  const handleSetWorkoutDone = () => {
-    setWorkoutDone(true)
-  }
-
-  const handleUpdateDate = async () => {
     const doneWorkout = dayjs().format("DD.MM.YYYY")
     try {
       await fetch("/dashboard/updateDate", {
@@ -107,9 +98,35 @@ export default function DailyActivities() {
       console.log(error)
     }
   }
-  useEffect(() => {
+
+  /* useEffect(() => {
+    handleWorkoutDone()
+  }, [userData]) */
+
+  const handleSetWorkoutDone = () => {
+    setWorkoutDone(true)
+    handleWorkoutDone()
+  }
+
+  /*const handleUpdateDate = async () => {
+     const doneWorkout = dayjs().format("DD.MM.YYYY")
+    try {
+      await fetch("/dashboard/updateDate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({ doneWorkout }),
+      })
+    } catch (error) {
+      console.log(error)
+    } 
+  }*/
+
+  /* useEffect(() => {
     handleUpdateDate()
-  }, [])
+  }, []) */
 
   //LOGOUT
   const history = useHistory()
@@ -275,13 +292,10 @@ export default function DailyActivities() {
               ))}
             </div>
             <div className={styles.buttons}>
-              <button
-                /* onSubmit={handleUpdateDate} */
-                onClick={handleSetWorkoutDone}
-                className={styles.redBtn}
-              >
+              <button onClick={handleSetWorkoutDone} className={styles.redBtn}>
                 Done
               </button>
+              
             </div>
           </div>
         ) : null}

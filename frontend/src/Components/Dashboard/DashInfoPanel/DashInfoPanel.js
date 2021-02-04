@@ -5,7 +5,11 @@ import weightlifter from "../../../pics/dashboard/weightlifter.png"
 import flame from "../../../pics/dashboard/flame.png"
 import scale from "../../../pics/dashboard/scale.png"
 
-export default function DashInfoPanel({ exerciseCreated }) {
+export default function DashInfoPanel({
+  exerciseCreated,
+  weightDifferenceCalc,
+  printMessage,
+}) {
   return (
     <div className={styles.tilesWrapper}>
       <div className={styles.workoutsWrapper}>
@@ -27,7 +31,6 @@ export default function DashInfoPanel({ exerciseCreated }) {
           <br />
           {exerciseCreated}
         </span>
-        
       </div>
       <div className={styles.streakWrapper}>
         <div className={styles.tilesIcon}>
@@ -44,9 +47,9 @@ export default function DashInfoPanel({ exerciseCreated }) {
           <img src={scale} alt={scale} />
         </div>
         <span className={styles.tilesCounter}>
-          Weight difference
+          Weight {printMessage}
           <br />
-          -2
+          {weightDifferenceCalc}
         </span>
       </div>
     </div>

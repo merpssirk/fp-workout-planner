@@ -21,16 +21,16 @@ import { NotificationContext } from "../Notifications/Notifications";
 import defaultWorkout from "./WorkoutDatabase";
 import weekOfYear from "dayjs/plugin/weekOfYear";
 dayjs.extend(weekOfYear);
-
 //console.log("DefaultDatabase", defaultWorkout)
 //export const exerciseDataContext = createContext()
 
-export const dailyActivitiesContext = createContext();
+export const dailyActivitiesContext = createContext()
 
 export default function Dashboard(props) {
   const [userData, setUserData] = useState({});
   const [workoutData, setWorkoutData] = useState({});
   const setMessage = useContext(NotificationContext);
+
   // const [getLatestWeight, setGetLatestWeight] = useState([]
   const [fetchCheck, setFetchCheck] = useState(false);
   const [exerciseCreated, setExerciseCreated] = useState(0);
@@ -58,6 +58,9 @@ export default function Dashboard(props) {
     [],
   ]);
 
+  const [weightDifference, setWeightDifference] = useState()
+  const [weightDifferenceCalc, setWeightDifferenceCalc] = useState(0)
+ // console.log(weightDifferenceCalc)
   // GET UPDATED WEIGHT FROM MongoDB
   useEffect(() => {
     axios
@@ -101,6 +104,7 @@ export default function Dashboard(props) {
         credentials: "include",
         body: JSON.stringify({ updatedWeightField, weekOfYear }),
       });
+
       //console.log("handleUpdateWeight reached")
       handleRemoveOverlay();
     } catch (error) {
@@ -240,11 +244,11 @@ export default function Dashboard(props) {
         },
       })
       .then((res) => {
-        workoutGoals.current = res.data[0].workoutGoals;
-        setWeight(res.data[0].weight);
-        let getGender;
-        const gender = [calculateBMRForMen, calculateBMRForWomen];
-
+        workoutGoals.current = res.data[0].workoutGoals
+        setWeight(res.data[0].weight)
+        setWeightDifference(res.data[0])
+        let getGender
+        const gender = [calculateBMRForMen, calculateBMRForWomen]
         if (res.data.gender === "male") {
           getGender = gender[0];
         } else {
@@ -389,46 +393,50 @@ export default function Dashboard(props) {
       withCredentials: true,
     });
     if (res.data) {
-      console.log(res);
-      const arr1 = res.data.workout.day1.exercises;
-      const arr1Result = arr1.length;
-      // console.log(arr1Result)
-
-      const arr2 = res.data.workout.day2.exercises;
-      const arr2Result = arr2.length;
-      // console.log(arr2Result)
-
-      const arr3 = res.data.workout.day3.exercises;
-      const arr3Result = arr3.length;
-      //console.log(arr3Result)
-
-      /*  const arr4 = res.data.workout.day4.exercises
-        const arr4Result = arr4.length
-        console.log(arr4Result)  */
-
-      const arr5 = res.data.workout.day5.exercises;
-      const arr5Result = arr5.length;
-      // console.log(arr5Result)
-
-      const arr6 = res.data.workout.day6.exercises;
-      const arr6Result = arr6.length;
-      //console.log(arr6Result)
-
-      /*  const arr7 = res.data.workout.day7.exercises
-        const arr7Result = arr7.length
-        console.log(arr7Result)  */
-
+      console.log(res)
+      const arr1 = res.data.workout.day1.exercises
+      const arr1Result = arr1.length
+      const arr2 = res.data.workout.day2.exercises
+      const arr2Result = arr2.length
+      const arr3 = res.data.workout.day3.exercises
+      const arr3Result = arr3.length
+      const arr5 = res.data.workout.day5.exercises
+      const arr5Result = arr5.length
+      const arr6 = res.data.workout.day6.exercises
+      const arr6Result = arr6.length
       setExerciseCreated(
         arr1Result + arr2Result + arr3Result + arr5Result + arr6Result
-      );
-      setWorkoutData(res.data);
-      //console.log(exerciseCreated)
+      )
+      setWorkoutData(res.data)
     }
   };
   useEffect(() => {
-    getWorkOutData();
-    //handleWorkoutDone()
-  }, []);
+    getWorkOutData()
+  }, [])
+
+  const [printMessage, setPrintMessage] = useState("Difference")
+
+  //HANDLE WEIGHT DIFFERENT
+  const handleWeightDifferent = () => {
+    console.log(weightDifference)
+    if ( weightDifference && weightDifference.updatedWeight.length !== 0) {
+      
+      const initialWeight = weightDifference.weight
+
+      const lastUpdatedWeight = weightDifference.updatedWeight
+      const lastUpdatedWeightResult = lastUpdatedWeight.slice(-1).pop()[0]
+
+      if (initialWeight < lastUpdatedWeightResult) {
+        setPrintMessage("Gained")
+      } else if (initialWeight > lastUpdatedWeightResult) {
+        setPrintMessage("Lost")
+      }
+      setWeightDifferenceCalc(lastUpdatedWeightResult - initialWeight)
+    }
+  }
+  useEffect(() => {
+    handleWeightDifferent()
+  }, [weightDifference])
 
   return (
     <div className={styles.background}>
@@ -442,7 +450,11 @@ export default function Dashboard(props) {
         description={description}
       />
       <main className={styles.panel}>
-        <DashInfoPanel exerciseCreated={exerciseCreated} />
+        <DashInfoPanel
+          exerciseCreated={exerciseCreated}
+          weightDifferenceCalc={weightDifferenceCalc}
+          printMessage={printMessage}
+        />
         <DashMainPanels
           caloriesValue={caloriesValue}
           macros={macros}
