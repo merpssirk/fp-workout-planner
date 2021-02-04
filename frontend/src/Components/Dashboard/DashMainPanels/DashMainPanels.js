@@ -10,6 +10,8 @@ import { Bar } from "react-chartjs-2";
 import { Line } from "react-chartjs-2";
 
 export default function DashMainPanels(props) {
+  const weight = props.weightChartData;
+  console.log(weight);
   const data = {
     labels: ["Abs", "Arms", "Back", "Chest", "Legs", "Shoulders"],
     datasets: [
@@ -54,12 +56,34 @@ export default function DashMainPanels(props) {
   };
 
   const data2 = {
-    labels: ["w1", "w2", "w3", "w4", "w5", "w6", "w7", "w8", "w9", "w10"],
+    labels: [
+      weight[0][1],
+      weight[1][1],
+      weight[2][1],
+      weight[3][1],
+      weight[4][1],
+      weight[5][1],
+      weight[6][1],
+      weight[7][1],
+      weight[8][1],
+      weight[9][1],
+    ],
     datasets: [
       {
         backgroundColor: "rgba(249, 16, 16, 0.8)",
         hoverBackgroundColor: "rgba(249, 16, 16,0.4)",
-        data: [70, 71, 72, 73, 73, 74, 73, 73, 74, 75],
+        data: [
+          weight[0][0],
+          weight[1][0],
+          weight[2][0],
+          weight[3][0],
+          weight[4][0],
+          weight[5][0],
+          weight[6][0],
+          weight[7][0],
+          weight[8][0],
+          weight[9][0],
+        ],
       },
     ],
   };
@@ -97,7 +121,7 @@ export default function DashMainPanels(props) {
         <h4>Workout Overview</h4>
         <img src={lineTop} alt={lineTop} />
         <div className={styles.workoutDiagram}>
-          <Bar data={data} width={90} height={50} options={options} />
+          <Bar data={data} width={100} height={50} options={options} />
         </div>
       </div>
       <div className={styles.nutrition}>
