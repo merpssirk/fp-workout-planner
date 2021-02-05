@@ -16,17 +16,29 @@
   color: rgb(56, 53, 53);
 }
 
+.weightDifference .weightChartWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 100%;
+  width: 100%;
+}
+
 .mainInfoWrapper h4 {
   margin-bottom: 15px;
   font-size: max(15px, 1.1vw);
 }
 
-.workoutDiagram,
-.weightDiagram {
+.workoutDiagram {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100%;
+  width: 100%;
+}
+
+.weightDiagram {
+  height: 70%;
   width: 100%;
 }
 

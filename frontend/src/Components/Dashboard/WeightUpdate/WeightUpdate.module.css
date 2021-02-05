@@ -1,111 +1,105 @@
 .container {
-	position: absolute;
-	right: 3.5vw;
-	top: 57.5vh;
+  position: absolute;
+  right: 3.5vw;
+  top: 57.5vh;
 }
 
 .container span {
-	font-size: max(15px, 1vw);
-	color: #f91010;
-	letter-spacing: 1.5px;
-	font-weight: 500;
-	text-decoration: none;
-	cursor: pointer;
-	opacity: 0.7;
+  font-size: max(15px, 1vw);
+  color: #f91010;
+  letter-spacing: 1.5px;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  opacity: 0.7;
 }
 
 .container span:hover {
-	background-color:  rgba(184, 193, 206, 0.9);
-	cursor: pointer;
-	text-shadow: 3px 5px 10px;
-	opacity: 1;
+  background-color: rgba(184, 193, 206, 0.9);
+  cursor: pointer;
+  transform: scale(2);
+  opacity: 1;
 }
 /*WEIGHT-UPDATE PUPOP MENU*/
 
 .pupopContainer h3 {
-	text-align: center;
-	margin-bottom: 30px;
-	margin-top: 30px;
-	font-size: max(16px, 1.3vw);
-	font-weight: lighter;
-	color: #000000;
+  text-align: center;
+  margin-bottom: 30px;
+  margin-top: 30px;
+  font-size: max(16px, 1.3vw);
+  font-weight: lighter;
+  color: whitesmoke;
 }
 .pupopContainer form {
-	display: flex;
-	flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
-.pupopContainer form label {
-	font-style: normal;
-	font-weight: normal;
-	font-size: max(16px, 1vw);
-	text-align: center;
-	color: #000000;
-}
+
 .pupopContainer form input {
-	font-style: normal;
-	font-weight: normal;
-	font-size: max(16px, 0.8vw);
-	text-align: center;
-	width: 173.49px;
-	height: 34.93px;
-	border-radius: 8px;
-	border: none;
-	margin: 15px auto;
-	color: #000000;
+  font-style: normal;
+  font-weight: normal;
+  font-size: max(16px, 0.8vw);
+  text-align: center;
+  width: 173.49px;
+  height: 34.93px;
+  border-radius: 8px;
+  border: none;
+  margin: 40px auto;
+  color: #000000;
 }
 .pupopContainer form button {
-	position: absolute;
-	width: 162.46px;
-	height: 46.85px;
-	left: 50%;
-	transform: translate(-50%);
-	top: 325px;
-	background: #000000;
-	border-radius: 8px;
-	border: none;
-	font-weight: normal;
-	font-size: 18px;
-	color: #ffffff;
-	cursor: pointer;
+  position: absolute;
+  width: 162.46px;
+  height: 46.85px;
+  left: 50%;
+  transform: translate(-50%);
+  top: 325px;
+  background: #000000;
+  border-radius: 8px;
+  border: none;
+  font-weight: normal;
+  font-size: 18px;
+  color: #ffffff;
+  cursor: pointer;
 }
 /* OVERLAY */
 
 #overlay {
-	position: fixed;
-	opacity: 0;
-	transition: 300ms ease-in-out;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	background-color: rgba(0, 0, 0, 0.95);
-	pointer-events: none;
-	z-index: 1;
+  position: fixed;
+  opacity: 0;
+  transition: 300ms ease-in-out;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.95);
+  pointer-events: none;
+  z-index: 1;
 }
 
 #overlay.active {
-	opacity: 1;
-	pointer-events: all;
+  opacity: 1;
+  pointer-events: all;
 }
 
 .formContainer2 {
-	position: fixed;
-	width: 275px;
-	height: 475px;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%) scale(0);
-	transition: 300ms ease-in-out;
-	background: linear-gradient(
-		159.21deg,
-		#f91010 2.41%,
-		rgba(249, 16, 16, 0.33) 96.9%
-	);
-	border-radius: 8px;
-	padding-top: 56.78px;
-	z-index: 2;
+  position: fixed;
+  width: 275px;
+  height: 475px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  transition: 300ms ease-in-out;
+  background: linear-gradient(
+    159.21deg,
+    #f91010 2.41%,
+    rgba(249, 16, 16, 0.33) 96.9%
+  );
+  border-radius: 8px;
+  padding-top: 56.78px;
+  z-index: 2;
 }
 
 .formContainer2.active {
-	transform: translate(-50%, -50%) scale(1);
+  transform: translate(-50%, -50%) scale(1);
 }
