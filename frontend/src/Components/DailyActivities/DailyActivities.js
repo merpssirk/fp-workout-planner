@@ -24,9 +24,9 @@ export default function DailyActivities() {
 
   const handleCalculateDays = (data) => {
     const startDay = dayjs(data.timestamps.startWorkoutAt).format("dddd")
-    
+
     const currentDay = dayjs().format("dddd")
-    
+
     const daysArray = [
       startDay,
       dayjs(data.timestamps.startWorkoutAt).add(1, "day").format("dddd"),
@@ -36,14 +36,15 @@ export default function DailyActivities() {
       dayjs(data.timestamps.startWorkoutAt).add(5, "day").format("dddd"),
       dayjs(data.timestamps.startWorkoutAt).add(6, "day").format("dddd"),
     ]
-    
+
     const dayIndex = daysArray.indexOf(currentDay)
     setIndexOfDay(dayIndex)
-    
+
     setCurrentWorkout(workoutData["day" + (dayIndex + 1)].exercises)
-    
   }
   const [userData, setUserData] = useState({})
+
+  const [lastDoneWorkoutDate, setLastDoneWorkoutDate] = useState()
 
   useEffect(() => {
     fetch("/dashboard/dailyActivity", {
@@ -55,9 +56,9 @@ export default function DailyActivities() {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data)
         handleCalculateDays(data)
         setUserData(data)
+        setLastDoneWorkoutDate(data.timestamps)
       })
       .catch((err) => {
         console.log(err)
@@ -71,20 +72,21 @@ export default function DailyActivities() {
   const [workoutDone, setWorkoutDone] = useState(false)
 
   const handleWorkoutDone = async () => {
-
     const today = dayjs().format("DD.MM.YYYY")
 
-    if ( Object.keys( userData ).length !== 0 ) {
-      
+    if (Object.keys(userData).length !== 0) {
       const workoutDoneAt = dayjs(userData.timestamps.doneWorkout).format(
         "DD.MM.YYYY"
       )
+      
       if (workoutDoneAt === today) {
-        setWorkoutDone(true)
+        setWorkoutDone( true )
+        
       }
     }
 
-    const doneWorkout = dayjs().format("DD.MM.YYYY")
+    //const doneWorkout = dayjs().format( "DD.MM.YYYY" )
+    const doneWorkout = new Date()
     try {
       await fetch("/dashboard/updateDate", {
         method: "POST",
@@ -99,34 +101,52 @@ export default function DailyActivities() {
     }
   }
 
-  /* useEffect(() => {
-    handleWorkoutDone()
-  }, [userData]) */
+  const handleCheckLastDate = () => {
 
-  const handleSetWorkoutDone = () => {
-    setWorkoutDone(true)
-    handleWorkoutDone()
+    if ( lastDoneWorkoutDate ) {
+      
+      const myDate = dayjs().format("DD.MM.YYYY")
+      const lastDateInArray =
+        lastDoneWorkoutDate.doneWorkout[
+          lastDoneWorkoutDate.doneWorkout.length - 1
+        ]
+      
+      const lastDateInArrayFormat = dayjs( lastDateInArray ).format( "DD.MM.YYYY" )
+
+      if (
+        lastDateInArrayFormat === myDate ) {
+        setWorkoutDone(true)
+        if (lastDoneWorkoutDate.doneWorkout.length
+          === 0 ) {
+          handleWorkoutDone()
+     }
+      } else {
+        handleWorkoutDone()
+      }
+    }
   }
+  useEffect(() => {
+    if (lastDoneWorkoutDate) {
+      const myDate = dayjs().format("DD.MM.YYYY")
+      const lastDateInArray =
+        lastDoneWorkoutDate.doneWorkout[
+          lastDoneWorkoutDate.doneWorkout.length - 1
+        ]
+      
+      const lastDateInArrayFormat = dayjs(lastDateInArray).format("DD.MM.YYYY")
 
-  /*const handleUpdateDate = async () => {
-     const doneWorkout = dayjs().format("DD.MM.YYYY")
-    try {
-      await fetch("/dashboard/updateDate", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-        body: JSON.stringify({ doneWorkout }),
-      })
-    } catch (error) {
-      console.log(error)
-    } 
-  }*/
 
-  /* useEffect(() => {
-    handleUpdateDate()
-  }, []) */
+      if (
+        lastDateInArrayFormat === myDate &&
+        lastDoneWorkoutDate.doneWorkout.length
+      > 0) {
+        setWorkoutDone(true)
+      }
+    }
+  }, [lastDoneWorkoutDate])
+
+
+  
 
   //LOGOUT
   const history = useHistory()
@@ -292,10 +312,9 @@ export default function DailyActivities() {
               ))}
             </div>
             <div className={styles.buttons}>
-              <button onClick={handleSetWorkoutDone} className={styles.redBtn}>
+              <button onClick={handleCheckLastDate} className={styles.redBtn}>
                 Done
               </button>
-              
             </div>
           </div>
         ) : null}

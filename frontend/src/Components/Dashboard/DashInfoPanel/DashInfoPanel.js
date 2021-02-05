@@ -9,6 +9,7 @@ export default function DashInfoPanel({
   exerciseCreated,
   weightDifferenceCalc,
   printMessage,
+  workoutMonth,
 }) {
   return (
     <div className={styles.tilesWrapper}>
@@ -19,7 +20,7 @@ export default function DashInfoPanel({
         <span className={styles.tilesCounter}>
           Workouts done
           <br />
-          10
+          {workoutMonth} : Day
         </span>
       </div>
       <div className={styles.exercisesWrapper}>

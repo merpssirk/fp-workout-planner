@@ -5,6 +5,7 @@ const Users = require("../Models/UserModel")
 const { jwtIssuer } = require("../utils/jwtIssuer")
 const WorkoutInfo = require("../Models/WorkoutModel")
 const router = express.Router()
+
 //-------------Register Page------------------
 router.post("/register", async (request, response) => {
   try {
