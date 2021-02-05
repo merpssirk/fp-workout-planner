@@ -104,7 +104,7 @@ export default function DashMainPanels(props) {
             display: false,
           },
           ticks: {
-            stepSize: 2,
+            stepSize: 10,
           },
           position: "right",
         },
@@ -155,9 +155,11 @@ export default function DashMainPanels(props) {
       <div className={styles.weightDifference}>
         <h4>Weight</h4>
         <img src={lineTop} alt={lineTop} />
-        <div className={styles.weightDiagram}>
-          {/* <img src={weightDia} alt={weightDia} /> */}
-          <Line data={data2} width={100} height={50} options={options2} />
+        <div className={styles.weightChartWrapper}>
+          <div className={styles.weightDiagram}>
+            {/* <img src={weightDia} alt={weightDia} /> */}
+            <Line data={data2} width={100} height={50} options={options2} />
+          </div>
         </div>
       </div>
     </div>

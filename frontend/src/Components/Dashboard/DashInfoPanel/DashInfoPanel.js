@@ -1,9 +1,9 @@
-import React from 'react'
-import styles from './dashInfoPanel.module.css';
-import dumbbell from "../../../pics/dashboard/dumbbell.png"
-import weightlifter from "../../../pics/dashboard/weightlifter.png"
-import flame from "../../../pics/dashboard/flame.png"
-import scale from "../../../pics/dashboard/scale.png"
+import React from "react";
+import styles from "./dashInfoPanel.module.css";
+import dumbbell from "../../../pics/dashboard/dumbbell.png";
+import weightlifter from "../../../pics/dashboard/weightlifter.png";
+import flame from "../../../pics/dashboard/flame.png";
+import scale from "../../../pics/dashboard/scale.png";
 
 export default function DashInfoPanel({
   exerciseCreated,
@@ -18,9 +18,11 @@ export default function DashInfoPanel({
           <img src={dumbbell} alt={dumbbell} />
         </div>
         <span className={styles.tilesCounter}>
-          Workouts done
+          Workouts done:
           <br />
-          {workoutMonth} : Day
+
+          {workoutMonth} : this month
+
         </span>
       </div>
       <div className={styles.exercisesWrapper}>
@@ -28,9 +30,9 @@ export default function DashInfoPanel({
           <img src={weightlifter} alt={weightlifter} />
         </div>
         <span className={styles.tilesCounter}>
-          Exercises created
+          Exercises created:
           <br />
-          {exerciseCreated}
+          {exerciseCreated} overall
         </span>
       </div>
       <div className={styles.streakWrapper}>
@@ -38,9 +40,9 @@ export default function DashInfoPanel({
           <img src={flame} alt={flame} />
         </div>
         <span className={styles.tilesCounter}>
-          Streak (days)
+          Streak:
           <br />
-          10
+          10 days
         </span>
       </div>
       <div className={styles.weightWrapper}>
@@ -48,11 +50,11 @@ export default function DashInfoPanel({
           <img src={scale} alt={scale} />
         </div>
         <span className={styles.tilesCounter}>
-          Weight {printMessage}
+          Weight {printMessage}:
           <br />
-          {weightDifferenceCalc}
+          {weightDifferenceCalc} kg
         </span>
       </div>
     </div>
-  )
+  );
 }
