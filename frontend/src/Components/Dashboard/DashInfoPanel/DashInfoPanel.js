@@ -9,7 +9,9 @@ export default function DashInfoPanel({
   exerciseCreated,
   weightDifferenceCalc,
   printMessage,
-  workoutMonth,
+  streak,
+  workoutDays,
+
 }) {
   return (
     <div className={styles.tilesWrapper}>
@@ -20,9 +22,7 @@ export default function DashInfoPanel({
         <span className={styles.tilesCounter}>
           Workouts done:
           <br />
-
-          {workoutMonth} : this month
-
+          {workoutDays} this month
         </span>
       </div>
       <div className={styles.exercisesWrapper}>
@@ -42,7 +42,7 @@ export default function DashInfoPanel({
         <span className={styles.tilesCounter}>
           Streak:
           <br />
-          10 days
+          {streak === 1 ? streak + " day" : streak + " days"}
         </span>
       </div>
       <div className={styles.weightWrapper}>
