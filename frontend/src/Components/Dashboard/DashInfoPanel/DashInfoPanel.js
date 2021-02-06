@@ -11,6 +11,7 @@ export default function DashInfoPanel({
   printMessage,
   streak,
   workoutDays,
+
 }) {
   return (
     <div className={styles.tilesWrapper}>

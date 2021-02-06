@@ -44,6 +44,8 @@ export default function DailyActivities() {
   };
   const [userData, setUserData] = useState({});
 
+  const [lastDoneWorkoutDate, setLastDoneWorkoutDate] = useState()
+
   useEffect(() => {
     fetch("/dashboard/dailyActivity", {
       method: "GET",
@@ -54,9 +56,10 @@ export default function DailyActivities() {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
-        handleCalculateDays(data);
-        setUserData(data);
+
+        handleCalculateDays(data)
+        setUserData(data)
+        setLastDoneWorkoutDate(data.timestamps)
       })
       .catch((err) => {
         console.log(err);
@@ -96,34 +99,55 @@ export default function DailyActivities() {
     }
   };
 
-  /* useEffect(() => {
-    handleWorkoutDone()
-  }, [userData]) */
+  const handleCheckLastDate = () => {
 
-  const handleSetWorkoutDone = () => {
-    setWorkoutDone(true);
-    handleWorkoutDone();
-  };
 
-  /*const handleUpdateDate = async () => {
-     const doneWorkout = dayjs().format("DD.MM.YYYY")
-    try {
-      await fetch("/dashboard/updateDate", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-        body: JSON.stringify({ doneWorkout }),
-      })
-    } catch (error) {
-      console.log(error)
-    } 
-  }*/
+ // const handleSetWorkoutDone = () => {
+  //  setWorkoutDone(true);
+  //  handleWorkoutDone();
+  // };
 
-  /* useEffect(() => {
-    handleUpdateDate()
-  }, []) */
+    if ( lastDoneWorkoutDate ) {
+      
+      const myDate = dayjs().format("DD.MM.YYYY")
+      const lastDateInArray =
+        lastDoneWorkoutDate.doneWorkout[
+          lastDoneWorkoutDate.doneWorkout.length - 1
+        ]
+      
+      const lastDateInArrayFormat = dayjs( lastDateInArray ).format( "DD.MM.YYYY" )
+
+      if (
+        lastDateInArrayFormat === myDate ) {
+        setWorkoutDone(true)
+        if (lastDoneWorkoutDate.doneWorkout.length
+          === 0 ) {
+          handleWorkoutDone()
+     }
+      } else {
+        handleWorkoutDone()
+      }
+    }
+  }
+  useEffect(() => {
+    if (lastDoneWorkoutDate) {
+      const myDate = dayjs().format("DD.MM.YYYY")
+      const lastDateInArray =
+        lastDoneWorkoutDate.doneWorkout[
+          lastDoneWorkoutDate.doneWorkout.length - 1
+        ]
+      
+      const lastDateInArrayFormat = dayjs(lastDateInArray).format("DD.MM.YYYY")
+
+
+      if (
+        lastDateInArrayFormat === myDate &&
+        lastDoneWorkoutDate.doneWorkout.length
+      > 0) {
+        setWorkoutDone(true)
+      }
+    }
+  }, [lastDoneWorkoutDate])
 
   //LOGOUT
   const history = useHistory();
@@ -289,7 +313,7 @@ export default function DailyActivities() {
               ))}
             </div>
             <div className={styles.buttons}>
-              <button onClick={handleSetWorkoutDone} className={styles.redBtn}>
+              <button onClick={handleCheckLastDate} className={styles.redBtn}>
                 Done
               </button>
             </div>

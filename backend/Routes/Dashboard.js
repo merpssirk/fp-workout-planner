@@ -4,7 +4,6 @@ const { body, validationResult } = require("express-validator")
 
 const Users = require("../Models/UserModel")
 const WorkoutInfo = require("../Models/WorkoutModel")
-const { request, response } = require("express")
 
 const router = express.Router()
 
@@ -38,7 +37,6 @@ router.post(
       activityLevel,
       workoutDays,
     } = request.body
-    // console.log(request.body)
     const newUser = {
       gender,
       age,
@@ -49,7 +47,6 @@ router.post(
       workoutDays,
       activityLevel,
     }
-    console.log("user_ID", request.user)
     const user = await Users.findByIdAndUpdate(
       request.user,
       {
@@ -74,7 +71,6 @@ router.post(
 router.post("/updatedWeight", async (request, response) => {
   const { updatedWeightField, weekOfYear } = request.body
   const updatedWeight = [updatedWeightField, weekOfYear]
-  console.log("updatedWeight", updatedWeightField)
 
   const newUser = {
     updatedWeight,
@@ -96,7 +92,6 @@ router.post("/updatedWeight", async (request, response) => {
 router.get("/updatedWeight", async (request, response) => {
   try {
     const updatedWeight = await Users.find({ _id: request.user })
-    // console.log(updatedWeight)
     response.status(200).json(updatedWeight)
   } catch (err) {
     response.status(500).json({ msg: err.message })
@@ -107,7 +102,6 @@ router.get("/updatedWeight", async (request, response) => {
 router.get("/dashboardNutrition", async (request, response) => {
   try {
     const userInfo = await Users.find({ _id: request.user })
-    // console.log(userInfo)
     response.status(200).json(userInfo)
   } catch (err) {
     response.status(500).json({ msg: err.message })
@@ -128,7 +122,6 @@ router.put("/profileEdit", async (request, response) => {
     activityLevel,
     workoutDays,
   } = request.body
-  //  console.log(request.body)
   const newUser = {
     username,
     email,
@@ -183,7 +176,6 @@ router.post("/manageWorkout", async (request, response) => {
     }
   } catch (err) {
     response.status(401).json({ msg: err.message })
-    // console.log(err)
   }
 })
 
@@ -196,7 +188,6 @@ router.get("/workoutOverview", (request, response) => {
 router.get("/dailyActivity", async (request, response) => {
   try {
     const defaultDailyActivity = await Users.findOne({ _id: request.user })
-    console.log("defaultDailyActivity", defaultDailyActivity)
     response.status(200).json(defaultDailyActivity)
   } catch (error) {
     response.status(401).json({ msg: error.message })
@@ -222,11 +213,8 @@ router.post("/defaultWorkout", async (request, response) => {
 //--DASHBOARD: DEFAULT-WORKOUT  GET DATA--//
 router.get("/defaultWorkoutTwo", async (request, response) => {
   try {
-    console.log("DEFAULT-WORKOUT", request.user)
     const defaultData = await WorkoutInfo.findOne({ user: request.user })
-
     response.status(200).json(defaultData)
-    // console.log("GET-DefaultData",defaultData);
   } catch (error) {
     response.status(401).json({ msg: error.message })
   }
@@ -236,8 +224,6 @@ router.get("/defaultWorkoutTwo", async (request, response) => {
 router.post("/updateDate", async (request, response) => {
   try {
     const { doneWorkout } = request.body
-
-    console.log("doneWorkout :", doneWorkout)
     const user = await Users.findByIdAndUpdate(
       request.user,
       {
