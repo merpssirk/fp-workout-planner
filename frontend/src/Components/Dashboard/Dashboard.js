@@ -20,9 +20,12 @@ import { NotificationContext } from "../Notifications/Notifications";
 import defaultWorkout from "./WorkoutDatabase";
 import weekOfYear from "dayjs/plugin/weekOfYear";
 import weekday from "dayjs/plugin/weekday";
+import customParseFormat from "dayjs/plugin/customParseFormat";
+dayjs.extend(customParseFormat);
 dayjs.extend(weekOfYear);
 dayjs.extend(weekday);
 export const dailyActivitiesContext = createContext();
+
 export default function Dashboard(props) {
   const [userData, setUserData] = useState({});
   const [workoutData, setWorkoutData] = useState({});
@@ -54,8 +57,9 @@ export default function Dashboard(props) {
 
   const [weightDifference, setWeightDifference] = useState();
   const [weightDifferenceCalc, setWeightDifferenceCalc] = useState(0);
-  const [updateChart, setUpdateChart] = useState(false);
-  // console.log(weightDifferenceCalc)
+  const [streak, setStreak] = useState(0);
+  const [workoutDays, setWorkoutDays] = useState(0);
+
   // GET UPDATED WEIGHT FROM MongoDB ------------------------------
   useEffect(() => {
     axios
@@ -81,7 +85,6 @@ export default function Dashboard(props) {
 
   const handleUpdatedWeight = async (event) => {
     event.preventDefault();
-    setUpdateChart(false);
     const updatedWeightValue = new FormData(event.target);
 
     const weekOfYear = dayjs().week();
@@ -116,7 +119,6 @@ export default function Dashboard(props) {
     bufferData[bufferData.length - 1][0] = updatedWeightField;
     bufferData[bufferData.length - 1][1] = weekOfYear;
     setWeightChartData(bufferData);
-    setUpdateChart(true);
   };
 
   //LOGOUT ------------------------------
@@ -137,6 +139,8 @@ export default function Dashboard(props) {
 
     setCurrentDate(new Intl.DateTimeFormat("en-GB", options).format(date));
   });
+
+  //HANDLE THE POPUP WINDOWS ------------------------------
 
   useEffect(() => {
     if (formCheck === "pending") {
@@ -209,6 +213,7 @@ export default function Dashboard(props) {
     }
   };
 
+  //SET THE DEFAULT WORKOUT TO THE LOCAL STORAGE AND POST IT TO THE DB ------------------------------
   const handleDefaultWorkout = async () => {
     try {
       localStorage.setItem("workoutData", JSON.stringify(defaultWorkout));
@@ -243,6 +248,7 @@ export default function Dashboard(props) {
     return weight + height - age;
   };
 
+  //FETCH DATA AND SET NUTRITION VARIABLES ACCORDING TO THE USER DATA ------------------------------
   useEffect(() => {
     axios
       .get("dashboard/dashboardNutrition", {
@@ -375,33 +381,25 @@ export default function Dashboard(props) {
       const weightData = userData.updatedWeight;
       if (weightData.length > 0) {
         // The weight has already been updated
-        console.log("Level 1");
-        console.log("Lenght", weightData.length);
-        console.log("weightData", weightData);
         const weightSelection = [];
         let initialCount = false;
         for (let index = 0; index < 10; index++) {
           if (weightData.length < 10) {
-            console.log("Level 2");
             // Less than 10 values are available
             if (initialCount === false) {
-              console.log("Level 3");
               const initialWeek = dayjs(userData.timestamps.createdAt).week();
               const initialWeight = [userData.weight, initialWeek];
               weightSelection.push(initialWeight);
               initialCount = true;
             }
             if (index > weightData.length - 1) {
-              console.log("Level 4");
               // Fill empty values with null and subsequent week numbers
               weightSelection.push([null, weightData[0][1] + index]);
             } else {
-              console.log("Level 5");
               // Fill with the values from the database
               weightSelection.push(weightData[index]);
             }
           } else {
-            console.log("Level 6");
             // All 10 weight values are available
 
             const weight = weightData[weightData.length - 10 + index][0];
@@ -412,7 +410,6 @@ export default function Dashboard(props) {
         }
         setWeightChartData(weightSelection);
       } else {
-        console.log("Level 7");
         // The weight has never been updated (only initial weight)
         const chartDataBuffer = [...weightChartData];
         const startWeek = dayjs(userData.timestamps.createdAt).week();
@@ -425,14 +422,14 @@ export default function Dashboard(props) {
         setWeightChartData(chartDataBuffer);
       }
     }
-  }, [userData, updateChart]);
+  }, [userData]);
 
+  //FETCH THE WORKOUT DATA FROM THE DB ------------------------------
   const getWorkOutData = async () => {
     const res = await axios.get("/dashboard/defaultWorkoutTwo", {
       withCredentials: true,
     });
     if (res.data) {
-      console.log(res);
       const arr1 = res.data.workout.day1.exercises;
       const arr1Result = arr1.length;
       const arr2 = res.data.workout.day2.exercises;
@@ -465,9 +462,9 @@ export default function Dashboard(props) {
       const lastUpdatedWeightResult = lastUpdatedWeight.slice(-1).pop()[0];
 
       if (initialWeight < lastUpdatedWeightResult) {
-        setPrintMessage("Gained");
+        setPrintMessage("gained");
       } else if (initialWeight > lastUpdatedWeightResult) {
-        setPrintMessage("Lost");
+        setPrintMessage("lost");
       }
       setWeightDifferenceCalc(
         Math.abs(lastUpdatedWeightResult - initialWeight)
@@ -485,9 +482,9 @@ export default function Dashboard(props) {
       Object.keys(userData).length !== 0 &&
       Object.keys(workoutData).length !== 0
     ) {
-      const startDay = dayjs(userData.timestamps.startWorkoutAt).weekday();
       const restDays = [];
       let counter = 0;
+      // Find the restdays
       for (const day in workoutData.workout) {
         if (!workoutData.workout.hasOwnProperty(day)) {
           continue;
@@ -497,15 +494,139 @@ export default function Dashboard(props) {
         }
         counter++;
       }
-      console.log(dayjs("2010-01-25") < dayjs("2015-01-25"));
-      console.log("restdays", restDays);
-      console.log("Workout Data", workoutData.workout);
-      console.log("Missed days", startDay);
+
+      const firstWorkoutDay = dayjs(userData.timestamps.startWorkoutAt);
+      const startDayOfWeek = dayjs(firstWorkoutDay).day();
+      console.log("initial restdays", restDays);
+      // Set the weekday of the restdays according to the start date
+      for (let index = 0; index < restDays.length; index++) {
+        if (restDays[index] + startDayOfWeek === 7) {
+          restDays[index] = 0;
+        } else if (restDays[index] + startDayOfWeek > 6) {
+          restDays[index] = restDays[index] + startDayOfWeek - 7;
+        } else {
+          restDays[index] = restDays[index] + startDayOfWeek;
+        }
+      }
+
+      // Find the day of the last activity
+      let lastDoneWorkout;
+      let lastMissedWorkout;
+
+      if (userData.timestamps.doneWorkout.length > 0) {
+        lastDoneWorkout = dayjs(
+          userData.timestamps.doneWorkout[
+            userData.timestamps.doneWorkout.length - 1
+          ]
+        );
+      } else {
+        lastDoneWorkout = dayjs("2021-01-01");
+      }
+
+      if (userData.timestamps.missedWorkout.length > 0) {
+        lastMissedWorkout = dayjs(
+          userData.timestamps.missedWorkout[
+            userData.timestamps.missedWorkout.length - 1
+          ]
+        );
+      } else {
+        lastMissedWorkout = dayjs("2021-01-01");
+      }
+
+      const startDay = Math.max(
+        firstWorkoutDay,
+        lastDoneWorkout,
+        lastMissedWorkout
+      );
+
+      // Validate if the day was a restday, else save as missed
+      const missedDays = [];
+      const yesterday = dayjs().add(-1, "day");
+      const dayDifference = dayjs(yesterday).diff(dayjs(startDay), "day");
+      if (dayDifference > 1) {
+        let check = false;
+        for (let index1 = 0; index1 < dayDifference; index1++) {
+          for (let index2 = 0; index2 < restDays.length; index2++) {
+            if (dayjs(startDay).add(index1, "day").day() === restDays[index2]) {
+              check = true;
+            }
+          }
+          if (check === false) {
+            const missedDate = dayjs(startDay)
+              .add(index1, "day")
+              .format("YYYY/MM/DD");
+            const jsDate = new Date(missedDate);
+            missedDays.push(jsDate);
+          }
+          check = false;
+        }
+        console.log(missedDays);
+        const userDataBuffer = { ...userData };
+        userDataBuffer.timestamps.missedWorkout = missedDays;
+        console.log("Updated userData", userDataBuffer);
+      }
+    }
+  };
+
+  // STREAK ------------------------------
+  const handleStreak = () => {
+    if (Object.keys(userData).length !== 0) {
+      // A missed date available
+      if (userData.timestamps.missedWorkout.length > 0) {
+        const lastMissedDay =
+          userData.timestamps.missedWorkout[
+            userData.timestamps.missedWorkout.length - 1
+          ];
+
+        const today = new Date();
+        const diff = today.getTime() - lastMissedDay.getTime();
+        const dayDiff = Math.ceil(diff / (1000 * 3600 * 24));
+        setStreak(dayDiff);
+      } else {
+        // No missed date but a done workout available
+        if (userData.timestamps.doneWorkout.length > 0) {
+          const lastMissedDay = userData.timestamps.doneWorkout[0];
+          const today = new Date();
+          const dayDiff = dayjs(today).diff(dayjs(lastMissedDay), "day");
+          setStreak(dayDiff);
+        } else {
+          // No missed date and no done workout available
+          const lastMissedDay = userData.timestamps.startWorkoutAt;
+          const today = new Date();
+          const dayDiff = dayjs(today).diff(dayjs(lastMissedDay), "day");
+          console.log("Else section reached");
+          console.log("Streak", dayDiff);
+          setStreak(dayDiff);
+        }
+      }
+    }
+  };
+
+  // CALCULATE THE DONE WORKOUTS FOR THE CURRENT MONTH
+  const handleWorkoutDone = () => {
+    if (Object.keys(userData).length !== 0) {
+      if (userData.timestamps.doneWorkout.length > 0) {
+        const totalWorkouts = userData.timestamps.doneWorkout.length;
+        const dayToCheck = userData.timestamps.doneWorkout;
+        let workoutDaysBuffer = 0;
+        for (let index = totalWorkouts - 1; index >= 0; index--) {
+          if (dayjs().month() === dayjs(dayToCheck[index]).month()) {
+            workoutDaysBuffer++;
+          } else {
+            setWorkoutDays(workoutDaysBuffer);
+            break;
+          }
+        }
+      } else {
+        setWorkoutDays(0);
+      }
     }
   };
 
   useEffect(() => {
     handleMissedDays();
+    handleStreak();
+    handleWorkoutDone();
   }, [userData, workoutData]);
 
   return (
@@ -524,6 +645,8 @@ export default function Dashboard(props) {
           exerciseCreated={exerciseCreated}
           weightDifferenceCalc={weightDifferenceCalc}
           printMessage={printMessage}
+          streak={streak}
+          workoutDays={workoutDays}
         />
         <DashMainPanels
           caloriesValue={caloriesValue}

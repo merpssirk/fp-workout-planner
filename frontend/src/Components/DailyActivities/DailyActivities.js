@@ -1,32 +1,32 @@
-import React, { useEffect, useState, useRef } from "react"
-import { useHistory } from "react-router-dom"
+import React, { useEffect, useState, useRef } from "react";
+import { useHistory } from "react-router-dom";
 
-import styles from "./dailyActivities.module.css"
-import avatar from "../../pics/dashboard/Avatar-male.png"
+import styles from "./dailyActivities.module.css";
+import avatar from "../../pics/dashboard/Avatar-male.png";
 //import avatar from "../pics/dashboard/Avatar-male.png";
-import imgLogo from "../../pics/dashboard/Logo-black.png"
-import greenCheckCircle from "../../pics/dashboard/greenCheckCircle.png"
+import imgLogo from "../../pics/dashboard/Logo-black.png";
+import greenCheckCircle from "../../pics/dashboard/greenCheckCircle.png";
 //import redXCircle from "../../pics/dashboard/redXCircle.png"
 //import DayJs from "react-dayjs"
 
-import dayjs from "dayjs"
+import dayjs from "dayjs";
 
 export default function DailyActivities() {
   const [workoutData, setWorkoutData] = useState(
     JSON.parse(localStorage.getItem("workoutData")).workout
-  )
-  const panels = useRef([0, 1, 2, 3, 4, 5, 6, 7])
+  );
+  const panels = useRef([0, 1, 2, 3, 4, 5, 6, 7]);
 
   const [currentWorkout, setCurrentWorkout] = useState(
     workoutData.day1.exercises[0]
-  )
-  const [indexOfDay, setIndexOfDay] = useState()
+  );
+  const [indexOfDay, setIndexOfDay] = useState();
 
   const handleCalculateDays = (data) => {
-    const startDay = dayjs(data.timestamps.startWorkoutAt).format("dddd")
-    
-    const currentDay = dayjs().format("dddd")
-    
+    const startDay = dayjs(data.timestamps.startWorkoutAt).format("dddd");
+
+    const currentDay = dayjs().format("dddd");
+
     const daysArray = [
       startDay,
       dayjs(data.timestamps.startWorkoutAt).add(1, "day").format("dddd"),
@@ -35,15 +35,14 @@ export default function DailyActivities() {
       dayjs(data.timestamps.startWorkoutAt).add(4, "day").format("dddd"),
       dayjs(data.timestamps.startWorkoutAt).add(5, "day").format("dddd"),
       dayjs(data.timestamps.startWorkoutAt).add(6, "day").format("dddd"),
-    ]
-    
-    const dayIndex = daysArray.indexOf(currentDay)
-    setIndexOfDay(dayIndex)
-    
-    setCurrentWorkout(workoutData["day" + (dayIndex + 1)].exercises)
-    
-  }
-  const [userData, setUserData] = useState({})
+    ];
+
+    const dayIndex = daysArray.indexOf(currentDay);
+    setIndexOfDay(dayIndex);
+
+    setCurrentWorkout(workoutData["day" + (dayIndex + 1)].exercises);
+  };
+  const [userData, setUserData] = useState({});
 
   useEffect(() => {
     fetch("/dashboard/dailyActivity", {
@@ -55,36 +54,34 @@ export default function DailyActivities() {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data)
-        handleCalculateDays(data)
-        setUserData(data)
+        console.log(data);
+        handleCalculateDays(data);
+        setUserData(data);
       })
       .catch((err) => {
-        console.log(err)
-      })
-  }, [])
+        console.log(err);
+      });
+  }, []);
 
   useEffect(() => {
-    console.log(currentWorkout)
-  }, [currentWorkout])
+    console.log(currentWorkout);
+  }, [currentWorkout]);
 
-  const [workoutDone, setWorkoutDone] = useState(false)
+  const [workoutDone, setWorkoutDone] = useState(false);
 
   const handleWorkoutDone = async () => {
+    const today = dayjs().format("YYYY/MM/DD");
 
-    const today = dayjs().format("DD.MM.YYYY")
-
-    if ( Object.keys( userData ).length !== 0 ) {
-      
+    if (Object.keys(userData).length !== 0) {
       const workoutDoneAt = dayjs(userData.timestamps.doneWorkout).format(
-        "DD.MM.YYYY"
-      )
+        "YYYY/MM/DD"
+      );
       if (workoutDoneAt === today) {
-        setWorkoutDone(true)
+        setWorkoutDone(true);
       }
     }
 
-    const doneWorkout = dayjs().format("DD.MM.YYYY")
+    const doneWorkout = dayjs().format("YYYY/MM/DD");
     try {
       await fetch("/dashboard/updateDate", {
         method: "POST",
@@ -93,20 +90,20 @@ export default function DailyActivities() {
         },
         credentials: "include",
         body: JSON.stringify({ doneWorkout }),
-      })
+      });
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   /* useEffect(() => {
     handleWorkoutDone()
   }, [userData]) */
 
   const handleSetWorkoutDone = () => {
-    setWorkoutDone(true)
-    handleWorkoutDone()
-  }
+    setWorkoutDone(true);
+    handleWorkoutDone();
+  };
 
   /*const handleUpdateDate = async () => {
      const doneWorkout = dayjs().format("DD.MM.YYYY")
@@ -129,28 +126,28 @@ export default function DailyActivities() {
   }, []) */
 
   //LOGOUT
-  const history = useHistory()
+  const history = useHistory();
   const handleLogout = () => {
-    window.localStorage.removeItem("loggedIn")
-    history.push("/")
-  }
+    window.localStorage.removeItem("loggedIn");
+    history.push("/");
+  };
 
   // DATE:
-  const [currentDate, setCurrentDate] = useState()
+  const [currentDate, setCurrentDate] = useState();
 
   const getCurrentDate = () => {
-    const date = new Date()
+    const date = new Date();
     const options = {
       weekday: "long",
       year: "numeric",
       month: "long",
       day: "numeric",
-    }
-    setCurrentDate(new Intl.DateTimeFormat("en-GB", options).format(date))
-  }
+    };
+    setCurrentDate(new Intl.DateTimeFormat("en-GB", options).format(date));
+  };
   useEffect(() => {
-    getCurrentDate()
-  })
+    getCurrentDate();
+  });
 
   // Calendar Data
   const calendarData = {
@@ -165,10 +162,10 @@ export default function DailyActivities() {
       2021: { month: { 1: {} } },
       2022: { month: { 1: {} } },
     },
-  }
+  };
 
   const handleWorkoutData = (year, month, day, id) => {
-    updateMonth(year, month, day, id)
+    updateMonth(year, month, day, id);
 
     function updateMonth(year, monthIndex, day, id) {
       if (
@@ -177,9 +174,9 @@ export default function DailyActivities() {
         !calendarData.year[year].month[monthIndex].done ||
         !calendarData.year[year].month[monthIndex].missed
       ) {
-        createMonth(year, monthIndex, day, id)
+        createMonth(year, monthIndex, day, id);
       } else {
-        updateDay(year, monthIndex, day, id)
+        updateDay(year, monthIndex, day, id);
       }
     }
 
@@ -188,27 +185,27 @@ export default function DailyActivities() {
       if (!calendarData.year[year]) {
         calendarData.year[year] = {
           month: { [monthIndex]: { done: [], missed: [] } },
-        }
+        };
       }
       // create month
-      calendarData.year[year].month[monthIndex] = { done: [], missed: [] }
+      calendarData.year[year].month[monthIndex] = { done: [], missed: [] };
       if (id === 1) {
-        calendarData.year[year].month[monthIndex].done.push(day)
+        calendarData.year[year].month[monthIndex].done.push(day);
       } else if (id === 2) {
-        calendarData.year[year].month[monthIndex].missed.push(day)
+        calendarData.year[year].month[monthIndex].missed.push(day);
       }
     }
 
     function updateDay(year, monthIndex, day, id) {
       if (id === 1) {
-        calendarData.year[year].month[monthIndex].done.push(day)
+        calendarData.year[year].month[monthIndex].done.push(day);
       } else if (id === 2) {
-        calendarData.year[year].month[monthIndex].missed.push(day)
+        calendarData.year[year].month[monthIndex].missed.push(day);
       }
     }
-  }
+  };
 
-  handleWorkoutData(2019, 3, 1, 1)
+  handleWorkoutData(2019, 3, 1, 1);
 
   return (
     <>
@@ -295,11 +292,10 @@ export default function DailyActivities() {
               <button onClick={handleSetWorkoutDone} className={styles.redBtn}>
                 Done
               </button>
-              
             </div>
           </div>
         ) : null}
       </div>
     </>
-  )
+  );
 }
