@@ -103,7 +103,7 @@ ul li a {
   height: max(7vh, 9vh);
   background-color: #ebeef3;
   border-radius: 10px;
-  box-shadow: 3px 3px 3px 3px darkslategrey;
+  box-shadow: 0px 0px 0px 3px rgb(217, 224, 224);
   padding: 10%;
 }
 .checkBox .greenCircleDiv img {

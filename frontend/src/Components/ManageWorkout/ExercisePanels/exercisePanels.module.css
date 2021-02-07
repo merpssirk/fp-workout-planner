@@ -136,7 +136,8 @@
 }
 
 .exerciseWrapper input {
-  background: #474747;
+  /* background: #474747; */
+  background: transparent;
   color: whitesmoke;
 }
 

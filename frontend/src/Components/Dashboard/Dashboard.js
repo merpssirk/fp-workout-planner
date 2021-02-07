@@ -61,6 +61,7 @@ export default function Dashboard(props) {
   const [weightDifferenceCalc, setWeightDifferenceCalc] = useState(0);
   const [streak, setStreak] = useState(0);
   const [workoutDays, setWorkoutDays] = useState(0);
+  const [updateWeight, setUpdateWeight] = useState([]);
 
   // GET UPDATED WEIGHT FROM MongoDB ------------------------------
 
@@ -74,7 +75,12 @@ export default function Dashboard(props) {
         // setCountWorkoutDay(res.data[0]);
         setGetUpdatedTime(res.data[0].timestamps.lastUpdatedAt);
         setUserData(res.data[0]);
-        const myDate = dayjs(getUpdatedTime).add(1, "day").format("DD.MM.YYYY");
+        localStorage.setItem(
+          "equipment",
+          JSON.stringify(res.data[0].equipment)
+        );
+
+        const myDate = dayjs(getUpdatedTime).add(0, "day").format("DD.MM.YYYY");
         const date = dayjs().format("DD.MM.YYYY");
         if (date === myDate) {
           setTimeout(() => {}, 3000);
@@ -94,6 +100,7 @@ export default function Dashboard(props) {
     const updatedWeightField = parseInt(
       updatedWeightValue.get("updatedWeight")
     );
+    // updateWeightChart(updatedWeightField, weekOfYear);
 
     try {
       await fetch("/dashboard/updatedWeight", {
@@ -104,16 +111,19 @@ export default function Dashboard(props) {
         credentials: "include",
         body: JSON.stringify({ updatedWeightField, weekOfYear }),
       });
-      await updateWeightChart(updatedWeightField, weekOfYear);
 
       //console.log("handleUpdateWeight reached")
+      setUpdateWeight([updatedWeightField, weekOfYear]);
       handleRemoveOverlay();
     } catch (error) {
       console.log(error);
     }
   };
 
-  const updateWeightChart = (updatedWeightField, weekOfYear) => {
+  useEffect(() => {
+    const updatedWeightField = updateWeight[0];
+    const weekOfYear = updateWeight[1];
+
     console.log("Weight Chart Data", weightChartData);
     const bufferData = [...weightChartData];
     console.log("The buffer data", bufferData);
@@ -121,7 +131,17 @@ export default function Dashboard(props) {
     bufferData[bufferData.length - 1][0] = updatedWeightField;
     bufferData[bufferData.length - 1][1] = weekOfYear;
     setWeightChartData(bufferData);
-  };
+  }, [updateWeight, weightDifferenceCalc]);
+
+  // const updateWeightChart = (updatedWeightField, weekOfYear) => {
+  //   console.log("Weight Chart Data", weightChartData);
+  //   const bufferData = [...weightChartData];
+  //   console.log("The buffer data", bufferData);
+  //   console.log(("The buffer length", bufferData.length));
+  //   bufferData[bufferData.length - 1][0] = updatedWeightField;
+  //   bufferData[bufferData.length - 1][1] = weekOfYear;
+  //   setWeightChartData(bufferData);
+  // };
 
   //LOGOUT ------------------------------
   const history = useHistory();
@@ -196,7 +216,9 @@ export default function Dashboard(props) {
       workoutGoals: formData.get("workoutGoals"),
       workoutDays: formData.get("workoutDays"),
       activityLevel: formData.get("activityLevel"),
+      equipment: formData.get("equipment"),
     };
+    console.log("Register data", finishRegistrationField);
     try {
       const response = await fetch("/dashboard/finishRegistration", {
         method: "POST",
@@ -449,6 +471,7 @@ export default function Dashboard(props) {
       setWorkoutData(res.data);
     }
   };
+
   useEffect(() => {
     getWorkOutData();
   }, []);

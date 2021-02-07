@@ -81,7 +81,12 @@ export default function ManageWorkout() {
 
   const handleWorkoutApi = (e) => {
     e.preventDefault();
-
+    let equipment = JSON.parse(localStorage.getItem("equipment"));
+    if (equipment) {
+      equipment = "";
+    } else {
+      equipment = "&equipment=4&equipment=7";
+    }
     let query;
 
     switch (radioButton) {
@@ -106,8 +111,9 @@ export default function ManageWorkout() {
       default:
         break;
     }
-
-    fetch(`https://wger.de/api/v2/exercise/?${query}&limit=<50>&language=2`)
+    fetch(
+      `https://wger.de/api/v2/exercise/?${query}&limit=<50>&language=2${equipment}`
+    )
       .then((res) => res.json())
       .then((data) => {
         // setGetExercise(query);
@@ -273,34 +279,36 @@ export default function ManageWorkout() {
 
   const handleResetPanel = (panel) => {
     const bufferData = { ...workoutData };
-    
+
     bufferData["day" + (activeButton + 1)].exercises.splice([panel - 1], 1);
     bufferData["day" + (activeButton + 1)].panels.splice([panel - 1], 1);
     setWorkoutData(bufferData);
-    
+
     panels = [];
     bufferData["day" + (activeButton + 1)].panels.forEach((element) => {
       console.log("Element", element);
       console.log("Panel", panel);
-      if (element > panel){
-        const newElement = element-1;
+      if (element > panel) {
+        const newElement = element - 1;
         console.log("New Element", newElement);
         panels.push({ name: newElement.toString(), id: newElement.toString() });
       } else {
-
         panels.push({ name: element.toString(), id: element.toString() });
       }
     });
     console.log("List", list);
-    console.log("Panels after splice", bufferData["day" + (activeButton + 1)].panels);
+    console.log(
+      "Panels after splice",
+      bufferData["day" + (activeButton + 1)].panels
+    );
     console.log("Panels", panels);
 
     setList(panels);
   };
 
-  const handleAddPanel = ()=>{
+  const handleAddPanel = () => {
     const bufferData = { ...workoutData };
-    const newPanel = bufferData["day" + (activeButton + 1)].panels.length + 1
+    const newPanel = bufferData["day" + (activeButton + 1)].panels.length + 1;
     bufferData["day" + (activeButton + 1)].panels.push(newPanel.toString());
     setWorkoutData(bufferData);
 
@@ -309,7 +317,7 @@ export default function ManageWorkout() {
       panels.push({ name: element.toString(), id: element.toString() });
     });
     setList(panels);
-  }
+  };
 
   //LOGOUT
   const history = useHistory();
