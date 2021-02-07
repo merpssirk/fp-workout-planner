@@ -5,40 +5,40 @@ import {
   useEffect,
   useContext,
   createContext,
-} from "react";
-import { useHistory } from "react-router-dom";
-import dayjs from "dayjs";
-import styles from "./dashboard.module.css";
-import MembersNavbar from "../MembersNavbar/MembersNavbar";
-import DashDateWeather from "./DashDateWeather/DashDateWeather";
-import DashInfoPanel from "./DashInfoPanel/DashInfoPanel";
-import DashMainPanels from "./DashMainPanels/DashMainPanels";
-import DashFinishRegistration from "./DashFinishRegistration/DashFinishRegistration";
-import axios from "axios";
-import WeightUpdate from "./WeightUpdate/WeightUpdate";
-import { NotificationContext } from "../Notifications/Notifications";
-import defaultWorkout from "./WorkoutDatabase";
-import weekOfYear from "dayjs/plugin/weekOfYear";
-import weekday from "dayjs/plugin/weekday";
-dayjs.extend(weekOfYear);
-dayjs.extend(weekday);
-export const dailyActivitiesContext = createContext();
+} from "react"
+import { useHistory } from "react-router-dom"
+import dayjs from "dayjs"
+import styles from "./dashboard.module.css"
+import MembersNavbar from "../MembersNavbar/MembersNavbar"
+import DashDateWeather from "./DashDateWeather/DashDateWeather"
+import DashInfoPanel from "./DashInfoPanel/DashInfoPanel"
+import DashMainPanels from "./DashMainPanels/DashMainPanels"
+import DashFinishRegistration from "./DashFinishRegistration/DashFinishRegistration"
+import axios from "axios"
+import WeightUpdate from "./WeightUpdate/WeightUpdate"
+import { NotificationContext } from "../Notifications/Notifications"
+import defaultWorkout from "./WorkoutDatabase"
+import weekOfYear from "dayjs/plugin/weekOfYear"
+import weekday from "dayjs/plugin/weekday"
+dayjs.extend(weekOfYear)
+dayjs.extend(weekday)
+export const dailyActivitiesContext = createContext()
 export default function Dashboard(props) {
-  const [userData, setUserData] = useState({});
-  const [workoutData, setWorkoutData] = useState({});
-  const setMessage = useContext(NotificationContext);
-  const [fetchCheck, setFetchCheck] = useState(false);
-  const [exerciseCreated, setExerciseCreated] = useState(0);
-  const [getUpdatedTime, setGetUpdatedTime] = useState(Date);
-  const [updateMessage, setUpdateMessage] = useState(false);
-  const workoutGoals = useRef();
-  const [overlayClass, setOverlayClass] = useState(false);
-  const [currentDate, setCurrentDate] = useState();
-  const formCheck = localStorage.getItem("Register") || null;
-  const [caloriesValue, setCaloriesValue] = useState(0);
-  const [macros, setMacros] = useState([]);
-  const [weight, setWeight] = useState(0);
-  const [bodyPart, setBodyPart] = useState([]);
+  const [userData, setUserData] = useState({})
+  const [workoutData, setWorkoutData] = useState({})
+  const setMessage = useContext(NotificationContext)
+  const [fetchCheck, setFetchCheck] = useState(false)
+  const [exerciseCreated, setExerciseCreated] = useState(0)
+  const [getUpdatedTime, setGetUpdatedTime] = useState(Date)
+  const [updateMessage, setUpdateMessage] = useState(false)
+  const workoutGoals = useRef()
+  const [overlayClass, setOverlayClass] = useState(false)
+  const [currentDate, setCurrentDate] = useState()
+  const formCheck = localStorage.getItem("Register") || null
+  const [caloriesValue, setCaloriesValue] = useState(0)
+  const [macros, setMacros] = useState([])
+  const [weight, setWeight] = useState(0)
+  const [bodyPart, setBodyPart] = useState([])
 
   const [weightChartData, setWeightChartData] = useState([
     [],
@@ -53,10 +53,10 @@ export default function Dashboard(props) {
     [],
   ])
 
-
-  const [weightDifference, setWeightDifference] = useState();
-  const [weightDifferenceCalc, setWeightDifferenceCalc] = useState(0);
-  const [updateChart, setUpdateChart] = useState(false);
+  const [weightDifference, setWeightDifference] = useState()
+  const [weightDifferenceCalc, setWeightDifferenceCalc] = useState(0)
+  const [updateChart, setUpdateChart] = useState(false)
+  const [countWorkoutDay, setCountWorkoutDay] = useState()
   // console.log(weightDifferenceCalc)
   // GET UPDATED WEIGHT FROM MongoDB ------------------------------
 
@@ -70,11 +70,11 @@ export default function Dashboard(props) {
         setCountWorkoutDay(res.data[0])
         setGetUpdatedTime(res.data[0].timestamps.lastUpdatedAt)
         setUserData(res.data[0])
-        const myDate = dayjs(getUpdatedTime).add(1, "day").format("DD.MM.YYYY")
+        const myDate = dayjs(getUpdatedTime).add(0, "day").format("DD.MM.YYYY")
         const date = dayjs().format("DD.MM.YYYY")
         if (date === myDate) {
-          setTimeout(() => {}, 3000);
-          setUpdateMessage(true);
+          setTimeout(() => {}, 3000)
+          setUpdateMessage(true)
         }
       })
   }, [])
@@ -82,12 +82,11 @@ export default function Dashboard(props) {
   //POST UDPATED WEIGHT: CONNECT TO BACKEND ------------------------------
 
   const handleUpdatedWeight = async (event) => {
+    event.preventDefault()
+    setUpdateChart(false)
+    const updatedWeightValue = new FormData(event.target)
 
-    event.preventDefault();
-    setUpdateChart(false);
-    const updatedWeightValue = new FormData(event.target);
-
-    const weekOfYear = dayjs().week();
+    const weekOfYear = dayjs().week()
 
     const updatedWeightField = parseInt(updatedWeightValue.get("updatedWeight"))
 
@@ -99,8 +98,8 @@ export default function Dashboard(props) {
         },
         credentials: "include",
         body: JSON.stringify({ updatedWeightField, weekOfYear }),
-      });
-      await updateWeightChart(updatedWeightField, weekOfYear);
+      })
+      await updateWeightChart(updatedWeightField, weekOfYear)
 
       //console.log("handleUpdateWeight reached")
       handleRemoveOverlay()
@@ -110,18 +109,18 @@ export default function Dashboard(props) {
   }
 
   const updateWeightChart = (updatedWeightField, weekOfYear) => {
-    console.log("Weight Chart Data", weightChartData);
-    const bufferData = [...weightChartData];
-    console.log("The buffer data", bufferData);
-    console.log(("The buffer length", bufferData.length));
-    bufferData[bufferData.length - 1][0] = updatedWeightField;
-    bufferData[bufferData.length - 1][1] = weekOfYear;
-    setWeightChartData(bufferData);
-    setUpdateChart(true);
-  };
+    console.log("Weight Chart Data", weightChartData)
+    const bufferData = [...weightChartData]
+    console.log("The buffer data", bufferData)
+    console.log(("The buffer length", bufferData.length))
+    bufferData[bufferData.length - 1][0] = updatedWeightField
+    bufferData[bufferData.length - 1][1] = weekOfYear
+    setWeightChartData(bufferData)
+    setUpdateChart(true)
+  }
 
   //LOGOUT ------------------------------
-  const history = useHistory();
+  const history = useHistory()
   const handleLogout = () => {
     window.localStorage.removeItem("loggedIn")
     history.push("/")
@@ -179,7 +178,9 @@ export default function Dashboard(props) {
   //---FINISH REGISTRATION PAGE CONNECT TO BACKEND---
   const handleFinishRegistration = async (event) => {
     setMessage("Welcome in your Dashboard Page!!")
+
     event.preventDefault()
+
     const formData = new FormData(event.target)
 
     const finishRegistrationField = {
@@ -252,11 +253,11 @@ export default function Dashboard(props) {
         },
       })
       .then((res) => {
-        workoutGoals.current = res.data[0].workoutGoals;
-        setWeight(res.data[0].weight);
-        setWeightDifference(res.data[0]);
-        let getGender;
-        const gender = [calculateBMRForMen, calculateBMRForWomen];
+        workoutGoals.current = res.data[0].workoutGoals
+        setWeight(res.data[0].weight)
+        setWeightDifference(res.data[0])
+        let getGender
+        const gender = [calculateBMRForMen, calculateBMRForWomen]
         if (res.data.gender === "male") {
           getGender = gender[0]
         } else {
@@ -373,110 +374,108 @@ export default function Dashboard(props) {
   // WEIGHT CHART ------------------------------
   useEffect(() => {
     if (Object.keys(userData).length !== 0) {
-      const weightData = userData.updatedWeight;
+      const weightData = userData.updatedWeight
       if (weightData.length > 0) {
         // The weight has already been updated
-        console.log("Level 1");
-        console.log("Lenght", weightData.length);
-        console.log("weightData", weightData);
-        const weightSelection = [];
-        let initialCount = false;
+        console.log("Level 1")
+        console.log("Lenght", weightData.length)
+        console.log("weightData", weightData)
+        const weightSelection = []
+        let initialCount = false
         for (let index = 0; index < 10; index++) {
           if (weightData.length < 10) {
-            console.log("Level 2");
+            console.log("Level 2")
             // Less than 10 values are available
             if (initialCount === false) {
-              console.log("Level 3");
-              const initialWeek = dayjs(userData.timestamps.createdAt).week();
-              const initialWeight = [userData.weight, initialWeek];
-              weightSelection.push(initialWeight);
-              initialCount = true;
+              console.log("Level 3")
+              const initialWeek = dayjs(userData.timestamps.createdAt).week()
+              const initialWeight = [userData.weight, initialWeek]
+              weightSelection.push(initialWeight)
+              initialCount = true
             }
             if (index > weightData.length - 1) {
-              console.log("Level 4");
+              console.log("Level 4")
               // Fill empty values with null and subsequent week numbers
-              weightSelection.push([null, weightData[0][1] + index]);
+              weightSelection.push([null, weightData[0][1] + index])
             } else {
-              console.log("Level 5");
+              console.log("Level 5")
               // Fill with the values from the database
-              weightSelection.push(weightData[index]);
+              weightSelection.push(weightData[index])
             }
           } else {
-            console.log("Level 6");
+            console.log("Level 6")
             // All 10 weight values are available
 
-            const weight = weightData[weightData.length - 10 + index][0];
-            const week = weightData[weightData.length - 10 + index][1];
+            const weight = weightData[weightData.length - 10 + index][0]
+            const week = weightData[weightData.length - 10 + index][1]
 
-            weightSelection.push([weight, week]);
+            weightSelection.push([weight, week])
           }
         }
-        setWeightChartData(weightSelection);
+        setWeightChartData(weightSelection)
       } else {
-        console.log("Level 7");
+        console.log("Level 7")
         // The weight has never been updated (only initial weight)
-        const chartDataBuffer = [...weightChartData];
-        const startWeek = dayjs(userData.timestamps.createdAt).week();
-        chartDataBuffer[0][0] = userData.weight;
-        chartDataBuffer[0][1] = startWeek;
+        const chartDataBuffer = [...weightChartData]
+        const startWeek = dayjs(userData.timestamps.createdAt).week()
+        chartDataBuffer[0][0] = userData.weight
+        chartDataBuffer[0][1] = startWeek
         for (let index = 0; index < 9; index++) {
-          chartDataBuffer[index + 1][1] = startWeek + index + 1;
+          chartDataBuffer[index + 1][1] = startWeek + index + 1
         }
 
-        setWeightChartData(chartDataBuffer);
+        setWeightChartData(chartDataBuffer)
       }
     }
-  }, [userData, updateChart]);
+  }, [userData, updateChart])
   const getWorkOutData = async () => {
     const res = await axios.get("/dashboard/defaultWorkoutTwo", {
       withCredentials: true,
     })
     if (res.data) {
-      console.log(res);
-      const arr1 = res.data.workout.day1.exercises;
-      const arr1Result = arr1.length;
-      const arr2 = res.data.workout.day2.exercises;
-      const arr2Result = arr2.length;
-      const arr3 = res.data.workout.day3.exercises;
-      const arr3Result = arr3.length;
-      const arr5 = res.data.workout.day5.exercises;
-      const arr5Result = arr5.length;
-      const arr6 = res.data.workout.day6.exercises;
-      const arr6Result = arr6.length;
+      console.log(res)
+      const arr1 = res.data.workout.day1.exercises
+      const arr1Result = arr1.length
+      const arr2 = res.data.workout.day2.exercises
+      const arr2Result = arr2.length
+      const arr3 = res.data.workout.day3.exercises
+      const arr3Result = arr3.length
+      const arr5 = res.data.workout.day5.exercises
+      const arr5Result = arr5.length
+      const arr6 = res.data.workout.day6.exercises
+      const arr6Result = arr6.length
       setExerciseCreated(
         arr1Result + arr2Result + arr3Result + arr5Result + arr6Result
-      );
-      setWorkoutData(res.data);
+      )
+      setWorkoutData(res.data)
     }
   }
   useEffect(() => {
-    getWorkOutData();
-  }, []);
+    getWorkOutData()
+  }, [])
 
-  const [printMessage, setPrintMessage] = useState("Difference");
+  const [printMessage, setPrintMessage] = useState("Difference")
 
   //HANDLE WEIGHT DIFFERENT ------------------------------
   const handleWeightDifferent = () => {
-    console.log(weightDifference);
+    console.log(weightDifference)
     if (weightDifference && weightDifference.updatedWeight.length !== 0) {
-      const initialWeight = weightDifference.weight;
+      const initialWeight = weightDifference.weight
 
-      const lastUpdatedWeight = weightDifference.updatedWeight;
-      const lastUpdatedWeightResult = lastUpdatedWeight.slice(-1).pop()[0];
+      const lastUpdatedWeight = weightDifference.updatedWeight
+      const lastUpdatedWeightResult = lastUpdatedWeight.slice(-1).pop()[0]
       if (initialWeight < lastUpdatedWeightResult) {
-        setPrintMessage("Gained");
+        setPrintMessage("Gained")
       } else if (initialWeight > lastUpdatedWeightResult) {
-        setPrintMessage("Lost");
+        setPrintMessage("Lost")
       }
-      setWeightDifferenceCalc(
-        Math.abs(lastUpdatedWeightResult - initialWeight)
-      );
+      setWeightDifferenceCalc(Math.abs(lastUpdatedWeightResult - initialWeight))
     }
-  };
+  }
 
   useEffect(() => {
-    handleWeightDifferent();
-  }, [weightDifference]);
+    handleWeightDifferent()
+  }, [weightDifference])
 
   // MISSED DAYS ------------------------------
   const handleMissedDays = () => {
@@ -484,28 +483,28 @@ export default function Dashboard(props) {
       Object.keys(userData).length !== 0 &&
       Object.keys(workoutData).length !== 0
     ) {
-      const startDay = dayjs(userData.timestamps.startWorkoutAt).weekday();
-      const restDays = [];
-      let counter = 0;
+      const startDay = dayjs(userData.timestamps.startWorkoutAt).weekday()
+      const restDays = []
+      let counter = 0
       for (const day in workoutData.workout) {
         if (!workoutData.workout.hasOwnProperty(day)) {
-          continue;
+          continue
         }
         if (workoutData.workout[day].button === "buttonYellow") {
-          restDays.push(counter);
+          restDays.push(counter)
         }
-        counter++;
+        counter++
       }
-      console.log(dayjs("2010-01-25") < dayjs("2015-01-25"));
-      console.log("restdays", restDays);
-      console.log("Workout Data", workoutData.workout);
-      console.log("Missed days", startDay);
+      console.log(dayjs("2010-01-25") < dayjs("2015-01-25"))
+      console.log("restdays", restDays)
+      console.log("Workout Data", workoutData.workout)
+      console.log("Missed days", startDay)
     }
-  };
+  }
 
   useEffect(() => {
-    handleMissedDays();
-  }, [userData, workoutData]);
+    handleMissedDays()
+  }, [userData, workoutData])
 
   //Handle Workout done in a month
   const [workoutMonth, setWorkoutMonth] = useState("0")
@@ -526,6 +525,36 @@ export default function Dashboard(props) {
   useEffect(() => {
     countMonthlyWorkoutDay()
   }, [countWorkoutDay])
+
+  // Save data from localstorage to mongoDB while onclick on signout button
+
+  const getLocalStorageData = async () => {
+
+    try {
+      //get data from localStorage
+      const workout = await JSON.parse( localStorage.getItem( "workoutData" ) )
+      
+      console.log(workout)
+      
+      //connecting to backend and saving workout data
+
+      await fetch("/dashboard/saveDataLogout", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify( workout ),
+      })
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  useEffect(() => {
+    getLocalStorageData()
+  }, [])
 
   return (
     <div className={styles.background}>

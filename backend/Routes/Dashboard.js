@@ -244,4 +244,27 @@ router.post("/updateDate", async (request, response) => {
   }
 })
 
+//--DASHBOARD: SAVE DATA OF USER WHILE LOGOUT--//
+router.put("/saveDataLogout", async (request, response) => {
+  try {
+    const { workout } = request.body
+
+    const user = await WorkoutInfo.findByIdAndUpdate( "601fa8db1e9f413f058d5484", {
+      
+      $set: {workout: workout}
+      
+    })
+    console.log( "workoutdata", workout )
+    console.log("USER", user);
+    //console.log("Rrequest_ID",request.workout);
+    
+    if ( user ) {
+      response.status(200).json({ msg: "Workout data saved!!!" })
+    } else {
+      response.status(401).json({ msg: "Workout data can not saved!!!" })
+    }
+  } catch (error) {
+    response.status(401).json({ msg: error.message })
+  }
+})
 module.exports = router
