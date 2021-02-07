@@ -52,7 +52,7 @@
   left: 50%;
   margin-left: -3vw;
   bottom: 5%;
-  background: #000000;
+  background: #252323;
   border-radius: 8px;
   border: none;
   font-weight: normal;
@@ -62,6 +62,13 @@
 
 .selectBodyPartPopup input[type="submit"]:focus {
   outline: 0;
+}
+
+.selectBodyPartPopup input[type="submit"]:hover {
+  color: #474747;
+  background: rgb(236, 232, 232);
+  box-shadow: 3px 3px 5px #252323;
+  cursor: pointer;
 }
 
 .selectBodyPartPopup.active {

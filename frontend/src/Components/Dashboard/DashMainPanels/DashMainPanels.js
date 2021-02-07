@@ -11,7 +11,7 @@ import { Line } from "react-chartjs-2";
 
 export default function DashMainPanels(props) {
   const weight = props.weightChartData;
- // console.log(weight);
+  // console.log(weight);
   const data = {
     labels: ["Abs", "Arms", "Back", "Chest", "Legs", "Shoulders"],
     datasets: [
@@ -157,7 +157,6 @@ export default function DashMainPanels(props) {
         <img src={lineTop} alt={lineTop} />
         <div className={styles.weightChartWrapper}>
           <div className={styles.weightDiagram}>
-            {/* <img src={weightDia} alt={weightDia} /> */}
             <Line data={data2} width={100} height={50} options={options2} />
           </div>
         </div>

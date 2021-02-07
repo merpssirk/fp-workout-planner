@@ -77,7 +77,7 @@
   margin-left: -3vw;
   bottom: 5%;
   font-size: max(12px, 1.5vh);
-  background: #000000;
+  background: #252323;
   border-radius: 8px;
   border: none;
   font-weight: normal;
@@ -86,6 +86,13 @@
 
 .selectExercisePopup button:focus {
   outline: 0;
+}
+
+.selectExercisePopup button:hover {
+  color: #474747;
+  background: rgb(236, 232, 232);
+  box-shadow: 3px 3px 5px #252323;
+  cursor: pointer;
 }
 
 .selectExercisePopup .nextPreviousWrapper {
@@ -102,6 +109,11 @@
 
 .selectExercisePopup .previous {
   cursor: pointer;
+}
+
+.selectExercisePopup .previous:hover,
+.selectExercisePopup .next:hover {
+  color: #302e2e;
 }
 
 .selectExercisePopup.active {

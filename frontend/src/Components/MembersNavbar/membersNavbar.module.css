@@ -17,11 +17,8 @@
 }
 
 .navBar li a:hover,
-.navBar li a.current
-{
-  
+.navBar li a.current {
   color: black;
-  
 }
 
 ul a {
@@ -58,6 +55,7 @@ ul li a {
 }
 .profileWrapper span:hover {
   color: black;
+  cursor: pointer;
 }
 .profileWrapper a {
   height: 70%;

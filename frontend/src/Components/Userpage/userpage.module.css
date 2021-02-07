@@ -99,7 +99,6 @@ ul li a {
   font-style: normal;
   font-weight: 400;
   color: #000000;
-  
 }
 .container .formGroup input {
   border-radius: 5px;
@@ -148,17 +147,15 @@ ul li a {
   filter: drop-shadow(7px 5px 4px rgba(0, 0, 0, 0.4));
   border-radius: 10px;
   padding: 5% 4% 0 3%;
-  
 }
 .container .rightColumn .userPic {
   padding: 10px;
-  font-size: max(8px, .9vw);
+  font-size: max(8px, 0.9vw);
   border: none;
 }
 .container .rightColumn .rightColumnWhiteLine {
   left: 52%;
 }
-
 
 /* RIGHT COLUMN CODING ENDED */
 
@@ -169,14 +166,20 @@ ul li a {
   margin: 50px auto;
 }
 .saveBtn button {
-  width: 200px;
-  height: 60px;
-  border-radius: 25px;
+  height: 5vh;
+  width: 10vw;
+  border-radius: 10px;
   border: none;
-  font-size: max(16px, 1.3vw);
+  font-size: max(12px, 1.2vw);
   color: #ffffff;
   background-color: #474747;
   font-weight: 400;
+}
+
+.saveBtn button:hover {
+  color: #474747;
+  background: rgb(236, 232, 232);
+  box-shadow: 3px 3px 5px #474747;
 }
 /* BUTTON CODING ENDED */
 
@@ -205,7 +208,7 @@ ul li a {
     height: 47vh;
     padding: 5% 7% 0 7%;
   }
-  
+
   .container .formGroup input {
     width: 28vw;
     height: 35px;
@@ -214,11 +217,11 @@ ul li a {
     width: 28vw;
     height: 35px;
   }
-.container .rightColumn .userPic {
-  padding: 8px;
-  font-size: max(8px, 1.3vw);
-  border: none;
-}
+  .container .rightColumn .userPic {
+    padding: 8px;
+    font-size: max(8px, 1.3vw);
+    border: none;
+  }
   .container img {
     top: 7%;
     height: 40vh;

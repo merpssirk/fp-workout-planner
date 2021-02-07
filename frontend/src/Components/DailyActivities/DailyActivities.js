@@ -44,7 +44,7 @@ export default function DailyActivities() {
   };
   const [userData, setUserData] = useState({});
 
-  const [lastDoneWorkoutDate, setLastDoneWorkoutDate] = useState()
+  const [lastDoneWorkoutDate, setLastDoneWorkoutDate] = useState();
 
   useEffect(() => {
     fetch("/dashboard/dailyActivity", {
@@ -56,10 +56,9 @@ export default function DailyActivities() {
     })
       .then((res) => res.json())
       .then((data) => {
-
-        handleCalculateDays(data)
-        setUserData(data)
-        setLastDoneWorkoutDate(data.timestamps)
+        handleCalculateDays(data);
+        setUserData(data);
+        setLastDoneWorkoutDate(data.timestamps);
       })
       .catch((err) => {
         console.log(err);
@@ -74,80 +73,77 @@ export default function DailyActivities() {
 
   const handleWorkoutDone = async () => {
     const today = dayjs().format("YYYY/MM/DD");
+    let workoutDoneAt;
 
     if (Object.keys(userData).length !== 0) {
-      const workoutDoneAt = dayjs(userData.timestamps.doneWorkout).format(
-        "YYYY/MM/DD"
-      );
+      const lastDate = userData.timestamps.doneWorkout.length - 1;
+      if (lastDate < 0) {
+        workoutDoneAt = dayjs("2021/01/01").format("YYYY/MM/DD");
+      } else {
+        workoutDoneAt = dayjs(userData.timestamps.doneWorkout[lastDate]).format(
+          "YYYY/MM/DD"
+        );
+      }
+
+      console.log("Last date", lastDate);
       if (workoutDoneAt === today) {
         setWorkoutDone(true);
+      } else {
+        setWorkoutDone(true);
+        const doneWorkout = dayjs().format("YYYY/MM/DD");
+        try {
+          await fetch("/dashboard/updateDate", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            credentials: "include",
+            body: JSON.stringify({ doneWorkout }),
+          });
+        } catch (error) {
+          console.log(error);
+        }
       }
-    }
-
-    const doneWorkout = dayjs().format("YYYY/MM/DD");
-    try {
-      await fetch("/dashboard/updateDate", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-        body: JSON.stringify({ doneWorkout }),
-      });
-    } catch (error) {
-      console.log(error);
     }
   };
 
   const handleCheckLastDate = () => {
-
-
- // const handleSetWorkoutDone = () => {
-  //  setWorkoutDone(true);
-  //  handleWorkoutDone();
-  // };
-
-    if ( lastDoneWorkoutDate ) {
-      
-      const myDate = dayjs().format("DD.MM.YYYY")
+    if (lastDoneWorkoutDate) {
+      const myDate = dayjs().format("DD.MM.YYYY");
       const lastDateInArray =
         lastDoneWorkoutDate.doneWorkout[
           lastDoneWorkoutDate.doneWorkout.length - 1
-        ]
-      
-      const lastDateInArrayFormat = dayjs( lastDateInArray ).format( "DD.MM.YYYY" )
-
-      if (
-        lastDateInArrayFormat === myDate ) {
-        setWorkoutDone(true)
-        if (lastDoneWorkoutDate.doneWorkout.length
-          === 0 ) {
-          handleWorkoutDone()
-     }
+        ];
+      const lastDateInArrayFormat = dayjs(lastDateInArray).format("DD.MM.YYYY");
+      if (lastDateInArrayFormat === myDate) {
+        setWorkoutDone(true);
+        if (lastDoneWorkoutDate.doneWorkout.length === 0) {
+          handleWorkoutDone();
+        }
       } else {
-        handleWorkoutDone()
+        handleWorkoutDone();
       }
     }
-  }
+  };
+
   useEffect(() => {
     if (lastDoneWorkoutDate) {
-      const myDate = dayjs().format("DD.MM.YYYY")
+      const myDate = dayjs().format("DD.MM.YYYY");
       const lastDateInArray =
         lastDoneWorkoutDate.doneWorkout[
           lastDoneWorkoutDate.doneWorkout.length - 1
-        ]
-      
-      const lastDateInArrayFormat = dayjs(lastDateInArray).format("DD.MM.YYYY")
+        ];
 
+      const lastDateInArrayFormat = dayjs(lastDateInArray).format("DD.MM.YYYY");
 
       if (
         lastDateInArrayFormat === myDate &&
-        lastDoneWorkoutDate.doneWorkout.length
-      > 0) {
-        setWorkoutDone(true)
+        lastDoneWorkoutDate.doneWorkout.length > 0
+      ) {
+        setWorkoutDone(true);
       }
     }
-  }, [lastDoneWorkoutDate])
+  }, [lastDoneWorkoutDate, workoutDone]);
 
   //LOGOUT
   const history = useHistory();

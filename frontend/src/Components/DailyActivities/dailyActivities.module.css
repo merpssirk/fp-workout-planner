@@ -12,7 +12,7 @@ body {
 .background {
   width: 100vw;
   height: 100vh;
-  background-image: url(../../pics/dashboard/dashboard-background.png) ;
+  background-image: url(../../pics/dashboard/dashboard-background.png);
   background-repeat: no-repeat;
   background-size: 100% 100%;
   animation: backImageAnimation 20s linear infinite;
@@ -101,12 +101,12 @@ ul li a {
 .checkBox .greenCircleDiv {
   width: max(3.5vw, 4.5vw);
   height: max(7vh, 9vh);
-  background-color: #bcc4d0;
+  background-color: #ebeef3;
   border-radius: 10px;
+  box-shadow: 3px 3px 3px 3px darkslategrey;
   padding: 10%;
 }
 .checkBox .greenCircleDiv img {
-  
   width: max(2.5vw, 3.5vw);
   height: max(6.3vh, 7.3vh);
 }
@@ -130,14 +130,13 @@ ul li a {
 .mainContainer .exerciseContainer .exerciseDiv h4 {
   font-size: max(10px, 1vw);
   text-align: center;
-  color: #000000;
+  color: whitesmoke;
   margin-top: 15%;
   padding: 10px 10px 0 10px;
 }
 .mainContainer .exerciseContainer .exerciseDiv ul {
   margin: 15% 0 0 15%;
   line-height: 1.5rem;
-
 }
 
 .mainContainer .exerciseContainer .exerciseDiv ul li {
@@ -147,12 +146,14 @@ ul li a {
   font-weight: 400;
   font-size: max(10px, 0.8vw);
   list-style-type: none;
-  color: #000000;
+  color: ws;
 }
 .mainContainer .exerciseImg {
   width: 17vw;
   height: 200px;
-  background: #b8c1ce;
+  /* background: #b8c1ce; */
+  background: rgba(249, 16, 16, 0.8);
+  box-shadow: 3px 3px 3px 3px darkslategrey;
   border-radius: 0px 15px;
 }
 /* --------- */
@@ -164,17 +165,23 @@ ul li a {
   margin-top: 20px;
 }
 .mainContainer .buttons button {
-  width: 8.5vw;
-  height: 60px;
-  border-radius: 20px;
+  height: 5vh;
+  width: 10vw;
+  border-radius: 10px;
   margin: 25px;
-  padding: 15px;
   border: none;
-  font-size: max(16px, 1.2vw);
+  font-size: max(12px, 1.2vw);
   color: #ffffff;
   font-weight: 400;
   font-style: normal;
   background: #474747;
+}
+
+.mainContainer .buttons button:hover {
+  color: #474747;
+  background: rgb(236, 232, 232);
+  box-shadow: 3px 3px 5px #474747;
+  cursor: pointer;
 }
 
 /* Media Query */
@@ -182,7 +189,6 @@ ul li a {
 @media only screen and (max-width: 768px) {
   .background {
     width: 97vw;
-    
   }
   .background h3 {
     text-align: left;
@@ -191,17 +197,13 @@ ul li a {
   .checkBox {
     width: 10.5vw;
     height: 6vh;
-    margin:-7% 0 0 80%;
+    margin: -7% 0 0 80%;
   }
-  .checkBox .greenCircleDiv {
-    width: 10vw;
-    height: 8.5vh;
-   
-  }
+
   .checkBox .greenCircleDiv img {
-  width: 8vw;
-  height: 6.5vh;
-}
+    width: 8vw;
+    height: 6.5vh;
+  }
   .navBar {
     flex-direction: column;
     height: 48vh;
