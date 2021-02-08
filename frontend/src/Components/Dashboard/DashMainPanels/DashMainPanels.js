@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./dashMainPanels.module.css";
 import lineTop from "../../../pics/dashboard/line-top.png";
 import weightDia from "../../../pics/dashboard/weight-diagram.png";
@@ -10,6 +10,10 @@ import { Bar } from "react-chartjs-2";
 import { Line } from "react-chartjs-2";
 
 export default function DashMainPanels(props) {
+  useEffect(() => {
+    console.log("chart re-rendered", props.weightChartData);
+  }, [props.weightChartData]);
+
   const weight = props.weightChartData;
   // console.log(weight);
   const data = {

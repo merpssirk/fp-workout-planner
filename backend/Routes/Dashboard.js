@@ -72,9 +72,12 @@ router.post(
 
 //--DASHBOARD: "POST" UPDATED WEIGHT--//
 router.post("/updatedWeight", async (request, response) => {
+  // It would be simpler to send an array instead of all this complicated logic
+
   const { updatedWeightField, weekOfYear } = request.body;
   const updatedWeight = [updatedWeightField, weekOfYear];
 
+  // Why newUser?
   const newUser = {
     updatedWeight,
   };
@@ -85,6 +88,9 @@ router.post("/updatedWeight", async (request, response) => {
     },
     { new: true }
   );
+
+  console.log(3453, user);
+
   if (user) {
     response.status(200).json({ msg: "Your weight is Updated" });
   } else {
@@ -93,6 +99,8 @@ router.post("/updatedWeight", async (request, response) => {
 });
 //--DASHBOARD: "GET" UPDATED WEIGHT--//
 router.get("/updatedWeight", async (request, response) => {
+  // Naming here does not make sense. user !== updatedWeight
+
   try {
     const updatedWeight = await Users.find({ _id: request.user });
     response.status(200).json(updatedWeight);

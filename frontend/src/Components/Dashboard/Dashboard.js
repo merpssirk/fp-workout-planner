@@ -64,8 +64,20 @@ export default function Dashboard(props) {
   const [updateWeight, setUpdateWeight] = useState([]);
 
   // GET UPDATED WEIGHT FROM MongoDB ------------------------------
+  /*   useEffect(() => {
+    getWorkOutData();
+  }, []); */
 
   useEffect(() => {
+    if (formCheck === "pending") {
+      setOverlayClass(true);
+    } else {
+      setOverlayClass(false);
+    }
+
+    getWorkOutData();
+    updateDate();
+
     axios
       .get("dashboard/updatedWeight", {
         Withcredentials: true,
@@ -89,36 +101,11 @@ export default function Dashboard(props) {
       });
   }, []);
 
-  //POST UDPATED WEIGHT: CONNECT TO BACKEND ------------------------------
-
-  const handleUpdatedWeight = async (event) => {
-    event.preventDefault();
-    const updatedWeightValue = new FormData(event.target);
-
-    const weekOfYear = dayjs().week();
-
-    const updatedWeightField = parseInt(
-      updatedWeightValue.get("updatedWeight")
-    );
-    // updateWeightChart(updatedWeightField, weekOfYear);
-
-    try {
-      await fetch("/dashboard/updatedWeight", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-        body: JSON.stringify({ updatedWeightField, weekOfYear }),
-      });
-
-      //console.log("handleUpdateWeight reached")
-      setUpdateWeight([updatedWeightField, weekOfYear]);
-      handleRemoveOverlay();
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  useEffect(() => {
+    handleMissedDays();
+    handleStreak();
+    handleWorkoutDone();
+  }, [userData, workoutData]);
 
   useEffect(() => {
     const updatedWeightField = updateWeight[0];
@@ -133,24 +120,15 @@ export default function Dashboard(props) {
     setWeightChartData(bufferData);
   }, [updateWeight, weightDifferenceCalc]);
 
-  // const updateWeightChart = (updatedWeightField, weekOfYear) => {
-  //   console.log("Weight Chart Data", weightChartData);
-  //   const bufferData = [...weightChartData];
-  //   console.log("The buffer data", bufferData);
-  //   console.log(("The buffer length", bufferData.length));
-  //   bufferData[bufferData.length - 1][0] = updatedWeightField;
-  //   bufferData[bufferData.length - 1][1] = weekOfYear;
-  //   setWeightChartData(bufferData);
-  // };
+  /*   useEffect(() => {
+    if (formCheck === "pending") {
+      setOverlayClass(true);
+    } else {
+      setOverlayClass(false);
+    }
+  }, []); */
 
-  //LOGOUT ------------------------------
-  const history = useHistory();
-  const handleLogout = () => {
-    window.localStorage.removeItem("loggedIn");
-    history.push("/");
-  };
-
-  useEffect(() => {
+  /*   useEffect(() => {
     const date = new Date();
     const options = {
       weekday: "long",
@@ -160,117 +138,7 @@ export default function Dashboard(props) {
     };
 
     setCurrentDate(new Intl.DateTimeFormat("en-GB", options).format(date));
-  });
-
-  //HANDLE THE POPUP WINDOWS ------------------------------
-
-  useEffect(() => {
-    if (formCheck === "pending") {
-      setOverlayClass(true);
-    } else {
-      setOverlayClass(false);
-    }
-  }, []);
-
-  const handleSetOverlay = () => {
-    setOverlayClass(true);
-  };
-  const handleRemoveOverlay = () => {
-    setOverlayClass(false);
-    localStorage.setItem("Register", "fulfilled");
-  };
-
-  //---WEATHER INFORMATION---
-  const API_KEY = "fd8bafc7164f93efdf3c8815e92e4f18";
-  const [mainTemp, setMainTemp] = useState("");
-  const [city, setCity] = useState("Hamburg");
-  const [iconID, setIconID] = useState("");
-  const [feels_like, setFeelsLike] = useState("");
-  const [description, setDescription] = useState("");
-
-  useEffect(() => {
-    fetch(
-      `https://api.openweathermap.org/data/2.5/weather?q=${city},de&appid=${API_KEY}&units=metric`
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        setMainTemp(Math.round(data.main.temp));
-        setIconID(data.weather[0].icon);
-        setFeelsLike(data.main.feels_like);
-        setDescription(data.weather[0].description);
-      });
-  }, []);
-
-  //---FINISH REGISTRATION PAGE CONNECT TO BACKEND---
-  const handleFinishRegistration = async (event) => {
-    setMessage("Welcome in your Dashboard Page!!");
-    event.preventDefault();
-    const formData = new FormData(event.target);
-
-    const finishRegistrationField = {
-      gender: formData.get("gender"),
-      age: formData.get("age"),
-      height: formData.get("height"),
-      weight: formData.get("weight"),
-      disability: formData.get("disability"),
-      workoutGoals: formData.get("workoutGoals"),
-      workoutDays: formData.get("workoutDays"),
-      activityLevel: formData.get("activityLevel"),
-      equipment: formData.get("equipment"),
-    };
-    console.log("Register data", finishRegistrationField);
-    try {
-      const response = await fetch("/dashboard/finishRegistration", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-        body: JSON.stringify(finishRegistrationField),
-      });
-
-      await handleDefaultWorkout();
-      await getWorkOutData();
-      handleRemoveOverlay();
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  //SET THE DEFAULT WORKOUT TO THE LOCAL STORAGE AND POST IT TO THE DB ------------------------------
-  const handleDefaultWorkout = async () => {
-    try {
-      localStorage.setItem("workoutData", JSON.stringify(defaultWorkout));
-      console.log("Default Workout", defaultWorkout);
-      await fetch("/dashboard/defaultWorkout", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-        body: JSON.stringify(defaultWorkout),
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  //NUTRITION CALCULATION
-  // CALCULATE MEN'S BMR ------------------------------
-  const calculateBMRForMen = (menWeight, menHeight, menAge) => {
-    const weight = 66.47 + 13.75 * menWeight;
-    const height = 5.003 * menHeight;
-    const age = 6.755 * menAge;
-    return weight + height - age;
-  };
-
-  //CALCULATE WOMEN'S BMR ------------------------------
-  const calculateBMRForWomen = (womenWeight, womenHeight, womenAge) => {
-    const weight = 655.1 + 9.563 * womenWeight;
-    const height = 1.85 * womenHeight;
-    const age = 4.676 * womenAge;
-    return weight + height - age;
-  };
+  }); */
 
   //FETCH DATA AND SET NUTRITION VARIABLES ACCORDING TO THE USER DATA ------------------------------
   useEffect(() => {
@@ -402,28 +270,41 @@ export default function Dashboard(props) {
   // WEIGHT CHART ------------------------------
   useEffect(() => {
     if (Object.keys(userData).length !== 0) {
+      console.log("level1");
       const weightData = userData.updatedWeight;
       if (weightData.length > 0) {
+        console.log("level2");
         // The weight has already been updated
         const weightSelection = [];
         let initialCount = false;
         for (let index = 0; index < 10; index++) {
           if (weightData.length < 10) {
+            console.log("For loop");
             // Less than 10 values are available
             if (initialCount === false) {
+              console.log("level4");
               const initialWeek = dayjs(userData.timestamps.createdAt).week();
               const initialWeight = [userData.weight, initialWeek];
               weightSelection.push(initialWeight);
               initialCount = true;
             }
             if (index > weightData.length - 1) {
+              console.log("level5");
               // Fill empty values with null and subsequent week numbers
+              console.log(
+                "weightSelection last value",
+                weightSelection[weightSelection.length - 1]
+              );
               weightSelection.push([null, weightData[0][1] + index]);
+              console.log("weightSelection", weightSelection, "index", index);
             } else {
+              console.log("level6");
               // Fill with the values from the database
               weightSelection.push(weightData[index]);
+              console.log("weightSelection", weightSelection, "index", index);
             }
           } else {
+            console.log("level7");
             // All 10 weight values are available
 
             const weight = weightData[weightData.length - 10 + index][0];
@@ -434,6 +315,7 @@ export default function Dashboard(props) {
         }
         setWeightChartData(weightSelection);
       } else {
+        console.log("level8");
         // The weight has never been updated (only initial weight)
         const chartDataBuffer = [...weightChartData];
         const startWeek = dayjs(userData.timestamps.createdAt).week();
@@ -447,6 +329,186 @@ export default function Dashboard(props) {
       }
     }
   }, [userData]);
+
+  useEffect(() => {
+    handleWeightDifferent();
+  }, [weightDifference]);
+
+  const updateDate = () => {
+    const date = new Date();
+    const options = {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    };
+
+    setCurrentDate(new Intl.DateTimeFormat("en-GB", options).format(date));
+  };
+
+  //POST UDPATED WEIGHT: CONNECT TO BACKEND ------------------------------
+
+  const handleUpdatedWeight = async (event) => {
+    event.preventDefault();
+    const updatedWeightValue = new FormData(event.target);
+
+    const weekOfYear = dayjs().week();
+
+    const updatedWeightField = parseInt(
+      updatedWeightValue.get("updatedWeight")
+    );
+    // updateWeightChart(updatedWeightField, weekOfYear);
+
+    try {
+      await fetch("/dashboard/updatedWeight", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({ updatedWeightField, weekOfYear }),
+      });
+
+      //console.log("handleUpdateWeight reached")
+      // setUpdateWeight([updatedWeightField, weekOfYear]);
+      const userDataBuffer = { ...userData };
+      // for (let index = 0; index < userData.updatedWeight.length; index++) {
+      //   if (userData.updatedWeight[index][0] === null) {
+      //     console.log("Inside For loop if section", userData.updatedWeight);
+      //     userDataBuffer.updatedWeight[index][0] = [
+      //       updatedWeightField,
+      //       weekOfYear,
+      //     ];
+      //     break;
+      //   }
+      // }
+      userDataBuffer.updatedWeight.push([updatedWeightField, weekOfYear]);
+      setUserData(userDataBuffer);
+      console.log("The updated weight", userDataBuffer);
+      handleRemoveOverlay();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // const updateWeightChart = (updatedWeightField, weekOfYear) => {
+  //   console.log("Weight Chart Data", weightChartData);
+  //   const bufferData = [...weightChartData];
+  //   console.log("The buffer data", bufferData);
+  //   console.log(("The buffer length", bufferData.length));
+  //   bufferData[bufferData.length - 1][0] = updatedWeightField;
+  //   bufferData[bufferData.length - 1][1] = weekOfYear;
+  //   setWeightChartData(bufferData);
+  // };
+
+  //LOGOUT ------------------------------
+  const history = useHistory();
+  const handleLogout = () => {
+    window.localStorage.removeItem("loggedIn");
+    history.push("/");
+  };
+
+  //HANDLE THE POPUP WINDOWS ------------------------------
+
+  const handleSetOverlay = () => {
+    setOverlayClass(true);
+  };
+  const handleRemoveOverlay = () => {
+    setOverlayClass(false);
+    localStorage.setItem("Register", "fulfilled");
+  };
+
+  //---WEATHER INFORMATION---
+  const API_KEY = "fd8bafc7164f93efdf3c8815e92e4f18";
+  const [mainTemp, setMainTemp] = useState("");
+  const [city, setCity] = useState("Hamburg");
+  const [iconID, setIconID] = useState("");
+  const [feels_like, setFeelsLike] = useState("");
+  const [description, setDescription] = useState("");
+
+  useEffect(() => {
+    fetch(
+      `https://api.openweathermap.org/data/2.5/weather?q=${city},de&appid=${API_KEY}&units=metric`
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        setMainTemp(Math.round(data.main.temp));
+        setIconID(data.weather[0].icon);
+        setFeelsLike(data.main.feels_like);
+        setDescription(data.weather[0].description);
+      });
+  }, []);
+
+  //---FINISH REGISTRATION PAGE CONNECT TO BACKEND---
+  const handleFinishRegistration = async (event) => {
+    setMessage("Welcome in your Dashboard Page!!");
+    event.preventDefault();
+    const formData = new FormData(event.target);
+
+    const finishRegistrationField = {
+      gender: formData.get("gender"),
+      age: formData.get("age"),
+      height: formData.get("height"),
+      weight: formData.get("weight"),
+      disability: formData.get("disability"),
+      workoutGoals: formData.get("workoutGoals"),
+      workoutDays: formData.get("workoutDays"),
+      activityLevel: formData.get("activityLevel"),
+      equipment: formData.get("equipment"),
+    };
+    console.log("Register data", finishRegistrationField);
+    try {
+      const response = await fetch("/dashboard/finishRegistration", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify(finishRegistrationField),
+      });
+
+      await handleDefaultWorkout();
+      await getWorkOutData();
+      handleRemoveOverlay();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  //SET THE DEFAULT WORKOUT TO THE LOCAL STORAGE AND POST IT TO THE DB ------------------------------
+  const handleDefaultWorkout = async () => {
+    try {
+      localStorage.setItem("workoutData", JSON.stringify(defaultWorkout));
+      console.log("Default Workout", defaultWorkout);
+      await fetch("/dashboard/defaultWorkout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify(defaultWorkout),
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  //NUTRITION CALCULATION
+  // CALCULATE MEN'S BMR ------------------------------
+  const calculateBMRForMen = (menWeight, menHeight, menAge) => {
+    const weight = 66.47 + 13.75 * menWeight;
+    const height = 5.003 * menHeight;
+    const age = 6.755 * menAge;
+    return weight + height - age;
+  };
+
+  //CALCULATE WOMEN'S BMR ------------------------------
+  const calculateBMRForWomen = (womenWeight, womenHeight, womenAge) => {
+    const weight = 655.1 + 9.563 * womenWeight;
+    const height = 1.85 * womenHeight;
+    const age = 4.676 * womenAge;
+    return weight + height - age;
+  };
 
   //FETCH THE WORKOUT DATA FROM THE DB ------------------------------
 
@@ -472,10 +534,6 @@ export default function Dashboard(props) {
     }
   };
 
-  useEffect(() => {
-    getWorkOutData();
-  }, []);
-
   const [printMessage, setPrintMessage] = useState("Difference");
 
   //HANDLE WEIGHT DIFFERENT ------------------------------
@@ -496,10 +554,6 @@ export default function Dashboard(props) {
       );
     }
   };
-
-  useEffect(() => {
-    handleWeightDifferent();
-  }, [weightDifference]);
 
   // MISSED DAYS ------------------------------
   const handleMissedDays = () => {
@@ -648,12 +702,6 @@ export default function Dashboard(props) {
       }
     }
   };
-
-  useEffect(() => {
-    handleMissedDays();
-    handleStreak();
-    handleWorkoutDone();
-  }, [userData, workoutData]);
 
   //Handle Workout done in a month
   // const [workoutMonth, setWorkoutMonth] = useState("0");
