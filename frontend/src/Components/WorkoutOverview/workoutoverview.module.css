@@ -290,3 +290,15 @@ ul li a {
 .mainContainer .calendar .days .fifthWeek div {
   background: #f8c0b3;
 }
+
+.mainContainer .calendar .days .workoutDone::after {
+  content: "Done";
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+
+.indicator {
+  color: black;
+  font-size: max(12px, 2vw);
+}

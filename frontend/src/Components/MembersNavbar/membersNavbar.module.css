@@ -16,8 +16,7 @@
   text-decoration: none;
 }
 
-.navBar li a:hover,
-.navBar li a.current {
+.navBar li a:hover {
   color: black;
 }
 
@@ -36,10 +35,6 @@ ul img {
   height: 100%;
   width: 100%;
   list-style-type: none;
-}
-.navBar ul a:hover,
-.navBar ul a.current {
-  color: black;
 }
 
 ul li a {

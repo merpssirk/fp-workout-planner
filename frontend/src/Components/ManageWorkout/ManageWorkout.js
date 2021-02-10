@@ -49,6 +49,7 @@ export default function ManageWorkout() {
   const updateWorkoutData = async () => {
     const fullData = JSON.parse(localStorage.getItem("workoutData"));
     fullData.workout = workoutData;
+    console.log("After the save button", fullData);
     localStorage.setItem("workoutData", JSON.stringify(fullData));
     // try {
     //   const response = await fetch("/dashboard/manageWorkout", {
@@ -203,6 +204,7 @@ export default function ManageWorkout() {
     } else {
       setActiveButton(number);
     }
+    console.log("Workout data", workoutData);
   };
 
   const handleUpdatePanels = () => {
