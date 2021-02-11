@@ -19,13 +19,27 @@ body {
 }
 
 @keyframes backImageAnimation {
-  0%{background-image: url(../../pics/home/homepage-main.png)}
-  23%{background-image: url(../../pics/home/homepage-main.png)}
-  33%{background-image: url(../../pics/home/homepage-main2.png)}
-  57%{background-image: url(../../pics/home/homepage-main2.png)}
-  67%{background-image: url(../../pics/home/homepage-main3.png)}
-  90%{background-image: url(../../pics/home/homepage-main3.png)}
-  100%{background-image: url(../../pics/home/homepage-main.png)}
+  0% {
+    background-image: url(../../pics/home/homepage-main.png);
+  }
+  23% {
+    background-image: url(../../pics/home/homepage-main.png);
+  }
+  33% {
+    background-image: url(../../pics/home/homepage-main2.png);
+  }
+  57% {
+    background-image: url(../../pics/home/homepage-main2.png);
+  }
+  67% {
+    background-image: url(../../pics/home/homepage-main3.png);
+  }
+  90% {
+    background-image: url(../../pics/home/homepage-main3.png);
+  }
+  100% {
+    background-image: url(../../pics/home/homepage-main.png);
+  }
 }
 
 .navBar {
@@ -87,7 +101,7 @@ h3 {
   width: 25%;
   margin: 0 0 5% 0;
   padding: 30px;
-  background: rgba(245,245,245,0.9);
+  background: rgba(245, 245, 245, 0.9);
   color: black;
   font-size: 0.6rem;
   animation-name: registerShow;
@@ -98,12 +112,19 @@ h3 {
 }
 
 @keyframes registerShow {
-  0% {left: -500px;}
-  55% {left: 50px;}
-  70% {left: 0px;}
-  100% {left: 0px;}
+  0% {
+    left: -500px;
+  }
+  55% {
+    left: 50px;
+  }
+  70% {
+    left: 0px;
+  }
+  100% {
+    left: 0px;
+  }
 }
-
 
 .registerText {
   width: 100%;
@@ -175,7 +196,7 @@ h3 {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0,0,0, 0.85);
+  background-color: rgba(0, 0, 0, 0.85);
   pointer-events: none;
   z-index: 1;
 }
@@ -234,12 +255,14 @@ form span {
   color: yellow;
   font-size: 12px;
 }
-.formContainer .formGroup, .formContainer2 .formGroup {
+.formContainer .formGroup,
+.formContainer2 .formGroup {
   position: relative;
   text-align: center;
 }
 
-.formContainer .formGroup label, .formContainer2 .formGroup label {
+.formContainer .formGroup label,
+.formContainer2 .formGroup label {
   display: block;
   font-style: normal;
   font-weight: normal;
@@ -247,7 +270,8 @@ form span {
   margin-top: 20px;
 }
 
-.formContainer .formGroup input, .formContainer2 .formGroup input {
+.formContainer .formGroup input,
+.formContainer2 .formGroup input {
   width: 173.49px;
   height: 34.93px;
   border-radius: 8px;
@@ -291,4 +315,3 @@ form span {
 .loginUserName {
   margin-top: 80px;
 }
-

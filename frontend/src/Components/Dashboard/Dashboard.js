@@ -92,7 +92,7 @@ export default function Dashboard(props) {
           JSON.stringify(res.data[0].equipment)
         );
 
-        const myDate = dayjs(getUpdatedTime).add(0, "day").format("DD.MM.YYYY");
+        const myDate = dayjs(getUpdatedTime).add(7, "day").format("DD.MM.YYYY");
         const date = dayjs().format("DD.MM.YYYY");
         if (date === myDate) {
           setTimeout(() => {}, 3000);
@@ -103,7 +103,7 @@ export default function Dashboard(props) {
 
   useEffect(() => {
     handleMissedDays();
-    handleStreak();
+    // handleStreak();
     handleWorkoutDone();
   }, [userData, workoutData]);
 
@@ -648,38 +648,38 @@ export default function Dashboard(props) {
   };
 
   // STREAK ------------------------------
-  const handleStreak = () => {
-    if (Object.keys(userData).length !== 0) {
-      // A missed date available
-      if (userData.timestamps.missedWorkout.length > 0) {
-        const lastMissedDay =
-          userData.timestamps.missedWorkout[
-            userData.timestamps.missedWorkout.length - 1
-          ];
+  // const handleStreak = () => {
+  //   if (Object.keys(userData).length !== 0) {
+  //     // A missed date available
+  //     if (userData.timestamps.missedWorkout.length > 0) {
+  //       const lastMissedDay =
+  //         userData.timestamps.missedWorkout[
+  //           userData.timestamps.missedWorkout.length - 1
+  //         ];
 
-        const today = new Date();
-        const diff = today.getTime() - lastMissedDay.getTime();
-        const dayDiff = Math.ceil(diff / (1000 * 3600 * 24));
-        setStreak(dayDiff);
-      } else {
-        // No missed date but a done workout available
-        if (userData.timestamps.doneWorkout.length > 0) {
-          const lastMissedDay = userData.timestamps.doneWorkout[0];
-          const today = new Date();
-          const dayDiff = dayjs(today).diff(dayjs(lastMissedDay), "day");
-          setStreak(dayDiff);
-        } else {
-          // No missed date and no done workout available
-          const lastMissedDay = userData.timestamps.startWorkoutAt;
-          const today = new Date();
-          const dayDiff = dayjs(today).diff(dayjs(lastMissedDay), "day");
-          console.log("Else section reached");
-          console.log("Streak", dayDiff);
-          setStreak(dayDiff);
-        }
-      }
-    }
-  };
+  //       const today = new Date();
+  //       const diff = today.getTime() - lastMissedDay.getTime();
+  //       const dayDiff = Math.ceil(diff / (1000 * 3600 * 24));
+  //       setStreak(dayDiff);
+  //     } else {
+  //       // No missed date but a done workout available
+  //       if (userData.timestamps.doneWorkout.length > 0) {
+  //         const lastMissedDay = userData.timestamps.doneWorkout[0];
+  //         const today = new Date();
+  //         const dayDiff = dayjs(today).diff(dayjs(lastMissedDay), "day");
+  //         setStreak(dayDiff);
+  //       } else {
+  //         // No missed date and no done workout available
+  //         const lastMissedDay = userData.timestamps.startWorkoutAt;
+  //         const today = new Date();
+  //         const dayDiff = dayjs(today).diff(dayjs(lastMissedDay), "day");
+  //         console.log("Else section reached");
+  //         console.log("Streak", dayDiff);
+  //         setStreak(dayDiff);
+  //       }
+  //     }
+  //   }
+  // };
 
   // CALCULATE THE DONE WORKOUTS FOR THE CURRENT MONTH
   const handleWorkoutDone = () => {

@@ -180,64 +180,6 @@ export default function DailyActivities() {
     getCurrentDate();
   });
 
-  // Calendar Data
-  // const calendarData = {
-  //   year: {
-  //     2020: {
-  //       month: {
-  //         0: { done: [1, 3, 5, 8], missed: [2, 4, 6] },
-  //         1: { done: [1, 7, 5, 8], missed: [2, 4, 6] },
-  //         2: { done: [1, 3, 5, 8], missed: [2, 4, 6] },
-  //       },
-  //     },
-  //     2021: { month: { 1: {} } },
-  //     2022: { month: { 1: {} } },
-  //   },
-  // };
-
-  // const handleWorkoutData = (year, month, day, id) => {
-  //   updateMonth(year, month, day, id);
-
-  //   function updateMonth(year, monthIndex, day, id) {
-  //     if (
-  //       !calendarData.year[year] ||
-  //       !calendarData.year[year].month[monthIndex] ||
-  //       !calendarData.year[year].month[monthIndex].done ||
-  //       !calendarData.year[year].month[monthIndex].missed
-  //     ) {
-  //       createMonth(year, monthIndex, day, id);
-  //     } else {
-  //       updateDay(year, monthIndex, day, id);
-  //     }
-  //   }
-
-  //   function createMonth(year, monthIndex, day, id) {
-  //     // validate year
-  //     if (!calendarData.year[year]) {
-  //       calendarData.year[year] = {
-  //         month: { [monthIndex]: { done: [], missed: [] } },
-  //       };
-  //     }
-  //     // create month
-  //     calendarData.year[year].month[monthIndex] = { done: [], missed: [] };
-  //     if (id === 1) {
-  //       calendarData.year[year].month[monthIndex].done.push(day);
-  //     } else if (id === 2) {
-  //       calendarData.year[year].month[monthIndex].missed.push(day);
-  //     }
-  //   }
-
-  //   function updateDay(year, monthIndex, day, id) {
-  //     if (id === 1) {
-  //       calendarData.year[year].month[monthIndex].done.push(day);
-  //     } else if (id === 2) {
-  //       calendarData.year[year].month[monthIndex].missed.push(day);
-  //     }
-  //   }
-  // };
-
-  // handleWorkoutData(2019, 3, 1, 1);
-
   return (
     <>
       <div className={styles.background}>
@@ -256,9 +198,7 @@ export default function DailyActivities() {
             <div className={styles.exerciseContainer}>
               {panels.current.map((item, index) => (
                 <>
-                  {dayData === "buttonYellow" && index === 0 ? (
-                    <h1 className={styles.restDay}>TODAY IS RESTDAY</h1>
-                  ) : currentWorkout[item] ? (
+                  {dayData === "buttonYellow" ? null : currentWorkout[item] ? (
                     <div className={styles.exerciseDiv} key={index}>
                       <div className={styles.exerciseImg} key={index}>
                         <h4 key={index}>
@@ -299,7 +239,9 @@ export default function DailyActivities() {
               ))}
             </div>
             <div className={styles.buttons}>
-              {dayData === "buttonYellow" ? null : (
+              {dayData === "buttonYellow" ? (
+                <h1 className={styles.restDay}>TODAY IS RESTDAY</h1>
+              ) : (
                 <button onClick={handleCheckLastDate} className={styles.redBtn}>
                   Done
                 </button>
