@@ -1,82 +1,82 @@
 .exercisePanelsWrapper {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 70vh;
-  width: 100vw;
-  margin-top: 2%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 70vh;
+	width: 100vw;
+	margin-top: 2%;
 }
 .exercisePanelsWrapper h3 {
-  font-size: max(15px, 1.2vw);
+	font-size: max(15px, 1.2vw);
 }
 
 .exercisePanelsWrapper h1 {
-  color: #474747;
+	color: #474747;
 }
 
 .panels {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  width: 80vw;
-  color: black;
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	width: 80vw;
+	color: black;
 }
 
 .panels .reset {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  height: 20px;
-  width: 20px;
-  background: whitesmoke;
-  border-radius: 50%;
-  font-size: max(10px, 1.5vh);
-  color: red;
-  border: none;
-  cursor: pointer;
+	position: absolute;
+	top: 8px;
+	right: 8px;
+	height: 20px;
+	width: 20px;
+	background: whitesmoke;
+	border-radius: 50%;
+	font-size: max(10px, 1.5vh);
+	color: red;
+	border: none;
+	cursor: pointer;
 }
 
 .exercisePanelsWrapper .panel {
-  position: relative;
-  height: 20vh;
-  width: 17vw;
-  margin: 25px 20px;
-  color: whitesmoke;
-  background: rgb(49, 49, 55);
-  background: linear-gradient(
-    137deg,
-    rgba(49, 49, 55, 1) 0%,
-    rgba(65, 58, 48, 0.5592437658657212) 91%
-  );
-  /* background: #b8c1ce; */
-  box-shadow: 3px 3px 3px 3px rgb(53, 58, 58);
-  border-radius: 0px 15px;
+	position: relative;
+	height: 20vh;
+	width: 17vw;
+	margin: 25px 20px;
+	color: whitesmoke;
+	background: rgb(49, 49, 55);
+	background: linear-gradient(
+		137deg,
+		rgba(49, 49, 55, 1) 0%,
+		rgba(65, 58, 48, 0.5592437658657212) 91%
+	);
+	/* background: #b8c1ce; */
+	box-shadow: 3px 3px 3px 3px rgb(53, 58, 58);
+	border-radius: 0px 15px;
 }
 
 .exercisePanelsWrapper .panel h3 {
-  width: 90%;
-  margin-top: 3%;
-  padding: 0 10px;
-  font-size: max(12px, 1.8vh);
-  text-align: center;
+	width: 90%;
+	margin-top: 3%;
+	padding: 0 10px;
+	font-size: max(12px, 1.8vh);
+	text-align: center;
 }
 .addSign {
-  position: absolute;
-  background-image: url(../../../pics/manageWorkout/addSign.png);
-  background-size: contain;
-  background-repeat: no-repeat;
-  height: 30px;
-  width: 30px;
-  border: none;
-  bottom: -30px;
-  right: -30px;
-  color: #474747;
-  cursor: pointer;
+	position: absolute;
+	background-image: url(../../../pics/manageWorkout/addSign.png);
+	background-size: contain;
+	background-repeat: no-repeat;
+	height: 30px;
+	width: 30px;
+	border: none;
+	bottom: -30px;
+	right: -30px;
+	color: #474747;
+	cursor: pointer;
 }
 
 .addSign:focus {
-  outline: 0;
+	outline: 0;
 }
 
 .panel1,
@@ -87,75 +87,76 @@
 .panel6,
 .panel7,
 .panel8 {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 .saveButton {
-  height: 5vh;
-  width: 10vw;
-  margin-top: 2%;
-  margin-left: 4%;
-  font-size: max(12px, 1.2vw);
-  color: whitesmoke;
-  background-color: #474747;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
+	height: 5vh;
+	width: 10vw;
+	margin-top: 2%;
+	margin-left: 4%;
+	font-size: max(12px, 1.2vw);
+	color: whitesmoke;
+	background-color: #474747;
+	border: none;
+	border-radius: 10px;
+	cursor: pointer;
+	outline: 0;
 }
 
 .saveButton:hover {
-  color: #474747;
-  background: rgb(236, 232, 232);
-  box-shadow: 3px 3px 5px #474747;
+	color: #474747;
+	background: rgb(236, 232, 232);
+	box-shadow: 3px 3px 5px #474747;
 }
 
 .buttons {
-  display: flex;
-  justify-content: center;
-  width: auto;
-  margin-top: 3%;
+	display: flex;
+	justify-content: center;
+	width: auto;
+	margin-top: 3%;
 }
 
 .exerciseWrapper {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 80%;
-  padding-left: 5%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 80%;
+	padding-left: 5%;
 }
 
 .exerciseWrapper input,
 .exerciseWrapper .bodyPartValue {
-  width: 25%;
-  text-align: center;
-  margin-left: 5px;
-  border: none;
-  border-radius: 2px;
+	width: 25%;
+	text-align: center;
+	margin-left: 5px;
+	border: none;
+	border-radius: 2px;
 }
 
 .exerciseWrapper input {
-  /* background: #474747; */
-  background: transparent;
-  color: whitesmoke;
+	/* background: #474747; */
+	background: transparent;
+	color: whitesmoke;
 }
 
 .setsWrapper,
 .bodyPartWrapper,
 .repetitionsWrapper {
-  width: 12vw;
-  margin-bottom: 5%;
+	width: 12vw;
+	margin-bottom: 5%;
 }
 
 .bodyPartValue {
-  font-size: max(12px, 1.5vh);
+	font-size: max(12px, 1.5vh);
 }
 
 .sets,
 .repetitions,
 .bodyPart {
-  display: inline-block;
-  width: 60%;
-  font-size: max(12px, 1.5vh);
+	display: inline-block;
+	width: 60%;
+	font-size: max(12px, 1.5vh);
 }

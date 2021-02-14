@@ -1,79 +1,79 @@
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
 }
 
 body {
-  font-family: "Montserrat", sans-serif;
-  color: whitesmoke;
+	font-family: "Montserrat", sans-serif;
+	color: whitesmoke;
 }
 
 .background {
-  height: 100vh;
-  width: 100vw;
-  background-image: url(../../pics/dashboard/dashboard-background.png);
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  animation: backImageAnimation 20s linear infinite;
+	height: 100vh;
+	width: 100vw;
+	background-image: url(../../pics/dashboard/dashboard-background.png);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	animation: backImageAnimation 20s linear infinite;
 }
 
 /* NAVBAR CODING STARTED */
 .navBar {
-  display: flex;
-  height: 10vh;
-  width: 100vw;
-  margin-bottom: 20px;
-  background: rgba(249, 16, 16, 0.8);
-  color: whitesmoke;
+	display: flex;
+	height: 10vh;
+	width: 100vw;
+	margin-bottom: 20px;
+	background: rgba(249, 16, 16, 0.8);
+	color: whitesmoke;
 }
 .navBar li {
-  font-size: max(15px, 1.8vw);
+	font-size: max(15px, 1.8vw);
 }
 .navBar li a {
-  color: whitesmoke;
-  text-decoration: none;
+	color: whitesmoke;
+	text-decoration: none;
 }
 
 .navBar li a:hover {
-  color: black;
+	color: black;
 }
 
 ul a {
-  height: 70%;
-  margin: 0 3%;
+	height: 70%;
+	margin: 0 3%;
 }
 
 ul img {
-  height: 100%;
+	height: 100%;
 }
 
 .navBar ul {
-  display: flex;
-  align-items: center;
-  height: 100%;
-  width: 100%;
-  list-style-type: none;
+	display: flex;
+	align-items: center;
+	height: 100%;
+	width: 100%;
+	list-style-type: none;
 }
 
 ul li a {
-  margin: 0 40px 0 20px;
+	margin: 0 40px 0 20px;
 }
 
 .profileWrapper {
-  display: flex;
-  align-items: center;
-  height: 100%;
-  margin: 0 20px;
+	display: flex;
+	align-items: center;
+	height: 100%;
+	margin: 0 20px;
 }
 
 .profileWrapper a {
-  height: 70%;
-  margin-left: 20px;
+	height: 70%;
+	margin-left: 20px;
 }
 
 .profileWrapper img {
-  height: 100%;
+	height: 100%;
 }
 
 /* NAVBAR CODING ENDED */
@@ -81,158 +81,162 @@ ul li a {
 /*LEFT AND RIGHT COLUMN CODING STARTED */
 
 .container {
-  display: flex;
-  justify-content: space-between;
-  width: 70vw;
-  height: 70vh;
-  margin: 50px auto;
+	display: flex;
+	justify-content: space-between;
+	width: 70vw;
+	height: 70vh;
+	margin: 50px auto;
 }
 
 .container .formGroup {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  height: 10vh;
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	height: 10vh;
 }
 .container .formGroup label {
-  font-size: max(14px, 1.2vw);
-  font-style: normal;
-  font-weight: 400;
-  color: #000000;
+	font-size: max(14px, 1.2vw);
+	font-style: normal;
+	font-weight: 400;
+	color: #000000;
 }
 .container .formGroup input {
-  border-radius: 5px;
-  width: 13vw;
-  height: 40px;
-  background: #ffffff;
-  border: none;
-  font-size: max(16px, 1.2vw);
-  color: #000000;
+	border-radius: 5px;
+	width: 13vw;
+	height: 40px;
+	background: #ffffff;
+	border: none;
+	text-align: center;
+	font-size: max(12px, 1.1vw);
+	color: #000000;
 }
 .container .formGroup select {
-  width: 13vw;
-  height: 40px;
-  background: #ffffff;
-  border: none;
-  font-size: max(14px, 1.1vw);
-  cursor: pointer;
-  border-radius: 5px;
-  padding: 0 0 0 10px;
-  color: #000000;
+	width: 13vw;
+	height: 40px;
+	background: #ffffff;
+	border: none;
+	text-align-last: center;
+	font-size: max(14px, 1.1vw);
+	cursor: pointer;
+	border-radius: 5px;
+	padding: 0 0 0 10px;
+	color: #000000;
 }
+
 /* LEFT COLUMN CODING STARTED */
 .container .leftColumn {
-  width: 50vw;
-  height: 70vh;
-  background: #b8c1ce;
-  filter: drop-shadow(-7px 5px 4px rgba(0, 0, 0, 0.4));
-  border-radius: 10px;
-  margin-right: 1%;
-  padding: 5% 4% 0 3%;
+	width: 50vw;
+	height: 70vh;
+	background: #b8c1ce;
+	filter: drop-shadow(-7px 5px 4px rgba(0, 0, 0, 0.4));
+	border-radius: 10px;
+	margin-right: 1%;
+	padding: 5% 4% 0 3%;
 }
 
 .container img {
-  position: absolute;
-  top: 5%;
-  left: 35%;
-  height: 62vh;
+	position: absolute;
+	top: 5%;
+	left: 35%;
+	height: 62vh;
 }
 /* LEFT COLUMN CODING ENDED */
 
 /* RIGHT COLUMN CODING STARTED*/
 .container .rightColumn {
-  width: 50vw;
-  height: 70vh;
-  background: #b8c1ce;
-  filter: drop-shadow(7px 5px 4px rgba(0, 0, 0, 0.4));
-  border-radius: 10px;
-  padding: 5% 4% 0 3%;
+	width: 50vw;
+	height: 70vh;
+	background: #b8c1ce;
+	filter: drop-shadow(7px 5px 4px rgba(0, 0, 0, 0.4));
+	border-radius: 10px;
+	padding: 5% 4% 0 3%;
 }
 .container .rightColumn .userPic {
-  padding: 10px;
-  font-size: max(8px, 0.9vw);
-  border: none;
+	padding: 10px;
+	font-size: max(8px, 0.9vw);
+	border: none;
 }
 .container .rightColumn .rightColumnWhiteLine {
-  left: 52%;
+	left: 52%;
 }
 
 /* RIGHT COLUMN CODING ENDED */
 
 /* BUTTON CODING STARTED */
 .saveBtn {
-  width: 200px;
-  height: 60px;
-  margin: 50px auto;
+	width: 200px;
+	height: 60px;
+	margin: 50px auto;
 }
 .saveBtn button {
-  height: 5vh;
-  width: 10vw;
-  border-radius: 10px;
-  border: none;
-  font-size: max(12px, 1.2vw);
-  color: #ffffff;
-  background-color: #474747;
-  font-weight: 400;
+	height: 5vh;
+	width: 10vw;
+	border-radius: 10px;
+	border: none;
+	font-size: max(12px, 1.2vw);
+	color: #ffffff;
+	background-color: #474747;
+	font-weight: 400;
+	outline: 0;
 }
 
 .saveBtn button:hover {
-  color: #474747;
-  background: rgb(236, 232, 232);
-  box-shadow: 3px 3px 5px #474747;
+	color: #474747;
+	background: rgb(236, 232, 232);
+	box-shadow: 3px 3px 5px #474747;
 }
 /* BUTTON CODING ENDED */
 
 @media only screen and (max-width: 1024px) {
-  .background {
-    height: auto;
-  }
-  .container {
-    display: inline-block;
-    width: 75vw;
-    height: auto;
-    margin: 0 0 0 15%;
-  }
+	.background {
+		height: auto;
+	}
+	.container {
+		display: inline-block;
+		width: 75vw;
+		height: auto;
+		margin: 0 0 0 15%;
+	}
 
-  .container .formGroup {
-    height: 7vh;
-  }
-  .container .leftColumn {
-    width: 75vw;
-    height: 47vh;
-    margin-bottom: 2%;
-    padding: 5% 7% 0 7%;
-  }
-  .container .rightColumn {
-    width: 75vw;
-    height: 47vh;
-    padding: 5% 7% 0 7%;
-  }
+	.container .formGroup {
+		height: 7vh;
+	}
+	.container .leftColumn {
+		width: 75vw;
+		height: 47vh;
+		margin-bottom: 2%;
+		padding: 5% 7% 0 7%;
+	}
+	.container .rightColumn {
+		width: 75vw;
+		height: 47vh;
+		padding: 5% 7% 0 7%;
+	}
 
-  .container .formGroup input {
-    width: 28vw;
-    height: 35px;
-  }
-  .container .formGroup select {
-    width: 28vw;
-    height: 35px;
-  }
-  .container .rightColumn .userPic {
-    padding: 8px;
-    font-size: max(8px, 1.3vw);
-    border: none;
-  }
-  .container img {
-    top: 7%;
-    height: 40vh;
-  }
-  .saveBtn {
-    width: 8vw;
-    height: 50px;
-    margin: 40px auto;
-  }
-  .saveBtn button {
-    width: 15vw;
-    height: 50px;
-  }
+	.container .formGroup input {
+		width: 28vw;
+		height: 35px;
+	}
+	.container .formGroup select {
+		width: 28vw;
+		height: 35px;
+	}
+	.container .rightColumn .userPic {
+		padding: 8px;
+		font-size: max(8px, 1.3vw);
+		border: none;
+	}
+	.container img {
+		top: 7%;
+		height: 40vh;
+	}
+	.saveBtn {
+		width: 8vw;
+		height: 50px;
+		margin: 40px auto;
+	}
+	.saveBtn button {
+		width: 15vw;
+		height: 50px;
+	}
 }

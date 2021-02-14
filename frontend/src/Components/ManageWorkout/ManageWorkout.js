@@ -51,20 +51,27 @@ export default function ManageWorkout() {
     fullData.workout = workoutData;
     console.log("After the save button", fullData);
     localStorage.setItem("workoutData", JSON.stringify(fullData));
-    // try {
-    //   const response = await fetch("/dashboard/manageWorkout", {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     credentials: "include",
-    //     body: JSON.stringify({
-    //       workout: workoutData,
-    //     }),
-    //   });
-    // } catch (err) {
-    //   console.log(err);
-    // }
+    console.log("workoutData before post request", workoutData);
+    try {
+      const response = await fetch("/dashboard/manageWorkout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({
+          workout: workoutData,
+        }),
+      });
+
+      if (response){
+        console.log("The workout has been send to the backend!");
+      } else {
+        console.log("The workout coulnd't be send to the backend!");
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const handleSetOverlay = (id) => {
@@ -273,8 +280,8 @@ export default function ManageWorkout() {
 
   const handleSetsReps = (panel, sets, reps) => {
     const bufferData = { ...workoutData };
-    bufferData["day" + (activeButton + 1)].exercises[panel - 1][2] = sets.value;
-    bufferData["day" + (activeButton + 1)].exercises[panel - 1][3] = reps.value;
+    bufferData["day" + (activeButton + 1)].exercises[panel - 1][2] = parseInt(sets.value);
+    bufferData["day" + (activeButton + 1)].exercises[panel - 1][3] = parseInt(reps.value);
     console.log(bufferData);
     setWorkoutData(bufferData);
   };

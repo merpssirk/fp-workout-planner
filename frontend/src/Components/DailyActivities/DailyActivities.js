@@ -2,12 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { useHistory } from "react-router-dom";
 import MembersNavbar from "../MembersNavbar/MembersNavbar";
 import styles from "./dailyActivities.module.css";
-import avatar from "../../pics/dashboard/Avatar-male.png";
-//import avatar from "../pics/dashboard/Avatar-male.png";
-import imgLogo from "../../pics/dashboard/Logo-black.png";
 import greenCheckCircle from "../../pics/dashboard/greenCheckCircle.png";
-//import redXCircle from "../../pics/dashboard/redXCircle.png"
-//import DayJs from "react-dayjs"
 
 import dayjs from "dayjs";
 

@@ -1,53 +1,57 @@
 .dayIndicators {
-    display: flex;
-    justify-content: center;
-    color: black;
-  }
-  .dayIndicators h3 {
-    width: 11.8vw;
-    font-size: max(15px, 1.4vw);
-    text-align: center;
-  }
-  .dayIndicators .buttonGreen {
-    height: 50px;
-    width: 50px;
-    margin-top: 10%;
-    background-color: rgb(116, 182, 107);
-    border: 10px solid #474747;
-    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.3);
-    border-radius: 50%;
-    cursor: pointer;
-  }
-  .dayIndicators .buttonYellow {
-    height: 50px;
-    width: 50px;
-    margin-top: 10%;
-    background-color: rgb(209, 182, 63);
-    border: 10px solid #474747;
-    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.3);
-    border-radius: 50%;
-    cursor: pointer;
-  }
-  .dayIndicators .buttonGrey {
-    height: 50px;
-    width: 50px;
-    margin-top: 10%;
-    background-color: #474747;
-    border: 10px solid #474747;
-    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.3);
-    border-radius: 50%;
-    cursor: pointer;
-  }
-  .dayIndicators .activeButton {
-    border: 10px solid rgba(249, 16, 16, 0.8);
-  }
-  
-  .dayIndicators button:focus {
-    outline: 0;
-  }
+	display: flex;
+	justify-content: center;
+	color: black;
+}
+.dayIndicators h3 {
+	width: 11.8vw;
+	font-size: max(15px, 1.4vw);
+	text-align: center;
+}
+.dayIndicators .buttonGreen {
+	height: 50px;
+	width: 50px;
+	margin-top: 10%;
+	background-color: rgb(116, 182, 107);
+	border: 10px solid #474747;
+	box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.3);
+	border-radius: 50%;
+	cursor: pointer;
+}
+.dayIndicators .buttonYellow {
+	height: 50px;
+	width: 50px;
+	margin-top: 10%;
+	background-color: rgb(209, 182, 63);
+	border: 10px solid #474747;
+	box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.3);
+	border-radius: 50%;
+	cursor: pointer;
+}
+.dayIndicators .buttonGrey {
+	height: 50px;
+	width: 50px;
+	margin-top: 10%;
+	background-color: #474747;
+	border: 10px solid #474747;
+	box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.3);
+	border-radius: 50%;
+	cursor: pointer;
+}
+.dayIndicators .activeButton {
+	border: 10px solid rgba(249, 16, 16, 0.8);
+}
 
-  .dayIndicators div {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+.dayIndicators button:hover {
+	transform: scale(1.1);
+}
+
+.dayIndicators button:focus {
+	outline: 0;
+}
+
+.dayIndicators div {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}

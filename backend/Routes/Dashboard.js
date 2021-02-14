@@ -168,16 +168,16 @@ router.post("/manageWorkout", async (request, response) => {
       user: request.user,
     });
 
+    
     if (workoutData) {
-      await WorkoutInfo.findByIdAndUpdate(workoutData._id, workout, {
-        new: true,
-      });
+      console.log("The workout data", workout);
+      console.log("workoutdata id", workoutData._id);
+      await WorkoutInfo.findByIdAndUpdate(workoutData._id, {
+                $set: {workout: workout}
+              },
+              { new: true });
     } else {
-      const newUserWorkout = await new WorkoutInfo({
-        user: request.user,
-        workout: workout,
-      });
-      await newUserWorkout.save();
+      console.log("Backend failed");
     }
 
     if (workoutData) {

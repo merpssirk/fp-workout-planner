@@ -1,277 +1,213 @@
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
 }
 
 body {
-  font-family: "Montserrat", sans-serif;
-  color: whitesmoke;
+	font-family: "Montserrat", sans-serif;
+	color: whitesmoke;
 }
 
 .background {
-  width: 100vw;
-  height: 100vh;
-  background-image: url(../../pics/dashboard/dashboard-background.png);
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  animation: backImageAnimation 20s linear infinite;
+	width: 100vw;
+	height: 100vh;
+	background-image: url(../../pics/dashboard/dashboard-background.png);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	animation: backImageAnimation 20s linear infinite;
 }
-
-/* NAVBAR CODING STARTED */
-.navBar {
-  display: flex;
-  height: 10vh;
-  width: 100vw;
-  margin-bottom: 20px;
-  background: rgba(249, 16, 16, 0.8);
-  color: whitesmoke;
-}
-.navBar li {
-  font-size: max(15px, 1.8vw);
-}
-.navBar li a {
-  color: whitesmoke;
-  text-decoration: none;
-}
-
-.navBar li a:hover,
-.navBar li a.current {
-  color: black;
-}
-
-ul a {
-  height: 70%;
-  margin: 0 3%;
-}
-
-ul img {
-  height: 100%;
-}
-
-.navBar ul {
-  display: flex;
-  align-items: center;
-  height: 100%;
-  width: 100%;
-  list-style-type: none;
-}
-
-ul li a {
-  margin: 0 40px 0 20px;
-}
-
-.profileWrapper {
-  display: flex;
-  align-items: center;
-  height: 100%;
-  margin: 0 20px;
-}
-.profileWrapper span:hover {
-  color: black;
-  cursor: pointer;
-}
-.profileWrapper a {
-  height: 70%;
-  margin-left: 20px;
-}
-
-.profileWrapper img {
-  height: 100%;
-}
-
-/* NAVBAR CODING ENDED */
-
-/* --------- */
 
 .background h3 {
-  text-align: center;
-  font-size: max(20px, 1.3vw);
-  color: #000000;
-  font-weight: 700;
-  font-style: normal;
-  margin-top: 3%;
+	text-align: center;
+	font-size: max(20px, 1.3vw);
+	color: #000000;
+	font-weight: 700;
+	font-style: normal;
+	margin-top: 3%;
 }
 
 .checkBox {
-  width: max(3.5vw, 4.7vw);
-  margin: -3% 0 0 82%;
+	width: max(3.5vw, 4.7vw);
+	margin: -3% 0 0 82%;
 }
 
 .checkBox .greenCircleDiv {
-  width: max(3.5vw, 4.5vw);
-  height: max(7vh, 9vh);
-  background-color: #ebeef3;
-  border-radius: 10px;
-  box-shadow: 0px 0px 0px 3px rgb(217, 224, 224);
-  padding: 10%;
+	display: flex;
+	justify-content: center;
+	width: max(3.5vw, 5.5vw);
+	height: max(7vh, 9vh);
+	background-color: #ebeef3;
+	border-radius: 10px;
+	box-shadow: 0px 0px 0px 3px rgb(217, 224, 224);
+	padding: 10%;
 }
 .checkBox .greenCircleDiv img {
-  width: max(2.5vw, 3.5vw);
-  height: max(6.3vh, 7.3vh);
+	height: max(6.3vh, 7.3vh);
 }
 .mainContainer {
-  width: 100vw;
-  height: 68vh;
-  padding: 0 8% 0 8%;
+	width: 100vw;
+	height: 68vh;
+	padding: 0 8% 0 8%;
 }
 
 .mainContainer .exerciseContainer {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin: 30px;
-  padding: 10px;
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	margin: 30px;
+	padding: 10px;
 }
 .mainContainer .exerciseContainer .exerciseDiv {
-  display: inline-block;
-  margin-left: 2%;
+	display: inline-block;
+	margin-left: 2%;
 }
 .mainContainer .exerciseContainer .exerciseDiv h4 {
-  font-size: max(10px, 1vw);
-  text-align: center;
-  color: whitesmoke;
-  margin-top: 15%;
-  padding: 10px 10px 0 10px;
+	font-size: max(10px, 1vw);
+	text-align: center;
+	color: whitesmoke;
+	margin-top: 15%;
+	padding: 10px 10px 0 10px;
 }
 .mainContainer .exerciseContainer .exerciseDiv ul {
-  margin: 15% 0 0 15%;
-  line-height: 1.5rem;
+	margin: 15% 0 0 15%;
+	line-height: 1.5rem;
 }
 
 .mainContainer .exerciseContainer .exerciseDiv ul li {
-  display: flex;
-  justify-content: space-between;
-  font-style: normal;
-  font-weight: 400;
-  font-size: max(10px, 0.8vw);
-  list-style-type: none;
-  color: ws;
+	display: flex;
+	justify-content: space-between;
+	font-style: normal;
+	font-weight: 400;
+	font-size: max(10px, 0.8vw);
+	list-style-type: none;
+	color: ws;
 }
 .mainContainer .exerciseImg {
-  width: 17vw;
-  height: 200px;
-  /* background: #b8c1ce; */
-  background: rgba(249, 16, 16, 0.8);
-  box-shadow: 3px 3px 3px 3px darkslategrey;
-  border-radius: 0px 15px;
+	width: 17vw;
+	height: 200px;
+	/* background: #b8c1ce; */
+	background: rgba(249, 16, 16, 0.8);
+	box-shadow: 3px 3px 3px 3px darkslategrey;
+	border-radius: 0px 15px;
 }
 /* --------- */
 
 /* buttons */
 .mainContainer .buttons {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
+	display: flex;
+	justify-content: center;
+	margin-top: 20px;
 }
 .mainContainer .buttons button {
-  height: 5vh;
-  width: 10vw;
-  border-radius: 10px;
-  margin: 25px;
-  border: none;
-  font-size: max(12px, 1.2vw);
-  color: #ffffff;
-  font-weight: 400;
-  font-style: normal;
-  background: #474747;
+	height: 5vh;
+	width: 10vw;
+	border-radius: 10px;
+	margin: 25px;
+	border: none;
+	font-size: max(12px, 1.2vw);
+	color: #ffffff;
+	font-weight: 400;
+	font-style: normal;
+	background: #474747;
+	outline: 0;
 }
 
 .mainContainer .buttons button:hover {
-  color: #474747;
-  background: rgb(236, 232, 232);
-  box-shadow: 3px 3px 5px #474747;
-  cursor: pointer;
+	color: #474747;
+	background: rgb(236, 232, 232);
+	box-shadow: 3px 3px 5px #474747;
+	cursor: pointer;
 }
 
 .restDay {
-  margin-top: 15%;
-  color: #474747;
+	margin-top: 15%;
+	color: #474747;
 }
 
 /* Media Query */
 
 @media only screen and (max-width: 768px) {
-  .background {
-    width: 97vw;
-  }
-  .background h3 {
-    text-align: left;
-    margin: 10% 25% 0 10%;
-  }
-  .checkBox {
-    width: 10.5vw;
-    height: 6vh;
-    margin: -7% 0 0 80%;
-  }
+	.background {
+		width: 97vw;
+	}
+	.background h3 {
+		text-align: left;
+		margin: 10% 25% 0 10%;
+	}
+	.checkBox {
+		width: 10.5vw;
+		height: 6vh;
+		margin: -7% 0 0 80%;
+	}
 
-  .checkBox .greenCircleDiv img {
-    width: 8vw;
-    height: 6.5vh;
-  }
-  .navBar {
-    flex-direction: column;
-    height: 48vh;
-    width: 97vw;
-  }
-  .navBar ul {
-    display: flex;
-    flex-direction: column;
-    width: 97vw;
-  }
-  .navBar ul img {
-    margin: 15px 0 15px 0;
-    width: 15vw;
-    height: 10vh;
-  }
-  .navBar li {
-    font-size: max(25px, 2.4vw);
-    width: 100%;
-    text-align: center;
-    height: 30px;
-    background: rgba(249, 16, 16, 0.8);
-    margin: 0 0 15px 0;
-    box-shadow: 0px 1px rgb(5, 5, 5);
-  }
-  .profileWrapper {
-    position: relative;
-    flex-direction: column;
-  }
-  .profileWrapper span {
-    position: absolute;
-    bottom: 15px;
-  }
-  .profileWrapper a img {
-    position: absolute;
-    bottom: 40px;
-    left: 42%;
-    width: 14vw;
-    height: 10vh;
-  }
-  .mainContainer {
-    width: 97vw;
-  }
-  .mainContainer .exerciseContainer {
-    flex-direction: column;
-    margin: 0;
-    padding: 0;
-  }
-  .mainContainer .exerciseContainer .exerciseDiv h4 {
-    font-size: max(25px, 1vw);
-  }
-  .mainContainer .exerciseContainer .exerciseDiv ul {
-    margin: 8% 0 0 15%;
-  }
-  .mainContainer .exerciseContainer .exerciseDiv ul li {
-    font-size: max(15px, 0.8vw);
-  }
-  .mainContainer .exerciseImg {
-    width: 100%;
-  }
-  .mainContainer .buttons {
-    margin-top: 65px;
-  }
-  .mainContainer .buttons button {
-    width: 25.5vw;
-  }
+	.checkBox .greenCircleDiv img {
+		width: 8vw;
+		height: 6.5vh;
+	}
+	.navBar {
+		flex-direction: column;
+		height: 48vh;
+		width: 97vw;
+	}
+	.navBar ul {
+		display: flex;
+		flex-direction: column;
+		width: 97vw;
+	}
+	.navBar ul img {
+		margin: 15px 0 15px 0;
+		width: 15vw;
+		height: 10vh;
+	}
+	.navBar li {
+		font-size: max(25px, 2.4vw);
+		width: 100%;
+		text-align: center;
+		height: 30px;
+		background: rgba(249, 16, 16, 0.8);
+		margin: 0 0 15px 0;
+		box-shadow: 0px 1px rgb(5, 5, 5);
+	}
+	.profileWrapper {
+		position: relative;
+		flex-direction: column;
+	}
+	.profileWrapper span {
+		position: absolute;
+		bottom: 15px;
+	}
+	.profileWrapper a img {
+		position: absolute;
+		bottom: 40px;
+		left: 42%;
+		width: 14vw;
+		height: 10vh;
+	}
+	.mainContainer {
+		width: 97vw;
+	}
+	.mainContainer .exerciseContainer {
+		flex-direction: column;
+		margin: 0;
+		padding: 0;
+	}
+	.mainContainer .exerciseContainer .exerciseDiv h4 {
+		font-size: max(25px, 1vw);
+	}
+	.mainContainer .exerciseContainer .exerciseDiv ul {
+		margin: 8% 0 0 15%;
+	}
+	.mainContainer .exerciseContainer .exerciseDiv ul li {
+		font-size: max(15px, 0.8vw);
+	}
+	.mainContainer .exerciseImg {
+		width: 100%;
+	}
+	.mainContainer .buttons {
+		margin-top: 65px;
+	}
+	.mainContainer .buttons button {
+		width: 25.5vw;
+	}
 }

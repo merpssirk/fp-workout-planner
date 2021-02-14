@@ -1,220 +1,186 @@
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
 }
 
 body {
-  font-family: "Montserrat", sans-serif;
-  color: whitesmoke;
+	font-family: "Montserrat", sans-serif;
+	color: whitesmoke;
 }
 
 .background {
-  height: 100vh;
-  width: 100vw;
-  background-image: url(../../pics/dashboard/dashboard-background.png);
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  animation: backImageAnimation 20s linear infinite;
+	height: 100vh;
+	width: 100vw;
+	background-image: url(../../pics/dashboard/dashboard-background.png);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	animation: backImageAnimation 20s linear infinite;
 }
 
 /* NAVBAR CODING STARTED */
 .navBar {
-  display: flex;
-  height: 10vh;
-  width: 100vw;
-  margin-bottom: 20px;
-  background: rgba(249, 16, 16, 0.8);
-  color: whitesmoke;
+	display: flex;
+	height: 10vh;
+	width: 100vw;
+	margin-bottom: 20px;
+	background: rgba(249, 16, 16, 0.8);
+	color: whitesmoke;
 }
 .navBar li {
-  font-size: max(15px, 1.8vw);
+	font-size: max(15px, 1.8vw);
 }
 .navBar li a {
-  color: whitesmoke;
-  text-decoration: none;
+	color: whitesmoke;
+	text-decoration: none;
 }
 
 .navBar li a:hover,
 .navBar li a.current {
-  color: black;
+	color: black;
 }
 
 ul a {
-  height: 70%;
-  margin: 0 3%;
+	height: 70%;
+	margin: 0 3%;
 }
 
 ul img {
-  height: 100%;
+	height: 100%;
 }
 
 .navBar ul {
-  display: flex;
-  align-items: center;
-  height: 100%;
-  width: 100%;
-  list-style-type: none;
+	display: flex;
+	align-items: center;
+	height: 100%;
+	width: 100%;
+	list-style-type: none;
 }
 
 ul li a {
-  margin: 0 40px 0 20px;
+	margin: 0 40px 0 20px;
 }
 
 .profileWrapper {
-  display: flex;
-  align-items: center;
-  height: 100%;
-  margin: 0 20px;
+	display: flex;
+	align-items: center;
+	height: 100%;
+	margin: 0 20px;
 }
 .profileWrapper span:hover {
-  color: black;
+	color: black;
 }
 
 .profileWrapper a {
-  height: 70%;
-  margin-left: 20px;
+	height: 70%;
+	margin-left: 20px;
 }
 
 .profileWrapper img {
-  height: 100%;
+	height: 100%;
 }
 
 /* NAVBAR CODING ENDED */
 
-.mainContainer {
-  width: 100vw;
-  height: 78vh;
-  margin-top: 100px;
+.date img {
+	cursor: pointer;
 }
-/* .weekCount {
-  background: #dbdbdb !important;
-  width: 6vw !important;
-  height: 10vh !important;
-  font-size: max(15px, 1vw) !important;
-} */
+
+.date img:hover {
+	transform: scale(1.1);
+}
+
+.mainContainer {
+	width: 100vw;
+	height: 78vh;
+	margin-top: 100px;
+}
 
 .mainContainer .date {
-  display: flex;
-  justify-content: space-between;
-  width: 24vw;
-  margin: 25px auto;
+	display: flex;
+	justify-content: space-between;
+	width: 24vw;
+	margin: 25px auto;
 }
 
 .mainContainer .date p {
-  color: #474747;
-  font-size: max(15px, 1.9vw);
-  font-weight: 400;
-  font-style: normal;
+	color: #474747;
+	font-size: max(15px, 1.9vw);
+	font-weight: 400;
+	font-style: normal;
 }
 .mainContainer .date img {
-  height: 3.7vh;
-  margin-top: 1%;
-  /* width: 1.8vw; */
+	height: 3.7vh;
+	margin-top: 1%;
 }
 .mainContainer .calendar {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  height: 75%;
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	height: 75%;
 }
-/* .mainContainer .calendar .weekdays {
-  width: 60vw;
-  height: 4.1vw;
-  padding: 0 2rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: #474747;
-  font-size: max(20px, 1.6vw);
-  margin: 0 auto;
-}
-
-.mainContainer .calendar .weekdays div {
-  font-weight: 400;
-  letter-spacing: 0.1rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-right: 2px;
-  background-color: #dbdbdb;
-  width: 9vw;
-  height: 8vh;
-}
-.mainContainer .calendar .weekdays .emptyGrayBox {
-  background: #dbdbdb;
-  width: 6vw;
-  height: 8vh;
-} */
-/* .mainContainer .calendar .days {
-  width: 60vw;
-  height: 55vh;
-  color: #474747;
-  margin: 0 auto;
-} */
 
 .mainContainer .calendar .contentWrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: 100%;
-  width: 60%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	height: 100%;
+	width: 60%;
 }
 
 .mainContainer .calendar .contentWrapper .weekdays {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  height: 18%;
-  /* padding: 0 2rem; */
-  color: #474747;
-  font-size: max(20px, 1.6vw);
+	display: flex;
+	align-items: center;
+	width: 100%;
+	height: 18%;
+	color: #474747;
+	font-size: max(20px, 1.6vw);
 }
 
 .mainContainer .calendar .weekdays div {
-  font-weight: 400;
-  letter-spacing: 0.1rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-right: 2px;
-  background-color: #dbdbdb;
-  width: 40%;
-  height: 100%;
+	font-weight: 400;
+	letter-spacing: 0.1rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-right: 2px;
+	background-color: #dbdbdb;
+	width: 40%;
+	height: 100%;
 }
 
 .mainContainer .calendar .weekdays .emptyGrayBox {
-  width: 28.5%;
-  margin-bottom: 2px;
+	width: 28.5%;
+	margin-bottom: 2px;
 }
 
 .mainContainer .calendar .days {
-  display: flex;
-  height: 100%;
-  width: 100%;
+	display: flex;
+	height: 100%;
+	width: 100%;
 }
 
 .mainContainer .calendar .weekWrapper {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  width: 100%;
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	width: 100%;
 }
 
 .mainContainer .calendar .weekCount {
-  width: 10%;
-  margin-right: 2px;
+	width: 10%;
+	margin-right: 2px;
 }
 
 .mainContainer .calendar .weekCount div {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 19.6%;
-  width: 100%;
-  margin-bottom: 2px;
-  color: #474747;
-  background: #dbdbdb;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 19.6%;
+	width: 100%;
+	margin-bottom: 2px;
+	color: #474747;
+	background: #dbdbdb;
 }
 
 .mainContainer .calendar .days .firstWeek,
@@ -222,13 +188,12 @@ ul li a {
 .mainContainer .calendar .days .thirdWeek,
 .mainContainer .calendar .days .fourthWeek,
 .mainContainer .calendar .days .fifthWeek {
-  width: 100%;
-  height: 30%;
-  display: flex;
-  justify-content: center;
-  text-align: center;
-  /* padding: 0 2rem; */
-  margin-bottom: 2px;
+	width: 100%;
+	height: 30%;
+	display: flex;
+	justify-content: center;
+	text-align: center;
+	margin-bottom: 2px;
 }
 
 .mainContainer .calendar .days .firstWeek div,
@@ -236,69 +201,41 @@ ul li a {
 .mainContainer .calendar .days .thirdWeek div,
 .mainContainer .calendar .days .fourthWeek div,
 .mainContainer .calendar .days .fifthWeek div {
-  font-size: max(20px, 1.2vw);
-  margin-right: 2px;
-  margin-bottom: 2px;
-  background-color: #dbdbdb;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 50%;
-  height: 100%;
+	font-size: max(20px, 1.2vw);
+	margin-right: 2px;
+	margin-bottom: 2px;
+	background-color: #dbdbdb;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 50%;
+	height: 100%;
 }
-
-/* .mainContainer .calendar .days .firstWeek,
-.mainContainer .calendar .days .secondWeek,
-.mainContainer .calendar .days .thirdWeek,
-.mainContainer .calendar .days .fourthWeek,
-.mainContainer .calendar .days .fifthWeek {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  text-align: center;
-  padding: 0 2rem;
-  margin-bottom: 2px;
-}
-
-.mainContainer .calendar .days .firstWeek div,
-.mainContainer .calendar .days .secondWeek div,
-.mainContainer .calendar .days .thirdWeek div,
-.mainContainer .calendar .days .fourthWeek div,
-.mainContainer .calendar .days .fifthWeek div {
-  font-size: max(20px, 1.2vw);
-  margin-right: 2px;
-  background-color: #dbdbdb;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 9vw;
-  height: 10vh;
-} */
 
 .mainContainer .calendar .days .firstWeek div {
-  background: #d03636;
+	background: #d03636;
 }
 .mainContainer .calendar .days .secondWeek div {
-  background-color: #e94c4b;
+	background-color: #e94c4b;
 }
 .mainContainer .calendar .days .thirdWeek div {
-  background: #ee766a;
+	background: #ee766a;
 }
 .mainContainer .calendar .days .fourthWeek div {
-  background: #f39d8e;
+	background: #f39d8e;
 }
 .mainContainer .calendar .days .fifthWeek div {
-  background: #f8c0b3;
+	background: #f8c0b3;
 }
 
 .mainContainer .calendar .days .workoutDone::after {
-  content: "Done";
-  position: absolute;
-  top: 0px;
-  left: 0px;
+	content: "Done";
+	position: absolute;
+	top: 0px;
+	left: 0px;
 }
 
 .indicator {
-  color: black;
-  font-size: max(12px, 2vw);
+	color: black;
+	font-size: max(12px, 2vw);
 }
