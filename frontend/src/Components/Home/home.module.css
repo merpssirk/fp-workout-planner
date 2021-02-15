@@ -51,6 +51,7 @@ body {
 }
 
 .navBar li {
+	font-size: max(14px, 1.8vw);
 	color: whitesmoke;
 	text-decoration: none;
 	cursor: pointer;
@@ -84,12 +85,12 @@ ul li {
 }
 
 h1 {
-	font-size: 3.1rem;
+	font-size: max(22px, 3vw);
 	margin-left: 3%;
 }
 
 h3 {
-	font-size: 1.8rem;
+	font-size: max(18px, 1.8vw);
 	margin: 1% 0 0 3%;
 }
 
@@ -99,6 +100,7 @@ h3 {
 	bottom: 12%;
 	height: 35%;
 	width: 25%;
+	min-width: 250px;
 	margin: 0 0 5% 0;
 	padding: 30px;
 	background: rgba(245, 245, 245, 0.9);
@@ -128,19 +130,25 @@ h3 {
 
 .registerText {
 	width: 100%;
-	font-size: 1.2vw;
+	font-size: max(14px, 1.3vw, 1.5vh);
+}
+
+.registerButtonWrapper {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 50%;
+	width: 100%;
 }
 
 .registerTile button {
-	position: absolute;
-	left: 0;
-	right: 0;
-	margin: 30px auto;
-	height: 12%;
+	height: max(50px, 4vh);
 	width: 30%;
+	min-width: 80px;
 	background: black;
 	color: whitesmoke;
-	font-size: 0.8rem;
+	font-size: max(12px, 1.1vw);
 	text-align: center;
 	border: none;
 	border-radius: 5px;
@@ -158,15 +166,9 @@ h3 {
 	outline: 0;
 }
 
-.registerTile button::after {
-	position: absolute;
-	content: "It's free!";
-	width: 100px;
-	font-weight: 500;
-	color: black;
-	font-size: 1.1vw;
-	left: 13%;
-	bottom: -35px;
+.registerTile span {
+	margin-top: 3%;
+	font-size: max(10px, 1.2vw);
 }
 
 .loginContainer {
@@ -174,18 +176,19 @@ h3 {
 	justify-content: center;
 	align-items: center;
 	position: absolute;
-	bottom: -15px;
+	bottom: 0px;
 	left: 0;
-	height: 13.5%;
+	height: max(12%, 13vh);
 	width: 25%;
 }
 
 .loginButton {
-	height: 35%;
+	height: max(50px, 4vh);
 	width: 30%;
+	min-width: 80px;
 	background: black;
 	color: whitesmoke;
-	font-size: 0.8rem;
+	font-size: max(12px, 1.1vw);
 	text-align: center;
 	border: none;
 	border-radius: 5px;

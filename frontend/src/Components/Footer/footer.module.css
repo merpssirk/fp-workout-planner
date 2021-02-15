@@ -11,11 +11,17 @@
 .footerContainer .information {
 	display: flex;
 	flex-direction: column;
+	justify-content: flex-end;
 	height: 100%;
 	width: 600px;
 }
 
+.footerContainer .information ul {
+	margin-bottom: 25px;
+}
+
 .footerContainer .information ul li {
+	width: 90%;
 	list-style-type: none;
 	margin-top: 2.164vw;
 	cursor: pointer;
@@ -23,7 +29,7 @@
 .footerContainer .information ul li a {
 	text-decoration: none;
 	color: rgba(255, 255, 255, 1);
-	font-size: max(16px, 1.4vw);
+	font-size: max(14px, 1.4vw);
 	font-weight: 400;
 }
 
@@ -59,11 +65,11 @@
 .footerContainer .socialMedia .socialMediaBg {
 	display: flex;
 	justify-content: center;
-	height: 2.445vw;
-	width: 2.445vw;
+	align-items: center;
+	height: 40px;
+	width: 40px;
 	background: rgba(255, 255, 255, 1);
 	border-radius: 50%;
-	padding-top: 0.273vw;
 }
 
 .footerContainer .socialMedia .socialMediaBg:hover {
@@ -71,6 +77,7 @@
 }
 
 .footerContainer .socialMedia a {
-	font-size: max(10px, 0.9vw);
+	/* font-size: max(10px, 0.9vw); */
+	font-size: 15px;
 	color: black;
 }

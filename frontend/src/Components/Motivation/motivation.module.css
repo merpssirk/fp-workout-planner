@@ -1,40 +1,61 @@
 .motivation {
-  position: relative;
-  height: 100vh;
-  width: 99vw;
+	position: relative;
+	height: 100vh;
+	width: 99vw;
 }
 
 .sectionName {
-  position: absolute;
-  right: 0;
-  height: 75px;
-  width: 350px;
-  margin-top: 20px;
-  color: #413737;
-  font-size: 2.3rem;
-  font-weight: bold;
-  border-bottom: 5px solid #f91010;
+	position: absolute;
+	right: 0;
+	height: 75px;
+	width: 350px;
+	margin-top: 20px;
+	color: #413737;
+	font-size: 2.3rem;
+	font-weight: bold;
+	border-bottom: 5px solid #f91010;
+}
+
+.motivationWrapper {
+	display: flex;
+	position: absolute;
+	bottom: 0;
+	height: 75%;
+	width: 100%;
+}
+
+.imageWrapper,
+.textWrapper {
+	position: relative;
+	display: flex;
+	height: 100%;
+}
+
+.imageWrapper {
+	align-items: flex-end;
+	width: 40%;
+}
+
+.textWrapper {
+	justify-content: center;
+	align-items: center;
+	width: 60%;
 }
 
 .motivation .mainImage {
-  position: absolute;
-  bottom: 0;
-  height: 70%;
+	width: 40vw;
 }
 
 .motivation h1 {
-  position: absolute;
-  top: 40%;
-  right: 20%;
-  height: 30%;
-  width: 40%;
-  font-family: "Poiret One", cursive;
-  font-size: 3.6vw;
-  text-align: center;
-  color: #413737;
+	/* height: 30%; */
+	width: 80%;
+	font-family: "Poiret One", cursive;
+	font-size: 3.6vw;
+	text-align: center;
+	color: #413737;
 }
 
 .motivation h1::after {
-  content: url(../../pics/motivation/Rectangle\ 49.png);
-  margin-left: 5px;
+	content: url(../../pics/motivation/Rectangle\ 49.png);
+	margin-left: 5px;
 }

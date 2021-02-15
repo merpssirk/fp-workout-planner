@@ -175,6 +175,7 @@ export default function Home() {
           <br />
           Stop procrastinating, start now!
         </p>
+        <div className={styles.registerButtonWrapper}>
         <button
           onClick={(e) => {
             handleOverlay(e)
@@ -182,6 +183,8 @@ export default function Home() {
         >
           Register
         </button>
+          <span>It's free!</span>
+        </div>
       </div>
       <div className={styles.loginContainer}>
         <button
