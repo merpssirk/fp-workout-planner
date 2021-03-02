@@ -1,68 +1,83 @@
 .footerContainer {
-  position: relative;
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  height: 35vh;
-  background: rgba(45, 41, 41, 1);
-  overflow: hidden;
+	position: relative;
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	height: 35vh;
+	background: rgba(45, 41, 41, 1);
+	overflow: hidden;
 }
 
 .footerContainer .information {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  width: 400px;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	height: 100%;
+	width: 600px;
+}
+
+.footerContainer .information ul {
+	margin-bottom: 25px;
 }
 
 .footerContainer .information ul li {
-  list-style-type: none;
-  margin-top: 2.164vw;
-  cursor: pointer;
+	width: 90%;
+	list-style-type: none;
+	margin-top: 2.164vw;
+	cursor: pointer;
 }
 .footerContainer .information ul li a {
-  text-decoration: none;
-  color: rgba(255, 255, 255, 1);
-  font-size: max(16px, 1.4vw);
-  font-weight: 400;
+	text-decoration: none;
+	color: rgba(255, 255, 255, 1);
+	font-size: max(14px, 1.4vw);
+	font-weight: 400;
+}
+
+.footerContainer .information ul li:hover {
+	letter-spacing: 8px;
 }
 
 .socialMediaContainer {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  margin: 15px 0 25px 0;
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	margin: 15px 0 25px 0;
 }
 
 .footerContainer .socialMedia {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  margin: 0 40px 5px 0;
-  position: absolute;
-  right: 0;
-  bottom: 0;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	margin: 0 40px 5px 0;
+	position: absolute;
+	right: 0;
+	bottom: 0;
 }
 
 .footerContainer .socialMedia p {
-  font-size: max(16px, 1.2vw);
-  color: rgba(255, 255, 255, 1);
-  text-align: right;
-  font-weight: 400;
-  font-style: normal;
-  line-height: 28px;
+	font-size: max(16px, 1.2vw);
+	color: rgba(255, 255, 255, 1);
+	text-align: right;
+	font-weight: 400;
+	font-style: normal;
+	line-height: 28px;
 }
 .footerContainer .socialMedia .socialMediaBg {
-  display: flex;
-  justify-content: center;
-  height: 2.445vw;
-  width: 2.445vw;
-  background: rgba(255, 255, 255, 1);
-  border-radius: 50%;
-  padding-top: 0.273vw;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 40px;
+	width: 40px;
+	background: rgba(255, 255, 255, 1);
+	border-radius: 50%;
+}
+
+.footerContainer .socialMedia .socialMediaBg:hover {
+	transform: scale(1.1);
 }
 
 .footerContainer .socialMedia a {
-  font-size: max(10px, .9vw);;
-  color: black;
+	/* font-size: max(10px, 0.9vw); */
+	font-size: 15px;
+	color: black;
 }

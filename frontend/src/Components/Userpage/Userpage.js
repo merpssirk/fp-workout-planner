@@ -1,12 +1,26 @@
-import React from "react"
+import {React, useEffect, useState} from "react"
 import { useHistory } from "react-router-dom"
 import leftWhiteLine from "../../pics/dashboard/leftWhiteLine.png"
 import rightWhiteLine from "../../pics/dashboard/rightWhiteLine.png"
 import styles from "./userpage.module.css"
-import avatar from "../../pics/dashboard/Avatar-male.png"
-import imgLogo from "../../pics/dashboard/Logo-black.png"
+import MembersNavbar from "../MembersNavbar/MembersNavbar";
+import axios from "axios";
 
 export default function Userpage() {
+const [userData, setUserData] = useState({});
+
+// FETCH USER DATA FROM THE DB
+useEffect(() => {
+  axios
+      .get("dashboard/updatedWeight", {
+        Withcredentials: true,
+      })
+      .then((res) => {
+        setUserData(res.data[0])   
+        console.log(res.data[0]);     
+      });
+}, [])
+
   //LOGOUT
   const history = useHistory()
   const handleLogout = () => {
@@ -27,7 +41,7 @@ export default function Userpage() {
       weight: userData.get("weight"),
       disability: userData.get("disability"),
       workoutGoals: userData.get("workoutGoals"),
-      workoutDays: userData.get("workoutDays"),
+      workoutDays: parseInt(userData.get("workoutDays")),
       activityLevel: userData.get( "activityLevel" ),
       avatar: userData.get("avatar")
     }
@@ -55,45 +69,24 @@ export default function Userpage() {
   return (
     <>
       <div className={styles.background}>
-        <nav className={styles.navBar}>
-          <ul>
-            <a href="/dashboard">
-              <img src={imgLogo} alt={imgLogo} />
-            </a>
-            <li>
-              <a href="/manageWorkout">Edit Workout</a>
-            </li>
-            <li>
-              <a href="/dailyactivities">Daily Activties</a>
-            </li>
-            <li>
-              <a href="/workoutoverview">Workout Overview</a>
-            </li>
-          </ul>
-          <div className={styles.profileWrapper}>
-            <span onClick={handleLogout}>Logout</span>
-            <a href="/userpage">
-              <img src={avatar} alt={avatar} />
-            </a>
-          </div>
-        </nav>
+      <MembersNavbar onHandleLogout={handleLogout} />
         {/* Column */}
-        <form onSubmit={handleUserEdit}>
+        {Object.keys(userData).length !== 0 ? <form onSubmit={handleUserEdit}>
           <div className={styles.container}>
             {/* left Column */}
             <div className={styles.leftColumn}>
               <div className={styles.formGroup}>
                 <label htmlFor="name">Username</label>
-                <input type="text" name="username" />
+                <input type="text" name="username" defaultValue={userData.username} />
               </div>
               <div className={styles.formGroup}>
                 <label htmlFor="email">Email</label>
-                <input type="email" name="email" />
+                <input type="email" name="email" defaultValue={userData.email} />
               </div>
               <div className={styles.formGroup}>
                 <label htmlFor="gender">Gender</label>
                 <select name="gender">
-                  <option value="genderDefault">Choose one</option>
+                  <option defaultValue="genderDefault">{userData.gender}</option>
                   <option value="female">Female</option>
                   <option value="male">Male</option>
                   <option value="other">Other</option>
@@ -101,15 +94,15 @@ export default function Userpage() {
               </div>
               <div className={styles.formGroup}>
                 <label htmlFor="age">Age</label>
-                <input type="number" name="age" id="age" required="required" />
+                <input type="number" name="age" id="age" defaultValue={userData.age} />
               </div>
               <div className={styles.formGroup}>
                 <label htmlFor="height">Height (cm)</label>
-                <input type="number" name="height" />
+                <input type="number" name="height" defaultValue={userData.height} />
               </div>
               <div className={styles.formGroup}>
                 <label htmlFor="weight">Weight (kg)</label>
-                <input type="number" name="weight" />
+                <input type="number" name="weight" defaultValue={userData.weight} />
               </div>
 
               <img src={leftWhiteLine} alt={leftWhiteLine} />
@@ -118,7 +111,7 @@ export default function Userpage() {
             <div className={styles.rightColumn}>
               <div className={styles.formGroup}>
                 <select name="activityLevel">
-                  <option value="activityDefault">Choose One</option>
+                  <option defaultValue="activityDefault">{userData.activityLevel}</option>
                   <option value="sedentary">Sedentary</option>
                   <option value="moderately">Moderately active</option>
                   <option value="active">Active</option>
@@ -128,7 +121,7 @@ export default function Userpage() {
               </div>
               <div className={styles.formGroup}>
                 <select name="disability">
-                  <option value="disabilityDefault">Choose One</option>
+                  <option defaultValue="disabilityDefault">{userData.disability}</option>
                   <option value="arms">Arms</option>
                   <option value="legs">Legs</option>
                   <option value="back">Back</option>
@@ -138,7 +131,7 @@ export default function Userpage() {
               </div>
               <div className={styles.formGroup}>
                 <select name="workoutGoals">
-                  <option value="workoutGoals">Workout Goals</option>
+                  <option defaultValue="workoutGoals">{userData.workoutGoals}</option>
                   <option value="losoeWeight">Lose Weight</option>
                   <option value="stayFit">Stay Fit</option>
                   <option value="gainMuscles">Gain Muscles</option>
@@ -147,7 +140,7 @@ export default function Userpage() {
               </div>
               <div className={styles.formGroup}>
                 <select name="workoutDays" id="workoutDays">
-                  <option value="daysDefault">Choose one</option>
+                  <option defaultValue="daysDefault">{userData.workoutDays}</option>
                   <option value="1">1</option>
                   <option value="2">2</option>
                   <option value="3">3</option>
@@ -181,7 +174,7 @@ export default function Userpage() {
           <div className={styles.saveBtn}>
             <button type="submit">Save</button>
           </div>
-        </form>
+        </form> : null}
       </div>
     </>
   )

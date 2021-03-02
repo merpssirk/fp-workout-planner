@@ -1,4 +1,4 @@
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
 
 const UserSchema = new mongoose.Schema({
   username: { type: String, required: true },
@@ -31,10 +31,11 @@ const UserSchema = new mongoose.Schema({
     type: String,
     enum: ["sedentary", "moderately", "active", "extraActive"],
   },
+  equipment: { type: String },
   workoutDays: { type: Number, enum: [1, 2, 3, 4, 5, 6] },
   avatar: { type: String },
   changePassword: { type: String },
   streak: { type: Number },
-})
+});
 
-module.exports = UserSchema
+module.exports = UserSchema;

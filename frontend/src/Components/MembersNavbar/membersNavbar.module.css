@@ -1,69 +1,71 @@
 .navBar {
-  display: flex;
-  height: 10vh;
-  width: 100vw;
-  margin-bottom: 20px;
-  background: rgba(249, 16, 16, 0.8);
-  color: whitesmoke;
+	display: flex;
+	height: 10vh;
+	width: 100vw;
+	margin-bottom: 20px;
+	background: rgba(249, 16, 16, 0.8);
+	color: whitesmoke;
 }
 
 .navBar li {
-  font-size: max(15px, 1.8vw);
+	font-size: max(15px, 1.8vw);
 }
 
 .navBar li a {
-  color: whitesmoke;
-  text-decoration: none;
+	color: whitesmoke;
+	text-decoration: none;
 }
 
-.navBar li a:hover,
-.navBar li a.current
-{
-  
-  color: black;
-  
+.navBar li a:hover {
+	color: black;
 }
 
 ul a {
-  height: 70%;
-  margin: 0 3%;
+	height: 70%;
+	margin: 0 3%;
 }
 
 ul img {
-  height: 100%;
+	margin-top: 5%;
+	height: 100%;
+}
+
+ul img:hover {
+	transform: scale(0.8);
 }
 
 .navBar ul {
-  display: flex;
-  align-items: center;
-  height: 100%;
-  width: 100%;
-  list-style-type: none;
-}
-.navBar ul a:hover,
-.navBar ul a.current {
-  color: black;
+	display: flex;
+	align-items: center;
+	height: 100%;
+	width: 100%;
+	list-style-type: none;
 }
 
 ul li a {
-  margin: 0 40px 0 20px;
+	margin: 0 40px 0 20px;
 }
 
 .profileWrapper {
-  display: flex;
-  align-items: center;
-  height: 100%;
-  margin: 0 20px;
-  cursor: pointer;
+	display: flex;
+	align-items: center;
+	height: 100%;
+	margin: 0 20px;
+	cursor: pointer;
 }
 .profileWrapper span:hover {
-  color: black;
+	color: black;
+	cursor: pointer;
 }
 .profileWrapper a {
-  height: 70%;
-  margin-left: 20px;
+	height: 70%;
+	margin-left: 20px;
 }
 
 .profileWrapper img {
-  height: 100%;
+	height: 100%;
+}
+
+.profileWrapper img:hover {
+	transform: scale(0.8);
 }

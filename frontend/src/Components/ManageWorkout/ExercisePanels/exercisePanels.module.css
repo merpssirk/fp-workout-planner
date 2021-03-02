@@ -29,6 +29,8 @@
 	right: 8px;
 	height: 20px;
 	width: 20px;
+	background: whitesmoke;
+	border-radius: 50%;
 	font-size: max(10px, 1.5vh);
 	color: red;
 	border: none;
@@ -40,7 +42,15 @@
 	height: 20vh;
 	width: 17vw;
 	margin: 25px 20px;
-	background: #b8c1ce;
+	color: whitesmoke;
+	background: rgb(49, 49, 55);
+	background: linear-gradient(
+		137deg,
+		rgba(49, 49, 55, 1) 0%,
+		rgba(65, 58, 48, 0.5592437658657212) 91%
+	);
+	/* background: #b8c1ce; */
+	box-shadow: 3px 3px 3px 3px rgb(53, 58, 58);
 	border-radius: 0px 15px;
 }
 
@@ -61,6 +71,7 @@
 	border: none;
 	bottom: -30px;
 	right: -30px;
+	color: #474747;
 	cursor: pointer;
 }
 
@@ -85,12 +96,19 @@
 	width: 10vw;
 	margin-top: 2%;
 	margin-left: 4%;
-	font-size: 1.4vw;
+	font-size: max(12px, 1.2vw);
 	color: whitesmoke;
 	background-color: #474747;
 	border: none;
 	border-radius: 10px;
 	cursor: pointer;
+	outline: 0;
+}
+
+.saveButton:hover {
+	color: #474747;
+	background: rgb(236, 232, 232);
+	box-shadow: 3px 3px 5px #474747;
 }
 
 .buttons {
@@ -116,6 +134,12 @@
 	margin-left: 5px;
 	border: none;
 	border-radius: 2px;
+}
+
+.exerciseWrapper input {
+	/* background: #474747; */
+	background: transparent;
+	color: whitesmoke;
 }
 
 .setsWrapper,

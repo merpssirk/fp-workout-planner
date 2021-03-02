@@ -1,51 +1,51 @@
 .testimonials {
-  position: relative;
-  height: 100vh;
-  width: 99vw;
+	position: relative;
+	height: 100vh;
+	width: 99vw;
 }
 
 .testimonials .sectionName {
-  position: absolute;
-  right: 0;
-  height: 75px;
-  width: 400px;
-  margin-top: 20px;
-  color: #413737;
-  font-size: 2.3rem;
-  font-weight: bold;
-  border-bottom: 5px solid #f91010;
+	position: absolute;
+	right: 0;
+	height: 75px;
+	width: 400px;
+	margin-top: 20px;
+	color: #413737;
+	font-size: 2.3rem;
+	font-weight: bold;
+	border-bottom: 5px solid #f91010;
 }
 
 .testimonials__main {
-  display: flex;
-  justify-content: center;
-  height: 100%;
-  width: 100%;
+	display: flex;
+	justify-content: center;
+	height: 100%;
+	width: 100%;
 }
 
 .testimonials .tile1,
 .tile2,
 .tile3 {
-  position: relative;
-  height: 40%;
+	position: relative;
+	height: 40%;
 }
 
 .testimonials .picOne {
-  height: 100%;
+	width: 30vw;
 }
 
 .testimonials .tile1 {
-  top: 20%;
-  left: 0;
+	top: 20%;
+	left: 0;
 }
 
 .testimonials .tile2 {
-  top: 30%;
-  left: 0;
-  margin: 0 40px;
+	top: 30%;
+	left: 0;
+	margin: 0 40px;
 }
 
 .testimonials .tile3 {
-  top: 40%;
-  left: 0;
+	top: 40%;
+	left: 0;
 }
