@@ -28,7 +28,6 @@
 .textWrapper {
 	position: relative;
 	display: flex;
-	height: 100%;
 }
 
 .imageWrapper {
@@ -39,6 +38,7 @@
 .textWrapper {
 	justify-content: center;
 	align-items: center;
+	height: 80%;
 	width: 60%;
 }
 
